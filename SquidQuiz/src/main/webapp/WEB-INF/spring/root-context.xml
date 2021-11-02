@@ -5,10 +5,10 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	<!-- 데이터베이스 연결 -->
+<!-- 	데이터베이스 연결 -->
 			<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 				<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
-				<property name="url" value="jdbc:oracle:thin:@sonof.iptime.org:8251:XE"></property>
+				<property name="url" value="jdbc:oracle:thin:@sonof.iptime.org:8521:XE"></property>
 				<property name="username" value="SQUIDQUIZ"></property>
 				<property name="password" value="SQUIDQUIZ"></property>
 			</bean>
