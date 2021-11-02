@@ -21,29 +21,7 @@ public class UserController {
 	private UserService service;
 	
 	
-	// 회원 등록
-	@RequestMapping(value="enrollView.ptsd", method=RequestMethod.GET)
-	public String enrollView() {
-		return "user/userJoin";
-	}
-	
 
-	@RequestMapping(value="join.ptsd", method=RequestMethod.POST)
-	public String userRegister(HttpServletRequest request) {
-			
-
-		try {
-			int result = service.registerUser(user);
-			if(result > 0) {
-				return "redirect:home.ptsd";
-			}else {
-				request.setAttribute("msg", "회원가입 실패");
-				return "common/errorPage";
-			}
-		}catch(Exception e) {
-			request.setAttribute("msg", e.toString());
-			return "common/errorPage";
-		}
 	}
 
 
