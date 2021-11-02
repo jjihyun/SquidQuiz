@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="campaignMapper">
+	<resultMap type="Campaign" id="campaignResultMap">
+		<id property="campaignNo" column="CAMPAIGN_NO" />
+		<result property="campaignName" column="CAMPAIGN_NAME" />
+		<result property="campaignType" column="CAMPAIGN_TYPE" />
+		<result property="campaignTitle" column="CAMPAIGN_TITLE" />
+		<result property="campaignContents" column="CAMPAIGN_CONTENTS" />
+		<result property="campaignLink" column="CAMPAIGN_LINK" />
+		<result property="campaignTargetAmount" column="CAMPAIGN_TARGET_AMOUNT" />
+		<result property="campaignNowAmout" column="CAMPAIGN_NOW_AMOUNT" />
+		<result property="campaignEndDate" column="CAMPAIGN_ENDDATE" />
+		<result property="campaignFileName" column="CAMPAIGN_FILE_NAME" />
+		<result property="campaignFileRename" column="CAMPAIGN_FILE_RENAME" />
+		<result property="campaignEnrollDate" column="CAMPAIGN_ENROLL_DATE" />
+	</resultMap>
+	
+	<select id="selectCampaignList" resultMap="campaignResultMap">
+		SELECT CAMPAIGN_TITLE, TRUNC((CAMPAIGN_NOW_AMOUNT/CAMPAIGN_TARGET_AMOUNT*100),2) AS "현재", CAMPAIGN_TARGET_AMOUNT FROM CAMPAIGN;
+	</select>
+	
+</mapper>
