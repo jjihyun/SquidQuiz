@@ -5,27 +5,27 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-<!-- 	데이터베이스 연결 -->
-	<!-- 		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> -->
-	<!-- 			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property> -->
-	<!-- 			<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property> -->
-	<!-- 			<property name="username" value="SPRING"></property> -->
-	<!-- 			<property name="password" value="SPRING"></property> -->
-	<!-- 		</bean> -->
-		
-<!-- 		세션 설정 -->
-	<!-- 		<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean"> -->
-	<!-- 			<property name="configLocation" value="classpath:mybatis-config.xml"></property> -->
-	<!-- 			<property name="dataSource" ref="dataSource"></property> -->
-	<!-- 		</bean> -->
-		
-	<!-- 		<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"> -->
-	<!-- 			<constructor-arg ref="sqlSession"></constructor-arg> -->
-	<!-- 		</bean> -->
-			
-<!-- 		파일 업로드 설정 bean등록, MutipartResolver -->
-	<!-- 		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
-	<!-- 			<property name="maxUploadSize" value="10000000"></property> -->
-	<!-- 			<property name="maxInMemorySize" value="10000000"></property> -->
-	<!-- 		</bean> -->
+<!--    데이터베이스 연결 -->
+	         <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	            <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+	            <property name="url" value="jdbc:oracle:thin:@sonof.iptime.org:8521:XE"></property>
+	            <property name="username" value="SQUIDQUIZ"></property>
+	            <property name="password" value="SQUIDQUIZ"></property>
+	         </bean>
+	      
+	<!--       세션 설정 -->
+	         <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+	            <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+	            <property name="dataSource" ref="dataSource"></property>
+	         </bean>
+	      
+	         <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+	            <constructor-arg ref="sqlSession"></constructor-arg>
+	         </bean>
+	         
+	<!--       파일 업로드 설정 bean등록, MutipartResolver -->
+	         <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	            <property name="maxUploadSize" value="10000000"></property>
+	            <property name="maxInMemorySize" value="10000000"></property>
+	         </bean>
 </beans>
