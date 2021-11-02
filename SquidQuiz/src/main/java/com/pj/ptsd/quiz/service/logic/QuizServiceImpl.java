@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import com.pj.ptsd.quiz.domain.Ox;
 import com.pj.ptsd.quiz.service.QuizService;
-
 @Service
 public class QuizServiceImpl implements QuizService{
 

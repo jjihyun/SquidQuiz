@@ -7,11 +7,15 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 <!-- 		만약에 Null로 데이터가 전달이 되었으면 빈칸이 아닌 Null로 인식하도록 설정한다 -->
 	</settings>
+	
 	<typeAliases>
+		<typeAlias type="com.pj.ptsd.campaign.domain.Campaign" alias="Campaign"/>
+		<typeAlias type="com.pj.ptsd.user.domain.User" alias="User"/> 
 <!-- 		<typeAlias type="com.iei.spring.member.domain.Member" alias="Member"/> -->
 	</typeAliases>
 	
 	<mappers>
-<!-- 		<mapper resource="mappers/member-mapper.xml"/> -->
+		<mapper resource="mappers/campaign-mapper.xml" />
+		<mapper resource="mappers/user-mapper.xml"/>
 	</mappers>
 </configuration>
