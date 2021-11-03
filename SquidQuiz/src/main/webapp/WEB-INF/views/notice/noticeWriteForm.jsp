@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지 등록</title>
+
 </head>
 <body>
 <h1 align="center">공지글 등록 페이지</h1>

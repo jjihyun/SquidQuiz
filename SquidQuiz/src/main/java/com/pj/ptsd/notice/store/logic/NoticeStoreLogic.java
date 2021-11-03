@@ -16,39 +16,39 @@ public class NoticeStoreLogic implements NoticeStore{
 	//공지 전체 조회
 	@Override
 	public List<Notice> selectAllNotice() {
-		List<Notice> nList = sqlSession.selectList("");
+		List<Notice> nList = sqlSession.selectList("noticeMapper.selectNoticeList");
 		return nList;
 	}
 	//공지 상세 조회
 		@Override
 		public Notice selectOneNotice(int noticeNo) {
-			Notice notice = sqlSession.selectOne("", noticeNo);
+			Notice notice = sqlSession.selectOne("noticeMapper.selectOneNotice", noticeNo);
 			return notice;
 		}
 	//공지 등록
 	@Override
 	public int insertNotice(Notice notice) {
-		int result = sqlSession.insert("", notice);
+		int result = sqlSession.insert("noticeMapper.insertNotice", notice);
 		return result;
 	}
 	// 공지 수정
 	@Override
 	public int updateNotice(Notice notice) {
-		int result = sqlSession.update("", notice);
+		int result = sqlSession.update("noticeMapper.updateNotice", notice);
 		return result;
 		
 	}
 	// 공지 삭제
 	@Override
 	public int deleteNotice(int noticeNo) {
-		int result = sqlSession.delete(null, noticeNo);
+		int result = sqlSession.delete("noticeMapper.deleteNotice", noticeNo);
 		return result;
 	}
 	//공지 목록 조회 ( 회원 )
 	@Override
 	public List<Qna> selectUserQna(int userNo) {
 		List<Qna> qList = sqlSession.selectList("");
-		return qList;
+		return null;
 	}
 	// 공지 목록 전체 조회 (관리자)
 	@Override

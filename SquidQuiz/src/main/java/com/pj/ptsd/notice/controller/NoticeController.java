@@ -24,29 +24,34 @@ public class NoticeController {
 	@Autowired
 	private NoticeService service;
 	
-	// 공지 / 문의 페이지 view
-	@RequestMapping(value="noticeQnaListView.ptsd")
-	public ModelAndView  noticeQnaListView(
+	// 공지 리스트
+	@RequestMapping(value="noticeListView.ptsd")
+	public ModelAndView  noticeListView(
 			ModelAndView mv
 //			, @RequestParam("adminType") String adminType
 			, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String adminType = (String) session.getAttribute("adminType");
-		int userNo = 0;
-		List<Notice> nList=service.printAllNotice();
-		List<Qna> qList = null;
-		if (adminType=="Y") {
-			qList = service.printAllQna();
-			
-			
-		} else {
-			qList = service.printUserQna(userNo);
-			
+		try {
+			List<Notice> nList=service.printAllNotice();
+			if(!nList.isEmpty()) {
+				
+				mv.addObject("nList", nList);
+				mv.setViewName("notice/noticeList");
+			}else {
+				mv.setViewName("notice/noticeList");
+			}
+		} catch (Exception e) {
+			mv.addObject("msg", e.toString());
+			mv.setViewName("notice/noticeError");
 		}
-		mv.addObject("nList", nList);
-		mv.addObject("qList", qList);
-		mv.setViewName("notice/noticeList");
 		return mv;
+	}
+	//공지 상세 조회 (1개 조회)
+	@RequestMapping(value="noticeDetail.ptsd")
+	public String noticeOneView(Model model, @RequestParam("noticeNo") int noticeNo) {
+		
+		return "";
 	}
 	
 	//공지 작성 페이지로
@@ -63,18 +68,42 @@ public class NoticeController {
 		try {
 			int result = service.registerNotice(notice);
 			if(result>0) {
-				return "redirect:noticeQnaListView.ptsd";
+				return "redirect:noticeListView.ptsd";
 			}else {
 				model.addAttribute("msg", "공지 등록 실패");
-				return "notice/errorPage";
+				return "notice/noticeError";
 			}
 		} catch (Exception e) {
 			model.addAttribute("msg", e.toString());
-			return "notice/errorPage";
+			return "notice/noticeError";
 		}
 	}
-	//공지 수정
-	
-	//공지 작성
-	
+	//공지 삭제
+	@RequestMapping(value="noticeRemove.ptsd", method=RequestMethod.GET)
+	public String removeNotice(@RequestParam("noticeNo") int noticeNo,Model model) {
+		
+		try {
+			int result = service.removeNotice(noticeNo);
+			if (result>0) {
+				
+			} else {
+
+			}
+		} catch (Exception e) {
+
+		}
+		return "";
+	}
+	//공지 수정 페이지로
+	@RequestMapping(value="noticeModifyView.ptsd", method=RequestMethod.GET)
+	public String modifyNoticeView() {
+		
+		return "notice/noticeModifyForm";
+	}
+	//공지 수정하기
+	@RequestMapping(value="noticeModify.ptsd", method=RequestMethod.POST)
+	public String modifyNotice(@ModelAttribute Notice notice,
+			Model model) {
+		return "";
+	}
 }
