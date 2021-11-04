@@ -1,5 +1,9 @@
 package com.pj.ptsd.quiz.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +27,13 @@ public class QuizController {
 	//퀴즈 등록 폼으로 이동
 	@RequestMapping(value="quizWriteView.ptsd",method=RequestMethod.GET)
 	public String oxWriteView() {
-		return "quiz/oxWriteFomr";
+		return "quiz/oxWriteForm";
 	}
 	//퀴즈 등록
 	@RequestMapping(value="oxRegitser.ptsd",method = RequestMethod.POST)
 	public String registerOx(
 			@ModelAttribute Ox ox
-			,@RequestParam(value="uploadfile",required=false) MultipartFile uploadFile
+			,@RequestParam(value="uploadFile",required=false) MultipartFile uploadFile
 			,HttpServletRequest request
 			,Model model) {
 		if(!uploadFile.getOriginalFilename().equals("")) {
@@ -52,6 +56,25 @@ public class QuizController {
 	private String saveFile(
 			MultipartFile uploadFile
 			,HttpServletRequest request) {
-		return null;
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		//저장 폴더 선택
+		String savePath = root+"\\oxuploadFiles";
+		File folder = new File(savePath);
+		if(!folder.exists()) {
+			folder.mkdir(); //폴더 생성
+		}
+		//파일 저장
+		String filePath = folder+"\\"+uploadFile.getOriginalFilename();
+		try {
+			uploadFile.transferTo(new File(filePath)); //파일 저장
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return filePath;
 	}
 }

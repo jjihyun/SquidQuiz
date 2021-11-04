@@ -10,12 +10,14 @@
 	
 	<typeAliases>
 		<typeAlias type="com.pj.ptsd.campaign.domain.Campaign" alias="Campaign"/>
-		<typeAlias type="com.pj.ptsd.user.domain.User" alias="User"/> 
+		<typeAlias type="com.pj.ptsd.user.domain.User" alias="User"/>
+		<typeAlias type="com.pj.ptsd.quiz.domain.Ox" alias="Ox"/>
 <!-- 		<typeAlias type="com.iei.spring.member.domain.Member" alias="Member"/> -->
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/campaign-mapper.xml" />
 		<mapper resource="mappers/user-mapper.xml"/>
+		<mapper resource="mappers/quiz-mapper.xml"/>
 	</mappers>
 </configuration>
