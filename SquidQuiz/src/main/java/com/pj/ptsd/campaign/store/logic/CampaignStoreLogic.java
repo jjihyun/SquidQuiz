@@ -15,10 +15,18 @@ public class CampaignStoreLogic implements CampaignStore{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	//캠페인 목록 조회
 	@Override
 	public List<Campaign> selectAll() {
 		List<Campaign> cList = sqlSession.selectList("campaignMapper.selectCampaignList");
 		return cList;
+	}
+
+	//캠페인 상세조회
+	@Override
+	public Campaign selectDetail(int campaignNo) {
+		Campaign campaign = sqlSession.selectOne("campaignMapper.selectOneCampaign", campaignNo);
+		return campaign;
 	}
 
 }

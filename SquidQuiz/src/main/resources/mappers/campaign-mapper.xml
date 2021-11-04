@@ -9,7 +9,7 @@
 		<result property="campaignContents" column="CAMPAIGN_CONTENTS" />
 		<result property="campaignLink" column="CAMPAIGN_LINK" />
 		<result property="campaignTargetAmount" column="CAMPAIGN_TARGET_AMOUNT" />
-		<result property="campaignNowAmout" column="CAMPAIGN_NOW_AMOUNT" />
+		<result property="campaignNowAmount" column="CAMPAIGN_NOW_AMOUNT" />
 		<result property="campaignEndDate" column="CAMPAIGN_ENDDATE" />
 		<result property="campaignFileName" column="CAMPAIGN_FILE_NAME" />
 		<result property="campaignFileRename" column="CAMPAIGN_FILE_RENAME" />
@@ -17,7 +17,10 @@
 	</resultMap>
 	
 	<select id="selectCampaignList" resultMap="campaignResultMap">
-		SELECT CAMPAIGN_TITLE, TRUNC((CAMPAIGN_NOW_AMOUNT/CAMPAIGN_TARGET_AMOUNT*100),2) AS "현재", CAMPAIGN_TARGET_AMOUNT FROM CAMPAIGN;
+		SELECT * FROM CAMPAIGN ORDER BY CAMPAIGN_ENROLL_DATE DESC
+	</select>
+	<select id="selectOneCampaign" resultMap="campaignResultMap">
+		SELECT * FROM CAMPAIGN WHERE CAMPAIGN_NO=#{campaignNo}
 	</select>
 	
 </mapper>

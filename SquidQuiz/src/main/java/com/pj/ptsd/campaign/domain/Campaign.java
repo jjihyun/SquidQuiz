@@ -10,7 +10,7 @@ public class Campaign {
 	private String campaignContents;
 	private String campaignLink;
 	private int campaignTargetAmount;
-	private int campaignNowAmout;
+	private int campaignNowAmount;
 	private Date campaignEndDate;
 	private String campaignFileName;
 	private String campaignFileRename;
@@ -74,12 +74,12 @@ public class Campaign {
 		this.campaignTargetAmount = campaignTargetAmount;
 	}
 
-	public int getCampaignNowAmout() {
-		return campaignNowAmout;
+	public int getCampaignNowAmount() {
+		return campaignNowAmount;
 	}
 
-	public void setCampaignNowAmout(int campaignNowAmout) {
-		this.campaignNowAmout = campaignNowAmout;
+	public void setCampaignNowAmout(int campaignNowAmount) {
+		this.campaignNowAmount = campaignNowAmount;
 	}
 
 	public Date getCampaignEndDate() {
@@ -119,7 +119,7 @@ public class Campaign {
 		return "Campaign [번호=" + campaignNo + ", 캠페인명=" + campaignName + ", 종류="
 				+ campaignType + ", 제목=" + campaignTitle + ", 내용=" + campaignContents
 				+ ", 링크=" + campaignLink + ", 목표금액=" + campaignTargetAmount
-				+ ", 현재모금액=" + campaignNowAmout + ", 종료일=" + campaignEndDate
+				+ ", 현재모금액=" + campaignNowAmount + ", 종료일=" + campaignEndDate
 				+ ", 파일업로드이름=" + campaignFileName + ", 파일재업로드이름=" + campaignFileRename
 				+ ", 등록일=" + campaignEnrollDate + "]";
 	}
