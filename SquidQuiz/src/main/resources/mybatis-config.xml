@@ -13,7 +13,7 @@
 		<typeAlias type="com.pj.ptsd.user.domain.User" alias="User"/>
 		<typeAlias type="com.pj.ptsd.notice.domain.Notice" alias="Notice"/>
 		<typeAlias type="com.pj.ptsd.qna.domain.Qna" alias="Qna"/>
-		 
+		<typeAlias type="com.pj.ptsd.quiz.domain.Ox" alias="Ox"/>
 <!-- 		<typeAlias type="com.iei.spring.member.domain.Member" alias="Member"/> -->
 	</typeAliases>
 	
@@ -22,5 +22,6 @@
 		<mapper resource="mappers/user-mapper.xml"/>
 		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/qna-mapper.xml"/>
+		<mapper resource="mappers/quiz-mapper.xml"/>
 	</mappers>
 </configuration>

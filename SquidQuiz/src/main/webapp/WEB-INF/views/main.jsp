@@ -22,7 +22,7 @@
 		 <div class="row" style="background-color:; margin: 30px 0px 50px 0px;">
 	        <div class="video_con">
 	<!--         음속어 muted="muted" -->
-	            <video id="vid" muted="muted" autoplay controls loop style="pointer-events: none;">
+	            <video id="vid" muted="muted" autoplay controls loop style="width:100%;height:100%;pointer-events: none;">
 	                <source src="/resources/video/오징어게임.mp4" type="video/mp4">
 	            </video>
 				<script>

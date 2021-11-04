@@ -6,11 +6,11 @@ public class Ox {
 	private int oxNo;
 	private String oxTitle;
 	private String oxContents;
+	private String oxCommentary; //해설
 	private String oxAnswer; //정답
 	private String oxQuestion1;
 	private String oxQuestion2;
 	private Date oxEnrollDate;
-	
 	private String oxFileName;
 	private String oxFileRename;
 	
@@ -40,6 +40,14 @@ public class Ox {
 
 	public void setOxContents(String oxContents) {
 		this.oxContents = oxContents;
+	}
+	
+	public String getOxCommentary() {
+		return oxCommentary;
+	}
+
+	public void setOxCommentary(String oxCommentary) {
+		this.oxCommentary = oxCommentary;
 	}
 
 	public String getOxAnswer() {
@@ -85,14 +93,14 @@ public class Ox {
 	public String getOxFileRename() {
 		return oxFileRename;
 	}
-
+	
 	public void setOxFileRename(String oxFileRename) {
 		this.oxFileRename = oxFileRename;
 	}
 
 	@Override
 	public String toString() {
-		return "Ox [ox번호=" + oxNo + ", ox제목=" + oxTitle + ", ox내용=" + oxContents + ", ox정답=" + oxAnswer
+		return "Ox [ox번호=" + oxNo + ", ox제목=" + oxTitle + ", ox내용=" + oxContents +",ox해설"+oxCommentary+", ox정답=" + oxAnswer
 				+ ", ox보기1=" + oxQuestion1 + ", ox보기2=" + oxQuestion2 + ", ox등록일=" + oxEnrollDate
 				+ ", 이미지이름=" + oxFileName + ", 새이미지이름=" + oxFileRename + "]";
 	}

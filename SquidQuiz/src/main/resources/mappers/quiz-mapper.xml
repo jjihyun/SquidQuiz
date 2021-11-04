@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="quizMapper">
+	<insert id="insertOx" parameterType="Ox">
+		INSERT INTO OX_QUIZ VALUES(SEQ_OX_QUIZ,#{oxTitle},#{oxContents},#{oxCommentary},#{oxAnswer},#{oxQuestion1},#{oxQuestion2},DEFAULT,#{oxFileName},#{oxFileRename})
+	</insert>
+</mapper>
