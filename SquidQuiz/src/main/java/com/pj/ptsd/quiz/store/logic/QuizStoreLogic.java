@@ -13,7 +13,7 @@ public class QuizStoreLogic implements QuizStore{
 	
 	@Override
 	public int insertOxQuiz(Ox ox) {
-		int result = sqlSession.insert("",ox);
+		int result = sqlSession.insert("quizMapper.insertOx",ox);
 		return result;
 	}
 

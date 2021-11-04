@@ -8,18 +8,18 @@
 <!-- 		<result property="noticeDate" column="NOTICE_DATE"></result> -->
 <!-- 	</resultMap> -->
 	
-	<select id="selectQnaList" resultMap="QnaResultMap">
-	</select>
+<!-- 	<select id="selectQnaList" resultMap="QnaResultMap"> -->
+<!-- 	</select> -->
 	
-	<select id="selectOneQna" parameterType="_int" resultMap="QnaResultMap">
-	</select>
+<!-- 	<select id="selectOneQna" parameterType="_int" resultMap="QnaResultMap"> -->
+<!-- 	</select> -->
 	
-	<insert id="insertQna" parameterType="Qna">
-	</insert>
+<!-- 	<insert id="insertQna" parameterType="Qna"> -->
+<!-- 	</insert> -->
 	
-	<delete id="deleteQna" parameterType="_int">
-	</delete>
+<!-- 	<delete id="deleteQna" parameterType="_int"> -->
+<!-- 	</delete> -->
 	
-	<update id="updateQna" parameterType="Qna">
-	</update>
+<!-- 	<update id="updateQna" parameterType="Qna"> -->
+<!-- 	</update> -->
 </mapper>

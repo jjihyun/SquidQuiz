@@ -8,8 +8,8 @@ public class Ox {
 	private String oxContents;
 	private String oxCommentary; //해설
 	private String oxAnswer; //정답
-	private String oxQuestion1;
-	private String oxQuestion2;
+//	private String oxQuestion1;
+//	private String oxQuestion2;
 	private Date oxEnrollDate;
 	private String oxFileName;
 	private String oxFileRename;
@@ -58,21 +58,21 @@ public class Ox {
 		this.oxAnswer = oxAnswer;
 	}
 
-	public String getOxQuestion1() {
-		return oxQuestion1;
-	}
-
-	public void setOxQuestion1(String oxQuestion1) {
-		this.oxQuestion1 = oxQuestion1;
-	}
-
-	public String getOxQuestion2() {
-		return oxQuestion2;
-	}
-
-	public void setOxQuestion2(String oxQuestion2) {
-		this.oxQuestion2 = oxQuestion2;
-	}
+//	public String getOxQuestion1() {
+//		return oxQuestion1;
+//	}
+//
+//	public void setOxQuestion1(String oxQuestion1) {
+//		this.oxQuestion1 = oxQuestion1;
+//	}
+//
+//	public String getOxQuestion2() {
+//		return oxQuestion2;
+//	}
+//
+//	public void setOxQuestion2(String oxQuestion2) {
+//		this.oxQuestion2 = oxQuestion2;
+//	}
 
 	public Date getOxEnrollDate() {
 		return oxEnrollDate;
@@ -100,8 +100,7 @@ public class Ox {
 
 	@Override
 	public String toString() {
-		return "Ox [ox번호=" + oxNo + ", ox제목=" + oxTitle + ", ox내용=" + oxContents +",ox해설"+oxCommentary+", ox정답=" + oxAnswer
-				+ ", ox보기1=" + oxQuestion1 + ", ox보기2=" + oxQuestion2 + ", ox등록일=" + oxEnrollDate
+		return "Ox [ox번호=" + oxNo + ", ox제목=" + oxTitle + ", ox내용=" + oxContents +",ox해설"+oxCommentary+", ox정답=" + oxAnswer+", ox등록일=" + oxEnrollDate
 				+ ", 이미지이름=" + oxFileName + ", 새이미지이름=" + oxFileRename + "]";
 	}
 	
