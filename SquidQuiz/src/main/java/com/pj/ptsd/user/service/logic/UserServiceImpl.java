@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User loginMember(User userOne) {
-		// TODO Auto-generated method stub
-		return null;
+		User uOne = store.selectMember(userOne);
+		return uOne;
 	}
 
 	@Override
@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int registerMember(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.insertMember(user);
+		return result;
 	}
 
 	@Override

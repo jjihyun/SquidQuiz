@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <script>
 	//헤더
@@ -13,10 +14,10 @@
 	});
 </script>
 <body>
-<jsp:include page="../user/userJoin.jsp"></jsp:include>
+<jsp:include page="../user/userLogin.jsp"></jsp:include>
 	<main>
         <header>
-            <h1>회원가입</h1>
+            <h1 align="center">JOIN</h1>
         </header>
         <form action="join.ptsd" method="post">
             <table style="margin: auto;">
@@ -61,7 +62,7 @@
                 </tr>
                 <tr>
                     <td>계좌번호</td>
-                    <td><input type="number" id="bankAccount" name="bankAccount"><br><br></td>
+                    <td><input type="text" id="bankAccount" name="bankAccount"><br><br></td>
                 </tr>
                 
                 <tr>
