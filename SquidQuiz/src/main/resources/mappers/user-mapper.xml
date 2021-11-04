@@ -15,7 +15,14 @@
 		<result property="point" column="POINT"></result>
 	</resultMap>
 	
-
+	<!-- 로그인 -->
+	<select id="selectLoginUser" resultMap="userResultMap">
+		SELECT * FROM MEMBER WHERE USER_ID = #{userId } AND USER_PWD = #{userPwd }
+	</select>
+	
+	<insert id="insertUser" parameterType="User">
+		INSERT INTO MEMBER VALUES(SEQ_MEMBER.NEXTVAL, #{userId }, #{userPwd }, #{userName }, #{userEmail }, #{userPhone }, #{bankName }, #{bankAccount }, #{userAddr }, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
 	
 	
 </mapper>

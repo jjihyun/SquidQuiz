@@ -15,8 +15,8 @@ public class UserStoreLogic implements UserStore{
 
 	@Override
 	public User selectMember(User userOne) {
-		// TODO Auto-generated method stub
-		return null;
+		User uOne = sqlSession.selectOne("userMapper.selectLoginUser", userOne);
+		return uOne;
 	}
 
 	@Override
@@ -27,8 +27,8 @@ public class UserStoreLogic implements UserStore{
 
 	@Override
 	public int insertMember(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.insert("userMapper.insertUser", user);
+		return result;
 	}
 
 	@Override
