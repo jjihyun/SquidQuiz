@@ -40,14 +40,18 @@
 						<td><textarea rows="7" cols="50" name="oxCommentary"></textarea></td>
 					</tr>
 					<tr>
-						<td>첨부파일</td>
+						<td width="150px" class="imgtd">
+							<div class="img_area">
+								<input id="oxFile" name="uploadFile" type="file" style="display:none">
+							</div>
+						</td>
 						<td><input type="file" size="50" name="uploadFile"></td>
 					</tr>
 					<tr>
 						<td>정답</td>
 						<td colspan="2">
-							<input type="radio" name="oxQuestion1" value="O">O
-							<input type="radio" name="oxQuestion1" value="x">X
+							<input type="radio" name="oxAnswer" value="O">O
+							<input type="radio" name="oxAnswer" value="x">X
 						</td>
 					</tr>
 					<tr>
