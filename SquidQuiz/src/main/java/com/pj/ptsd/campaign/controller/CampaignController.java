@@ -41,6 +41,13 @@ public class CampaignController {
 
 	}
 	
+	//캠페인 고정기부처 상세조회
+	@RequestMapping(value="campaignStaticDetail.ptsd", method=RequestMethod.GET)
+	public String showStaticCampaign(Model model) {
+		int result = 0;
+		return "common/errorPage";
+	}
+	
 	//캠페인 상세페이지 조회
 	@RequestMapping(value="campaignDetail.ptsd", method=RequestMethod.GET)
 	public ModelAndView showCampaignDetail(ModelAndView mv
@@ -59,6 +66,12 @@ public class CampaignController {
 			mv.setViewName("common/errorPage");
 		}
 		return mv;
+	}
+	
+	//캠페인 기부 결제페이지
+	@RequestMapping(value="donationPay.ptsd", method=RequestMethod.GET)
+	public String showDonationPay() {
+		return "common/errorPage";
 	}
 		
 }

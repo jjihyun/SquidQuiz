@@ -53,7 +53,7 @@
 					D-(계산해서 적용)
 				</p><br>
 				<h5 class="all-text">현재 모금액</h5>
-				<h4 class="all-text">${campaign.campaignNowAmount}</h4>
+				<h4 class="all-text">${campaign.campaignNowAmount}원</h4>
 				<button>기부하기</button><br>
 				<p class="all-text">목표금액 : ${campaign.campaignTargetAmount }원<br>
 					모금단체정보<br>${campaign.campaignName }<br>
@@ -66,7 +66,8 @@
 			</div>
 		</div>
 		<div style="position: absolute; left: 50%; transform: translateX(-50%);">
-			<button class="camp-btn">기부하기</button>&nbsp;&nbsp;<button class="camp-btn">목록으로</button>
+			<button class="camp-btn" onclick="location.href='donationPay.ptsd'">기부하기</button>&nbsp;&nbsp;
+			<button class="camp-btn">목록으로</button>
 		</div>
 	
 	</div>

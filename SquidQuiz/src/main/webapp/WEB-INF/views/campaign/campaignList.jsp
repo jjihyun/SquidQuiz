@@ -37,13 +37,17 @@
 </head>
 <body>
 	<jsp:include page="../../../resources/html/header.jsp"/>
-	<h2 align="center">이번주 퀴즈 참가 모음액</h2>
-	<h4>???,???원</h4>
-	누적 모금액<br>
-	<h4>??,???,???원</h4>
-	<div>
-		<img src="">
+	<br><hr><br>
+	<div style="text-align: center;">
+		<h2>이번주 퀴즈 참가 모음액</h2>
+		<h4>???,???원</h4>
+		누적 모금액<br>
+		<h4>??,???,???원</h4>
+		<img src="" alt="img 안뜸">
+		<h4>타이틀? 기부제목 적는 란</h4>
+		<button onclick="location.href='campaignStaticDetail.ptsd'">자세히 보기</button>
 	</div>
+	<br><br>
 	<div id="nav-type">
 		<div class="campaign-type" onclick="location.href='??.ptsd;'" value="">아동, 청소년</div>
 		<div class="campaign-type" onclick="location.href='??.ptsd;'" value="">어르신</div>
@@ -66,6 +70,10 @@
 			</div>
 		</c:forEach>
 	</div>
-
+	
+	
+	<script type="text/javascript">
+	
+	</script>
 </body>
 </html>
