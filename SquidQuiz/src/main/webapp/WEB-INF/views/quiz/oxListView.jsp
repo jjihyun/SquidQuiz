@@ -14,20 +14,6 @@
 	$(document).ready(function(){
 		$('#headerMain').load("/resources/html/header.jsp");
 	});
-	//선택 input:file 태그연결
-	function fnFileChange(input){
-		$(input).closest('div').find('input:file').click();
-	}
-	//파일 읽어서 등록 이미지에 뿌려주기
-	function readURL(input,id){
-		if(input.files&&input.files[0]){
-			var reader = new FileReader();
-			reader.onload = function(e){
-				$("#"+id).attr('src',e.target.result);
-			}
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
 	
 </script>
 <body>
@@ -36,12 +22,12 @@
 		<div class="oxArea">
 			<div class="sideBar"style="width:20%; height: 100%; background-color: black; float:left;">
 			</div>
-			<div class="oxTitle" align="center">
+			<div class="oxTitle">
 				<h1 align="center">OX퀴즈</h1>
 			</div>
 			<div class="writeArea">
 			<form action="oxRegitser.ptsd" method="post" enctype="multipart/form-data">
-				<table class="writeForm" align="center">
+				<table class="writeForm" aling="center">
 					<tr>
 						<th>제목</th>
 						<td><input type="text" size="50" name="oxTitle"></td>

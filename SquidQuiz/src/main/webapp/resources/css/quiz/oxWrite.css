@@ -4,7 +4,7 @@
 	margin-left:auto;
 	margin-right:auto;
 	height:800px;
-	background-color: yellow;
+/* 	background-color: yellow; */
 }
 .oxTitle{
 	float:left;
@@ -20,4 +20,21 @@
 	margin-left:100px;
 	
 }
-.
+.img_area{
+	border: 1px solid rgb(219, 219, 219);
+	border-radius: 20px;
+	margin-right: 20px;
+	height: 300px;
+}
+.img_area:hover{
+	border: 1px solid rgb(255,20,147);
+}
+.preview{
+	width:550px;
+	height: 250px;
+	margin: 20px;
+	margin-left: 35px;
+}
+.preview:hover{
+	cursor: pointer;
+}
