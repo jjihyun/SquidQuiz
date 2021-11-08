@@ -3,6 +3,7 @@ package com.pj.ptsd.notice.store.logic;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pj.ptsd.notice.domain.Notice;
@@ -10,13 +11,14 @@ import com.pj.ptsd.notice.store.NoticeStore;
 import com.pj.ptsd.qna.domain.Qna;
 @Repository
 public class NoticeStoreLogic implements NoticeStore{
-	
+	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
 	//공지 전체 조회
 	@Override
 	public List<Notice> selectAllNotice() {
 		List<Notice> nList = sqlSession.selectList("noticeMapper.selectNoticeList");
+		
 		return nList;
 	}
 	//공지 상세 조회
