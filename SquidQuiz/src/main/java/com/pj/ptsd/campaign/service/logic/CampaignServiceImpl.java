@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pj.ptsd.campaign.domain.Campaign;
+import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.campaign.service.CampaignService;
 import com.pj.ptsd.campaign.store.CampaignStore;
 
@@ -14,11 +15,17 @@ public class CampaignServiceImpl implements CampaignService{
 
 	@Autowired
 	private CampaignStore store;
-	
+
+	//캠페인 게시글 전체 개수
+	@Override
+	public int getListCount() {
+		int totalCount = store.selectListCount();
+		return totalCount;
+	}
 	//캠페인 목록 조회
 	@Override
-	public List<Campaign> printAll() {
-		List<Campaign> cList = store.selectAll();
+	public List<Campaign> printAll(PageInfo pi) {
+		List<Campaign> cList = store.selectAll(pi);
 		return cList;
 	}
 

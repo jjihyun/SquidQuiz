@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.pj.ptsd.campaign.Pagination;
 import com.pj.ptsd.campaign.domain.Campaign;
+import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.campaign.service.CampaignService;
 
 @Controller
@@ -34,12 +37,23 @@ public class CampaignController {
 	//캠페인 목록 조회
 	@RequestMapping(value="campaignList.ptsd", method=RequestMethod.GET)
 	public String printCampaignList(Model model
-	/* , @RequestParam("campaignType") String type */ ) {
+			, HttpServletRequest request, @RequestParam(value="page", required=false) Integer page) {
 		try {
-			List<Campaign> cList = service.printAll();
+			int currentPage =(page!=null)?page:1;
+			int totalCount = service.getListCount();
+			PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
+			request.setCharacterEncoding("utf-8");
+			List<Campaign> cList = service.printAll(pi);
+			String type=request.getParameter("campaignType");
+			if(type==null) {
+				type="all";
+			}
 			//System.out.println(type);
+			
 			if(!cList.isEmpty()) {
 				model.addAttribute("cList", cList);
+				model.addAttribute("pi", pi);
+				model.addAttribute("campaignType",type);
 				return "campaign/campaignList";
 			} else {
 				model.addAttribute("msg", "캠페인 조회 실패");
@@ -96,11 +110,9 @@ public class CampaignController {
 	@RequestMapping(value="campaignInsert.ptsd", method=RequestMethod.POST)
 	public String registerCampaign(@ModelAttribute Campaign campaign
 			, @RequestParam(value="cFileName_2", required=false) MultipartFile upload
-			, @RequestParam("cEndDate") String cEndDate
-			/* @RequestParam("cEndDate") @DateTimeFormat(pattern="yyyyMMdd") Date cEndDate*/
+			, @RequestParam("cEndDate2") String cEndDate, @RequestParam("campaignOption") String option
 			, HttpServletRequest request, Model model) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println("여기 1번째 ");
 		if(!upload.getOriginalFilename().equals("")) { //파일이 존재할경우
 			String rename= saveFile(upload, request);
 			if(rename!=null) {
@@ -108,20 +120,19 @@ public class CampaignController {
 				campaign.setcFileRename(rename);  //새로운 파일
 			}
 		}
-		System.out.println("여기 2번째 ");
-		System.out.println(cEndDate +"String을 Date형으로 변환");
-		System.out.println("여기 3번째 ");
-		Date formatDate = sdf.parse(cEndDate);
-		System.out.println("변환완료 : "+formatDate);
 		
-		//int result = service.registerCampaign(campaign);
-//		if(result>0) {
-//			return "redirect:campaignList.ptsd";
-//		} else {
-//			model.addAttribute("msg", "등록 실패");
-//			return "common/errorPage";
-//		}
-		return "redirect:main.ptsd";
+		campaign.setCampaignType(option);
+		
+		Date formatDate = sdf.parse(cEndDate);
+		campaign.setcEndDate(formatDate);
+		
+		int result = service.registerCampaign(campaign);
+		if(result>0) {
+			return "redirect:campaignList.ptsd";
+		} else {
+			model.addAttribute("msg", "등록 실패");
+			return "common/errorPage";
+		}
 	}
 	public String saveFile(MultipartFile upload, HttpServletRequest request) {
 		String root=request.getSession().getServletContext().getRealPath("resources");

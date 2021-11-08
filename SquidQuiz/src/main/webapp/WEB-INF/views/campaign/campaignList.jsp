@@ -6,6 +6,12 @@
 <meta charset="UTF-8">
 <title>캠페인 목록</title>
 <style type="text/css">
+.first{
+	width: 1500px;
+	position: absolute; 
+	left: 50%; 
+	transform: translateX(-50%);
+}
 #nav-type {
 	height: 100px;
 	border:1px solid red;
@@ -13,7 +19,6 @@
 	display:flex;
 
 }
-
 .campaign-type {
 	float: left;
 	text-align: center;
@@ -44,6 +49,7 @@
 <body>
 	<jsp:include page="../../../resources/html/header.jsp"/>
 	<br><hr><br>
+	<div class="first">
 	<div style="text-align: center;">
 		<h2>이번주 퀴즈 참가 모음액</h2>
 		<h4>111,111원(임시)</h4>
@@ -75,7 +81,8 @@
 			</c:url>
 			<div align="center" id="campaign-list" onclick="location.href='${cDetail}';">
 				<div>
-					<img alt="img 안보임" src="">
+					<img style="width: 100%; height: 50%;" 
+					alt="img 안보임" src="../../../resources/campaignUpload/${c.cFileName }">
 				</div>
 				<div>
 					<b>${c.campaignTitle }</b><br>
@@ -84,7 +91,38 @@
 			</div>
 		</c:forEach>
 	</div>
+	<table align="center">
+		<tr align="center" height="20">
+				<td colspan="6">
+					<c:url var="before" value="campaignList.ptsd">
+						<c:param name="page" value="${pi.currentPage-1}"></c:param>
+					</c:url>
+				</td>
+				<c:if test="${pi.currentPage <=1 }">[이전]</c:if>
+				<c:if test="${pi.currentPage>1}"><a href="${before }">[이전]</a></c:if>
+				<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
+					<c:url var="pagination" value="campaignList.ptsd">
+						<c:param name="page" value="${p }"></c:param>
+					</c:url>
+					<c:if test="${p eq pi.currentPage }">
+						<font color="green" size="4">[${p }]</font>
+					</c:if>
+					<c:if test="${p ne pi.currentPage }">
+						<a href="${pagination }">${p }</a>
+					</c:if>
+				</c:forEach>
+				<c:url var="after" value="campaignList.ptsd">
+					<c:param name="page" value="${pi.currentPage+1 }"></c:param>
+				</c:url>
+				<c:if test="${pi.currentPage>=pi.maxPage }">[다음]</c:if>
+				<c:if test="${pi.currentPage<pi.maxPage }">
+					<a href="${after }">[다음]</a>
+				</c:if>
+		</tr>
+		
+	</table>
 	
+	</div>
 	
 	<script type="text/javascript">
  		function campaignType(f){
@@ -93,16 +131,15 @@
 				type:"get",
 				url:"campaignList.ptsd",
 				data:{"campaignType":type},
-				dataType:"json",
 				success:function(data){
-					alert("성공!");
+					//alert("성공!");
 					//alert(data);
 				},
 				error:function(){
 					alert("실패!");
 				}
 			});
-			alert(type);
+			//alert(type);
 		}
 	</script>
 </body>

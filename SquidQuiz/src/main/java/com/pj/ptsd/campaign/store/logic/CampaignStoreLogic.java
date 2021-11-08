@@ -2,11 +2,13 @@ package com.pj.ptsd.campaign.store.logic;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pj.ptsd.campaign.domain.Campaign;
+import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.campaign.store.CampaignStore;
 
 @Repository
@@ -14,11 +16,19 @@ public class CampaignStoreLogic implements CampaignStore{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
+	//캠페인 게시글 전체 개수
+	@Override
+	public int selectListCount() {
+		int count = sqlSession.selectOne("campaignMapper.selectListCount");
+		return count;
+	}
 	//캠페인 목록 조회
 	@Override
-	public List<Campaign> selectAll() {
-		List<Campaign> cList = sqlSession.selectList("campaignMapper.selectCampaignList");
+	public List<Campaign> selectAll(PageInfo pi) {
+		int offset =(pi.getCurrentPage()-1)*pi.getCampaignLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getCampaignLimit());
+		List<Campaign> cList = sqlSession.selectList("campaignMapper.selectCampaignList", pi, rowBounds);
 		return cList;
 	}
 
@@ -42,5 +52,6 @@ public class CampaignStoreLogic implements CampaignStore{
 		int result = sqlSession.delete("campaignMapper.deleteCampaign", campaignNo);
 		return result;
 	}
+
 
 }
