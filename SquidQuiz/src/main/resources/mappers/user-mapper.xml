@@ -20,6 +20,12 @@
 		SELECT * FROM MEMBER WHERE USER_ID = #{userId } AND USER_PWD = #{userPwd }
 	</select>
 	
+	<!-- 아이디중복확인 -->
+	<select id="checkIdDup" parameterType="String" resultMap="userResultMap">
+		SELECT COUNT(*) FROM MEMBER WHERE USER_ID =#{userId }
+	</select>
+	
+	<!-- 회원가입db등록 -->
 	<insert id="insertUser" parameterType="User">
 		INSERT INTO MEMBER VALUES(SEQ_MEMBER.NEXTVAL, #{userId }, #{userPwd }, #{userName }, #{userEmail }, #{userPhone }, #{bankName }, #{bankAccount }, #{userAddr }, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
