@@ -5,18 +5,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지/문의 게시판</title>
+<title>공지 list test </title>
 </head>
 <script>
-$(document).ready(function(){
-	$('#headerMain').load("/resources/html/header.jsp");
-});
+// $(document).ready(function(){
+// 	$('#headerMain').load("/resources/html/header.jsp");
+// });
 
 </script>
 <body>
 <h1 align="center">공지글 목록보기</h1>
 	<br><br>
-	<div><button onclick="location.href='noticeWriteView.kh'">글쓰기</button></div>
+	<div><button onclick="location.href='noticeWriteView.ptsd'">글쓰기</button></div>
 	<br style="clear:both">
 	<table align="center" width="600" border="1" cellspacing="0" style="clear:right;">
 		<tr>

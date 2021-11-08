@@ -26,32 +26,42 @@ public class NoticeController {
 	
 	// 공지 리스트
 	@RequestMapping(value="noticeListView.ptsd")
-	public ModelAndView  noticeListView(
-			ModelAndView mv
-//			, @RequestParam("adminType") String adminType
-			, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		String adminType = (String) session.getAttribute("adminType");
+	public String  noticeListView(
+			Model model	) {
+
 		try {
 			List<Notice> nList=service.printAllNotice();
 			if(!nList.isEmpty()) {
 				
-				mv.addObject("nList", nList);
-				mv.setViewName("notice/noticeList");
+				model.addAttribute("nList", nList);
 			}else {
-				mv.setViewName("notice/noticeList");
+				model.addAttribute("nList", null);
 			}
+			return "notice/noticeList";
 		} catch (Exception e) {
-			mv.addObject("msg", e.toString());
-			mv.setViewName("notice/noticeError");
+			e.printStackTrace();
+			model.addAttribute("msg", e.toString());
+			return "notice/noticeError";
 		}
-		return mv;
 	}
 	//공지 상세 조회 (1개 조회)
 	@RequestMapping(value="noticeDetail.ptsd")
 	public String noticeOneView(Model model, @RequestParam("noticeNo") int noticeNo) {
 		
-		return "";
+		try {
+			Notice notice = service.printOneNotice(noticeNo);
+			if(notice != null) {
+				model.addAttribute("notice", notice);
+				return "notice/noticeDetail";
+			}else {
+				model.addAttribute("msg", "공지사항 상세조회 실패");
+				return "notice/noticeError";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", e.toString());
+			return "notice/noticeError";
+		}
 	}
 	
 	//공지 작성 페이지로
@@ -74,6 +84,7 @@ public class NoticeController {
 				return "notice/noticeError";
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			model.addAttribute("msg", e.toString());
 			return "notice/noticeError";
 		}
@@ -85,25 +96,40 @@ public class NoticeController {
 		try {
 			int result = service.removeNotice(noticeNo);
 			if (result>0) {
-				
+				return "redirect:noticeListView.ptsd";
 			} else {
-
+				model.addAttribute("msg", "공지 삭제 실패");
+				return "notice/noticeError";
 			}
 		} catch (Exception e) {
-
+			e.printStackTrace();
+			model.addAttribute("msg", e.toString());
+			return "notice/noticeError";
 		}
-		return "";
 	}
 	//공지 수정 페이지로
 	@RequestMapping(value="noticeModifyView.ptsd", method=RequestMethod.GET)
-	public String modifyNoticeView() {
-		
-		return "notice/noticeModifyForm";
+	public String modifyNoticeView(@RequestParam("noticeNo") int noticeNo,Model model) {
+		Notice notice = service.printOneNotice(noticeNo);
+		model.addAttribute("notice", notice);
+		return "notice/noticeUpdate";
 	}
 	//공지 수정하기
 	@RequestMapping(value="noticeModify.ptsd", method=RequestMethod.POST)
 	public String modifyNotice(@ModelAttribute Notice notice,
 			Model model) {
-		return "";
+		try {
+			int result = service.modifyNotice(notice);
+			if (result > 0) {
+				return "redirect:noticeDetail.ptsd?noticeNo="+notice.getNoticeNo();
+			} else {
+				model.addAttribute("msg", "공지 수정 실패");
+				return "notice/noticeError";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", e.toString());
+			return "notice/noticeError";
+		}
 	}
 }

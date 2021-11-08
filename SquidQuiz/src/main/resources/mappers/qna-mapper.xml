@@ -1,25 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="qnaMapper">
-<!-- 	<resultMap type="Notice" id="noticeResultMap"> -->
-<!-- 		<id property="noticeNo" column="NOTICE_NO"></id> -->
-<!-- 		<result property="noticeTitle" column="NOTICE_TITLE"></result> -->
-<!-- 		<result property="noticeContents" column="NOTICE_CONTENTS"></result> -->
-<!-- 		<result property="noticeDate" column="NOTICE_DATE"></result> -->
-<!-- 	</resultMap> -->
+	<resultMap type="Qna" id="qnaResultMap">
+		<id property="qnaNo" column="QNA_NO"></id>
+		<result property="qnaTitle" column="QNA_TITLE"></result>
+		<result property="qnaContents" column="QNA_CONTENTS"></result>
+		<result property="qCreateDate" column="QNA_DATE"></result>
+		<result property="qnaAnswer" column="QNA_ANSWER_CONTENTS"></result>
+		<result property="qAnswerDate" column="QNA_ANSWER_DATE"></result>
+		<result property="userNo" column="USER_NO"></result>
+		
+	</resultMap>
 	
-<!-- 	<select id="selectQnaList" resultMap="QnaResultMap"> -->
-<!-- 	</select> -->
+	<select id="selectQnaList" resultMap="qnaResultMap">
+		SELECT * FROM QNA ORDER BY QNA_DATE DESC
+	</select>
 	
-<!-- 	<select id="selectOneQna" parameterType="_int" resultMap="QnaResultMap"> -->
-<!-- 	</select> -->
+	<select id="selectOneQna" parameterType="_int" resultMap="qnaResultMap">
+		SELECT * FROM QNA WHERE QNA_NO = #{qnaNo}
+	</select>
 	
-<!-- 	<insert id="insertQna" parameterType="Qna"> -->
-<!-- 	</insert> -->
+	<select id="selectQnaById" parameterType="_int" resultMap="qnaResultMap">
+		SELECT * FROM QNA WHERE USER_NO = #{userNo}
+	</select>
 	
-<!-- 	<delete id="deleteQna" parameterType="_int"> -->
-<!-- 	</delete> -->
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*) FROM BOARD
+	</select>
 	
-<!-- 	<update id="updateQna" parameterType="Qna"> -->
-<!-- 	</update> -->
+	<insert id="insertQna" parameterType="Qna">
+		INSERT INTO QNA(QNA_NO, QNA_TITLE, QNA_CONTENTS, QNA_DATE, USER_NO) VALUES(SEQ_QNA.NEXTVAL, #{qnaTitle}, #{qnaContents}, DEFAULT, #{userNo})
+	</insert>
+	
+	<delete id="deleteQna" parameterType="_int">
+		DELETE FROM QNA WHERE QNA_NO =#{qnaNo}
+	</delete>
+	
+	<update id="updateAnswer" parameterType="Qna">
+		UPDATE QNA SET QNA_ANSWER_CONTENTS = #{qnaAnswer} , QNA_ANSWER_DATE = SYSDATE WHERE QNA_NO = #{qnaNo}
+	</update>
 </mapper>
