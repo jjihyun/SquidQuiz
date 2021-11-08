@@ -8,10 +8,12 @@
 <title>qna 상세 ( 임시 )</title>
 </head>
 <body>
-
+	<form action="modifyAnswer.ptsd" method="post">
 	<table align="center" width="450" border="1">
+			
 			<tr>
-				<td>번호</td>
+			
+				<td>번호<input type="hidden" value="${qna.qnaNo }" name = "qnaNo"></td>
 				<td>${qna.qnaNo }</td>
 			</tr>
 			<tr>
@@ -26,23 +28,31 @@
 				<td>내용</td>
 				<td>${qna.qnaContents }</td>
 			</tr>
-				<tr>
+			<tr>
+				
 				<td>답변</td>
 				<td>${qna.qnaAnswer }</td>
+				
+			</tr>
+			<tr>
+				
+				<td>답변</td>
+				<td><input type="text" name="qnaAnswer"> <input type="submit" value="답변하기"></td>
+				
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<c:url var="qModify" value=".ptsd">
+				
+					<c:url var="qDelete" value="removeQna.ptsd">
 						<c:param name="qnaNo" value="${qna.qnaNo }"></c:param>
 					</c:url>
-					<c:url var="qDelete" value=".ptsd">
-						<c:param name="qnaNo" value="${qna.qnaNo }"></c:param>
-					</c:url>
-					<a href="${qModify }">수정페이지로 이동</a>
+					<
 					<a href="${qDelete }">삭제하기</a>
+					
 				</td>
 			</tr>
 		</table>
+		</form>
 		<br><br><br><br><br>
 </body>
 </html>

@@ -28,7 +28,7 @@
 			<tr>
 				<td align="center">${qna.qnaNo }</td>
 				<td align="center">
-					<c:url var="qDetail" value="noticeDetail.ptsd">
+					<c:url var="qDetail" value="qnaDetailView.ptsd">
 						<c:param name="qnaNo" value = "${qna.qnaNo }"></c:param>
 					</c:url>
 					<a href="${qDetail }">
@@ -39,6 +39,39 @@
 			</tr>
 		</c:forEach>
 		</c:if>
+		<tr align="center" height="20">
+			<td colspan="3">
+				<c:url var="before" value="qnaListView.ptsd">
+					<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
+				</c:url>
+				<c:if test="${pi.currentPage <= 1 }">
+					[이전]
+				</c:if>
+				<c:if test="${pi.currentPage > 1 }">
+					<a href="${before }">[이전]</a>
+				</c:if>
+				<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
+					<c:url var="pagination" value="qnaListView.ptsd">
+						<c:param name="page" value="${p }"></c:param>
+					</c:url>
+					<c:if test="${p eq pi.currentPage }">
+						<font color="red" size="4">[${p }]</font>
+					</c:if>
+					<c:if test="${p ne pi.currentPage }">
+						<a href="${pagination }">${p }</a>&nbsp;
+					</c:if>
+				</c:forEach>
+				<c:url var="after" value="qnaListView.ptsd">
+					<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
+				</c:url>
+				<c:if test="${pi.currentPage >= pi.maxPage }">
+					[다음]
+				</c:if>
+				<c:if test="${pi.currentPage < pi.maxPage }">
+					<a href="${after }">[다음]</a>
+				</c:if>
+			</td>
+		</tr>
 	</table> 
 </body>
 </html>
