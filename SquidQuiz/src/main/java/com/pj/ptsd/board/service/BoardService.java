@@ -12,10 +12,9 @@ import com.pj.ptsd.board.domain.Search;
 public interface BoardService {
 	
 	public List<Board> printAll(PageInfo pi);
-	public List<Board> selectSearchAll(Search search);	
-	
-	
+	public List<Board> printSearchAll(Search search);	
 	public Board printOne(int boardNo);
+	
 	public int registerBoard(Board board);
 	public int modifyBoard(Board board);
 	public int removeBoard(int boardNo);

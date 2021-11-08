@@ -12,7 +12,7 @@ public interface BoardStore {
 	
 	public List<Board> selectAll(PageInfo pi);
 	public List<Board> selectSearchAll(Search search);	
-	
+	public Board selectOne(int boardNo);
 	
 	public int insertBoard(Board board);
 	public int updateBoard(Board board);
