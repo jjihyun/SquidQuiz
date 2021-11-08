@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pj.ptsd.qna.domain.PageInfo;
 import com.pj.ptsd.qna.domain.Qna;
+import com.pj.ptsd.qna.domain.QnaPagination;
 import com.pj.ptsd.qna.service.QnaService;
 
 @Controller
@@ -23,27 +25,32 @@ public class QnaController {
 	
 	//전체조회 
 	@RequestMapping(value="qnaListView.ptsd", method=RequestMethod.GET)
-	public String qnaListView(Model model, HttpServletRequest request) {
+	public String qnaListView(Model model, HttpServletRequest request, @RequestParam(value="page",required=false) Integer page) {
+		int currentPage = (page!=null) ? page : 1 ;
+		int totalCount = service.getListCount();
+		PageInfo pi = QnaPagination.getPageInfo(currentPage, totalCount);
 		HttpSession session = request.getSession();
-		String adminType =
-		(String)session.getAttribute("adminType");
-		int userNo = Integer.parseInt((String)(session.getAttribute("userNo")));
+		String adminType = "Y";
+//				(String)session.getAttribute("adminType");
+		int userNo = 2;
+//				Integer.parseInt((String)(session.getAttribute("userNo")));
 		
 		try {
 			List<Qna> qList = null;
 			
 			if (adminType == "Y") {
 				qList = service.printAllQna();
+				
 			} else {
 				qList = service.printQnaById(userNo);
 			}
 			if (!qList.isEmpty()) {
 				model.addAttribute("qList", qList);
-				return "qna/qnaList";
+				model.addAttribute("pi",pi);
 			} else {
-				model.addAttribute("msg", "QnA 목록 가져오기 실패");
-				return "qna/qnaError";
+				model.addAttribute("qList", null);
 			}
+			return "qna/qnaList";
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,12 +81,13 @@ public class QnaController {
 	//문의등록(회원)
 	@RequestMapping(value="qnaWriteView.ptsd")
 	public String qnaWriteView() {
-		return "qna/qnaWriteView";
+		return "qna/qnaWriteForm";
 	}
-	@RequestMapping(value="registerQna.ptsd", method=RequestMethod.POST)
+	@RequestMapping(value="qnaRegister.ptsd", method=RequestMethod.POST)
 	public String registerQna(Model model,@ModelAttribute Qna qna) {
 		try {
-			
+			//테스트용 유저넘버
+			qna.setUserNo(1);
 			int result = service.registerQna(qna);
 			if (result > 0) {
 				
