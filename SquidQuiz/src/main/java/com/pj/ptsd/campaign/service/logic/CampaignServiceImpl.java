@@ -29,4 +29,18 @@ public class CampaignServiceImpl implements CampaignService{
 		return camp;
 	}
 
+	//캠페인 글 등록
+	@Override
+	public int registerCampaign(Campaign campaign) {
+		int result = store.insertCampaign(campaign);
+		return result;
+	}
+
+	//캠페인 글 삭제
+	@Override
+	public int removeCampaign(int campaignNo) {
+		int result = store.deleteCampaign(campaignNo);
+		return result;
+	}
+
 }
