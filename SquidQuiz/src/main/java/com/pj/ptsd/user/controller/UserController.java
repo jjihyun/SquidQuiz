@@ -1,14 +1,19 @@
 package com.pj.ptsd.user.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pj.ptsd.user.domain.User;
 import com.pj.ptsd.user.service.UserService;
@@ -66,7 +71,7 @@ public class UserController {
 	}
 	
 	//회원가입
-	@RequestMapping(value="/join.ptsd", method=RequestMethod.POST)
+	@RequestMapping(value="memberRegister.ptsd", method=RequestMethod.POST)
 	public String memberRegister(HttpServletRequest request
 			,@ModelAttribute User user
 			,@RequestParam("userId") String userid
@@ -74,9 +79,12 @@ public class UserController {
 			,@RequestParam("userName") String userName
 			,@RequestParam("userEmail") String userEmail
 			,@RequestParam("userPhone") String userPhone
-			,@RequestParam("userAddr") String userAddr
+			,@RequestParam("post") String post
+			,@RequestParam("address1") String address1
+			,@RequestParam("address2") String address2
 			,@RequestParam("bankName") String bankName
 			,@RequestParam("bankAccount") int bankAccount) {
+		user.setUserAddr(post+","+address1+","+address2);
 		try {
 			int result = service.registerMember(user);
 			if(result > 0) {
@@ -90,7 +98,19 @@ public class UserController {
 			return "common/errorPage";
 		}
 	}
+	
+	
+	  //아이디 중복확인
+	   @ResponseBody
+	   @RequestMapping(value ="checkDupId.ptsd", method=RequestMethod.GET)
+	   public String idDuplicateCheck(HttpServletRequest request, @RequestParam("userId")String userId) {
+		   int result = service.checkIdDup(userId);
+		   return String.valueOf(result);
+	   }
 
-	}
+	
 
 
+
+
+}

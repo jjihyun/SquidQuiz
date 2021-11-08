@@ -21,8 +21,8 @@ public class UserStoreLogic implements UserStore{
 
 	@Override
 	public int checkIdDup(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.selectOne("userMapper.checkIdDup", userId);
+		return result;
 	}
 
 	@Override

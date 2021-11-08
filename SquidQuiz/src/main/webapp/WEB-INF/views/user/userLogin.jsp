@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="/resources/css/login.css">
 </head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 	//헤더
 	$(document).ready(function(){
@@ -16,7 +17,8 @@
 </script>
 <body>
     <main>
-        <h1  align="center">LOGIN</h1>
+        <h1 align="center">LOGIN</h1>
+        <img align="center" class="myLogo" src="resources/img/myPageLogo.png" />
         <c:if test="${ empty sessionScope.loginUser }">
         <form action="login.ptsd" method="post">
             <table align="center">
@@ -36,7 +38,7 @@
                 <tr>
                     <td colspan="2" align="center">
                         <input type="submit" value="로그인"><br>
-                        <button onclick="location.href='/join.ptsd';">회원가입</button>
+                        <button type="button" onclick="location.href='/join.ptsd';">회원가입</button>
                     </td>
                 </tr>		  
             </table>
@@ -51,6 +53,5 @@
 			</table>
 		</c:if>
     </main>
-
 </body>
 </html>

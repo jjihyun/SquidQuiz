@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.mainLogo{display : block ; margin : 0 auto ; width:10%}
+label{float: left;font-weight: bold;font-size: 13px;}
+.form-group{width: 300px;}
+.form-group input{width: 300px;height: 30px; margin: 3px; font-size: 10px;}
+#id-check{width: 305px;}
+.form-btn {width: 300px;margin-left: 5px;}
+.form-btn input{width: 300px; margin: 2px;}
+.form-postgroup{width: 300px;}
+.form-postgroup #post{width:200px;height: 30px; margin: 3px; font-size: 10px;float: left;}
+#postcodify_search_button{width:50px;height: 30px;margin-top:5px}
+           
+
