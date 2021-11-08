@@ -15,11 +15,14 @@
 		<result property="cFileRename" column="CAMPAIGN_FILE_RENAME" />
 		<result property="cEnrollDate" column="CAMPAIGN_ENROLL_DATE" />
 	</resultMap>
-	
+
 	<insert id="insertCampaign" parameterType="Campaign">
 		INSERT INTO CAMPAIGN VALUES(SEQ_CAMPAIGN.NEXTVAL, #{campaignName}, #{campaignType}, #{campaignTitle}, #{campaignContents}, #{cLink}, #{cTargetAmount}, DEFAULT, #{cEndDate}, #{cFileName}, #{cFileRename}, SYSDATE)
 	</insert>
-	
+
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*) FROM CAMPAIGN
+	</select>	
 	<select id="selectCampaignList" resultMap="campaignResultMap">
 		SELECT * FROM CAMPAIGN ORDER BY CAMPAIGN_ENROLL_DATE DESC
 	</select>
