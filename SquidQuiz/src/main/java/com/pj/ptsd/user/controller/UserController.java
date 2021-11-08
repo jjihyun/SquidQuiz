@@ -69,19 +69,12 @@ public class UserController {
 	}
 	
 	//회원가입
-	@RequestMapping(value="memberRegister.ptsd", method=RequestMethod.POST)
+	@RequestMapping(value="join.ptsd", method=RequestMethod.POST)
 	public String memberRegister(HttpServletRequest request
 			,@ModelAttribute User user
-			,@RequestParam("userId") String userid
-			,@RequestParam("userPwd") String userPwd
-			,@RequestParam("userName") String userName
-			,@RequestParam("userEmail") String userEmail
-			,@RequestParam("userPhone") String userPhone
 			,@RequestParam("post") String post
 			,@RequestParam("address1") String address1
-			,@RequestParam("address2") String address2
-			,@RequestParam("bankName") String bankName
-			,@RequestParam("bankAccount") int bankAccount) {
+			,@RequestParam("address2") String address2) {
 		user.setUserAddr(post+","+address1+","+address2);
 		try {
 			int result = service.registerMember(user);
