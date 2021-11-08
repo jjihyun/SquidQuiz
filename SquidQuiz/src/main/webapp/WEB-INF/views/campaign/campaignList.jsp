@@ -86,6 +86,8 @@
 				</div>
 				<div>
 					<b>${c.campaignTitle }</b><br>
+					<progress class="progressTag" value="${c.getcNowAmount()/c.getcTargetAmount()*100} " max="100"></progress>
+					${c.getcNowAmount()/c.getcTargetAmount()*100}%<br>
 					${c.cTargetAmount }<br>
 				</div>
 			</div>

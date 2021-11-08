@@ -101,28 +101,30 @@
 	</div>
 	
 	<script>
-		// for progress tag in HTML 
-		function tag () {
-		  let progress = document.querySelector('.progressTag');
-		  let interval = 1;
-		  let updatesPerSecond = 1000 / 60;
-		  let end = progress.max * ${percent}*0.01;
-	
-		  function animator () {
-		    progress.value = progress.value + interval;
-		    if ( progress.value + interval < end){
-		      setTimeout(animator, updatesPerSecond);
-		    } else { 	
-		      progress.value = end;
-		    }
-		  }
-	
-		  setTimeout(() => {
-		    animator()
-		  }, updatesPerSecond)
-		}
-	
-		tag()
+		// for progress tag in HTML
+		$(function(){
+			function tag () {
+			  let progress = document.querySelector('.progressTag');
+			  let interval = 1;
+			  let updatesPerSecond = 1000 / 60;
+			  let end = progress.max * ${percent}*0.01;
+		
+			  function animator () {
+			    progress.value = progress.value + interval;
+			    if ( progress.value + interval < end){
+			      setTimeout(animator, updatesPerSecond);
+			    } else { 	
+			      progress.value = end;
+			    }
+			  }
+		
+			  setTimeout(() => {
+			    animator()
+			  }, updatesPerSecond)
+			}
+		
+			tag()
+		});
 	</script>
 </body>
 </html>
