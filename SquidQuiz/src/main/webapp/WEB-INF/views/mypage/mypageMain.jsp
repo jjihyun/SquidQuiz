@@ -3,8 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta charset="utf-8">
+	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
@@ -15,34 +14,46 @@
 
 	<!-- 사이트 이모티콘 -->
 	<link rel="shortcut icon" href="/static/img/photos/unsplash-1.jpg" />
-<title>Insert title here</title>
-<link href="css/app.css" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<title>마이페이지 메인</title>
+<link href="resources/css/app.css" rel="stylesheet">
+<link href="resources/js/app.js" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-	<div class="wrapper">
+		<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="index.html">
 					<img src="/src/img/icons/icon-48x48.png" alt="">
-          <span class="align-middle">회원정보수정</span>
+          <span class="align-middle">MY PAGE</span>
         </a>
 
 				<ul class="sidebar-nav">
 					<li class="sidebar-header">
-						목록
+						<img src="img/photos/회원이미지.png" alt="" style="width: 100px; margin-left: 50px;">
+						
 					</li>
 
 					<li class="sidebar-item active">
 						<a class="sidebar-link" href="index.html">
-              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">MY홈</span>
+              <i class="align-middle" data-feather="user"></i> <span class="align-middle">MY홈</span>
             </a>
 					</li>
-
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-profile.html">
-              <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">활동내역</span>
             </a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="pages-profile.html">
+              <i class="align-middle" data-feather="star"></i> <span class="align-middle">포인트</span>
+            </a>
+					</li>
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="pages-profile.html">
+              <i class="align-middle" data-feather="user-x"></i> <span class="align-middle">회원탈퇴</span>
+            </a>
+					</li>
 				</ul>
 			</div>
 		</nav>
@@ -62,18 +73,18 @@
 					<div class="row">
 						<div class="col-xl-6 col-xxl-5 d-flex">
 							<div class="w-100">
-								<div class="row">
-									<div class="col-sm-6">
+								<div class="row" >
+									<div class="col-sm-10">
 										<div class="card">
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Sales</h5>
+														<h5 class="card-title">보유 포인트</h5>
 													</div>
 
 													<div class="col-auto">
 														<div class="stat text-primary">
-															<i class="align-middle" data-feather="truck"></i>
+															<i class="align-middle" data-feather="star"></i>
 														</div>
 													</div>
 												</div>
@@ -85,10 +96,10 @@
 											</div>
 										</div>
 										<div class="card">
-											<div class="card-body">
+											<div class="card-body" >
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Visitors</h5>
+														<h5 class="card-title">총 기부금</h5>
 													</div>
 
 													<div class="col-auto">
@@ -100,48 +111,6 @@
 												<h1 class="mt-1 mb-3">14.212</h1>
 												<div class="mb-0">
 													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-													<span class="text-muted">Since last week</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Earnings</h5>
-													</div>
-
-													<div class="col-auto">
-														<div class="stat text-primary">
-															<i class="align-middle" data-feather="dollar-sign"></i>
-														</div>
-													</div>
-												</div>
-												<h1 class="mt-1 mb-3">$21.300</h1>
-												<div class="mb-0">
-													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-													<span class="text-muted">Since last week</span>
-												</div>
-											</div>
-										</div>
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">Orders</h5>
-													</div>
-
-													<div class="col-auto">
-														<div class="stat text-primary">
-															<i class="align-middle" data-feather="shopping-cart"></i>
-														</div>
-													</div>
-												</div>
-												<h1 class="mt-1 mb-3">64</h1>
-												<div class="mb-0">
-													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
 													<span class="text-muted">Since last week</span>
 												</div>
 											</div>
@@ -160,7 +129,7 @@
 							<div class="card flex-fill">
 								<div class="card-header">
 
-									<h5 class="card-title mb-0">Latest Projects</h5>
+									<h5 class="card-title mb-0">내가 쓴 게시물</h5>
 								</div>
 								<table class="table table-hover my-0">
 									<thead>

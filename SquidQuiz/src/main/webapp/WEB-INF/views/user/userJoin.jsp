@@ -77,39 +77,49 @@
     </div>
     <script type="text/javascript">
     
- 	var regex = /^[a-zA-Z0-9]{4,12}$/;
-	var result = regex.exec(id);
     
     $(function(){
         // 중복확인 & id 유효성검사             
         $("#id-check").on("click",function(){
             var id = $("#userId").val();
-    		$.ajax({
-				url : "checkDupId.ptsd", //이 아이디를
-				data : {"userId" : userId }, 
-				success : function(result){ //뿌려줌
-//					console.log(result);
-					
-		     
-				if(result != 0){
-		           			
-					alert("사용중인 아이디입니다.");
-					 $(".id-regex").css("color","red")		
-					
-				}else{
-					 $(".id-regex").html("");
-		             alert("사용가능한 아이디입니다.");
-				}
-				},
-				error : function(){
-					alert("ajax전송 실패! 관리자에게 문의하세요");
-				}
-				/*
-				complete : function(){
-				}*/
-			});
-		});
-  
+	        if(id == ""){
+	        	alert("아이디를 입력해주세요");
+	        	return;
+	        }
+	        
+	        var regex = /^[a-zA-Z0-9]{4,12}$/;
+	    	var result = regex.test(id);
+	        
+	    	 if(result){
+	             $(".id-regex").html("");
+	             // ajax code
+	             $.ajax({
+	     			url : "checkDupId.ptsd", //이 아이디를
+	     			data : {"userId" : id }, 
+	     			success : function(result){ //뿌려줌
+//	     				console.log(result);
+	     			if(result != 0){
+	     				alert("사용중인 아이디입니다.");
+	     				 $(".id-regex").css("color","red")		
+	     			}else{
+	     				 $(".id-regex").html("");
+	     	             alert("사용가능한 아이디입니다.");
+	     			}
+	     			},
+	     			error : function(){
+	     				alert("ajax전송 실패! 관리자에게 문의하세요");
+	     			}
+	     			/*
+	     			complete : function(){
+	     			}*/
+	     		});
+	         }else{
+	             $(".id-regex").html("영어 대소문자,숫자 4-12자리");
+	             $(".id-regex").css("color","red")
+	         }
+	        
+	        
+	    })
             
      
 	//비밀번호 유효성검사
