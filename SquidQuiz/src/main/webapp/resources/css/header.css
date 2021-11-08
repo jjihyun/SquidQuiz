@@ -33,11 +33,6 @@
     width: auto;
     
 }
-ul,ol,li{
-    list-style: none;
-    margin: 0;
-    height: 0;
-}
 .menu_area li{
     display: inline-block;
 }
