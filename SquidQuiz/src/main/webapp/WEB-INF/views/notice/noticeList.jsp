@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지/문의 게시판</title>
+<title>공지 list test </title>
 </head>
 <script>
 // $(document).ready(function(){
