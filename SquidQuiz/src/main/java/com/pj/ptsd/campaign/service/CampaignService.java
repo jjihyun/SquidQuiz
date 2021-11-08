@@ -9,5 +9,8 @@ public interface CampaignService {
 
 	public List<Campaign> printAll();
 	public Campaign printCampaignDetail(int campaignNo);
+	public int registerCampaign(Campaign campaign);
+	public int removeCampaign(int campaignNo);
+	
 	
 }

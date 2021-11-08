@@ -7,14 +7,18 @@
 		<result property="campaignType" column="CAMPAIGN_TYPE" />
 		<result property="campaignTitle" column="CAMPAIGN_TITLE" />
 		<result property="campaignContents" column="CAMPAIGN_CONTENTS" />
-		<result property="campaignLink" column="CAMPAIGN_LINK" />
-		<result property="campaignTargetAmount" column="CAMPAIGN_TARGET_AMOUNT" />
-		<result property="campaignNowAmount" column="CAMPAIGN_NOW_AMOUNT" />
-		<result property="campaignEndDate" column="CAMPAIGN_ENDDATE" />
-		<result property="campaignFileName" column="CAMPAIGN_FILE_NAME" />
-		<result property="campaignFileRename" column="CAMPAIGN_FILE_RENAME" />
-		<result property="campaignEnrollDate" column="CAMPAIGN_ENROLL_DATE" />
+		<result property="cLink" column="CAMPAIGN_LINK" />
+		<result property="cTargetAmount" column="CAMPAIGN_TARGET_AMOUNT" />
+		<result property="cNowAmount" column="CAMPAIGN_NOW_AMOUNT" />
+		<result property="cEndDate" column="CAMPAIGN_ENDDATE" />
+		<result property="cFileName" column="CAMPAIGN_FILE_NAME" />
+		<result property="cFileRename" column="CAMPAIGN_FILE_RENAME" />
+		<result property="cEnrollDate" column="CAMPAIGN_ENROLL_DATE" />
 	</resultMap>
+	
+	<insert id="insertCampaign" parameterType="Campaign">
+		INSERT INTO CAMPAIGN VALUES(SEQ_CAMPAIGN.NEXTVAL, #{campaignName}, #{campaignType}, #{campaignTitle}, #{campaignContents}, #{cLink}, #{cTargetAmount}, DEFAULT, #{cEndDate}, #{cFileName}, #{cFileRename}, SYSDATE)
+	</insert>
 	
 	<select id="selectCampaignList" resultMap="campaignResultMap">
 		SELECT * FROM CAMPAIGN ORDER BY CAMPAIGN_ENROLL_DATE DESC
@@ -23,4 +27,7 @@
 		SELECT * FROM CAMPAIGN WHERE CAMPAIGN_NO=#{campaignNo}
 	</select>
 	
+	<delete id="deleteCampaign" parameterType="_int">
+		DELETE FROM CAMPAIGN WHERE CAMPAIGN_NO=#{campaignNo}
+	</delete>
 </mapper>
