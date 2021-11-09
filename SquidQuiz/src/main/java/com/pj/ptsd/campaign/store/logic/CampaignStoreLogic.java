@@ -24,6 +24,12 @@ public class CampaignStoreLogic implements CampaignStore{
 		int count = sqlSession.selectOne("campaignMapper.selectListCount");
 		return count;
 	}
+	@Override
+	public int selectListTypeCount(String type) {
+		int count = sqlSession.selectOne("campaignMapper.selectTypeListCount", type);
+		return count;
+	}
+	
 	//캠페인 목록 조회
 	@Override
 	public List<Campaign> selectAll(PageInfo pi) {
@@ -32,18 +38,33 @@ public class CampaignStoreLogic implements CampaignStore{
 		List<Campaign> cList = sqlSession.selectList("campaignMapper.selectCampaignList", pi, rowBounds);
 		return cList;
 	}
-	//고정 기부처에 기부 최소 한번 유무 체크를 위해서.
+	//임시
+	@Override
+	public List<Campaign> selectAllType(PageInfo pi, String type) {
+		int offset =(pi.getCurrentPage()-1)*pi.getCampaignLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getCampaignLimit());
+		List<Campaign> cList = sqlSession.selectList("campaignMapper.selectCampaignTypeList", pi, rowBounds);
+		return cList;
+	}
+	//메인게임테이블에 값이 있는지 체크
 	@Override
 	public int selectAllDonation() {
 		int dRecord = sqlSession.selectOne("campaignMapper.selectAllDonation");
 		return dRecord;
 	}
-	//고정 기부처의 누적 기부금액
+	//고정 기부처의 누적 기부금액 조회
 	@Override
 	public int selectDonationSumPrice() {
 		int sumPrice = sqlSession.selectOne("campaignMapper.selectSumPrice");
 		return sumPrice;
 	}
+	//회차 기부금액 조회
+	@Override
+	public int selectDonationPrice() {
+		int dPrice = sqlSession.selectOne("campaignMapper.selectPrice");
+		return dPrice;
+	}
+	
 
 	//캠페인 상세조회
 	@Override
@@ -72,6 +93,7 @@ public class CampaignStoreLogic implements CampaignStore{
 		int result = sqlSession.update("campaignMapper.updateCampaign", campaign);
 		return result;
 	}
+
 
 
 }

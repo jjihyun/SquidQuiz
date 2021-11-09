@@ -100,7 +100,10 @@
 			</div>
 		</div>
 		<div style="position: absolute; left: 50%; transform: translateX(-50%);">
-			<button class="camp-btn" onclick="location.href='donationPay.ptsd'">기부하기</button>&nbsp;&nbsp;
+			<c:url var="cDonate" value="donationPay.ptsd">
+				<c:param name="campaignNo" value="${campaign.campaignNo }"></c:param>
+			</c:url>
+			<button class="camp-btn" onclick="${cDonate}">기부하기</button>&nbsp;&nbsp;
 			<button class="camp-btn">목록으로</button>
 		</div>
 	

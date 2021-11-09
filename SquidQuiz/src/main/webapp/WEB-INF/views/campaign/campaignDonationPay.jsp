@@ -7,6 +7,6 @@
 <title>캠페인 기부 결제페이지</title>
 </head>
 <body>
-	<h1>(후원제목)</h1>
+	<h1>기부 페이지</h1>
 </body>
 </html>

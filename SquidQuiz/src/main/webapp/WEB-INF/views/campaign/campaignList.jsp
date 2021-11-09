@@ -52,9 +52,9 @@
 	<div class="first">
 	<div style="text-align: center;">
 		<h2>이번주 퀴즈 참가 모음액</h2>
-		<h4>${dSumPrice }원</h4>
+		<h4>${dPrice }원</h4>
 		누적 모금액<br>
-		<h4>222,111,111원(임시)</h4>
+		<h4>${dSumPrice }원</h4>
 		<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBxlH6VeINFz3mZwrKiep8BaOjnfJZ86tP9w&usqp=CAU" alt="img 안뜸">
 		<h4>타이틀? 기부제목 적는 란</h4>
 		<button onclick="location.href='campaignStaticDetail.ptsd'">자세히 보기</button><br>
@@ -62,6 +62,7 @@
 		<button style="float:right; width:150px; height: 30px;" onclick="location.href='campaignWriteView.ptsd'">캠페인 글 작성</button>
 	</div>
 	<br><br>
+	<input type="hidden" name="campaignType" value="${type }">
 	<div id="nav-type">
 		<div class="campaign-type" onclick="campaignType('all')">전체</div>
 		<div class="campaign-type" onclick="campaignType('child')">아동, 청소년</div>
@@ -127,22 +128,23 @@
 	</div>
 	
 	<script type="text/javascript">
- 		function campaignType(f){
+  		function campaignType(f){
 			var type=f;
-			$.ajax({
+ 			$.ajax({
 				type:"get",
-				url:"campaignList.ptsd",
-				data:{"campaignType":type},
+				url:"campaignListJSON.ptsd",
+				data:{"campaignType":type, "cList":cList},
+				dataType:"json",
 				success:function(data){
-					//alert("성공!");
-					//alert(data);
+					alert(type);
+					alert("성공!");
 				},
 				error:function(){
 					alert("실패!");
 				}
 			});
 			//alert(type);
-		}
+		} 
 	</script>
 </body>
 </html>

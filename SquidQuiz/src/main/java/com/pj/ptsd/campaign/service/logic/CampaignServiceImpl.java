@@ -23,23 +23,39 @@ public class CampaignServiceImpl implements CampaignService{
 		int totalCount = store.selectListCount();
 		return totalCount;
 	}
+	@Override
+	public int getListTypeCount(String type) {
+		int totalCount = store.selectListTypeCount(type);
+		return totalCount;
+	}
 	//캠페인 목록 조회
 	@Override
 	public List<Campaign> printAll(PageInfo pi) {
 		List<Campaign> cList = store.selectAll(pi);
 		return cList;
 	}
-	//고정 기부처에 기부 최소 한번 유무 체크
+	@Override
+	public List<Campaign> printAllType(PageInfo pi, String type) {
+		List<Campaign> cList = store.selectAllType(pi, type);
+		return cList;
+	}
+	//메인게임테이블에 값이 있는지 체크
 	@Override
 	public int printAllDonationRecord() {
 		int dRecord = store.selectAllDonation();
 		return dRecord;
 	}
-	//고정 기부처의 누적 기부금, 회자 기부금 조회
+	//고정 기부처의 누적 기부금
 	@Override
 	public int printDonationRecord() {
 		int donationSumPrice = store.selectDonationSumPrice();
 		return donationSumPrice;
+	}
+	// 회자 기부금 조회
+	@Override
+	public int printOneDonationRecord() {
+		int dPrice = store.selectDonationPrice();
+		return dPrice;
 	}
 	
 	//캠페인 상세조회
