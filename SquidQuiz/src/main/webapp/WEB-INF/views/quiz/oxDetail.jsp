@@ -15,22 +15,9 @@
 	$(document).ready(function() {
 		$('#headerMain').load("/resources/html/header.jsp");
 	});
-	//선택 input:file 태그연결
-	function fnFileChange(input) {
-		$(input).closest('div').find('input:file').click();
-	}
-	//파일 읽어서 등록 이미지에 뿌려주기
-	function readURL(input, id) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				$("#" + id).attr('src', e.target.result);
-			}
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
 </script>
 <style>
+
 </style>
 <body>
 	<div id="headerMain"></div>
@@ -64,7 +51,7 @@
 					</a>
 					</li>
 					<li class="sidebar-item active"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="oxList.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">퀴즈관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
@@ -88,51 +75,73 @@
 
 			<main class="content">
 				<h1 class="h3 mb-3">
-					<strong>OX퀴즈</strong>
+					<strong>OX퀴즈 [${ox.oxNo }]번 상세</strong>
 				</h1>
 					<div class="oxTitle" align="center">
 						<!--<h1 align="center">OX퀴즈</h1> -->
 					</div>
 					<div class="writeArea">
-						<form action="oxRegitser.ptsd" method="post"
-							enctype="multipart/form-data">
-							<table class="writeForm">
+					<input type="hidden" value="${ox.oxNo }" id="xoNo">
+							<table class="writeForm" style="">
 								<tr>
-									<th>제목</th>
-									<td><input type="text" size="50" name="oxTitle"></td>
+									<td colspan="3">
+									<center><b>제목</b></center>
+									<div style="border: 1px solid rgb(219,219,219); height: 20px; border-radius: 20px;">
+										${ox.oxTitle }
+									</td>
 								</tr>
 								<tr>
-									<th>내용</th>
-									<td><input type="text" size="50" name="oxContents"></td>
+									<td colspan="3" width="150px">
+										<center><b>내용</b></center>
+										<div style="border: 1px solid rgb(219,219,219); height: 100px; border-radius: 20px">
+											${ox.oxContents }
+										</div>
+									</td>
 								</tr>
 								<tr>
-									<th>해설</th>
-									<td><textarea rows="7" cols="50" name="oxCommentary"></textarea></td>
+									<td colspan="3" width="150px">
+										<center><b>해설</b></center>
+										<div style="border: 1px solid rgb(219,219,219); height: 100px; border-radius: 20px">
+											${ox.oxCommentary }
+										</div>
+									</td>
 								</tr>
 								<tr>
 									<td colspan="3" width="150px" class="imgtd">
-										<div class="img_area">
-											<input id="oxFile" name="uploadFile" type="file"
-												style="display: none" onchange="readURL(this,'oxImg')">
-											<img class="preview" id="oxImg" src="/resources/img/poto.png"
-												onclick="javascript:$('#oxFile').click();">
-										</div>
 										<center><b>OX 이미지</b></center>
+										<div class="img_area">
+											<img class="poto" id="oxImg" src="/resources/oxuploadFiles/${ox.oxFileName }">
+										</div>
 									</td>
 <!-- 															<td><input type="file" size="50" name="uploadFile"></td> -->
 								</tr>
 								<tr>
-									<th>정답</th>
-									<td colspan="2"><input type="radio" name="oxAnswer"
-										value="O">O <input type="radio" name="oxAnswer"
-										value="x">X</td>
+									
+									<td colspan="1">
+									<center><b>정답</b></center>
+									<div style="border: 1px solid rgb(219,219,219); height: px; border-radius: 20px">
+										<center>${ox.oxAnswer }</center>
+									</div>
+									</td>
 								</tr>
 								<tr>
-									<td colspan="2"><input type="submit" value="등록">
-									 <input type="reset" value="취소"></td>
+									<td colspan="2">
+										<c:url var="oxModify" value="oxModify.ptsd">
+											<c:param name="oxNo" value="${ox.oxNo }"></c:param>
+										</c:url>
+										<c:url var="oxDelete" value="oxDelete.ptsd">
+											<c:param name="oxNo" value="${ox.oxNo }"></c:param>
+											<c:param name="oxFileName" value="${ox.oxFileName }"></c:param>
+										</c:url>
+											<a href="${oxModify }">
+												<button class="btn btn-success" style="width: 320px;">수정</button>
+											</a>
+											<a href="${oxDelete }">
+											<button class="btn btn-delete" style="width: 320px; border-color: pink; color:#fff; background: #FF3399">삭제</button>
+											</a>
+									</td>
 								</tr>
 							</table>
-						</form>
 					</div>
 			</main>
 
@@ -145,10 +154,5 @@
 		</div>
 	</div>
 	<script src="/resources/js/app.js"></script>
-	<script>
-		function showRegister(){
-			location.href="oxList.ptsd";
-		}
-	</script>
 </body>
 </html>

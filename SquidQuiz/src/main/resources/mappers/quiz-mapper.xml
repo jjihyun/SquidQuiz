@@ -18,7 +18,19 @@
 	<select id="selectAllList" resultMap="oxResultMap">
 		SELECT * FROM OX_QUIZ ORDER BY OX_NO DESC
 	</select>
+	<select id="selectOneOx" resultMap="oxResultMap">
+		SELECT * FROM OX_QUIZ WHERE OX_NO = #{oxNo}
+	</select>
+	
 	<insert id="insertOx" parameterType="Ox">
 		INSERT INTO OX_QUIZ VALUES(SEQ_OX_QUIZ.NEXTVAL,#{oxTitle},#{oxContents},#{oxCommentary},#{oxAnswer},SYSDATE,#{oxFileName},#{oxFileRename})
 	</insert>
+	
+	<update id="updateOx" parameterType="Ox">
+		UPDATE OX_QUIZ SET OX_TITLE = #{oxTitle} , OX_CONTENTS=#{oxContents}, OX_COMMENTARY=#{oxCommentary},OX_ANSWER=#{oxAnswer},OX_FILENAME=#{oxFileName},OX_FILERENAME=#{oxFileRename} WHERE OX_NO =#{oxNo}
+	</update>
+	
+	<delete id="deleteOx" parameterType="_int">
+		DELETE FROM OX_QUIZ WHERE OX_NO = #{oxNo}
+	</delete>
 </mapper>

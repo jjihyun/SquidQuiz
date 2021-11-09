@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ox퀴즈 리스트</title>
+<title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/resources/css/quiz/oxWrite.css">
 <link rel="stylesheet" href="/resources/css/app.css">
@@ -24,22 +24,31 @@
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html"> <img
+				<a class="sidebar-brand" href="#"> <img
 					src="/src/img/icons/icon-48x48.png" alt=""> <span
 					class="align-middle">관리자 홈 </span>
 				</a>
 
 				<ul class="sidebar-nav">
-					<li class="sidebar-header">목록</li>
-					
-					<li class="sidebar-item"><a class="sidebar-link"
-						href="#"> <i class="align-middle"
-							data-feather="sliders"></i> <span>회원정보수정</span>
-					</a></li>
-					<li class="sidebar-item"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
-							data-feather="user"></i> <span class="align-middle">퀴즈진행</span>
-					</a></li>
+					<li class="sidebar-header">
+						목록
+					</li>
+					<li class="sidebar-item">
+					<a class="sidebar-link"
+						href="index.html">
+						<i class="align-middle"
+							data-feather="sliders"></i>
+						<span>회원정보수정</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+					<a class="sidebar-link"
+						href="pages-profile.html"> 
+						<i class="align-middle"
+							data-feather="user"></i> 
+							<span class="align-middle">퀴즈진행</span>
+					</a>
+					</li>
 					<li class="sidebar-item active"><a class="sidebar-link"
 						href="pages-profile.html"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">퀴즈관리</span>
@@ -64,46 +73,67 @@
 			</nav>
 
 			<main class="content">
-				<div class="card flex-fill">
-					<div class="card-header">
-
-						<h5 class="card-title mb-0">OX퀴즈</h5>
+				<h1 class="h3 mb-3">
+					<strong>OX퀴즈 [${ox.oxNo }]번 상세</strong>
+				</h1>
+					<div class="oxTitle" align="center">
+						<!--<h1 align="center">OX퀴즈</h1> -->
 					</div>
-					<table class="table table-hover my-0">
-						<thead>
-							<tr>
-								<th>퀴즈번호</th>
-								<th class="d-none d-xl-table-cell">제목</th>
-								<th class="d-none d-xl-table-cell">내용</th>
-								<th>정답</th>
-								<th class="d-none d-md-table-cell">등록일</th>
-							</tr>
-						</thead>
-						<c:forEach items="${oxList }" var="ox">
-						<tbody>
-							<tr>
-								<td>Project Apollo</td>
-								<td class="d-none d-xl-table-cell">01/01/2021</td>
-								<td class="d-none d-xl-table-cell">31/06/2021</td>
-								<td><span class="badge bg-success">Done</span></td>
-								<td class="d-none d-md-table-cell">Vanessa Tucker</td>
-							</tr>
-						</tbody>
-						</c:forEach>
-					</table>
-				</div>
-		</div>
-	</div>
-	</main>
+					<div class="writeArea">
+					<input type="hidden" value="${ox.oxNo }" id="xoNo">
+							<table class="writeForm">
+								<tr>
+									<th>제목</th>
+									<td>${ox.oxTitle }</td>
+								</tr>
+								<tr>
+									<th>내용</th>
+									<td>${ox.oxContents }</td>
+								</tr>
+								<tr>
+									<td width="150px">
+									<b>해설</b>
+										<div style="border: 1px solid rgb(219,219,219); height: 300px">
+											${ox.oxCommentary }
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3" width="150px" class="imgtd">
+										<div class="img_area">
+											<img class="poto" id="oxImg" src="/resources/img/${ox.oxFileName }">
+										</div>
+										<center><b>OX 이미지</b></center>
+									</td>
+<!-- 															<td><input type="file" size="50" name="uploadFile"></td> -->
+								</tr>
+								<tr>
+									<th>정답</th>
+									<td colspan="1">${ox.oxAnswer }</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<button>수정</button>
+										<button>삭제</button>
+									</td>
+								</tr>
+							</table>
+					</div>
+			</main>
 
-	<footer class="footer">
-		<div class="container-fluid">
-			<div class="row text-muted"></div>
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="row text-muted">
+					</div>
+				</div>
+			</footer>
 		</div>
-	</footer>
-	</div>
 	</div>
 	<script src="/resources/js/app.js"></script>
-
+	<script>
+		function showRegister(){
+			location.href="oxList.ptsd";
+		}
+	</script>
 </body>
 </html>

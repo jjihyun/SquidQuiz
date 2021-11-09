@@ -38,3 +38,9 @@
 .preview:hover{
 	cursor: pointer;
 }
+.poto{
+	width:550px;
+	height: 250px;
+	margin: 20px;
+	margin-left: 35px;
+}

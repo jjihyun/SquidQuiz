@@ -53,6 +53,23 @@ public class QuizController {
 		return mv;
 	}
 	
+	//ox퀴즈 상세 조회
+	@RequestMapping(value="oxDetail.ptsd",method = RequestMethod.GET)
+	public ModelAndView oxDetail(
+			ModelAndView mv
+			,@RequestParam("oxNo")int oxNo) {
+		
+		Ox ox=service.printOne(oxNo);
+		if(ox!=null) {
+			mv.addObject("ox",ox);
+			mv.setViewName("quiz/oxDetail");
+		}else {
+			mv.addObject("msg","상세 조회 실패");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
 	//ox퀴즈 등록 폼으로 이동
 	@RequestMapping(value="quizWriteView.ptsd",method=RequestMethod.GET)
 	public String oxWriteView() {
@@ -75,7 +92,7 @@ public class QuizController {
 		
 		int result = service.registerOxQuiz(ox);
 		if(result > 0) {
-			return "redirect:main.ptsd";
+			return "redirect:oxList.ptsd";
 		}else {
 			model.addAttribute("msg","ox퀴즈 등록 실패");
 			return "common/errorPage";
@@ -105,5 +122,72 @@ public class QuizController {
 		}
 		
 		return filePath;
+	}
+	@RequestMapping(value="oxModify.ptsd")
+	public ModelAndView oxUpdateView(
+			ModelAndView mv
+			,@RequestParam("oxNo")int oxNo) {
+		Ox ox = service.printOne(oxNo);
+		if(ox !=null) {
+			mv.addObject("ox",ox);
+			mv.setViewName("quiz/oxUpdate");
+		}else {
+			mv.addObject("msg","상세 조회 실패");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="oxUpdate.ptsd")
+	public ModelAndView oxUpdate(
+			ModelAndView mv
+			,HttpServletRequest request
+			,@ModelAttribute Ox ox
+			,@RequestParam(value="reloadFile",required = false)MultipartFile reloadFile){
+		
+		if(reloadFile !=null) {
+			//기존 파일 삭제
+			if(ox.getOxFileName()!="") {
+				deleteFile(ox.getOxFileRename(),request);
+			}
+			String fileName = saveFile(reloadFile,request);
+			if(fileName != null) {
+				ox.setOxFileName(reloadFile.getOriginalFilename());
+				ox.setOxFileRename(fileName);
+			}
+		}
+		int result =service.modifyOxQuiz(ox);
+		if(result >0) {
+			mv.setViewName("redirect:oxList.ptsd");
+		}else {
+			mv.addObject("msg","수정 실패").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+
+	private void deleteFile(String oxFileRename, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String fullPath = root + "\\oxuploadFiles";
+		File file = new File(fullPath+"\\"+oxFileRename);
+		if(file.exists()) {
+			file.delete();//파일 삭제
+		}
+	}
+	@RequestMapping(value="oxDelete.ptsd",method=RequestMethod.GET)
+	private String oxDelete(
+			Model model
+			,@RequestParam("oxNo")int oxNo
+			,@RequestParam("oxFileName")String oxFileName
+			,HttpServletRequest request) {
+		int result =service.removeOxQuiz(oxNo);
+		if(result > 0) {
+			if(oxFileName != "") {
+				deleteFile(oxFileName,request);
+			}
+			return "redirect:oxList.ptsd";
+		}else {
+			model.addAttribute("msg","삭제실패");
+			return "common/errorPage";
+		}
 	}
 }

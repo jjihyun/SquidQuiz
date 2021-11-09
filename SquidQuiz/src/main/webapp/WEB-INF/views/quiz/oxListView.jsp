@@ -19,6 +19,9 @@
 	});
 </script>
 <style>
+a:link{color:#495057;	text-decoration: none;} 
+a:visited{color:#495057;	text-decoration: none;}
+a:hover{color:#495057;	text-decoration: none;}
 </style>
 <body>
 	<div id="headerMain"></div>
@@ -43,7 +46,7 @@
 							data-feather="user"></i> <span class="align-middle">퀴즈진행</span>
 					</a></li>
 					<li class="sidebar-item active"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="oxList.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">퀴즈관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
@@ -70,7 +73,7 @@
 					<div class="card-header">
 						<h5 class="card-title mb-0">OX퀴즈</h5>
 					</div>
-						<button class="btn btn-success" style="opacity: 0.7; color: black;" >OX퀴즈등록</button>
+						<button id="" class="btn btn-success" style="opacity: 0.7; color: black;" onclick="location.href='quizWriteView.ptsd';">OX퀴즈등록</button>
 					<table class="table table-hover my-0">
 						<thead>
 							<tr>
@@ -85,7 +88,12 @@
 						<tbody>
 							<tr>
 								<td>${ox.oxNo }</td>
-								<td class="d-none d-xl-table-cell">${ox.oxTitle}</td>
+								<td class="d-none d-xl-table-cell">
+									<c:url var="oxDetail" value="oxDetail.ptsd">
+										<c:param name="oxNo" value="${ox.oxNo }"></c:param>
+									</c:url>
+									<a href="${oxDetail }">${ox.oxTitle }</a>
+								</td>
 								<td class="d-none d-xl-table-cell">${ox.oxContents }</td>
 								<td><span class="badge bg-success">${ox.oxAnswer }</span></td>
 								<td class="d-none d-md-table-cell">
@@ -142,6 +150,5 @@
 	</div>
 	</div>
 	<script src="/resources/js/app.js"></script>
-
 </body>
 </html>
