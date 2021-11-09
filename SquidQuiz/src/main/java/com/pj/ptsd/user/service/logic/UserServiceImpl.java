@@ -18,6 +18,11 @@ public class UserServiceImpl implements UserService{
 		User uOne = store.selectMember(userOne);
 		return uOne;
 	}
+	@Override
+	public User readMember(User userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public int checkIdDup(String userId) {
@@ -33,8 +38,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int modifyMember(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.updateMember(user);
+		return result;
 	}
 
 	@Override
@@ -42,5 +47,7 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 }
