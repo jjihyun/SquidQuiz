@@ -23,14 +23,14 @@ public class QuizStoreLogic implements QuizStore{
 
 	@Override
 	public int updateOxQuiz(Ox ox) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.update("quizMapper.updateOx",ox);
+		return result;
 	}
 
 	@Override
 	public int deleteOxQuiz(int oxNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.delete("quizMapper.deleteOx",oxNo);
+		return result;
 	}
 	//OX퀴즈 갯수 조회
 	@Override
@@ -49,8 +49,8 @@ public class QuizStoreLogic implements QuizStore{
 
 	@Override
 	public Ox selectOne(int oxNo) {
-		// TODO Auto-generated method stub
-		return null;
+		Ox ox = sqlSession.selectOne("quizMapper.selectOneOx",oxNo);
+		return ox;
 	}
 
 }

@@ -64,7 +64,7 @@
 					</a>
 					</li>
 					<li class="sidebar-item active"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="oxList.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">퀴즈관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
@@ -88,33 +88,35 @@
 
 			<main class="content">
 				<h1 class="h3 mb-3">
-					<strong>OX퀴즈</strong>
+					<strong>OX퀴즈 [${ox.oxNo }]번 수정</strong>
 				</h1>
 					<div class="oxTitle" align="center">
 						<!--<h1 align="center">OX퀴즈</h1> -->
 					</div>
 					<div class="writeArea">
-						<form action="oxRegitser.ptsd" method="post"
+						<form action="oxUpdate.ptsd" method="post"
 							enctype="multipart/form-data">
+							<input type="hidden" name="oxNo" value="${ox.oxNo }">
+							<input type="hidden" name="oxFileName" value="${ox.oxFileName }">
 							<table class="writeForm">
 								<tr>
 									<th>제목</th>
-									<td><input type="text" size="50" name="oxTitle"></td>
+									<td><input type="text" size="50" name="oxTitle" value="${ox.oxTitle}"></td>
 								</tr>
 								<tr>
 									<th>내용</th>
-									<td><input type="text" size="50" name="oxContents"></td>
+									<td><input type="text" size="50" name="oxContents" value="${ox.oxContents }"></td>
 								</tr>
 								<tr>
 									<th>해설</th>
-									<td><textarea rows="7" cols="50" name="oxCommentary"></textarea></td>
+									<td><textarea rows="7" cols="50" name="oxCommentary">${ox.oxCommentary }</textarea></td>
 								</tr>
 								<tr>
 									<td colspan="3" width="150px" class="imgtd">
 										<div class="img_area">
-											<input id="oxFile" name="uploadFile" type="file"
+											<input id="oxFile" name="reloadFile" type="file"
 												style="display: none" onchange="readURL(this,'oxImg')">
-											<img class="preview" id="oxImg" src="/resources/img/poto.png"
+											<img class="preview" id="oxImg" src="/resources/uploadFiles/${ox.oxFileName }"
 												onclick="javascript:$('#oxFile').click();">
 										</div>
 										<center><b>OX 이미지</b></center>
@@ -124,11 +126,11 @@
 								<tr>
 									<th>정답</th>
 									<td colspan="2"><input type="radio" name="oxAnswer"
-										value="O">O <input type="radio" name="oxAnswer"
+										value="O">O<input type="radio" name="oxAnswer"
 										value="x">X</td>
 								</tr>
 								<tr>
-									<td colspan="2"><input type="submit" value="등록">
+									<td colspan="2"><input type="submit" value="수정">
 									 <input type="reset" value="취소"></td>
 								</tr>
 							</table>

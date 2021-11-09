@@ -22,14 +22,14 @@ public class QuizServiceImpl implements QuizService{
 
 	@Override
 	public int modifyOxQuiz(Ox ox) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.updateOxQuiz(ox);
+		return result;
 	}
 
 	@Override
 	public int removeOxQuiz(int oxNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.deleteOxQuiz(oxNo);
+		return result;
 	}
 
 	@Override
@@ -46,8 +46,8 @@ public class QuizServiceImpl implements QuizService{
 
 	@Override
 	public Ox printOne(int oxNo) {
-		// TODO Auto-generated method stub
-		return null;
+		Ox ox = store.selectOne(oxNo);
+		return ox;
 	}
 
 
