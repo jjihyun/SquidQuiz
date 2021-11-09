@@ -13,7 +13,7 @@
 	</resultMap>
 	
 	<select id="selectQnaList" resultMap="qnaResultMap">
-		SELECT * FROM QNA ORDER BY QNA_DATE DESC
+		SELECT * FROM QNA ORDER BY QNA_NO DESC
 	</select>
 	
 	<select id="selectOneQna" parameterType="_int" resultMap="qnaResultMap">
@@ -25,7 +25,11 @@
 	</select>
 	
 	<select id="selectListCount" resultType="_int">
-		SELECT COUNT(*) FROM BOARD
+		SELECT COUNT(*) FROM QNA
+	</select>
+	
+	<select id="selectOwnListCount" resultType="_int">
+		SELECT COUNT(*) FROM QNA WHERE USER_NO=#{userNo}
 	</select>
 	
 	<insert id="insertQna" parameterType="Qna">

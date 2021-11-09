@@ -2,15 +2,16 @@ package com.pj.ptsd.qna.store;
 
 import java.util.List;
 
+import com.pj.ptsd.qna.domain.PageInfo;
 import com.pj.ptsd.qna.domain.Qna;
 
 public interface QnaStore {
 		//전체 조회
-		public List<Qna> selectAllQna();
+		public List<Qna> selectAllQna(PageInfo pi);
 		//상세 조회 ( 1개 )
 		public Qna selectOneQna(int qnaNo);
 		//리스트 조회(회원) 
-		public List<Qna> selectQnaById(int userNo);
+		public List<Qna> selectQnaById(PageInfo pi, int userNo);
 		//qna 작성(회원)
 		public int insertQna(Qna qna);
 		//삭제
@@ -19,4 +20,6 @@ public interface QnaStore {
 		public int updateAnswer(Qna qna);
 		//게시물 전체 개수
 		public int selectListCount();
+		//회원 게시물 개수
+		public int selectOwnListCount(int userNo);
 }

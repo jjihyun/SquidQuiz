@@ -2,10 +2,12 @@ package com.pj.ptsd.qna.store.logic;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pj.ptsd.qna.domain.PageInfo;
 import com.pj.ptsd.qna.domain.Qna;
 import com.pj.ptsd.qna.store.QnaStore;
 
@@ -15,8 +17,10 @@ public class QnaStoreLogic implements QnaStore {
 	private SqlSessionTemplate sqlSession;
 	//전체조회
 	@Override
-	public List<Qna> selectAllQna() {
-		List<Qna> qList = sqlSession.selectList("qnaMapper.selectQnaList");
+	public List<Qna> selectAllQna(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		List<Qna> qList = sqlSession.selectList("qnaMapper.selectQnaList", pi, rowBounds);
 		return qList;
 	}
 	//상세조회
@@ -51,9 +55,17 @@ public class QnaStoreLogic implements QnaStore {
 	}
 	//리스트조회(회원)
 	@Override
-	public List<Qna> selectQnaById(int userNo) {
-		List<Qna> qList = sqlSession.selectList("qnaMapper.selectQnaById", userNo);
+	public List<Qna> selectQnaById(PageInfo pi, int userNo) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		List<Qna> qList = sqlSession.selectList("qnaMapper.selectQnaById",userNo, rowBounds);
 		return qList;
+	}
+	//회원이 작성한 게시글 개수 조회
+	@Override
+	public int selectOwnListCount(int userNo) {
+		int result = sqlSession.selectOne("qnaMapper.selectOwnListCount",userNo);
+		return result;
 	}
 
 }
