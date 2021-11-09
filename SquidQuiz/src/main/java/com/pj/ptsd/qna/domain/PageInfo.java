@@ -16,6 +16,8 @@ public class PageInfo {
 	// 페이지 마지막 번호
 	private int maxPage;
 	
+	private int userNo;
+	
 	public PageInfo() {}
 
 	public PageInfo(int currentPage, int boardLimit, int naviLimit, int startNavi, int endNavi, int totalCount,
@@ -28,6 +30,14 @@ public class PageInfo {
 		this.endNavi = endNavi;
 		this.totalCount = totalCount;
 		this.maxPage = maxPage;
+	}
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
 
 	public int getCurrentPage() {

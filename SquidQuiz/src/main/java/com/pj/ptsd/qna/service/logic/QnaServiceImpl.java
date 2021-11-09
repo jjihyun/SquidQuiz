@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pj.ptsd.qna.domain.PageInfo;
 import com.pj.ptsd.qna.domain.Qna;
 import com.pj.ptsd.qna.service.QnaService;
 import com.pj.ptsd.qna.store.QnaStore;
@@ -15,8 +16,8 @@ public class QnaServiceImpl implements QnaService {
 	private QnaStore store;
 	//전체조회
 	@Override
-	public List<Qna> printAllQna() {
-		List<Qna> qList = store.selectAllQna();
+	public List<Qna> printAllQna(PageInfo pi) {
+		List<Qna> qList = store.selectAllQna(pi);
 		return qList;
 	}
 	//상세조회
@@ -43,16 +44,24 @@ public class QnaServiceImpl implements QnaService {
 		int result = store.updateAnswer(qna);
 		return result;
 	}
-	//개수 조회
+	
+
+	//리스트 조회 (회원 )
 	@Override
-	public int getListCount() {
+	public List<Qna> printQnaById(PageInfo pi, int userNo) {
+		List<Qna> qList=store.selectQnaById(pi, userNo);
+		return qList;
+	}
+	//전체개수 조회
+	@Override
+	public int getAllListCount() {
 		int result = store.selectListCount();
 		return result;
 	}
-	//리스트 조회 (회원 )
+	//회원이 작성한 문의글 개수 조회
 	@Override
-	public List<Qna> printQnaById(int userNo) {
-		List<Qna> qList=store.selectQnaById(userNo);
-		return qList;
+	public int getOwnListCount(int userNo) {
+		int result = store.selectOwnListCount(userNo);
+		return result;
 	}
 }

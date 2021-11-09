@@ -27,22 +27,27 @@ public class QnaController {
 	@RequestMapping(value="qnaListView.ptsd", method=RequestMethod.GET)
 	public String qnaListView(Model model, HttpServletRequest request, @RequestParam(value="page",required=false) Integer page) {
 		int currentPage = (page!=null) ? page : 1 ;
-		int totalCount = service.getListCount();
-		PageInfo pi = QnaPagination.getPageInfo(currentPage, totalCount);
+		int totalCount = 0;
 		HttpSession session = request.getSession();
-		String adminType = "Y";
-//				(String)session.getAttribute("adminType");
-		int userNo = 2;
+		int userNo = 1;
 //				Integer.parseInt((String)(session.getAttribute("userNo")));
+		String adminType = "N";
+//				(String)session.getAttribute("adminType");
+		if(adminType=="Y") {
+			totalCount = service.getAllListCount();
+		}else if(adminType=="N") {
+			totalCount = service.getOwnListCount(userNo);
+		}
+		PageInfo pi = QnaPagination.getPageInfo(currentPage, totalCount);
 		
 		try {
 			List<Qna> qList = null;
 			
 			if (adminType == "Y") {
-				qList = service.printAllQna();
+				qList = service.printAllQna(pi);
 				
 			} else {
-				qList = service.printQnaById(userNo);
+				qList = service.printQnaById(pi,userNo);
 			}
 			if (!qList.isEmpty()) {
 				model.addAttribute("qList", qList);

@@ -6,39 +6,71 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항 상세</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="/resources/css/app.css">
 </head>
+<style>
+	th {
+		width:120px;
+	}
+</style>
 <body>
+<script>
+		//자바스크립트로 헤더 파일 받아오는 소스 
+		$(document).ready(function() {
+			$('#headerMain').load("/resources/html/header.jsp");
+		});
+</script>
+<div id="headerMain"></div><br><br><br>
+	<h1 align="center" style="font-size:44px">공지사항</h1>
+	<br><br>
+	<main id="main">
+		<div class="container">
+				<input type="hidden" value="${notice.noticeNo }" name="noticeNo">
+ 					<div class="row">
+						<table class="table">
+						  <thead>
+						    <tr>
+						      <th scope="col">제목</th>
+						      <td colspan="3">${notice.noticeTitle }</td>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <th scope="row">작성일</th>
+						      <td >${notice.noticeDate }</td>
+						      <td colspan="2">&nbsp;</td>
+						    </tr>
+						    <tr>
+						    	<td>&nbsp;</td>
+						      <td colspan="3">${notice.noticeContents }</td>
+						    </tr>
+						    <tr>
+						     
+							
+						    </tr>
+						  </tbody>
+						</table>
+					</div>
 
-<table align="center" width="450" border="1">
-		<tr>
-			<td>번호</td>
-			<td>${notice.noticeNo }</td>
-		</tr>
-		<tr>
-			<td>제목</td>
-			<td>${notice.noticeTitle }</td>
-		</tr>
-		<tr>
-			<td>작성날짜</td>
-			<td>${notice.noticeDate }</td>
-		</tr>
-		<tr height="300">
-			<td>내용</td>
-			<td>${notice.noticeContents }</td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<c:url var="nModify" value="noticeModifyView.ptsd">
-					<c:param name="noticeNo" value="${notice.noticeNo }"></c:param>
-				</c:url>
-				<c:url var="nDelete" value="noticeRemove.ptsd">
-					<c:param name="noticeNo" value="${notice.noticeNo }"></c:param>
-				</c:url>
-				<a href="${nModify }">수정페이지로 이동</a>
-				<a href="${nDelete }">삭제하기</a>
-			</td>
-		</tr>
-	</table>
-	<br><br><br><br><br>
+					<section>
+						
+						<div id="back-btn">
+							<a class="btn btn-secondary btn-lg" href="qnaListView.ptsd" role="button">목록으로</a>
+							<c:url var="nDelete" value="noticeRemove.ptsd">
+								<c:param name="noticeNo" value="${notice.noticeNo }"></c:param>
+							</c:url>
+							<c:url var="nModify" value="noticeModifyView.ptsd">
+								<c:param name="noticeNo" value="${notice.noticeNo }"></c:param>
+							</c:url>
+							<a href="${nDelete }" class="btn btn-secondary btn-lg">삭제하기</a>
+							<a href="${nModify }" class="btn btn-secondary btn-lg">수정하기</a>
+						</div>
+					</section>
+		</div>
+	</main>
+	<script>
+	
+	</script>
 </body>
 </html>
