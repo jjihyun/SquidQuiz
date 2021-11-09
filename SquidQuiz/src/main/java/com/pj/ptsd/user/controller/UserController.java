@@ -2,11 +2,14 @@ package com.pj.ptsd.user.controller;
 
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -98,10 +101,36 @@ public class UserController {
 		   int result = service.checkIdDup(userId);
 		   return String.valueOf(result);
 	   }
+	   
+	   //마이페이지 회원정보 화면
+		@RequestMapping(value="mypageUser.ptsd", method=RequestMethod.GET)
+		public String userList(Model model) {
+			return "mypage/mypageUser";
+		}
+	   
+	   //마이페이지 회원정보 수정
+	   @RequestMapping(value = "memberModify.ptsd", method = RequestMethod.POST)
+	    public String MemberListOne(@ModelAttribute User user
+				, @RequestParam("post") String post
+				, @RequestParam("address1") String address1
+				, @RequestParam("address2") String address2
+				, Model model) {
+		   user.setUserAddr(post+","+address1+","+address2);
+
+		   try {
+				int result = service.modifyMember(user);
+				if(result > 0) {
+					return "redirect:mypageUser.ptsd";
+				}else {
+					model.addAttribute("msg", "회원 정보 수정 실패!");
+					return "common/errorPage";
+				}
+			} catch(Exception e) {
+				model.addAttribute("msg", "회원 정보 수정 실패!");
+				return "common/errorPage";
+			}
+		}
+	    }
+	   
 
 	
-
-
-
-
-}

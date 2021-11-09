@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
@@ -35,6 +34,7 @@
 				<ul class="sidebar-nav">
 					<li class="sidebar-header">
 						<img src="img/photos/회원이미지.png" alt="" style="width: 100px; margin-left: 50px;">
+						<input type="text" id="my-userId" name="my-userId" style="margin-left: 10px;"> 
 						
 					</li>
 
@@ -124,9 +124,7 @@
 							</div>
 						</div>
 					</div>
-
-					
-						
+	
 					<!-- 게시판 -->
 					<div class="row">
 						<div class="col-12 col-lg-8 col-xxl-9 d-flex">

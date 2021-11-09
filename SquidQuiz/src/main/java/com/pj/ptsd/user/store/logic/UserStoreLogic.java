@@ -18,6 +18,11 @@ public class UserStoreLogic implements UserStore{
 		User uOne = sqlSession.selectOne("userMapper.selectLoginUser", userOne);
 		return uOne;
 	}
+	@Override
+	public User selectReadMember(User userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public int checkIdDup(String userId) {
@@ -33,8 +38,8 @@ public class UserStoreLogic implements UserStore{
 
 	@Override
 	public int updateMember(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.update("userMapper.updateUser", user);
+		return result;
 	}
 
 	@Override
@@ -42,5 +47,7 @@ public class UserStoreLogic implements UserStore{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
 
 }
