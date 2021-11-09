@@ -3,8 +3,11 @@ package com.pj.ptsd.quiz.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.pj.ptsd.campaign.Pagination;
 import com.pj.ptsd.quiz.domain.Ox;
+import com.pj.ptsd.quiz.domain.PageData;
+import com.pj.ptsd.quiz.domain.QuizPagenation;
 import com.pj.ptsd.quiz.service.QuizService;
 
 @Controller
@@ -24,12 +31,34 @@ public class QuizController {
 	@Autowired
 	private QuizService service;
 	
-	//퀴즈 등록 폼으로 이동
+	//ox리스트
+	@RequestMapping(value="oxList.ptsd",method=RequestMethod.GET)
+	public ModelAndView oxListView(
+			ModelAndView mv
+			,@RequestParam(value="page",required = false)Integer page
+			,HttpServletRequest request) {
+		int currentPage = (page != null) ? page:1;
+		int totalCount = service.getListCount();
+		PageData pd = QuizPagenation.getPageData(currentPage, totalCount);
+		HttpSession session = request.getSession();
+		List<Ox> oxList = service.printAll(pd);
+		if(!oxList.isEmpty()) {
+			mv.addObject("oxList",oxList);
+			mv.addObject("pd",pd);
+			mv.setViewName("quiz/oxListView");
+		}else {
+			mv.addObject("msg","전체 조회 실패");
+			mv.addObject("common/errorPage");
+		}
+		return mv;
+	}
+	
+	//ox퀴즈 등록 폼으로 이동
 	@RequestMapping(value="quizWriteView.ptsd",method=RequestMethod.GET)
 	public String oxWriteView() {
 		return "quiz/oxWriteForm";
 	}
-	//퀴즈 등록
+	//ox퀴즈 등록
 	@RequestMapping(value="oxRegitser.ptsd",method = RequestMethod.POST)
 	public String registerOx(
 			@ModelAttribute Ox ox

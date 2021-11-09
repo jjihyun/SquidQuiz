@@ -1,9 +1,12 @@
 package com.pj.ptsd.quiz.service.logic;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pj.ptsd.quiz.domain.Ox;
+import com.pj.ptsd.quiz.domain.PageData;
 import com.pj.ptsd.quiz.service.QuizService;
 import com.pj.ptsd.quiz.store.QuizStore;
 @Service
@@ -28,5 +31,24 @@ public class QuizServiceImpl implements QuizService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public int getListCount() {
+		int totalCount = store.selectListCount();
+		return totalCount;
+	}
+	
+	@Override
+	public List<Ox> printAll(PageData pd) {
+		List<Ox> oxList = store.selectAll(pd);
+		return oxList;
+	}
+
+	@Override
+	public Ox printOne(int oxNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
