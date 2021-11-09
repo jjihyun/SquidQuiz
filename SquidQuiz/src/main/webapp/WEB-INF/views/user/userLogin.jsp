@@ -9,13 +9,11 @@
 <link rel="stylesheet" href="/resources/css/login.css">
 </head>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>
-	//헤더
-	$(document).ready(function(){
-		$('#headerMain').load("/resources/html/header.jsp");
-	});
-</script>
 <body>
+	<header>
+		<jsp:include page="../../../resources/html/header.jsp"/>
+	</header>
+	<br><hr><br><br><br><br>
     <main>
         <h1 align="center">LOGIN</h1>
         <img align="center" class="myLogo" src="resources/img/myPageLogo.png" />

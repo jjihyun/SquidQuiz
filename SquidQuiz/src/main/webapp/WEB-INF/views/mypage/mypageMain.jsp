@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +14,16 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 
 	<!-- 사이트 이모티콘 -->
-	<link rel="shortcut icon" href="/static/img/photos/unsplash-1.jpg" />
+	<link rel="shortcut icon" href="/resources/img/photos/초대.png" />
 <title>마이페이지 메인</title>
-<link href="resources/css/app.css" rel="stylesheet">
-<link href="resources/js/app.js" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/resources/css/app.css">
+<link rel="stylesheet" href="/resources/js/app.js">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
 </head>
 <body>
+	<header>
+		<jsp:include page="../../../resources/html/header.jsp"/>
+	</header>
 		<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
