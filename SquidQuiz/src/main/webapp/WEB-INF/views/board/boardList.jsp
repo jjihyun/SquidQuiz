@@ -20,31 +20,57 @@
 		<th>날짜</th>
 		<th>첨부파일</th>
 	</tr>
-	<c:forEach>
-		<tr>
-			<td>${board.boardNo }</td>
-			<td>
-				<c:url>
-					<c:param name="boardNo" value="${board.boardNo }"></c:param>
+	<c:forEach items="${bList }" var="board">
+			<tr>
+				<td>${board.boardNo }</td>
+				<td>
+					<c:url var="bDetail" value="boardDetail.ptsd">
+						<c:param name="boardNo" value="${board.boardNo }"></c:param>
+					</c:url>
+					<a href="${bDetail }">${board.bTitle }</a>
+				</td>
+				<td>${board.bWriter }</td>
+				<td>${board.bCreateDate }</td>
+				<td>
+					<c:if test="${!empty board.bFileName }">O</c:if>
+					<c:if test="${ empty board.bFileName }">X</c:if>
+				</td>
+			</tr>
+		</c:forEach>
+		<tr align="center" height="20">
+			<td colspan="6">
+				<c:url var="before" value="boardList.kh">
+					<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 				</c:url>
+				<c:if test="${pi.currentPage <= 1 }">
+					[이전]
+				</c:if>
+				<c:if test="${pi.currentPage > 1 }">
+					<a href="${before }">[이전]</a>
+				</c:if>
+				<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
+					<c:url var="pagination" value="boardList.kh">
+						<c:param name="page" value="${p }"></c:param>
+					</c:url>
+					<c:if test="${p eq pi.currentPage }">
+						<font color="red" size="4">[${p }]</font>
+					</c:if>
+					<c:if test="${p ne pi.currentPage }">
+						<a href="${pagination }">${p }</a>&nbsp;
+					</c:if>
+				</c:forEach>
+				<c:url var="after" value="boardList.kh">
+					<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
+				</c:url>
+				<c:if test="${pi.currentPage >= pi.maxPage }">
+					[다음]
+				</c:if>
+				<c:if test="${pi.currentPage < pi.maxPage }">
+					<a href="${after }">[다음]</a>
+				</c:if>
 			</td>
-		
-		
 		</tr>
-	
-	
-	
-	
-	</c:forEach>
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	</table>
 </body>
 </html>
 

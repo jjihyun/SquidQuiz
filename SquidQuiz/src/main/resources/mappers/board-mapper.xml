@@ -17,7 +17,9 @@
 		<result property="bUpdateDate" column="B_UPDATE_DATE"/>
 	</resultMap>
 
-	
+<!-- 	<insert> -->
+<!-- 		INSERT INTO BOARD VALUES(SEQ_BOARDNUM_NEXTVAL,#{bTitle }, #{bContents }, #{userNo }, #{bFileName }, #{bFileRename }, DEFAULT, DEFAULT, DEFAULT, DEFAULT) -->
+<!-- 	</insert> -->
 
 
 

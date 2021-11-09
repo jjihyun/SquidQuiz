@@ -37,8 +37,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int registerBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.insertBoard(board);
+		return result;
 	}
 
 	@Override
@@ -79,6 +79,12 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int removeReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getListCount() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
