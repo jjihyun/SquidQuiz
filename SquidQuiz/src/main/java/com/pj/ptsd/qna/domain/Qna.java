@@ -4,13 +4,13 @@ import java.sql.Date;
 
 public class Qna {
 	private int qnaNo;
-	private int userNo;
+	private String userId;
 	private String qnaTitle;
 	private String qnaContents;
 	private Date qCreateDate;
 	private String qnaAnswer;
 	private Date qAnswerDate;
-	
+
 	
 	//default constructor
 	public Qna() {}
@@ -23,12 +23,8 @@ public class Qna {
 	public void setQnaNo(int qnaNo) {
 		this.qnaNo = qnaNo;
 	}
-	public int getUserNo() {
-		return userNo;
-	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
-	}
+	
+	
 	public String getQnaTitle() {
 		return qnaTitle;
 	}
@@ -60,10 +56,23 @@ public class Qna {
 		this.qAnswerDate = qAnswerDate;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+
+
 	//toString
+	
 	@Override
 	public String toString() {
-		return "Qna [qnaNo=" + qnaNo + ", userNo=" + userNo + ", qnaTitle=" + qnaTitle + ", qnaContents=" + qnaContents
+		return "Qna [qnaNo=" + qnaNo + ", userId=" + userId + ", qnaTitle=" + qnaTitle + ", qnaContents=" + qnaContents
 				+ ", qCreateDate=" + qCreateDate + ", qnaAnswer=" + qnaAnswer + ", qAnswerDate=" + qAnswerDate + "]";
 	}
 	

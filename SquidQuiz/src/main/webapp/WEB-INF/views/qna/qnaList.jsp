@@ -39,13 +39,14 @@
 			      <th align="center">번호</th>
 			      <th align="center" colspan="2" width="200px">제목</th> 
 			      <th align="center">답변상태</th>
+			      <th align="center">작성자</th>
 			      <th align="center">게시일</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			  	<c:if test="${empty qList }">
 					<tr>
-						<td colspan="5" align="center">조회된 정보가 없습니다.</td>
+						<td colspan="6" align="center">조회된 정보가 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:if test="${not empty qList }">
@@ -73,12 +74,13 @@
 									<label class="btn btn-warning" for="btn-check-3">답변대기</label>
 								</td>
 							</c:if>
+							<td align="center">${qna.userId }</td>
 							<td align="center">${qna.qCreateDate }</td>
 						</tr>
 					</c:forEach>
 				</c:if>
 				<tr>
-					<td align="center" colspan="5">
+					<td align="center" colspan="6">
 						<c:url var="before" value="qnaListView.ptsd">
 							<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 						</c:url>
@@ -88,10 +90,17 @@
 						<c:if test="${pi.currentPage > 1 }">
 							<a id="title-a" href="${before }">[이전]</a>
 						</c:if>
+						<!-- 검색시 페이징 처리 X -->
+						<c:if test="${pi.startNavi eq null }">
+								<font color="black" size="4">[1]</font>
+						</c:if>
+						<c:if test="${pi.startNavi ne null }">
 						<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
+							
 							<c:url var="pagination" value="qnaListView.ptsd">
 								<c:param name="page" value="${p }"></c:param>
 							</c:url>
+							
 							<c:if test="${p eq pi.currentPage }">
 								<font color="black" size="4">[${p }]</font>
 							</c:if>
@@ -99,6 +108,7 @@
 								<a id="title-a" href="${pagination }">${p }</a>&nbsp;
 							</c:if>
 						</c:forEach>
+						
 						<c:url var="after" value="qnaListView.ptsd">
 							<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 						</c:url>
@@ -107,6 +117,7 @@
 						</c:if>
 						<c:if test="${pi.currentPage < pi.maxPage }">
 							<a id="title-a" href="${after }">[다음]</a>
+						</c:if>
 						</c:if>
 					</td>
 				</tr>
@@ -119,6 +130,19 @@
 			    </tr>
 		  </tbody>
 		</table>
+		<div align="center">
+		<form action="qnaSearch.ptsd" method="get">
+			<select name="searchCondition">
+				<option value="all" <c:if test="${search.searchCondition == 'all' }">selected</c:if>>전체</option>
+				<option value="writer" <c:if test="${search.searchCondition == 'writer' }">selected</c:if>>작성자</option>
+				<option value="title" <c:if test="${search.searchCondition == 'title' }">selected</c:if>>제목</option>
+				<option value="contents" <c:if test="${search.searchCondition == 'contents' }">selected</c:if>>내용</option>
+			</select>
+			<input type="hidden" name="page" value="1">
+			<input type="text" name="searchValue" value="${search.searchValue }">
+			<input type="submit" value="검색">
+		</form>
+	</div>
 	</div>
 	</main>
 	

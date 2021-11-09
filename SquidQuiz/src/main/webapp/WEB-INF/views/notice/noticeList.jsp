@@ -35,7 +35,7 @@
 			    <tr align="center">
 			      <th align="center">번호</th>
 			      <th align="center" colspan="2" width="200px">제목</th> 
-			      <th align="center"> &nbsp;</th>
+			      <th align="center"> 작성자</th>
 			      <th align="center">게시일</th>
 			    </tr>
 			  </thead>
@@ -57,7 +57,7 @@
 									${notice.noticeTitle }
 								</a>
 							</td>
-							<td>&nbsp;</td>
+							<td align="center">관리자</td>
 							<td align="center">${notice.noticeDate }</td>
 						</tr>
 					</c:forEach>

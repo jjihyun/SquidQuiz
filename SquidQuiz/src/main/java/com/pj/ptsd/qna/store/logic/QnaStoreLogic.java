@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pj.ptsd.qna.domain.PageInfo;
 import com.pj.ptsd.qna.domain.Qna;
+import com.pj.ptsd.qna.domain.QnaSearch;
 import com.pj.ptsd.qna.store.QnaStore;
 
 @Repository
@@ -29,6 +30,12 @@ public class QnaStoreLogic implements QnaStore {
 		Qna qna = sqlSession.selectOne("qnaMapper.selectOneQna", qnaNo);
 		return qna;
 	}
+	//search
+	public List<Qna> selectSearchQna(QnaSearch search){
+		List<Qna> qList = sqlSession.selectList("qnaMapper.selectSearchList", search);
+		return qList;
+	}
+	
 	//작성
 	@Override
 	public int insertQna(Qna qna) {
@@ -55,16 +62,16 @@ public class QnaStoreLogic implements QnaStore {
 	}
 	//리스트조회(회원)
 	@Override
-	public List<Qna> selectQnaById(PageInfo pi, int userNo) {
+	public List<Qna> selectQnaById(PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		List<Qna> qList = sqlSession.selectList("qnaMapper.selectQnaById",userNo, rowBounds);
+		List<Qna> qList = sqlSession.selectList("qnaMapper.selectQnaById",userId, rowBounds);
 		return qList;
 	}
 	//회원이 작성한 게시글 개수 조회
 	@Override
-	public int selectOwnListCount(int userNo) {
-		int result = sqlSession.selectOne("qnaMapper.selectOwnListCount",userNo);
+	public int selectOwnListCount(String userId) {
+		int result = sqlSession.selectOne("qnaMapper.selectOwnListCount",userId);
 		return result;
 	}
 

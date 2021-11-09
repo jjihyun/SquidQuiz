@@ -28,7 +28,7 @@
 		<div class="container">
 			<form action="modifyAnswer.ptsd" method="post">
 				<input type="hidden" value="${qna.qnaNo }" name="qnaNo">
-				<input type="hidden" value="${qna.userNo }" name="userNo">
+				<input type="hidden" value="${qna.userId }" name="userId">
  					<div class="row">
 						<table class="table">
 						  <thead>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.pj.ptsd.qna.domain.PageInfo;
 import com.pj.ptsd.qna.domain.Qna;
+import com.pj.ptsd.qna.domain.QnaSearch;
 import com.pj.ptsd.qna.service.QnaService;
 import com.pj.ptsd.qna.store.QnaStore;
 
@@ -25,6 +26,12 @@ public class QnaServiceImpl implements QnaService {
 	public Qna printOneQna(int qnaNo) {
 		Qna q = store.selectOneQna(qnaNo);
 		return q;
+	}
+	//search
+	@Override
+	public List<Qna> printSearchQna(QnaSearch search){
+		List<Qna> qList = store.selectSearchQna(search);
+		return qList;
 	}
 	//등록
 	@Override
@@ -48,8 +55,8 @@ public class QnaServiceImpl implements QnaService {
 
 	//리스트 조회 (회원 )
 	@Override
-	public List<Qna> printQnaById(PageInfo pi, int userNo) {
-		List<Qna> qList=store.selectQnaById(pi, userNo);
+	public List<Qna> printQnaById(PageInfo pi, String userId) {
+		List<Qna> qList=store.selectQnaById(pi, userId);
 		return qList;
 	}
 	//전체개수 조회
@@ -60,8 +67,8 @@ public class QnaServiceImpl implements QnaService {
 	}
 	//회원이 작성한 문의글 개수 조회
 	@Override
-	public int getOwnListCount(int userNo) {
-		int result = store.selectOwnListCount(userNo);
+	public int getOwnListCount(String userId) {
+		int result = store.selectOwnListCount(userId);
 		return result;
 	}
 }

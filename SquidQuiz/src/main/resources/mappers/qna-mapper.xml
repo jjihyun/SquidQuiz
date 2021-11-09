@@ -8,7 +8,7 @@
 		<result property="qCreateDate" column="QNA_DATE"></result>
 		<result property="qnaAnswer" column="QNA_ANSWER_CONTENTS"></result>
 		<result property="qAnswerDate" column="QNA_ANSWER_DATE"></result>
-		<result property="userNo" column="USER_NO"></result>
+		<result property="userId" column="USER_ID"></result>
 		
 	</resultMap>
 	
@@ -20,8 +20,8 @@
 		SELECT * FROM QNA WHERE QNA_NO = #{qnaNo}
 	</select>
 	
-	<select id="selectQnaById" parameterType="_int" resultMap="qnaResultMap">
-		SELECT * FROM QNA WHERE USER_NO = #{userNo}
+	<select id="selectQnaById" parameterType="string" resultMap="qnaResultMap">
+		SELECT * FROM QNA WHERE USER_ID = #{userId} ORDER BY QNA_NO DESC
 	</select>
 	
 	<select id="selectListCount" resultType="_int">
@@ -29,11 +29,29 @@
 	</select>
 	
 	<select id="selectOwnListCount" resultType="_int">
-		SELECT COUNT(*) FROM QNA WHERE USER_NO=#{userNo}
+		SELECT COUNT(*) FROM QNA WHERE USER_ID=#{userId}
 	</select>
 	
+	<select id="selectSearchList" resultMap="qnaResultMap">
+		SELECT * FROM QNA
+		<if test="searchCondition.toString() == 'writer'">
+			WHERE USER_ID LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition.toString() == 'title'">
+			WHERE QNA_TITLE LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition.toString() == 'contents'">
+			WHERE QNA_CONTENTS LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition.toString() == 'all'">
+			WHERE USER_ID LIKE '%' || #{searchValue} || '%' 
+			OR QNA_TITLE LIKE '%' || #{searchValue} || '%'
+			OR QNA_CONTENTS LIKE '%' || #{searchValue} || '%'
+		</if>
+		ORDER BY QNA_DATE DESC
+	</select>
 	<insert id="insertQna" parameterType="Qna">
-		INSERT INTO QNA(QNA_NO, QNA_TITLE, QNA_CONTENTS, QNA_DATE, USER_NO) VALUES(SEQ_QNA.NEXTVAL, #{qnaTitle}, #{qnaContents}, DEFAULT, #{userNo})
+		INSERT INTO QNA(QNA_NO, QNA_TITLE, QNA_CONTENTS, QNA_DATE, USER_ID) VALUES(SEQ_QNA.NEXTVAL, #{qnaTitle}, #{qnaContents}, DEFAULT, #{userId})
 	</insert>
 	
 	<delete id="deleteQna" parameterType="_int">

@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.qna.domain.PageInfo;
 import com.pj.ptsd.qna.domain.Qna;
 import com.pj.ptsd.qna.domain.QnaPagination;
+import com.pj.ptsd.qna.domain.QnaSearch;
 import com.pj.ptsd.qna.service.QnaService;
 
 @Controller
@@ -28,15 +30,15 @@ public class QnaController {
 	public String qnaListView(Model model, HttpServletRequest request, @RequestParam(value="page",required=false) Integer page) {
 		int currentPage = (page!=null) ? page : 1 ;
 		int totalCount = 0;
+		String userId="user01"; 
 		HttpSession session = request.getSession();
-		int userNo = 1;
 //				Integer.parseInt((String)(session.getAttribute("userNo")));
 		String adminType = "N";
 //				(String)session.getAttribute("adminType");
 		if(adminType=="Y") {
 			totalCount = service.getAllListCount();
 		}else if(adminType=="N") {
-			totalCount = service.getOwnListCount(userNo);
+			totalCount = service.getOwnListCount(userId);
 		}
 		PageInfo pi = QnaPagination.getPageInfo(currentPage, totalCount);
 		
@@ -47,7 +49,7 @@ public class QnaController {
 				qList = service.printAllQna(pi);
 				
 			} else {
-				qList = service.printQnaById(pi,userNo);
+				qList = service.printQnaById(pi,userId);
 			}
 			if (!qList.isEmpty()) {
 				model.addAttribute("qList", qList);
@@ -83,6 +85,28 @@ public class QnaController {
 			return "qna/qnaError";
 		}
 	}
+	//문의 키워드 검색 ( 회원 / 제목 )
+	@RequestMapping(value="qnaSearch.ptsd")
+	public String qnaSearchList(@ModelAttribute QnaSearch search, Model model) {
+		try {
+			List<Qna> qList = service.printSearchQna(search);
+			if(!qList.isEmpty()) {
+				model.addAttribute("qList", qList);
+				model.addAttribute("search", search);
+				model.addAttribute("page", 1);
+				return "qna/qnaList";
+			}else {
+				model.addAttribute("msg","문의 아이디/검색 실패");
+				return "qna/qnaError";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", e.toString());
+			return "qna/qnaError";
+		}
+		
+		
+	}
 	//문의등록(회원)
 	@RequestMapping(value="qnaWriteView.ptsd")
 	public String qnaWriteView() {
@@ -92,7 +116,7 @@ public class QnaController {
 	public String registerQna(Model model,@ModelAttribute Qna qna) {
 		try {
 			//테스트용 유저넘버
-			qna.setUserNo(1);
+			qna.setUserId("user01");
 			int result = service.registerQna(qna);
 			if (result > 0) {
 				
@@ -109,14 +133,14 @@ public class QnaController {
 		
 	}
 	//문의답변(관리자)
-	@RequestMapping(value="modifyQnaView.ptsd")
-	public String modifyQnaView(Model model,@RequestParam("qnaNo") int qnaNo) {
+//	@RequestMapping(value="modifyQnaView.ptsd")
+//	public String modifyQnaView(Model model,@RequestParam("qnaNo") int qnaNo) {
+//	
+//			Qna qna = service.printOneQna(qnaNo);
+//			model.addAttribute("qna", qna);
+//				return "qna/qnaUpdate";
 	
-			Qna qna = service.printOneQna(qnaNo);
-			model.addAttribute("qna", qna);
-				return "qna/qnaUpdate";
-	
-	}
+//	}
 	@RequestMapping(value="modifyAnswer.ptsd", method=RequestMethod.POST)
 	public String modifyQna(Model model,@ModelAttribute Qna qna) {
 		try {

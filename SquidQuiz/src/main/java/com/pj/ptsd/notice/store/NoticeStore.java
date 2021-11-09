@@ -18,14 +18,5 @@ public interface NoticeStore {
 	//공지 삭제
 	public int deleteNotice(int noticeNo);
 	
-	//(회원) 문의 목록 조회
-	public List<Qna> selectUserQna(int userNo);
-	//(관리자) 전체 문의 목록 조회
-	public List<Qna> selectAllQna();
-	//문의 상세 조회 (1개)
-	public Qna selectOneQna(int qnaNo);
-	//문의 등록
-	public int insertQna(Qna qna);
-	//답변 등록
-	public int updateAnswer(String answer);
+	
 }

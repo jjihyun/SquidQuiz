@@ -46,36 +46,6 @@ public class NoticeStoreLogic implements NoticeStore{
 		int result = sqlSession.delete("noticeMapper.deleteNotice", noticeNo);
 		return result;
 	}
-	//공지 목록 조회 ( 회원 )
-	@Override
-	public List<Qna> selectUserQna(int userNo) {
-		List<Qna> qList = sqlSession.selectList("");
-		return null;
-	}
-	// 공지 목록 전체 조회 (관리자)
-	@Override
-	public List<Qna> selectAllQna() {
-		List<Qna> qList = sqlSession.selectList("");
-		return qList;
-	}
-	//문의 작성
-	@Override
-	public int insertQna(Qna qna) {
-		int result = sqlSession.update("", qna);
-		return result;
-	}
-	//문의 답변 작성
-	@Override
-	public int updateAnswer(String answer) {
-		int result = sqlSession.update("", answer);
-		return result;
-	}
 	
-	//문의 상세 조회
-	@Override
-	public Qna selectOneQna(int qnaNo) {
-		Qna qna = sqlSession.selectOne("", qnaNo);
-		return qna;
-	}
 
 }

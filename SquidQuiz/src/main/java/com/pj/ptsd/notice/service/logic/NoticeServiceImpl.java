@@ -45,37 +45,7 @@ public class NoticeServiceImpl implements NoticeService {
 			int result = store.deleteNotice(NoticeNo);
 			return result;
 		}
-		//문의 목록 조회 ( 회원 ) 
-		@Override
-		public List<Qna> printUserQna(int userNo) {
-			List<Qna> qList = store.selectUserQna(userNo);
-			return qList;
-		}
-		// 문의 목록 조회 (관리자)
-		@Override
-		public List<Qna> printAllQna() {
-			List<Qna> qList = store.selectAllQna();
-			return qList;
-		}
-		// 문의 상세 조회
-		@Override
-		public Qna printOneQna(int qnaNo) {
-			Qna qna = store.selectOneQna(qnaNo);
-			return qna;
-		}
-		//문의 등록
-		@Override
-		public int registerQna(Qna qna) {
-			int result = store.insertQna(qna);
-			return result;
-		}
-		//문의 답변 등록
-		@Override
-		public int registerAnswer(String answer) {
-			int result = store.updateAnswer(answer);
-			return result;
-		}
-	
+		
 
 		
 		

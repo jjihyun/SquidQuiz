@@ -9,7 +9,7 @@
 	</resultMap>
 	
 	<select id="selectNoticeList" resultMap="noticeResultMap">
-		SELECT * FROM NOTICE ORDER BY NOTICE_DATE DESC
+		SELECT * FROM NOTICE ORDER BY NOTICE_NO DESC
 	</select>
 	
 	<select id="selectOneNotice" parameterType="_int" resultMap="noticeResultMap">
