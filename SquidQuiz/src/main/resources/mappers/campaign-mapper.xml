@@ -22,18 +22,28 @@
 
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM CAMPAIGN
-	</select>	
+	</select>
+	<select id="selectTypeListCount" resultType="_int">
+		SELECT COUNT(*) FROM CAMPAIGN WHERE CAMPAIGN_TYPE=#{type}
+	</select>
 	<select id="selectCampaignList" resultMap="campaignResultMap">
 		SELECT * FROM CAMPAIGN ORDER BY CAMPAIGN_ENROLL_DATE DESC
 	</select>
+	<select id="selectCampaignTypeList" resultMap="campaignResultMap">
+		SELECT * FROM CAMPAIGN WHERE CAMPAIGN_TYPE='child' ORDER BY CAMPAIGN_ENROLL_DATE DESC
+	</select>
+	
 	<select id="selectOneCampaign" resultMap="campaignResultMap">
 		SELECT * FROM CAMPAIGN WHERE CAMPAIGN_NO=#{campaignNo}
 	</select>
 	<select id="selectAllDonation" resultType="_int">
-		SELECT COUNT(*) FROM MAIN_GAME_INFO_TEST
+		SELECT COUNT(*) FROM MAIN_GAME_INFO
 	</select>
 	<select id="selectSumPrice" resultType="_int">
 		SELECT SUM(TOTAL_MONEY)-SUM(RECEIVE_MONEY) FROM MAIN_GAME_INFO
+	</select>
+	<select id="selectPrice" resultType="_int">
+		SELECT (TOTAL_MONEY-RECEIVE_MONEY) FROM MAIN_GAME_INFO_TEST WHERE TURN_NO=(SELECT MAX(TURN_NO) FROM MAIN_GAME_INFO)
 	</select>
 	
 	<update id="updateCampaign" parameterType="Campaign">

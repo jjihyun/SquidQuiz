@@ -8,11 +8,12 @@ public class PageInfo {
 	private int endNavi;  //네비게이션 마지막 값
 	private int totalCount;  //전체 게시글 개수
 	private int maxPage;  //페이지 마지막 번호
-
+	private String type; 
+	
 	public PageInfo() {}
 
 	public PageInfo(int currentPage, int campaignLimit, int naviLimit, int startNavi, int endNavi, int totalCount,
-			int maxPage) {
+			int maxPage, String type) {
 		super();
 		this.currentPage = currentPage;
 		this.campaignLimit = campaignLimit;
@@ -21,6 +22,7 @@ public class PageInfo {
 		this.endNavi = endNavi;
 		this.totalCount = totalCount;
 		this.maxPage = maxPage;
+		this.type=type;
 	}
 
 	public int getCurrentPage() {
@@ -79,11 +81,19 @@ public class PageInfo {
 		this.maxPage = maxPage;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
 		return "PageInfo [현재페이지=" + currentPage + ", 게시글개수=" + campaignLimit + ", 네비개수=" + naviLimit
 				+ ", 네비시작=" + startNavi + ", 네비끝=" + endNavi + ", 전체개수=" + totalCount + ", 최대페이지="
-				+ maxPage + "]";
+				+ maxPage + ", 타입="+type+"]";
 	}
 	
 	

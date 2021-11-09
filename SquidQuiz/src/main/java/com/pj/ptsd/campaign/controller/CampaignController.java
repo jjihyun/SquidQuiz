@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,9 +23,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.pj.ptsd.campaign.Pagination;
 import com.pj.ptsd.campaign.domain.Campaign;
 import com.pj.ptsd.campaign.domain.DonationRecord;
@@ -41,38 +46,64 @@ public class CampaignController {
 	public String printCampaignList(Model model
 			, HttpServletRequest request, @RequestParam(value="page", required=false) Integer page) {
 		try {
-			int currentPage =(page!=null)?page:1;
-			int totalCount = service.getListCount();
-			PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
 			request.setCharacterEncoding("utf-8");
-			List<Campaign> cList = service.printAll(pi);
 			String type=request.getParameter("campaignType");
 			if(type==null) {
 				type="all";
 			}
+			System.out.println("캠페인 타입 " + type);
 			
-			//고정기부처에 기부된적이 있는지 체크. null값 방지 위해서.
+			int currentPage =(page!=null)?page:1;
+			int totalCount = service.getListCount();
+			PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
+			System.out.println("전체 캠페인 개수 : "+totalCount);
+			
+			int totalTypeCount = service.getListTypeCount(type);
+			PageInfo pi2 = Pagination.getPageInfo(currentPage, totalTypeCount);
+			pi2.setType(type);
+			System.out.println("type의 캠페인 개수 " + totalTypeCount);
+			
+			//메인게임테이블에 값이 있는지 체크. null값 방지 위해서.
 			int dRecord = service.printAllDonationRecord();
 			if(dRecord>0) {
 				//고정 기부처의 누적 기부금액, 이번회차의 기부금액
 				int dSumPrice = service.printDonationRecord();
-				System.out.println("누적기부금액 " +dSumPrice);
 				model.addAttribute("dSumPrice", dSumPrice);
+				int dPrice = service.printOneDonationRecord();
+				model.addAttribute("dPrice", dPrice);
 			} else {
 				int dSumPrice = 0;
-				System.out.println("누적기부금액 " +dSumPrice);
+				int dPrice = 0;
 				model.addAttribute("dSumPrice", dSumPrice);
+				model.addAttribute("dPrice", dPrice);
 			}
 			
-			if(!cList.isEmpty()) {
-				model.addAttribute("cList", cList);
-				model.addAttribute("pi", pi);
-				model.addAttribute("campaignType",type);
-				return "campaign/campaignList";
+			if(type.equals("all")) {
+				List<Campaign> cList = service.printAll(pi);
+				System.out.println("1");
+				if(!cList.isEmpty()) {
+					model.addAttribute("cList", cList);
+					model.addAttribute("pi", pi);
+					model.addAttribute("campaignType",type);
+					return "campaign/campaignList";
+				} else {
+					model.addAttribute("msg", "캠페인 조회 실패");
+					return "common/errorPage";
+				}	
 			} else {
-				model.addAttribute("msg", "캠페인 조회 실패");
-				return "common/errorPage";
-			}			
+				List<Campaign> cList = service.printAllType(pi2,type);
+				System.out.println("2");
+				if(!cList.isEmpty()) {
+					model.addAttribute("cList", cList);
+					model.addAttribute("pi", pi2);
+					model.addAttribute("campaignType",type);
+					return "campaign/campaignList";
+				} else {
+					model.addAttribute("msg", "캠페인 조회 실패");
+					return "common/errorPage";
+				}	
+			}
+		
 		} catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", e.toString());
@@ -80,6 +111,21 @@ public class CampaignController {
 		}
 
 	}
+	@ResponseBody
+	@RequestMapping(value="campaignListJSON.ptsd", method=RequestMethod.GET)
+	public void campaignListJSON(HttpServletRequest request, HttpServletResponse response
+			, @RequestParam("campaignType") String type, @RequestParam(value="cList[]")List<String> cList[]) throws Exception{
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/json");
+		Gson gson = new Gson();
+		JsonObject obj = new JsonObject();
+		String jsonPlace= gson.toJson(cList);
+		
+		System.out.println(jsonPlace);
+		System.out.println(cList);
+		System.out.println(type);
+	}
+	
 	
 	//캠페인 고정기부처 상세조회
 	@RequestMapping(value="campaignStaticDetail.ptsd", method=RequestMethod.GET)
@@ -111,11 +157,19 @@ public class CampaignController {
 	
 	//캠페인 기부 결제페이지
 	@RequestMapping(value="donationPay.ptsd", method=RequestMethod.GET)
-	public String showDonationPay() {
-		return "campaign/campaignDonationPay";
+	public String showDonationPay(@RequestParam("campaignNo") int campaignNo, Model model ) {
+		//Campaign camp = service.printCampaignDetail(campaignNo);
+//		if(camp!=null) {
+//			model.addAttribute("campaign", camp);
+//			return "campaign/campaignDonation";
+//		} else {
+//			model.addAttribute("msg", "캠페인 수정 페이지 조회 실패!");
+//			return "common/errorPage";
+//		}
+		return "campaign/campaignDonation";
 	}
 	
-	//캠페인 작성 페이지 조회
+	//캠페인 작성 페이지
 	@RequestMapping(value="campaignWriteView.ptsd", method=RequestMethod.GET)
 	public String registerCampaign() {
 		return "campaign/campaignWrite";
