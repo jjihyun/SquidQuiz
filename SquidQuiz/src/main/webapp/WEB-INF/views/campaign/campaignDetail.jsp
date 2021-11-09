@@ -56,14 +56,20 @@
 <body>
 	<jsp:include page="../../../resources/html/header.jsp"/>
 	<div id="campaign-body">
+		<c:url var="cModify" value="campaignModify.ptsd">
+			<c:param name="campaignNo" value="${campaign.campaignNo }"></c:param>
+		</c:url>
 		<c:url var="cDelete" value="campaignRemove.ptsd">
 			<c:param name="campaignNo" value="${campaign.campaignNo }"></c:param>
-			<c:param name="fileName" value="${campaign.cFileRename}"></c:param>
+			<c:param name="fileName" value="${campaign.cFileName}"></c:param>
 		</c:url>
 		<input type="hidden" value="${campaign.campaignNo }">
 		<h2>${campaign.campaignTitle }</h2>
 		<h4 style="border: 1px solid red; text-align: center;">(${campaign.campaignType })
-			<button style="float: right;" onclick="location.href='${cDelete}'">삭제하기</button>
+			<div style="float: right;">
+				<button onclick="location.href='${cModify}'">수정하기</button>&nbsp;&nbsp;
+				<button onclick="location.href='${cDelete}'">삭제하기</button>
+			</div>
 		</h4>
 		<div id="campaign-detail">
 			<div style="float: left; background-color:rgb(255, 233, 233); width:1000px; height: 100%;">

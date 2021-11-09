@@ -52,7 +52,7 @@
 	<div class="first">
 	<div style="text-align: center;">
 		<h2>이번주 퀴즈 참가 모음액</h2>
-		<h4>111,111원(임시)</h4>
+		<h4>${dSumPrice }원</h4>
 		누적 모금액<br>
 		<h4>222,111,111원(임시)</h4>
 		<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBxlH6VeINFz3mZwrKiep8BaOjnfJZ86tP9w&usqp=CAU" alt="img 안뜸">
@@ -81,14 +81,14 @@
 			</c:url>
 			<div align="center" id="campaign-list" onclick="location.href='${cDetail}';">
 				<div>
-					<img style="width: 100%; height: 50%;" 
+					<img style="width: 100%; height: 200px;" 
 					alt="img 안보임" src="../../../resources/campaignUpload/${c.cFileName }">
 				</div>
 				<div>
 					<b>${c.campaignTitle }</b><br>
 					<progress class="progressTag" value="${c.getcNowAmount()/c.getcTargetAmount()*100} " max="100"></progress>
-					${c.getcNowAmount()/c.getcTargetAmount()*100}%<br>
-					${c.cTargetAmount }<br>
+					<br>${c.getcNowAmount()/c.getcTargetAmount()*100}%<br>
+					목표금액 : ${c.cTargetAmount }원<br>
 				</div>
 			</div>
 		</c:forEach>

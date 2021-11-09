@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pj.ptsd.campaign.Pagination;
 import com.pj.ptsd.campaign.domain.Campaign;
+import com.pj.ptsd.campaign.domain.DonationRecord;
 import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.campaign.service.CampaignService;
 
@@ -48,7 +50,19 @@ public class CampaignController {
 			if(type==null) {
 				type="all";
 			}
-			//System.out.println(type);
+			
+			//고정기부처에 기부된적이 있는지 체크. null값 방지 위해서.
+			int dRecord = service.printAllDonationRecord();
+			if(dRecord>0) {
+				//고정 기부처의 누적 기부금액, 이번회차의 기부금액
+				int dSumPrice = service.printDonationRecord();
+				System.out.println("누적기부금액 " +dSumPrice);
+				model.addAttribute("dSumPrice", dSumPrice);
+			} else {
+				int dSumPrice = 0;
+				System.out.println("누적기부금액 " +dSumPrice);
+				model.addAttribute("dSumPrice", dSumPrice);
+			}
 			
 			if(!cList.isEmpty()) {
 				model.addAttribute("cList", cList);
@@ -152,6 +166,48 @@ public class CampaignController {
 		return filePath;
 	}
 	
+	//캠페인 수정 페이지
+	@RequestMapping(value="campaignModify.ptsd", method=RequestMethod.GET)
+	public String modifyCampaign(@RequestParam("campaignNo") int cNo, Model model) {
+		Campaign camp = service.printCampaignDetail(cNo);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		if(camp!=null) {
+			model.addAttribute("formatDate", sdf.format(camp.getcEndDate()));
+			model.addAttribute("campaign", camp);
+			return "campaign/campaignUpdate";
+		} else {
+			model.addAttribute("msg", "캠페인 수정 페이지 조회 실패!");
+			return "common/errorPage";
+		}
+	}
+	//캠페인 수정
+	@RequestMapping(value="campaignUpdate.ptsd", method=RequestMethod.POST)
+	public ModelAndView modifyCampaign(ModelAndView mv, HttpServletRequest request
+			, @RequestParam(value="updateFile", required=false) MultipartFile updateFile
+			, @ModelAttribute Campaign campaign, @RequestParam("campaignOption") String option) {
+		if(updateFile!=null) { //업데이트할 파일이 있을 경우
+			//기존 파일 삭제
+			if(campaign.getcFileName()!="") {
+				removeFile(campaign.getcFileName(), request);
+			}
+			//새 파일 업로드
+			String fileRename = saveFile(updateFile, request);
+			if(fileRename!=null) {
+				campaign.setcFileName(updateFile.getOriginalFilename());
+				campaign.setcFileRename(fileRename);
+			}
+		}
+
+		campaign.setCampaignType(option);
+		int result = service.modifyCampaign(campaign);
+		if(result>0) {
+			mv.setViewName("redirect:campaignList.ptsd");
+		} else {
+			mv.addObject("msg", "후원 글 수정 실패").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
 	//캠페인 삭제
 	@RequestMapping(value="campaignRemove.ptsd", method=RequestMethod.GET)
 	public String removeCampaign(Model model, @RequestParam("campaignNo") int campaignNo
@@ -176,13 +232,6 @@ public class CampaignController {
 			file.delete();  //파일 삭제
 		}
 	}
-	
-	//캠페인 수정
-	@RequestMapping(value="campaignModify.pstd", method=RequestMethod.GET)
-	public String modifyCampaign() {
-		return "";
-	}
-	
 	
 	//캠페인 기부 등록(마이페이지)
 	public String registerCampaignRecord(){
