@@ -15,7 +15,7 @@
 		<result property="cFileRename" column="CAMPAIGN_FILE_RENAME" />
 		<result property="cEnrollDate" column="CAMPAIGN_ENROLL_DATE" />
 	</resultMap>
-
+	
 	<insert id="insertCampaign" parameterType="Campaign">
 		INSERT INTO CAMPAIGN VALUES(SEQ_CAMPAIGN.NEXTVAL, #{campaignName}, #{campaignType}, #{campaignTitle}, #{campaignContents}, #{cLink}, #{cTargetAmount}, DEFAULT, #{cEndDate}, #{cFileName}, #{cFileRename}, SYSDATE)
 	</insert>
@@ -29,6 +29,16 @@
 	<select id="selectOneCampaign" resultMap="campaignResultMap">
 		SELECT * FROM CAMPAIGN WHERE CAMPAIGN_NO=#{campaignNo}
 	</select>
+	<select id="selectAllDonation" resultType="_int">
+		SELECT COUNT(*) FROM MAIN_GAME_INFO_TEST
+	</select>
+	<select id="selectSumPrice" resultType="_int">
+		SELECT SUM(TOTAL_MONEY)-SUM(RECEIVE_MONEY) FROM MAIN_GAME_INFO
+	</select>
+	
+	<update id="updateCampaign" parameterType="Campaign">
+		UPDATE CAMPAIGN SET CAMPAIGN_TITLE=#{campaignTitle}, CAMPAIGN_CONTENTS=#{campaignContents}, CAMPAIGN_FILE_NAME=#{cFileName}, CAMPAIGN_FILE_RENAME=#{cFileRename}, CAMPAIGN_LINK=#{cLink}, CAMPAIGN_TYPE=#{campaignType} WHERE CAMPAIGN_NO=#{campaignNo}
+	</update>
 	
 	<delete id="deleteCampaign" parameterType="_int">
 		DELETE FROM CAMPAIGN WHERE CAMPAIGN_NO=#{campaignNo}

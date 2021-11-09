@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pj.ptsd.campaign.domain.Campaign;
+import com.pj.ptsd.campaign.domain.DonationRecord;
 import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.campaign.store.CampaignStore;
 
@@ -31,6 +32,18 @@ public class CampaignStoreLogic implements CampaignStore{
 		List<Campaign> cList = sqlSession.selectList("campaignMapper.selectCampaignList", pi, rowBounds);
 		return cList;
 	}
+	//고정 기부처에 기부 최소 한번 유무 체크를 위해서.
+	@Override
+	public int selectAllDonation() {
+		int dRecord = sqlSession.selectOne("campaignMapper.selectAllDonation");
+		return dRecord;
+	}
+	//고정 기부처의 누적 기부금액
+	@Override
+	public int selectDonationSumPrice() {
+		int sumPrice = sqlSession.selectOne("campaignMapper.selectSumPrice");
+		return sumPrice;
+	}
 
 	//캠페인 상세조회
 	@Override
@@ -50,6 +63,13 @@ public class CampaignStoreLogic implements CampaignStore{
 	@Override
 	public int deleteCampaign(int campaignNo) {
 		int result = sqlSession.delete("campaignMapper.deleteCampaign", campaignNo);
+		return result;
+	}
+	
+	//캠페인 글 수정
+	@Override
+	public int updateCampaign(Campaign campaign) {
+		int result = sqlSession.update("campaignMapper.updateCampaign", campaign);
 		return result;
 	}
 

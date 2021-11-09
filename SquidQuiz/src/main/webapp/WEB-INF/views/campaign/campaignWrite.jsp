@@ -52,7 +52,7 @@
 		$(function(){
 			$("select[name=campaignOption]").change(function(){
 				var option = $(this).val();
-				alert(option);
+				//alert(option);
 				option.prop("selected", true);
 			});
 		});
