@@ -5,47 +5,33 @@ import java.sql.Date;
 public class Board {
 
 	
-	private int boardNo;
-	private String boardTitle;
-	private String boardContents;
+	private int bNo;
+	private String bTitle;
+	private String bContents;
 	private int userNo;
-	private String boardFilename;
-	private int boardFilesize;
-	private String boardFilepath;
-	private Date bdate;
-	private Date bFiledate;
+	private String bFileName;
+	private String bFileRename;
+	private int bFileSize;
+	private String bFilePath;
+	private Date bCreateDate;
+	private Date bUpdateDate;
 	
 	
 	public Board() {}
 
 
-	public int getBoardNo() {
-		return boardNo;
+	public int getbNo() {
+		return bNo;
 	}
 
 
-	public void setBoardNo(int boardNo) {
-		this.boardNo = boardNo;
+	public String getbTitle() {
+		return bTitle;
 	}
 
 
-	public String getBoardTitle() {
-		return boardTitle;
-	}
-
-
-	public void setBoardTitle(String boardTitle) {
-		this.boardTitle = boardTitle;
-	}
-
-
-	public String getBoardContents() {
-		return boardContents;
-	}
-
-
-	public void setBoardContents(String boardContents) {
-		this.boardContents = boardContents;
+	public String getbContents() {
+		return bContents;
 	}
 
 
@@ -54,70 +40,92 @@ public class Board {
 	}
 
 
+	public String getbFileName() {
+		return bFileName;
+	}
+
+
+	public String getbFileRename() {
+		return bFileRename;
+	}
+
+
+	public int getbFileSize() {
+		return bFileSize;
+	}
+
+
+	public String getbFilePath() {
+		return bFilePath;
+	}
+
+
+	public Date getbCreateDate() {
+		return bCreateDate;
+	}
+
+
+	public Date getbUpdateDate() {
+		return bUpdateDate;
+	}
+
+
+	public void setbNo(int bNo) {
+		this.bNo = bNo;
+	}
+
+
+	public void setbTitle(String bTitle) {
+		this.bTitle = bTitle;
+	}
+
+
+	public void setbContents(String bContents) {
+		this.bContents = bContents;
+	}
+
+
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
 
 
-	public String getBoardFilename() {
-		return boardFilename;
+	public void setbFileName(String bFileName) {
+		this.bFileName = bFileName;
 	}
 
 
-	public void setBoardFilename(String boardFilename) {
-		this.boardFilename = boardFilename;
+	public void setbFileRename(String bFileRename) {
+		this.bFileRename = bFileRename;
 	}
 
 
-	public int getBoardFilesize() {
-		return boardFilesize;
+	public void setbFileSize(int bFileSize) {
+		this.bFileSize = bFileSize;
 	}
 
 
-	public void setBoardFilesize(int boardFilesize) {
-		this.boardFilesize = boardFilesize;
+	public void setbFilePath(String bFilePath) {
+		this.bFilePath = bFilePath;
 	}
 
 
-	public String getBoardFilepath() {
-		return boardFilepath;
+	public void setbCreateDate(Date bCreateDate) {
+		this.bCreateDate = bCreateDate;
 	}
 
 
-	public void setBoardFilepath(String boardFilepath) {
-		this.boardFilepath = boardFilepath;
-	}
-
-
-	public Date getBdate() {
-		return bdate;
-	}
-
-
-	public void setBdate(Date bdate) {
-		this.bdate = bdate;
-	}
-
-
-	public Date getbFiledate() {
-		return bFiledate;
-	}
-
-
-	public void setbFiledate(Date bFiledate) {
-		this.bFiledate = bFiledate;
+	public void setbUpdateDate(Date bUpdateDate) {
+		this.bUpdateDate = bUpdateDate;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContents=" + boardContents
-				+ ", userNo=" + userNo + ", boardFilename=" + boardFilename + ", boardFilesize=" + boardFilesize
-				+ ", boardFilepath=" + boardFilepath + ", bdate=" + bdate + ", bFiledate=" + bFiledate + "]";
+		return "Board [bNo=" + bNo + ", bTitle=" + bTitle + ", bContents=" + bContents + ", userNo=" + userNo
+				+ ", bFileName=" + bFileName + ", bFileRename=" + bFileRename + ", bFileSize=" + bFileSize
+				+ ", bFilePath=" + bFilePath + ", bCreateDate=" + bCreateDate + ", bUpdateDate=" + bUpdateDate + "]";
 	}
-	
-	
-	
-	
-	
+
+
 }

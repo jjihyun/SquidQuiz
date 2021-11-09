@@ -12,13 +12,13 @@ public interface BoardStore {
 	
 	public List<Board> selectAll(PageInfo pi);
 	public List<Board> selectSearchAll(Search search);	
-	public Board selectOne(int boardNo);
+	public Board selectOne(int bNo);
 	
 	public int insertBoard(Board board);
 	public int updateBoard(Board board);
-	public int deleteBoard(int boardNo);
+	public int deleteBoard(int bNo);
 	
-	public List<Reply> selectAllReply(int boardNo);
+	public List<Reply> selectAllReply(int bNo);
 	public int insertReply(Reply reply);
 	public int updateReply(Reply reply);
 	public int deleteReply(Reply reply);

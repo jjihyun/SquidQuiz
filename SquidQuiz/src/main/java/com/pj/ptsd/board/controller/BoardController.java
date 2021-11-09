@@ -1,29 +1,91 @@
 package com.pj.ptsd.board.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.pj.ptsd.board.domain.Board;
 import com.pj.ptsd.board.service.BoardService;
 
 
 @Controller
 public class BoardController {
 	
+	@Autowired
+	private BoardService service;
+	
+	
 	//게시글 작성
-	@RequestMapping(value="boardWrite",method=RequestMethod.GET)
+	@RequestMapping(value="boardWrite.ptsd",method=RequestMethod.GET)
 	public String boardWrite() {
-		return "board/boardWrie";
+		return "board/boardWrite";
 	}
 	
+	//게시글 등록
+//	@RequestMapping(value="boardRegister.ptsd",method=RequestMethod.POST)
+//	public String registerBoard(
+//			@ModelAttribute Board board
+//			,@RequestParam(value="uploadFile",required=false) MultipartFile uploadFile
+//			,Model model
+//			,HttpServletRequest request) {
+//		if(!uploadFile.getOriginalFilename().equals("")) {
+//			String bFileName = saveFile(uploadFile,request);
+//			if(bFileName != null) {
+//				board.setbFileName(uploadFile.getOriginalFilename());
+//				board.setbFileRename(bFileName);
+//			}
+//		}
+//		int result = service.registerBoard(board);
+//		
+//				if(result > 0) {
+//					return "redirect:boardList.ptsd";
+//				}else {
+//					model.addAttribute("msg", "게시물 조회 실패");
+//					return "common/errorPage";
+//				}
+//	}
 	
-	
-	
-	
-	
-	
+	//파일 저장	
+//	public String saveFile(MultipartFile uploadFile, HttpServletRequest request) {
+//		String root = request.getSession().getServletContext().getRealPath("resources");
+//		String savePath = root + "\\buploadFiles";
+//		File folder = new File(savePath);
+//		if(!folder.exists()) {
+//			folder.mkdir();
+//		}
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+//		String originalFileName = uploadFile.getOriginalFilename();
+//		String bFileName 
+//			= sdf.format(new Date(System.currentTimeMillis()))+"."+originalFileName.substring(originalFileName.lastIndexOf(".")+1);
+//		String bfilePath = folder + "\\" + bFileName;
+//		try {
+//			uploadFile.transferTo(new File(bfilePath));
+//		} catch (IllegalStateException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return bFileName;
+//	}
 }
+	
+	
+	
+	
+	
+
 
 
 

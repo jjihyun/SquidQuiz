@@ -17,10 +17,10 @@ public interface BoardService {
 	
 	public int registerBoard(Board board);
 	public int modifyBoard(Board board);
-	public int removeBoard(int boardNo);
+	public int removeBoard(int bNo);
 	
 	public Board printreply(int replyNo);
-	public List<Reply> printAllReply(int boardNo);
+	public List<Reply> printAllReply(int bNo);
 	public int registerReply(Reply reply);
 	public int modifyReply(Reply reply);
 	public int removeReply(Reply reply);

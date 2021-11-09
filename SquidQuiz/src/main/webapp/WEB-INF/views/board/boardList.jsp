@@ -10,7 +10,7 @@
 <%-- 	<jsp:include page="../errorPage.jsp"></jsp:include> --%>
 	<br style="clear:both">
 	<h1 align="center"></h1>
-	<br><br><a href="boardWriteView.kh">게시글 작성하기</a>
+	<br><br><a href="boardWriteView.ptsd">게시글 작성하기</a>
 	<br>
 	<table align="center" border="1"></table>
 	<tr>
@@ -18,11 +18,17 @@
 		<th>제목</th>
 		<th>작성자</th>
 		<th>날짜</th>
-		<th>조회수</th>
 		<th>첨부파일</th>
 	</tr>
 	<c:forEach>
 		<tr>
+			<td>${board.boardNo }</td>
+			<td>
+				<c:url>
+					<c:param name="boardNo" value="${board.boardNo }"></c:param>
+				</c:url>
+			</td>
+		
 		
 		</tr>
 	

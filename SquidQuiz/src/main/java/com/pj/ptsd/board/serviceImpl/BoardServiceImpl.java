@@ -2,13 +2,20 @@ package com.pj.ptsd.board.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.pj.ptsd.board.domain.Board;
 import com.pj.ptsd.board.domain.PageInfo;
 import com.pj.ptsd.board.domain.Reply;
 import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.board.service.BoardService;
+import com.pj.ptsd.board.store.BoardStore;
 
+@Service
 public class BoardServiceImpl implements BoardService {
+	
+	private BoardStore store;
+	
 
 	@Override
 	public List<Board> printAll(PageInfo pi) {
@@ -23,7 +30,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board printOne(int boardNo) {
+	public Board printOne(int bNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -41,7 +48,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int removeBoard(int boardNo) {
+	public int removeBoard(int bNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -53,7 +60,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Reply> printAllReply(int boardNo) {
+	public List<Reply> printAllReply(int bNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}

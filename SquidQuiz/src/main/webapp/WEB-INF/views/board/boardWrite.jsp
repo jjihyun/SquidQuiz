@@ -11,7 +11,7 @@
 	<br style="clear:both">
 	<h1 align="center">게시글 등록</h1>
 	<br><br>
-	<form action="boardRegister.kh" method="post" enctype="multipart/form-data">
+	<form action="boardRegister.ptsd" method="post" enctype="multipart/form-data">
 		<table align="center" border="1">
 			<tr>
 				<th>제목</th>

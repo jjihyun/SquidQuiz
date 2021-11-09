@@ -4,5 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardMapper">
 
+	<resultMap type="Board" id="boardResultMap">
+		<id property="bNo" column="B_NO" />
+		<result property="bTitle" column="B_TITLE"/>
+		<result property="bContents" column="B_CONTENTS"/>
+		<result property="userNo" column="USER_NO"/>
+		<result property="bFileName" column="B_FILENAME"/>
+		<result property="bFileRename" column="B_FILERENAME"/>
+		<result property="bFileSize" column="B_FILESIZE"/>
+		<result property="bfilePath" column="B_FILEPATH"/>
+		<result property="bCreateDate" column="B_CREATE_DATE"/>
+		<result property="bUpdateDate" column="B_UPDATE_DATE"/>
+	</resultMap>
+
+	
+
+
+
 
 </mapper>
