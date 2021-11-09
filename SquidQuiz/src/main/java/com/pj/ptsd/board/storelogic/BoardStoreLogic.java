@@ -38,8 +38,8 @@ public class BoardStoreLogic implements BoardStore {
 
 	@Override
 	public int insertBoard(Board board) {
-		
-		return 0;
+		int result = sqlSession.insert("",board);
+		return result;
 	}
 
 	@Override

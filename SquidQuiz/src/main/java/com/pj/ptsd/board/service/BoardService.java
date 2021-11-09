@@ -24,5 +24,6 @@ public interface BoardService {
 	public int registerReply(Reply reply);
 	public int modifyReply(Reply reply);
 	public int removeReply(Reply reply);
+	public int getListCount();
 	
 }
