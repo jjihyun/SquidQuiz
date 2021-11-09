@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="exchangeMapper">
+	<resultMap type="Exchange" id="exchangeResultMap">
+		<id property="exchangeNo" column="NOTICE_NO"></id>
+		<result property="userNo" column="USER_NO"></result>
+		<result property="exchangeEnrollDate" column="EXCHANGE_ENROLLDATE"></result>
+		<result property="exchangeDate" column="EXCHANGE_DATE"></result>
+		<result property="exchangeStatus" column="EXCHANGE_PROCESSING_STATUS"></result>
+		<result property="exchangeMoney" column="EXCHANGE_MONEY"></result>
+		<result property="account" column="EXCHANGE_BANK_ACCOUNT"></result>
+		<result property="exchangeBank" column="EXCHANGE_BANK"></result>
+		<result property="userName" column="USER_NAME"></result>
+	</resultMap>
+	
+	<select id="selectExchangeList" resultMap="exchangeResultMap">
+		SELECT * FROM EXCHANGE ORDER BY EXCHANGE_NO DESC
+	</select>
+	
+	<select id="selectOwnExchange" parameterType="_int" resultMap="exchangeResultMap">
+		SELECT * FROM EXCHANGE WHERE EXCHANGE_NO = #{exchangeNo}
+	</select>
+	
+	<insert id="insertExchange" parameterType="Exchange">
+		INSERT INTO NOTICE VALUES(SEQ_EXCHANGE.NEXTVAL,#{noticeTitle},#{noticeContents},DEFAULT)
+	</insert>
+	
+
+	<update id="updateExchange" parameterType="Exchange">
+		UPDATE NOTICE SET NOTICE_TITLE=#{noticeTitle},NOTICE_CONTENTS=#{noticeContents} WHERE NOTICE_NO=#{noticeNo}
+	</update>
+</mapper>

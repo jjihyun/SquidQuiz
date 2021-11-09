@@ -10,9 +10,18 @@ public class Exchange {
 	private String exchangeStatus;
 	private int exchangeMoney;
 	private int account;
+	private String exchangeBank;
 	private String userName;
 	
 	public Exchange() {}
+	
+	public String getExchangeBank() {
+		return exchangeBank;
+	}
+
+	public void setExchangeBank(String exchangeBank) {
+		this.exchangeBank = exchangeBank;
+	}
 
 	public int getExchangeNo() {
 		return exchangeNo;
