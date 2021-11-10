@@ -110,7 +110,7 @@ public class ExchangeController {
 			} else {
 				
 			}
-			return "";
+			return "common/errorPage";
 		} catch (Exception e) {
 			model.addAttribute("msg", "환전 신청 실패!");
 			return "common/errorPage";
