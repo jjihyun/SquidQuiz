@@ -11,6 +11,7 @@
 		<result property="account" column="EXCHANGE_BANK_ACCOUNT"></result>
 		<result property="exchangeBank" column="EXCHANGE_BANK"></result>
 		<result property="userName" column="USER_NAME"></result>
+		<result property="userId" column="USER_ID"></result>
 	</resultMap>
 	
 	<select id="selectExchangeList" resultMap="exchangeResultMap">
@@ -18,15 +19,27 @@
 	</select>
 	
 	<select id="selectOwnExchange" parameterType="_int" resultMap="exchangeResultMap">
-		SELECT * FROM EXCHANGE WHERE EXCHANGE_NO = #{exchangeNo}
+		SELECT * FROM EXCHANGE WHERE USER_NO = #{userNo} ORDER BY EXCHANGE_NO DESC
+	</select>
+	
+	<select id="selectSearchExchange"  resultMap="exchangeResultMap">
+		SELECT * FROM EXCHANGE WHERE USER_ID LIKE  '%' || #{searchValue} || '%'
+	</select>
+	
+		<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*) FROM EXCHANGE
+	</select>
+	
+	<select id="selectOwnListCount" resultType="_int">
+		SELECT COUNT(*) FROM EXCHANGE WHERE USER_NO=#{userNo}
 	</select>
 	
 	<insert id="insertExchange" parameterType="Exchange">
-		INSERT INTO NOTICE VALUES(SEQ_EXCHANGE.NEXTVAL,#{noticeTitle},#{noticeContents},DEFAULT)
+		INSERT INTO EXCHANGE VALUES(SEQ_EXCHANGE.NEXTVAL,#{userNo},DEFAULT,null,DEFAULT,#{exchangeMoney},#{account},#{exchangeBank},#{userName},#{userId})
 	</insert>
 	
 
 	<update id="updateExchange" parameterType="Exchange">
-		UPDATE NOTICE SET NOTICE_TITLE=#{noticeTitle},NOTICE_CONTENTS=#{noticeContents} WHERE NOTICE_NO=#{noticeNo}
+		UPDATE EXCHANGE SET EXCHANGE_PROCESSING_STATUS='Y', EXCHANGE_DATE = SYSDATE WHERE EXCHANGE_NO = #{exchangeNo}
 	</update>
 </mapper>

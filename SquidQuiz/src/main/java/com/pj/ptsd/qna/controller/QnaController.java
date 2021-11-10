@@ -27,7 +27,9 @@ public class QnaController {
 	
 	//전체조회 
 	@RequestMapping(value="qnaListView.ptsd", method=RequestMethod.GET)
-	public String qnaListView(Model model, HttpServletRequest request, @RequestParam(value="page",required=false) Integer page) {
+	public String qnaListView(Model model
+			, HttpServletRequest request
+			, @RequestParam(value="page",required=false) Integer page) {
 		int currentPage = (page!=null) ? page : 1 ;
 		int totalCount = 0;
 		String userId="user01"; 
