@@ -10,7 +10,6 @@ public class Pagination {
 		int maxPage;  //페이지의 끝
 		int startNavi;
 		int endNavi;
-		String type=null;
 		
 		maxPage=(int)((double)totalCount/campaignLimit+0.9);
 		startNavi = (((int)((double)currentPage/naviLimit+0.9))-1)*naviLimit+1;
@@ -18,7 +17,7 @@ public class Pagination {
 		if(maxPage<endNavi) {
 			endNavi=maxPage;
 		}
-		pi = new PageInfo(currentPage, campaignLimit, naviLimit, startNavi, endNavi, totalCount, maxPage, type);
+		pi = new PageInfo(currentPage, campaignLimit, naviLimit, startNavi, endNavi, totalCount, maxPage);
 		return pi;
 	}
 }

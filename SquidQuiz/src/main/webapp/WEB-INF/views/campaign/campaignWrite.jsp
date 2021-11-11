@@ -32,7 +32,7 @@
 					<select name="campaignOption">
 						<option value="child">아동</option>
 						<option value="old">어르신</option>
-						<option value="obstacle">장애인</option>
+						<option value="handicap">장애인</option>
 						<option value="environment">환경</option>
 						<option value="multicultural">다문화가정</option>	
 						<option value="facility">시설</option>

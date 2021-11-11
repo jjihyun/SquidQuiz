@@ -17,28 +17,21 @@ public class CampaignServiceImpl implements CampaignService{
 	@Autowired
 	private CampaignStore store;
 
-	//캠페인 게시글 전체 개수
+	//캠페인 게시글 개수
 	@Override
 	public int getListCount() {
 		int totalCount = store.selectListCount();
+		System.out.println("service의 totalCount : "+totalCount);
 		return totalCount;
 	}
-	@Override
-	public int getListTypeCount(String type) {
-		int totalCount = store.selectListTypeCount(type);
-		return totalCount;
-	}
+
 	//캠페인 목록 조회
 	@Override
 	public List<Campaign> printAll(PageInfo pi) {
 		List<Campaign> cList = store.selectAll(pi);
 		return cList;
 	}
-	@Override
-	public List<Campaign> printAllType(PageInfo pi, String type) {
-		List<Campaign> cList = store.selectAllType(pi, type);
-		return cList;
-	}
+
 	//메인게임테이블에 값이 있는지 체크
 	@Override
 	public int printAllDonationRecord() {
