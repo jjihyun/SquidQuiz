@@ -2,6 +2,7 @@ package com.pj.ptsd.board.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pj.ptsd.board.domain.Board;
@@ -14,25 +15,34 @@ import com.pj.ptsd.board.store.BoardStore;
 @Service
 public class BoardServiceImpl implements BoardService {
 	
+	@Autowired
 	private BoardStore store;
 	
-
+	
 	@Override
 	public List<Board> printAll(PageInfo pi) {
 		List<Board> bList = store.selectAll(pi);
 		return bList;
 	}
-
+	
 	@Override
-	public List<Board> printSearchAll(Search search) {
-		// TODO Auto-generated method stub
-		return null;
+	public int getListCount() {
+//		int totalCount = store.selectListCount();
+		return 0;
 	}
+	
 
 	@Override
 	public Board printOne(int bNo) {
 		Board board = store.printOne(bNo);
 		return board;
+	}
+
+	
+	@Override
+	public List<Board> printSearchAll(Search search) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -82,16 +92,5 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public int getListCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
-	
-	
-	
-	
 
 }

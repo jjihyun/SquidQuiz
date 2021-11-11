@@ -1,62 +1,51 @@
 package com.pj.ptsd.board.domain;
 
+import java.sql.Date;
+
 public class board_report {
    
-	private int rReportNo;
-	private int replyNo;
+	private int bReportNo;
 	private int boardNo;
-	private String rReportId;
-	private int userNo;
+	private String userId;
+	private Date bReport_Date;
 	
 	public board_report() {}
 
-	public int getrReportNo() {
-		return rReportNo;
-	}
-
-	public int getReplyNo() {
-		return replyNo;
+	public int getbReportNo() {
+		return bReportNo;
 	}
 
 	public int getBoardNo() {
 		return boardNo;
 	}
 
-	public String getrReportId() {
-		return rReportId;
+	public String getUserId() {
+		return userId;
 	}
 
-	public int getUserNo() {
-		return userNo;
+	public Date getbReport_Date() {
+		return bReport_Date;
 	}
 
-	public void setrReportNo(int rReportNo) {
-		this.rReportNo = rReportNo;
-	}
-
-	public void setReplyNo(int replyNo) {
-		this.replyNo = replyNo;
+	public void setbReportNo(int bReportNo) {
+		this.bReportNo = bReportNo;
 	}
 
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
 
-	public void setrReportId(String rReportId) {
-		this.rReportId = rReportId;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setbReport_Date(Date bReport_Date) {
+		this.bReport_Date = bReport_Date;
 	}
 
 	@Override
 	public String toString() {
-		return "board_report [rReportNo=" + rReportNo + ", replyNo=" + replyNo + ", boardNo=" + boardNo + ", rReportId="
-				+ rReportId + ", userNo=" + userNo + "]";
+		return "board_report [bReportNo=" + bReportNo + ", boardNo=" + boardNo + ", userId=" + userId
+				+ ", bReport_Date=" + bReport_Date + "]";
 	}
-	
-	
-	
-	
 }

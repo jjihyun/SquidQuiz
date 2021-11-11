@@ -5,40 +5,39 @@
 <mapper namespace="boardMapper">
 
 	<resultMap type="Board" id="boardResultMap">
-		<id property="bNo" column="B_NO" />
-		<result property="bTitle" column="B_TITLE"/>
-		<result property="bContents" column="B_CONTENTS"/>
-		<result property="userNo" column="USER_NO"/>
-		<result property="bFileName" column="B_FILENAME"/>
-		<result property="bFileRename" column="B_FILERENAME"/>
-		<result property="bFileSize" column="B_FILESIZE"/>
-		<result property="bfilePath" column="B_FILEPATH"/>
-		<result property="bCreateDate" column="B_CREATE_DATE"/>
-		<result property="bUpdateDate" column="B_UPDATE_DATE"/>
+		<id property="bNo" column="BOARD_NO" />
+		<result property="bTitle" column="BOARD_TITLE"/>
+		<result property="bContents" column="BOARD_CONTENTS"/>
+		<result property="userId" column="USER_Id"/>
+		<result property="bFileName" column="BOARD_FILENAME"/>
+		<result property="bFileRename" column="BOARD_FILERENAME"/>
+		<result property="bfilePath" column="BOARD_FILEPATH"/>
+		<result property="bCreateDate" column="BOARD_CREATE_DATE"/>
+		<result property="bUpdateDate" column="BOARD_UPDATE_DATE"/>
 	</resultMap>
 
 
 		<select id="selectAllList" resultMap="boardResultMap">
-			SELECT * FROM BOARD ORDER BY B_NO DESC
+			SELECT * FROM BOARD ORDER BY BOARD_NO DESC
 		</select>
 	
 		<select id="selectOneBoard" resultMap="boardResultMap">
-			SELECT * FROM BOARD WHERE B_NO = #{bNo }
+			SELECT * FROM BOARD WHERE BOARD_NO = #{bNo }
 		</select>
 		
 		<insert id="insertBoard" parameterType="Board">
-			INSERT INTO BOARD VALUES(SEQ_BOARDNUM.NEXTVAL, #{bTitle }, #{bContents }, #{userNo }, #{bFileName }, #{bFileRename }, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+			INSERT INTO BOARD VALUES(SEQ_BOARD.NEXTVAL, #{bTitle }, #{bContents }, #{userId }, #{bFileName }, #{bFileRename }, #{bFilePath }, DEFAULT, DEFAULT)
 		</insert>
 		
 		<update id="updateBoard" parameterType="Board">
 			UPDATE BOARD SET BOARD_TITLE = #{bTitle },
-			B_CONTENTS = #{bContents }, B_FILENAME = #{bFileName }
-			,B_FILERENAME = #{bFileRename }, B_UPDATE_DATE = DEFAULT 
-			WHERE B_NO = #{bNo }
+			BOARD_CONTENTS = #{bContents }, BOARD_FILENAME = #{bFileName }
+			,BOARD_FILERENAME = #{bFileRename }, BOARD_UPDATE_DATE = DEFAULT 
+			WHERE BOARD_NO = #{bNo }
 		</update>
 
 		<delete id="deleteBoard" parameterType="_int">
-			DELETE FROM BOARD WHERE B_NO = #{bNo }
+			DELETE FROM BOARD WHERE BOARD_NO = #{bNo }
 		</delete>
 
 
