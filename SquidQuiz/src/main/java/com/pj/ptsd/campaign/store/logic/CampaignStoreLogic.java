@@ -20,8 +20,8 @@ public class CampaignStoreLogic implements CampaignStore{
 
 	//캠페인 게시글 개수
 	@Override
-	public int selectListCount() {
-		int count = sqlSession.selectOne("campaignMapper.selectListCount");
+	public int selectListCount(String type) {
+		int count = sqlSession.selectOne("campaignMapper.selectListCount", type);
 		System.out.println("store의 count : "+count);
 		return count;
 	}

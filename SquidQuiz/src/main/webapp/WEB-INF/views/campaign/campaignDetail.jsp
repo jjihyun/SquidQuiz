@@ -92,7 +92,7 @@ background: #333333;
 			<c:param name="campaignNo" value="${campaign.campaignNo }"></c:param>
 			<c:param name="fileName" value="${campaign.cFileName}"></c:param>
 		</c:url>
-		<c:url var="cDonate" value="donationPay.ptsd">
+		<c:url var="cDonate" value="donationPayView.ptsd">
 			<c:param name="campaignNo" value="${campaign.campaignNo }"></c:param>
 		</c:url>
 		<input type="hidden" value="${campaign.campaignNo }">
@@ -118,8 +118,8 @@ background: #333333;
 					<br>${percent}%
 				</h4>
 				<p class="all-text">모금기한 : ${formatDate }<br>
-					D-DAY : ${dDay }일
-				</p><br>
+				</p>
+				<h3 class="all-text" id="d-day" style="display:;">D-DAY : ${dDay }일</h3>
 				<h5 class="all-text">현재 모금액</h5>
 				<h4 class="all-text">${campaign.cNowAmount}원</h4>
 				<button onclick="location.href='${cDonate}'">기부하기</button><br>
@@ -143,27 +143,17 @@ background: #333333;
 	
 	</div>
 	
+	
 	<script>
-/* 		$(function(){
-			alert("시작");
-			var today = new Date();
-			var dday = ${campaign.cEndDate};
-			var gap = dday.getTime()-today.getTime();
-			alert("중");
-			var result = Math.ceil(gap/(1000*60*60*24));
-			console.log(result+"일");
-		}); */
-/* 		$(document).ready(function(){
-			var today = new Date();
-			console.log(today);
-			
-			var dday = ${formatDate};
-			//var dday = ${endDate};
-			
-			//var dday2 = new Date(dday);
-			console.log("끝나는 날 "+dday);
-			
-		}); */
+		$(function(){
+			var dday = ${dDay};
+			alert(parseInt(dday));
+/* 			if(dday>0){
+				$("#d-day").style.display="none";
+				alert('실go');
+			} */
+		});
+
 
 	</script>
 </body>

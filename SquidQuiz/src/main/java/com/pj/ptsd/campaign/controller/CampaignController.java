@@ -48,19 +48,19 @@ public class CampaignController {
 		try {
 			request.setCharacterEncoding("utf-8");
 			String type=request.getParameter("campaignType");
-			if(type==null) {
-				type="all";
-			}
 			System.out.println("캠페인 타입 " + type);
 			
 			int currentPage =(page!=null)?page:1;
-			int totalCount = service.getListCount();
+			int totalCount = service.getListCount(type);
 			System.out.println("총 개수 : "+totalCount);
 			//System.out.println("현재 페이지 : "+currentPage);
 			PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
 			System.out.println("시작 페이지"+pi.getStartNavi());
 			System.out.println("끝 페이지"+pi.getEndNavi());
 			//System.out.println("캠페인 개수 : "+totalCount);
+			if(type==null) {
+				type="all";
+			}
 			pi.setType(type);
 
 			//메인게임테이블에 값이 있는지 체크. null값 방지 위해서.
@@ -106,15 +106,18 @@ public class CampaignController {
 //		response.setContentType("application/json");
 //		JsonObject obj = new JsonObject();
 		int currentPage =(page!=null)?page:1;
-		int totalCount = service.getListCount();
+		int totalCount = service.getListCount(type);
 
 		PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
 		pi.setType(type);
 		System.out.println("타입 : "+type);
 		System.out.println("총 개수  : "+totalCount);
+		System.out.println("시작 페이지"+pi.getStartNavi());
+		System.out.println("끝 페이지"+pi.getEndNavi());
 		List<Campaign> cList = service.printAll(pi);
 		//List<Campaign> cList = service.printAllType(pi2,type);
 		System.out.println(cList);
+		System.out.println(pi);
 		Gson gson = new Gson();
 		gson.toJson(cList, response.getWriter());
 		//gson.toJson(pi, response.getWriter());
@@ -163,17 +166,17 @@ public class CampaignController {
 	}
 	
 	//캠페인 기부 결제페이지
-	@RequestMapping(value="donationPay.ptsd", method=RequestMethod.GET)
+	@RequestMapping(value="donationPayView.ptsd", method=RequestMethod.GET)
 	public String showDonationPay(@RequestParam("campaignNo") int campaignNo, Model model ) {
-		//Campaign camp = service.printCampaignDetail(campaignNo);
-//		if(camp!=null) {
-//			model.addAttribute("campaign", camp);
-//			return "campaign/campaignDonation";
-//		} else {
-//			model.addAttribute("msg", "캠페인 수정 페이지 조회 실패!");
-//			return "common/errorPage";
-//		}
-		return "campaign/campaignDonationPay";
+		Campaign camp = service.printCampaignDetail(campaignNo);
+		if(camp!=null) {
+			model.addAttribute("campaign", camp);
+			return "campaign/campaignDonationPay";
+		} else {
+			model.addAttribute("msg", "캠페인 기부 페이지 조회 실패!");
+			return "common/errorPage";
+		}
+//		return "campaign/campaignDonationPay";
 	}
 	
 	//캠페인 작성 페이지

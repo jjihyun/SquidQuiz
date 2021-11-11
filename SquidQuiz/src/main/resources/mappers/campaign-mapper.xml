@@ -22,11 +22,11 @@
 
 	<select id="selectListCount" resultType="_int">
 		<choose>
-			<when test="type=='all'">
-				SELECT COUNT(*) FROM CAMPAIGN
+			<when test='value != null'>
+				SELECT COUNT(*) FROM CAMPAIGN WHERE CAMPAIGN_TYPE=#{value }
 			</when>
 			<otherwise>
-				SELECT COUNT(*) FROM CAMPAIGN WHERE CAMPAIGN_TYPE=#{type}
+				SELECT COUNT(*) FROM CAMPAIGN 
 			</otherwise>
 		</choose>
 	<!-- 	SELECT COUNT(*) FROM CAMPAIGN -->

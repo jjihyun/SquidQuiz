@@ -9,7 +9,7 @@ import com.pj.ptsd.campaign.domain.PageInfo;
 
 public interface CampaignService {
 
-	public int getListCount();  //캠페인 게시글 개수
+	public int getListCount(String type);  //캠페인 게시글 개수
 	public List<Campaign> printAll(PageInfo pi); //캠페인 게시글 리스트(전체) 조회
 	
 	public Campaign printCampaignDetail(int campaignNo);

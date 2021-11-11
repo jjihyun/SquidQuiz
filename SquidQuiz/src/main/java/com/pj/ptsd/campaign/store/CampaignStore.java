@@ -8,7 +8,7 @@ import com.pj.ptsd.campaign.domain.PageInfo;
 
 public interface CampaignStore {
 
-	public int selectListCount();    //캠페인 게시글 개수
+	public int selectListCount(String type);    //캠페인 게시글 개수
 	public List<Campaign> selectAll(PageInfo pi);
 
 	public Campaign selectDetail(int campaignNo);

@@ -36,7 +36,8 @@ public class Campaign {
 		this.cEnrollDate = cEnrollDate;
 	}
 
-
+	
+	
 
 	public int getCampaignNo() {
 		return campaignNo;
@@ -179,7 +180,6 @@ public class Campaign {
 	public void setcEnrollDate(Date cEnrollDate) {
 		this.cEnrollDate = cEnrollDate;
 	}
-
 
 
 	@Override

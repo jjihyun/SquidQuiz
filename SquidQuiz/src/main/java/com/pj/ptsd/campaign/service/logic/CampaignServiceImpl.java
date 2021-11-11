@@ -19,8 +19,8 @@ public class CampaignServiceImpl implements CampaignService{
 
 	//캠페인 게시글 개수
 	@Override
-	public int getListCount() {
-		int totalCount = store.selectListCount();
+	public int getListCount(String type) {
+		int totalCount = store.selectListCount(type);
 		System.out.println("service의 totalCount : "+totalCount);
 		return totalCount;
 	}
