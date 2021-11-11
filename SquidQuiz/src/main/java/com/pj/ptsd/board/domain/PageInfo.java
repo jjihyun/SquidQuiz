@@ -11,6 +11,22 @@ public class PageInfo {
 	private int maxPage;
 	
 	public PageInfo() {}
+	
+	
+
+	public PageInfo(int currentPage, int boardLimit, int naviLimit, int startNavi, int endNavi, int totalCount,
+			int maxPage) {
+		super();
+		this.currentPage = currentPage;
+		this.boardLimit = boardLimit;
+		this.naviLimit = naviLimit;
+		this.startNavi = startNavi;
+		this.endNavi = endNavi;
+		this.totalCount = totalCount;
+		this.maxPage = maxPage;
+	}
+
+
 
 	public int getCurrentPage() {
 		return currentPage;

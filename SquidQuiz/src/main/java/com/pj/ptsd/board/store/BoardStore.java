@@ -22,5 +22,6 @@ public interface BoardStore {
 	public int insertReply(Reply reply);
 	public int updateReply(Reply reply);
 	public int deleteReply(Reply reply);
+	public Board printOne(int bNo);
 
 }

@@ -5,9 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판 글쓰기</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
-<jsp:include page="../common/errorPage.jsp"></jsp:include>
+<script>
+		//자바스크립트로 헤더 파일 받아오는 소스 
+		$(document).ready(function() {
+			$('#headerMain').load("/resources/html/header.jsp");
+		});
+</script>
+<jsp:include page="../../../resources/html/header.jsp"/>
 	<br style="clear:both">
 	<h1 align="center">게시글 등록</h1>
 	<br><br>
@@ -15,15 +23,15 @@
 		<table align="center" border="1">
 			<tr>
 				<th>제목</th>
-				<td><input type="text" size="50" name="boardTitle"></td>
+				<td><input type="text" size="50" name="bTitle"></td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" size="50" name="boardTitle"></td>
+				<td><input type="text" size="50" name="userNo"></td>
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea rows="7" cols="50" name="boardContents"></textarea>
+				<td><textarea rows="7" cols="50" name="bContents"></textarea>
 			</tr>
 			<tr>
 				<th>첨부파일</th>

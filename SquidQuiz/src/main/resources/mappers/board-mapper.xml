@@ -17,9 +17,35 @@
 		<result property="bUpdateDate" column="B_UPDATE_DATE"/>
 	</resultMap>
 
-<!-- 	<insert> -->
-<!-- 		INSERT INTO BOARD VALUES(SEQ_BOARDNUM_NEXTVAL,#{bTitle }, #{bContents }, #{userNo }, #{bFileName }, #{bFileRename }, DEFAULT, DEFAULT, DEFAULT, DEFAULT) -->
-<!-- 	</insert> -->
+
+		<select id="selectAllList" resultMap="boardResultMap">
+			SELECT * FROM BOARD ORDER BY B_NO DESC
+		</select>
+	
+		<select id="selectOneBoard" resultMap="boardResultMap">
+			SELECT * FROM BOARD WHERE B_NO = #{bNo }
+		</select>
+		
+		<insert id="insertBoard" parameterType="Board">
+			INSERT INTO BOARD VALUES(SEQ_BOARDNUM.NEXTVAL, #{bTitle }, #{bContents }, #{userNo }, #{bFileName }, #{bFileRename }, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+		</insert>
+		
+		<update id="updateBoard" parameterType="Board">
+			UPDATE BOARD SET BOARD_TITLE = #{bTitle },
+			B_CONTENTS = #{bContents }, B_FILENAME = #{bFileName }
+			,B_FILERENAME = #{bFileRename }, B_UPDATE_DATE = DEFAULT 
+			WHERE B_NO = #{bNo }
+		</update>
+
+		<delete id="deleteBoard" parameterType="_int">
+			DELETE FROM BOARD WHERE B_NO = #{bNo }
+		</delete>
+
+
+
+
+
+
 
 
 
