@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>캠페인 디테일</title>
+
 <style type="text/css">
 	#campaign-body{
 		background-color: gray; 
@@ -51,6 +52,34 @@
         background-color: #eee;
         border-radius: 8px;
       } 
+      
+      
+.carousel {
+	margin-bottom: 0;
+	padding: 0 40px 30px 40px;
+}
+
+.carousel-control {
+	left: -12px;
+}
+.carousel-control.right {
+	right: -12px;
+}
+
+.carousel-indicators {
+	right: 50%;
+	top: auto;
+	bottom: 0px;
+	margin-right: -19px;
+}
+
+.carousel-indicators li {
+	background: #c0c0c0;
+}
+
+.carousel-indicators .active {
+background: #333333;
+}
 </style>
 </head>
 <body>
@@ -63,6 +92,9 @@
 			<c:param name="campaignNo" value="${campaign.campaignNo }"></c:param>
 			<c:param name="fileName" value="${campaign.cFileName}"></c:param>
 		</c:url>
+		<c:url var="cDonate" value="donationPay.ptsd">
+			<c:param name="campaignNo" value="${campaign.campaignNo }"></c:param>
+		</c:url>
 		<input type="hidden" value="${campaign.campaignNo }">
 		<h2>${campaign.campaignTitle }</h2>
 		<h4 style="border: 1px solid red; text-align: center;">(${campaign.campaignType })
@@ -71,9 +103,11 @@
 				<button onclick="location.href='${cDelete}'">삭제하기</button>
 			</div>
 		</h4>
+		<input type="hidden" id="dday" value="${campaign.cEndDate }">
 		<div id="campaign-detail">
 			<div style="float: left; background-color:rgb(255, 233, 233); width:1000px; height: 100%;">
-				사진, 설명...
+				<img src="../../../resources/campaignUpload/${campaign.cFileName }" alt="no img" style="height: 200px; width: 300px;">
+				<p>${campaign.campaignContents }</p>
 			</div>
 			<div style="background-color:rgb(243, 255, 233); width: 300px; height: 100%; float: left;">
 				<!-- 소수점 제거 -->
@@ -84,56 +118,53 @@
 					<br>${percent}%
 				</h4>
 				<p class="all-text">모금기한 : ${formatDate }<br>
-					D-(계산해서 적용)
+					D-DAY : ${dDay }일
 				</p><br>
 				<h5 class="all-text">현재 모금액</h5>
 				<h4 class="all-text">${campaign.cNowAmount}원</h4>
-				<button>기부하기</button><br>
+				<button onclick="location.href='${cDonate}'">기부하기</button><br>
 				<p class="all-text">목표금액 : ${campaign.cTargetAmount }원<br><br>
 					모금단체정보<br>${campaign.campaignName }<br><br>
-					사이트 바로가기<br><a href="#">${campaign.cLink }</a>
+					사이트 바로가기<br><a href="${campaign.cLink }">${campaign.campaignName }</a>
 				</p><br>
-				<div>
+				<div style="border:1px solid black; text-align: center;">
 					다른 후원><br>
-					(다른 후원 보이고 누르면 이동되게)
+					<div style="width: 150px; height: 150px; border:1px solid pink; display:inline-block;">
+						
+					</div>
+
 				</div>
 			</div>
 		</div>
 		<div style="position: absolute; left: 50%; transform: translateX(-50%);">
-			<c:url var="cDonate" value="donationPay.ptsd">
-				<c:param name="campaignNo" value="${campaign.campaignNo }"></c:param>
-			</c:url>
-			<button class="camp-btn" onclick="${cDonate}">기부하기</button>&nbsp;&nbsp;
+			<button class="camp-btn" onclick="location.href='${cDonate}'">기부하기</button>&nbsp;&nbsp;
 			<button class="camp-btn">목록으로</button>
 		</div>
 	
 	</div>
 	
 	<script>
-		// for progress tag in HTML
-		$(function(){
-			function tag () {
-			  let progress = document.querySelector('.progressTag');
-			  let interval = 1;
-			  let updatesPerSecond = 1000 / 60;
-			  let end = progress.max * ${percent}*0.01;
-		
-			  function animator () {
-			    progress.value = progress.value + interval;
-			    if ( progress.value + interval < end){
-			      setTimeout(animator, updatesPerSecond);
-			    } else { 	
-			      progress.value = end;
-			    }
-			  }
-		
-			  setTimeout(() => {
-			    animator()
-			  }, updatesPerSecond)
-			}
-		
-			tag()
-		});
+/* 		$(function(){
+			alert("시작");
+			var today = new Date();
+			var dday = ${campaign.cEndDate};
+			var gap = dday.getTime()-today.getTime();
+			alert("중");
+			var result = Math.ceil(gap/(1000*60*60*24));
+			console.log(result+"일");
+		}); */
+/* 		$(document).ready(function(){
+			var today = new Date();
+			console.log(today);
+			
+			var dday = ${formatDate};
+			//var dday = ${endDate};
+			
+			//var dday2 = new Date(dday);
+			console.log("끝나는 날 "+dday);
+			
+		}); */
+
 	</script>
 </body>
 </html>

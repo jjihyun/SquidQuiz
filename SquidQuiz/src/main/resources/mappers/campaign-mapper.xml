@@ -21,16 +21,27 @@
 	</insert>
 
 	<select id="selectListCount" resultType="_int">
-		SELECT COUNT(*) FROM CAMPAIGN
+		<choose>
+			<when test="type=='all'">
+				SELECT COUNT(*) FROM CAMPAIGN
+			</when>
+			<otherwise>
+				SELECT COUNT(*) FROM CAMPAIGN WHERE CAMPAIGN_TYPE=#{type}
+			</otherwise>
+		</choose>
+	<!-- 	SELECT COUNT(*) FROM CAMPAIGN -->
 	</select>
-	<select id="selectTypeListCount" resultType="_int">
-		SELECT COUNT(*) FROM CAMPAIGN WHERE CAMPAIGN_TYPE=#{type}
-	</select>
+	
 	<select id="selectCampaignList" resultMap="campaignResultMap">
-		SELECT * FROM CAMPAIGN ORDER BY CAMPAIGN_ENROLL_DATE DESC
-	</select>
-	<select id="selectCampaignTypeList" resultMap="campaignResultMap">
-		SELECT * FROM CAMPAIGN WHERE CAMPAIGN_TYPE='child' ORDER BY CAMPAIGN_ENROLL_DATE DESC
+		<!-- 동적 쿼리문 -->
+		<choose>
+			<when test="type == 'all'">
+				SELECT * FROM CAMPAIGN ORDER BY CAMPAIGN_ENROLL_DATE DESC
+			</when>
+			<otherwise>
+				SELECT * FROM CAMPAIGN WHERE CAMPAIGN_TYPE=#{type} ORDER BY CAMPAIGN_ENROLL_DATE DESC
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id="selectOneCampaign" resultMap="campaignResultMap">

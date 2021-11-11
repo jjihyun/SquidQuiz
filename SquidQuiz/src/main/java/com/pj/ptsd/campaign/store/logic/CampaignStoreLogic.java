@@ -18,15 +18,11 @@ public class CampaignStoreLogic implements CampaignStore{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	//캠페인 게시글 전체 개수
+	//캠페인 게시글 개수
 	@Override
 	public int selectListCount() {
 		int count = sqlSession.selectOne("campaignMapper.selectListCount");
-		return count;
-	}
-	@Override
-	public int selectListTypeCount(String type) {
-		int count = sqlSession.selectOne("campaignMapper.selectTypeListCount", type);
+		System.out.println("store의 count : "+count);
 		return count;
 	}
 	
@@ -38,14 +34,7 @@ public class CampaignStoreLogic implements CampaignStore{
 		List<Campaign> cList = sqlSession.selectList("campaignMapper.selectCampaignList", pi, rowBounds);
 		return cList;
 	}
-	//임시
-	@Override
-	public List<Campaign> selectAllType(PageInfo pi, String type) {
-		int offset =(pi.getCurrentPage()-1)*pi.getCampaignLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getCampaignLimit());
-		List<Campaign> cList = sqlSession.selectList("campaignMapper.selectCampaignTypeList", pi, rowBounds);
-		return cList;
-	}
+	
 	//메인게임테이블에 값이 있는지 체크
 	@Override
 	public int selectAllDonation() {

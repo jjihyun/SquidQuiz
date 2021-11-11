@@ -55,14 +55,14 @@ public class CampaignController {
 			
 			int currentPage =(page!=null)?page:1;
 			int totalCount = service.getListCount();
+			System.out.println("총 개수 : "+totalCount);
+			//System.out.println("현재 페이지 : "+currentPage);
 			PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
-			System.out.println("전체 캠페인 개수 : "+totalCount);
-			
-			int totalTypeCount = service.getListTypeCount(type);
-			PageInfo pi2 = Pagination.getPageInfo(currentPage, totalTypeCount);
-			pi2.setType(type);
-			System.out.println("type의 캠페인 개수 " + totalTypeCount);
-			
+			System.out.println("시작 페이지"+pi.getStartNavi());
+			System.out.println("끝 페이지"+pi.getEndNavi());
+			//System.out.println("캠페인 개수 : "+totalCount);
+			pi.setType(type);
+
 			//메인게임테이블에 값이 있는지 체크. null값 방지 위해서.
 			int dRecord = service.printAllDonationRecord();
 			if(dRecord>0) {
@@ -78,31 +78,17 @@ public class CampaignController {
 				model.addAttribute("dPrice", dPrice);
 			}
 			
-			if(type.equals("all")) {
-				List<Campaign> cList = service.printAll(pi);
-				System.out.println("1");
-				if(!cList.isEmpty()) {
-					model.addAttribute("cList", cList);
-					model.addAttribute("pi", pi);
-					model.addAttribute("campaignType",type);
-					return "campaign/campaignList";
-				} else {
-					model.addAttribute("msg", "캠페인 조회 실패");
-					return "common/errorPage";
-				}	
+			List<Campaign> cList = service.printAll(pi);
+			if(!cList.isEmpty()) {
+				model.addAttribute("cList", cList);
+				model.addAttribute("pi", pi);
+				model.addAttribute("campaignType",type);
+				return "campaign/campaignList";
 			} else {
-				List<Campaign> cList = service.printAllType(pi2,type);
-				System.out.println("2");
-				if(!cList.isEmpty()) {
-					model.addAttribute("cList", cList);
-					model.addAttribute("pi", pi2);
-					model.addAttribute("campaignType",type);
-					return "campaign/campaignList";
-				} else {
-					model.addAttribute("msg", "캠페인 조회 실패");
-					return "common/errorPage";
-				}	
-			}
+				model.addAttribute("msg", "캠페인 조회 실패");
+				return "common/errorPage";
+			}	
+			
 		
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -114,16 +100,24 @@ public class CampaignController {
 	@ResponseBody
 	@RequestMapping(value="campaignListJSON.ptsd", method=RequestMethod.GET)
 	public void campaignListJSON(HttpServletRequest request, HttpServletResponse response
-			, @RequestParam("campaignType") String type, @RequestParam(value="cList[]")List<String> cList[]) throws Exception{
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("application/json");
-		Gson gson = new Gson();
-		JsonObject obj = new JsonObject();
-		String jsonPlace= gson.toJson(cList);
-		
-		System.out.println(jsonPlace);
+			, @RequestParam("campaignType") String type
+			, @RequestParam(value="page", required=false) Integer page) throws Exception{
+//		response.setCharacterEncoding("utf-8");
+//		response.setContentType("application/json");
+//		JsonObject obj = new JsonObject();
+		int currentPage =(page!=null)?page:1;
+		int totalCount = service.getListCount();
+
+		PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
+		pi.setType(type);
+		System.out.println("타입 : "+type);
+		System.out.println("총 개수  : "+totalCount);
+		List<Campaign> cList = service.printAll(pi);
+		//List<Campaign> cList = service.printAllType(pi2,type);
 		System.out.println(cList);
-		System.out.println(type);
+		Gson gson = new Gson();
+		gson.toJson(cList, response.getWriter());
+		//gson.toJson(pi, response.getWriter());
 	}
 	
 	
@@ -143,10 +137,23 @@ public class CampaignController {
 		if(camp!=null) {
 			mv.addObject("campaign", camp);
 			String formatDate = sdf.format(camp.getcEndDate());
+			
+			Date startDate = new Date();
+			Date endDate = camp.getcEndDate();
+			System.out.println("끝나는 날짜 : "+endDate);
+			System.out.println("시작 날짜 : "+startDate);
+			int gap = (int) (endDate.getTime()-startDate.getTime());
+			int result = (int) Math.ceil(gap/(1000*60*60*24));
+			if(result>=1) {
+				result+=1;
+			}
+			System.out.println("차이" + result);
+			
 			//현재 모금 상황 퍼센트 계산
 			double campMount = (double)camp.getcNowAmount()/(double)camp.getcTargetAmount()*100;
 			mv.addObject("detail", campMount);
 			mv.addObject("formatDate", formatDate);
+			mv.addObject("dDay", result);
 			mv.setViewName("campaign/campaignDetail");
 		} else {
 			mv.addObject("msg", "캠페인 디테일 조회 실패");
@@ -166,7 +173,7 @@ public class CampaignController {
 //			model.addAttribute("msg", "캠페인 수정 페이지 조회 실패!");
 //			return "common/errorPage";
 //		}
-		return "campaign/campaignDonation";
+		return "campaign/campaignDonationPay";
 	}
 	
 	//캠페인 작성 페이지
