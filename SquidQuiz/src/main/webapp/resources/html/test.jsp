@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/resources/css/quiz/oxWrite.css">
+<link rel="stylesheet" href="/resources/css/quiz/quizIng.css">
 <link rel="stylesheet" href="/resources/css/app.css">
 </head>
 <script>
@@ -15,6 +16,64 @@
 	$(document).ready(function() {
 		$('#headerMain').load("/resources/html/header.jsp");
 	});
+	
+	function remaindTime() {
+        var now = new Date(); //현재시간을 구한다. 
+        var end = new Date(now.getFullYear(),now.getMonth(),now.getDate(),20,00,00);
+    //오늘날짜의 저녁 20시 - 종료시간기준
+        var open = new Date(now.getFullYear(),now.getMonth(),now.getDate(),00,00,00);
+    //오늘날짜의 오전00시 - 오픈시간기준
+      
+        var nt = now.getTime(); // 현재의 시간만 가져온다
+        var ot = open.getTime(); // 오픈시간만 가져온다
+        var et = end.getTime(); // 종료시간만 가져온다.
+      
+       if(nt<ot){ //현재시간이 오픈시간보다 이르면 오픈시간까지의 남은 시간을 구한다. 
+         $(".time").fadeIn();
+         $("p.time-title").html("금일 게임신청 까지 남은 시간");
+
+         sec =parseInt(ot - nt) / 1000;
+         day  = parseInt(sec/60/60/24);
+         sec = (sec - (day * 60 * 60 * 24));
+         hour = parseInt(sec/60/60);
+         sec = (sec - (hour*60*60));
+         min = parseInt(sec/60);
+         sec = parseInt(sec-(min*60));
+         if(hour<10){
+        	 hour="0"+hour;}
+         if(min<10){
+        	 min="0"+min;}
+         if(sec<10){
+        	 sec="0"+sec;}
+          $(".hours").html(hour);
+          $(".minutes").html(min);
+          $(".seconds").html(sec);
+       } else if(nt>et){ //현재시간이 종료시간보다 크면
+        $("p.time-title").html("금일 참여 마감");
+        $(".time").fadeOut();
+       }else { //현재시간이 오픈시간보다 늦고 마감시간보다 이르면 마감시간까지 남은 시간을 구한다. 
+           $(".time").fadeIn();
+         $("p.time-title").html("금일 게임 진행까지 남은 시간");
+         sec =parseInt(et - nt) / 1000;
+         day  = parseInt(sec/60/60/24);
+         sec = (sec - (day * 60 * 60 * 24));
+         hour = parseInt(sec/60/60);
+         sec = (sec - (hour*60*60));
+         min = parseInt(sec/60);
+         sec = parseInt(sec-(min*60));
+         if(hour<10){
+        	 hour="0"+hour;}
+         if(min<10){
+        	 min="0"+min;}
+         if(sec<10){
+        	 sec="0"+sec;}
+          $(".hours").html(hour);
+          $(".minutes").html(min);
+          $(".seconds").html(sec);
+       }
+     }
+     setInterval(remaindTime,1000); //1초마다 검사를 해주면 실시간으로 시간을 알 수 있다. 
+</script>
 </script>
 <style>
 </style>
@@ -41,7 +100,7 @@
 						<span>회원정보수정</span>
 						</a>
 					</li>
-					<li class="sidebar-item">
+					<li class="sidebar-item active">
 					<a class="sidebar-link"
 						href="pages-profile.html"> 
 						<i class="align-middle"
@@ -49,7 +108,7 @@
 							<span class="align-middle">퀴즈진행</span>
 					</a>
 					</li>
-					<li class="sidebar-item active"><a class="sidebar-link"
+					<li class="sidebar-item"><a class="sidebar-link"
 						href="pages-profile.html"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">퀴즈관리</span>
 					</a></li>
@@ -74,50 +133,23 @@
 
 			<main class="content">
 				<h1 class="h3 mb-3">
-					<strong>OX퀴즈 [${ox.oxNo }]번 상세</strong>
+					<strong>퀴즈 진행</strong>
 				</h1>
-					<div class="oxTitle" align="center">
-						<!--<h1 align="center">OX퀴즈</h1> -->
-					</div>
 					<div class="writeArea">
-					<input type="hidden" value="${ox.oxNo }" id="xoNo">
-							<table class="writeForm">
-								<tr>
-									<th>제목</th>
-									<td>${ox.oxTitle }</td>
-								</tr>
-								<tr>
-									<th>내용</th>
-									<td>${ox.oxContents }</td>
-								</tr>
-								<tr>
-									<td width="150px">
-									<b>해설</b>
-										<div style="border: 1px solid rgb(219,219,219); height: 300px">
-											${ox.oxCommentary }
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="3" width="150px" class="imgtd">
-										<div class="img_area">
-											<img class="poto" id="oxImg" src="/resources/img/${ox.oxFileName }">
-										</div>
-										<center><b>OX 이미지</b></center>
-									</td>
-<!-- 															<td><input type="file" size="50" name="uploadFile"></td> -->
-								</tr>
-								<tr>
-									<th>정답</th>
-									<td colspan="1">${ox.oxAnswer }</td>
-								</tr>
-								<tr>
-									<td colspan="2">
-										<button>수정</button>
-										<button>삭제</button>
-									</td>
-								</tr>
-							</table>
+						<div class="sec7-text-box">
+			<!--               	<p class="font18">게임 시작 시간</p> -->
+			<!--               	<p class="runTimeCon font25">PM 20 : 00 : 00</p> -->
+			               	<p class="font15 time-title"></p>
+			             	<div class="time font40">
+				             	<center>
+				                	<span class="hours"></span>
+				                	<span class="col">:</span>
+				                	<span class="minutes"></span>
+				               		<span class="col">:</span>
+				               		<span class="seconds"></span>
+				             	</center>
+			             	 </div>
+			            </div>
 					</div>
 			</main>
 

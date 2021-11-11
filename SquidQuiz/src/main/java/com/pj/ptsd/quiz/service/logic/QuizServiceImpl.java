@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.pj.ptsd.quiz.domain.Ox;
 import com.pj.ptsd.quiz.domain.PageData;
+import com.pj.ptsd.quiz.domain.QuizSearch;
 import com.pj.ptsd.quiz.service.QuizService;
 import com.pj.ptsd.quiz.store.QuizStore;
 @Service
@@ -48,6 +49,12 @@ public class QuizServiceImpl implements QuizService{
 	public Ox printOne(int oxNo) {
 		Ox ox = store.selectOne(oxNo);
 		return ox;
+	}
+
+	@Override
+	public List<Ox> printSearchAll(QuizSearch search) {
+		List<Ox> oxSearchList = store.selectSearchAll(search);
+		return oxSearchList;
 	}
 
 

@@ -15,11 +15,21 @@
 	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM OX_QUIZ
 	</select>
+	
 	<select id="selectAllList" resultMap="oxResultMap">
 		SELECT * FROM OX_QUIZ ORDER BY OX_NO DESC
 	</select>
+	
 	<select id="selectOneOx" resultMap="oxResultMap">
 		SELECT * FROM OX_QUIZ WHERE OX_NO = #{oxNo}
+	</select>
+	
+	<select id="selectSearchList" resultMap="oxResultMap">
+		SELECT * FROM OX_QUIZ 
+		<if test="searchCondition.toString() =='title'">
+			WHERE OX_TITLE LIKE '%' || #{searchValue} || '%'
+		</if>
+		ORDER BY OX_ENROLLDATE DESC
 	</select>
 	
 	<insert id="insertOx" parameterType="Ox">
@@ -33,4 +43,6 @@
 	<delete id="deleteOx" parameterType="_int">
 		DELETE FROM OX_QUIZ WHERE OX_NO = #{oxNo}
 	</delete>
+	
+	
 </mapper>

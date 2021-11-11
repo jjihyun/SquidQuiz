@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>PTSD Main Page</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="//code.jquery.com/jquery.min.js"></script>
 <link rel="stylesheet" href="/resources/css/main.css">
 </head>
 
@@ -51,7 +52,7 @@
         $(".time").fadeOut();
        }else { //현재시간이 오픈시간보다 늦고 마감시간보다 이르면 마감시간까지 남은 시간을 구한다. 
            $(".time").fadeIn();
-         $("p.time-title").html("금일 게임진행까지 남은 시간");
+         $("p.time-title").html("금일 게임 진행까지 남은 시간");
          sec =parseInt(et - nt) / 1000;
          day  = parseInt(sec/60/60/24);
          sec = (sec - (day * 60 * 60 * 24));
@@ -86,21 +87,68 @@
 				</script>
 	        </div>
 	        <div class="btn-con">
-	        	<button class="Game-btn" style="color: black;">○   △   □ </button>
+	        	<button id="game-app" class="Game-btn" style="color: black;">○   △   □ </button>
+	        </div>
+	        <div id="game-area" class="game-area" >
+	        	<center><h1 class="game_insert_info" id="game_insert_info">참가 신청하셨습니다.</h1></center>
+	        	<button class="game_btn_insert" id="game-insert">참가신청</button>
+	        	<button class="game_btn_start" id="game-start">퀴즈시작</button>
+	        	<button class="game_btn_delete" id="game-delete">참가취소</button>
+	        	<button class="game_start_O" id="game_start_O">O</button>
+	        	<button class="game_start_X" id="game_start_X">X</button>
 	        </div>
 	      </div>
 			<div class="sec7-text-box">
-              	<p class="font18">게임 시작 시간</p>
-              	<p class="runTimeCon font25">PM 20 : 00 : 00</p>
+<!--               	<p class="font18">게임 시작 시간</p> -->
+<!--               	<p class="runTimeCon font25">PM 20 : 00 : 00</p> -->
                	<p class="font15 time-title"></p>
              	<div class="time font40">
-                	<span class="hours"></span>
-                	<span class="col">:</span>
-                	<span class="minutes"></span>
-               		<span class="col">:</span>
-               		<span class="seconds"></span>
+	             	<center>
+	                	<span class="hours"></span>
+	                	<span class="col">:</span>
+	                	<span class="minutes"></span>
+	               		<span class="col">:</span>
+	               		<span class="seconds"></span>
+	             	</center>
              	 </div>
             </div>
     </div>
 </body>
+<script>
+	//게임 버튼 클릭시 display none가 show된다.
+	$(function(){
+		//시작/참가/취소
+		$('#game-app').click(function(){
+			if($('#game-area').css("display")=="none"){
+				$('#game-app').hide();
+				$('#game-area').show();
+			}
+		})
+		//참가 취소시 명함 노출
+		$('#game-delete').click(function(){
+			if($('#game-app').css("display")=="none"){
+				$('#game-area').hide();
+				$('#game-app').show();
+			}
+		})
+		
+		//게임 참가 버튼 클릭스 해당 (아이디,회차 택1)이 나오고 신청완료 문구 출력
+		$('#game-insert').click(function(){
+			if($('#game_insert_info').css("display")=="none"){
+				$('#game_insert_info').show();
+			}
+		})
+		// 퀴즈 시작 시 모든 버튼이 사라지고 OX버튼만 남기게 된다.
+		$('#game-start').click(function(){
+			if($('#game_start_O').css("display") && $('#game_start_X').css("display")=="none"){
+				$('#game_start_O').show();
+				$('#game_start_X').show();
+				$('#game-delete').hide();
+				$('#game-start').hide();
+				$('#game-insert').hide();
+				$('#game_insert_info').hide();
+			}
+		})
+	})
+</script>
 </html>

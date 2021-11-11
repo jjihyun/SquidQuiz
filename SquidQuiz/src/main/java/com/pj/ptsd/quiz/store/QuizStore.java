@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pj.ptsd.quiz.domain.Ox;
 import com.pj.ptsd.quiz.domain.PageData;
+import com.pj.ptsd.quiz.domain.QuizSearch;
 
 public interface QuizStore {
 	public int selectListCount();
@@ -13,4 +14,5 @@ public interface QuizStore {
 		public int deleteOxQuiz(int oxNo);
 		public List<Ox> selectAll(PageData ox);
 		public Ox selectOne(int oxNo);
+		public List<Ox> selectSearchAll(QuizSearch search);
 }

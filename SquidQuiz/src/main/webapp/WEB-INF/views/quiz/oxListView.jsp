@@ -72,6 +72,15 @@ a:hover{color:#495057;	text-decoration: none;}
 				<div class="card flex-fill">
 					<div class="card-header">
 						<h5 class="card-title mb-0">OX퀴즈</h5>
+						<div align="right">
+							<form action="quizSearch.ptsd" method="GET">
+								<select name="searchCondition">
+									<option value="title"<c:if test="${search.searchCondition =='title' }">selected</c:if>>제목</option>
+								</select>
+								<input type="text" name="searchValue" value="${search.searchValue }" placeholder="키워드를 입력 해주세요.">
+								<input class="btn btn-success" style="opacity: 0.7;" type="submit" value="검색">
+							</form>
+						</div>
 					</div>
 						<button id="" class="btn btn-success" style="opacity: 0.7; color: black;" onclick="location.href='quizWriteView.ptsd';">OX퀴즈등록</button>
 					<table class="table table-hover my-0">

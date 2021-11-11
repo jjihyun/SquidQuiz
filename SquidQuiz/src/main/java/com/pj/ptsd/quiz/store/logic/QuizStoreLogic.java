@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pj.ptsd.quiz.domain.Ox;
 import com.pj.ptsd.quiz.domain.PageData;
+import com.pj.ptsd.quiz.domain.QuizSearch;
 import com.pj.ptsd.quiz.store.QuizStore;
 @Repository
 public class QuizStoreLogic implements QuizStore{
@@ -51,6 +52,12 @@ public class QuizStoreLogic implements QuizStore{
 	public Ox selectOne(int oxNo) {
 		Ox ox = sqlSession.selectOne("quizMapper.selectOneOx",oxNo);
 		return ox;
+	}
+
+	@Override
+	public List<Ox> selectSearchAll(QuizSearch search) {
+		List<Ox> oxSearchList = sqlSession.selectList("quizMapper.selectSearchList",search);
+		return oxSearchList;
 	}
 
 }
