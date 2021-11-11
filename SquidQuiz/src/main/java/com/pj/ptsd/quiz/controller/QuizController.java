@@ -23,6 +23,7 @@ import com.pj.ptsd.campaign.Pagination;
 import com.pj.ptsd.quiz.domain.Ox;
 import com.pj.ptsd.quiz.domain.PageData;
 import com.pj.ptsd.quiz.domain.QuizPagenation;
+import com.pj.ptsd.quiz.domain.QuizSearch;
 import com.pj.ptsd.quiz.service.QuizService;
 
 @Controller
@@ -187,6 +188,20 @@ public class QuizController {
 			return "redirect:oxList.ptsd";
 		}else {
 			model.addAttribute("msg","삭제실패");
+			return "common/errorPage";
+		}
+	}
+	@RequestMapping(value="quizSearch.ptsd",method=RequestMethod.GET)
+	public String QuizSearchList(
+			@ModelAttribute QuizSearch search
+			,Model model) {
+		List<Ox> oxSearchList = service.printSearchAll(search);
+		if(!oxSearchList.isEmpty()) {
+			model.addAttribute("oxList",oxSearchList);
+			model.addAttribute("search",search);
+			return"quiz/oxListView";
+		}else {
+			model.addAttribute("msg","검색 실패");
 			return "common/errorPage";
 		}
 	}
