@@ -17,16 +17,34 @@ public class ReportServiceImpl implements ReportService{
 	//신고 게시물 리스트
 	@Override
 	public List<Report> printReportList(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Report> rList = store.selectReportList(pi);
+		return rList;
+	}
+	//게시물 개수 조회
+	@Override
+	public int getReportCount() {
+		int result = store.selectReportCount();
+		return result;
+	}
+	//신고 게시물 삭제
+	@Override
+	public int removeReportBoard(int boardNo) {
+		int result = store.deleteReportBoard(boardNo);
+		return result;
+	}
+	//신고 내역 삭제
+	@Override
+	public int removeReport(int reportNo) {
+		int result=store.deleteReport(reportNo);
+		return result;
 	}
 	
-		//신고 리스트 search
-		//신고 게시물 삭제
-		//신고 내역 삭제
-		
-		//신고 댓글 리스트
-		//신고 댓글 search
-		//신고 댓글 삭제
-		//댓글 신고 내역 삭제
+	//신고 리스트 search
+	
+	
+	
+	//신고 댓글 리스트
+	//신고 댓글 search
+	//신고 댓글 삭제
+	//댓글 신고 내역 삭제
 }

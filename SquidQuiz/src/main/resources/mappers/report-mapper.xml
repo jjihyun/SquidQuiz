@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- <mapper namespace="reportMapper"> -->
-<!-- 	<resultMap type="Report" id="reportResultMap"> -->
-<!-- 		<id property="exchangeNo" column="EXCHANGE_NO"></id> -->
-<!-- 		<result property="userNo" column="USER_NO"></result> -->
-<!-- 		<result property="exchangeEnrollDate" column="EXCHANGE_ENROLLDATE"></result> -->
-<!-- 		<result property="exchangeDate" column="EXCHANGE_DATE"></result> -->
-<!-- 		<result property="exchangeStatus" column="EXCHANGE_PROCESSING_STATUS"></result> -->
-<!-- 		<result property="exchangeMoney" column="EXCHANGE_MONEY"></result> -->
-<!-- 		<result property="account" column="EXCHANGE_BANK_ACCOUNT"></result> -->
-<!-- 		<result property="exchangeBank" column="EXCHANGE_BANK"></result> -->
-<!-- 		<result property="userName" column="USER_NAME"></result> -->
-<!-- 		<result property="userId" column="USER_ID"></result> -->
+<mapper namespace="reportMapper">
+<!-- 	<resultMap type="Board" id="Board"> -->
+<!-- 		<result property="bTitle" column="BOARD_TITLE"> -->
+<!-- 		<result property="userId" column="USER_ID"> -->
 <!-- 	</resultMap> -->
+	<resultMap type="Report" id="reportResultMap">
+		<id property="reportNo" column="REPORT_NO"></id>
+		<result property="boardNo" column="BOARD_NO"></result>
+		<result property="reportedUserId" column="REPORT_USER_ID"></result>
+		<result property="boardTitle" column="BOARD_TITLE"></result>
+		<result property="boardWriter" column="WRITER"></result>
+		<result property="boardReportDate" column="BOARD_REPORT_DATE"></result>
 	
+<!-- 		<collection property="Board" resultMap="Board"></collection> -->
+	</resultMap>
+		
+		<select id="selectAllReport" resultMap="reportResultMap">
+			SELECT BOARD_REPORT.REPORT_NO, BOARD.BOARD_NO,BOARD_REPORT.REPORT_USER_ID, BOARD.BOARD_TITLE, BOARD.USER_ID AS WRITER, BOARD_REPORT.BOARD_REPORT_DATE
+			FROM BOARD INNER JOIN BOARD_REPORT
+			ON BOARD.BOARD_NO = BOARD_REPORT.BOARD_NO
+			ORDER BY BOARD_REPORT.REPORT_NO DESC
+		</select>
+		<select id="selectReportCount" resultType="_int">
+			SELECT COUNT(*) FROM BOARD_REPORT 
+		</select>
+		
+		<delete id="deleteReportBaord">
+			DELETE FROM BOARD WHERE BOARD_NO = #{boardNo}
+		</delete>
+		<delete id="deleteReport">
+			DELETE FROM BOARD_REPORT WHERE REPORT_NO = #{reportNo}
+		</delete>
 <!-- 	<select id="selectExchangeList" resultMap="exchangeResultMap"> -->
 <!-- 		SELECT * FROM EXCHANGE ORDER BY EXCHANGE_NO DESC -->
 <!-- 	</select> -->
@@ -54,7 +72,5 @@
 <!-- 	</insert> -->
 	
 
-<!-- 	<update id="updateExchange" > -->
-<!-- 		UPDATE EXCHANGE SET EXCHANGE_PROCESSING_STATUS='Y', EXCHANGE_DATE = SYSDATE WHERE EXCHANGE_NO = #{exchangeNo} -->
-<!-- 	</update> -->
-<!-- </mapper> -->
+	
+</mapper>

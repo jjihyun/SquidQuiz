@@ -16,6 +16,8 @@
 		<typeAlias type="com.pj.ptsd.exchange.domain.Exchange" alias="Exchange"/>
 		<typeAlias type="com.pj.ptsd.quiz.domain.Ox" alias="Ox"/>
 		<typeAlias type="com.pj.ptsd.board.domain.Board" alias="Board"/>
+		<typeAlias type="com.pj.ptsd.report.domain.Report" alias="Report"/>
+		<typeAlias type="com.pj.ptsd.report.domain.ReplyReport" alias="ReplyReport"/>
 <!-- 		<typeAlias type="com.iei.spring.member.domain.Member" alias="Member"/> -->
 	</typeAliases>
 	
@@ -27,5 +29,6 @@
 		<mapper resource="mappers/exchange-mapper.xml"/>
 		<mapper resource="mappers/quiz-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/report-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -2,14 +2,33 @@ package com.pj.ptsd.report.domain;
 
 import java.util.Date;
 
+
 public class Report {
 	private int reportNo;
+	private int boardNo;
 	private String reportedUserId;
 	private String boardTitle;
 	private String boardWriter;
 	private Date boardReportDate;
 	
 	public Report() {}
+	
+	
+
+
+	public int getBoardNo() {
+		return boardNo;
+	}
+
+
+
+
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
+	}
+
+
+
 
 	public int getReportNo() {
 		return reportNo;
