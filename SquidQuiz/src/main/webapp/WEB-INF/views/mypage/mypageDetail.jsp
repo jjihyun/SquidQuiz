@@ -6,6 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
 	<meta name="author" content="AdminKit">
@@ -18,13 +19,50 @@
 
 	<title>마이페이지 활동내역</title>
 	<link rel="stylesheet" href="/resources/css/app.css">
+	<link rel="stylesheet" href="/resources/js/app.js">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
+<style>
 
+.container{
+	width: 500px;
+	margin: 0 auto;
+}
+
+ul.tabs{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+ul.tabs li{
+	background: none;
+	color: #222;
+	display: inline-block;
+	padding: 10px 15px;
+	cursor: pointer;
+}
+
+ul.tabs li.current{
+	background: #ededed;
+	color: #222;
+}
+
+.tab-content{
+	display: none;
+	background: #ededed;
+	padding: 15px;
+}
+
+.tab-content.current{
+	display: inherit;
+}
+
+</style>
 <body>
 	<header>
 		<jsp:include page="../../../resources/html/header.jsp"/>
 	</header>
+	<br>
 	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
@@ -32,25 +70,27 @@
 					<img src="/src/img/icons/icon-48x48.png" alt="">
           <span class="align-middle">MY PAGE</span>
         </a>
-
+	
 				<ul class="sidebar-nav">
-					<li class="sidebar-header">
-						<img src="img/photos/회원이미지.png" alt="" style="width: 100px; margin-left: 50px;">
-						
+					
+					<li class="sidebar-header" align="center">
+						<a href="/mypageUser.ptsd"><img src="/resources/img/userProfile.png" alt="" style="width: 100px;">
+						<input type="text" id="my-userId" name="my-userId" value="${loginUser.userId }"  style="text-align:center;font-size:18px;font-weight:bold;width:200px;height:40px;background-color:transparent;border:none;outline:none;pointer-events: none; color:white;"> 
+						</a>
 					</li>
 
 					<li class="sidebar-item ">
-						<a class="sidebar-link" href="index.html">
+						<a class="sidebar-link" href="mypageMyHome.ptsd">
               <i class="align-middle" data-feather="user"></i> <span class="align-middle">MY홈</span>
             </a>
 					</li>
 					<li class="sidebar-item active">
-						<a class="sidebar-link" href="pages-profile.html">
+						<a class="sidebar-link" href="mypageDetail.ptsd">
               <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">활동내역</span>
             </a>
 					</li>
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
+						<a class="sidebar-link" href="mypagePoint.ptsd">
               <i class="align-middle" data-feather="star"></i> <span class="align-middle">포인트</span>
             </a>
 					</li>
@@ -58,31 +98,42 @@
 						<a class="sidebar-link" href="pages-profile.html">
               <i class="align-middle" data-feather="user-x"></i> <span class="align-middle">회원탈퇴</span>
             </a>
-
-			</nav>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		
+			<div class="main">
+				<nav class="navbar navbar-expand navbar-light navbar-bg">
+					<a class="sidebar-toggle js-sidebar-toggle">
+	          		<i class="hamburger align-self-center"></i>
+	        	</a>
+				</nav>
+			
 
 			<main class="content">
 				<div class="container-fluid p-0">
 
 					<h1 class="h3 mb-3"><strong>활동내역</strong> </h1>
+				</div>
+					<div class="container">
 
-					<div class="tab_menu">
-						<ul class="list">
-						  <li class="is_on">
-							<a href="#tab1" class="btn">전체 내역</a>
-						  </li>
-						  <li>
-							<a href="#tab2" class="btn">캠페인 내역</a>
-						  </li>
-						  <li>
-							<a href="#tab3" class="btn">퀴즈 내역</a>
-						  </li>
-						</ul>
-						
-						
-						<div class="cont_area">
-						  <div id="tab1" class="cont">
+							<ul class="tabs">
+								<li class="tab-link current" data-tab="tab-1">메뉴_하나</li>
+								<li class="tab-link" data-tab="tab-2">메뉴_둘</li>
+								<li class="tab-link" data-tab="tab-3">메뉴_셋</li>
+							</ul>
 							<br><br><br>
+							<div id="tab-1" class="tab-content current">
+							
+							</div>
+							<div id="tab-2" class="tab-content">
+							</div>
+							<div id="tab-3" class="tab-content">
+							</div>
+						
+						</div>
+							<div id="tab-1" class="tab-content current">
 							<!-- 게시판 -->
 							<div class="row">
 								<div class="col-12 col-lg-8 col-xxl-9 d-flex">
@@ -159,7 +210,7 @@
 								</div>
 							</div>
 						  </div>
-						  <div id="tab2" class="cont">
+						 <div id="tab-2" class="tab-content">
 							<br><br><br>
 							<!-- 게시판 -->
 							<div class="row">
@@ -238,8 +289,7 @@
 								</div>
 							</div>
 						  </div>
-						  </div>
-						  <div id="tab3" class="cont">
+						  <div id="tab-3" class="tab-content">
 							<!-- 게시판 -->
 							<div class="row">
 								<div class="col-12 col-lg-8 col-xxl-9 d-flex">
@@ -316,15 +366,8 @@
 									</div>
 								</div>
 							</div>
-						  </div>
-						  </div>
 						</div>
-					  </div>
-								
-
-					
-						
-	
+					</div>
 				</div>
 			</main>
 
@@ -356,34 +399,27 @@
 				</div>
 			</footer>
 		</div>
-	</div>
+	
+	
 
-	<script src="js/app.js"></script>
+	<script src="/resources/js/app.js"></script>
 </body>
 <script>
-	const tabList = document.querySelectorAll('.tab_menu .list li');
-	const contents = document.querySelectorAll('.tab_menu .cont_area .cont')
-	let activeCont = ''; // 현재 활성화 된 컨텐츠 (기본:#tab1 활성화)
-  
-	for(var i = 0; i < tabList.length; i++){
-	  tabList[i].querySelector('.btn').addEventListener('click', function(e){
-		e.preventDefault();
-		for(var j = 0; j < tabList.length; j++){
-		  // 나머지 버튼 클래스 제거
-		  tabList[j].classList.remove('is_on');
-  
-		  // 나머지 컨텐츠 display:none 처리
-		  contents[j].style.display = 'none';
-		}
-  
-		// 버튼 관련 이벤트
-		this.parentNode.classList.add('is_on');
-  
-		// 버튼 클릭시 컨텐츠 전환
-		activeCont = this.getAttribute('href');
-		document.querySelector(activeCont).style.display = 'block';
-	  });
-	}
-  </script>
+
+$(document).ready(function(){
+	
+	$('ul.tabs li').click(function(){
+		var tab_id = $(this).attr('data-tab');
+
+		$('ul.tabs li').removeClass('current');
+		$('.tab-content').removeClass('current');
+
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
+	})
+
+})
+
+</script>
 
 </html>

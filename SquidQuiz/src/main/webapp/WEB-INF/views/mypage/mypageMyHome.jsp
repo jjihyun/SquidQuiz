@@ -21,113 +21,108 @@
 </head>
 <body>
 	<header>
-		<jsp:include page="../../../resources/html/header.jsp"/>
+		<jsp:include page="../../../resources/html/header.jsp" />
 	</header>
-		<div class="wrapper">
+	<br>
+	<div class="wrapper">
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
-				<a class="sidebar-brand" href="index.html">
-					<img src="/src/img/icons/icon-48x48.png" alt="">
-          <span class="align-middle">MY PAGE</span>
-        </a>
+				<a class="sidebar-brand" href="index.html"> <img
+					src="/src/img/icons/icon-48x48.png" alt=""> <span
+					class="align-middle">MY PAGE</span>
+				</a>
 
 				<ul class="sidebar-nav">
-					<li class="sidebar-header">
-						<img src="img/photos/회원이미지.png" alt="" style="width: 100px; margin-left: 50px;">
-						<input type="text" id="my-userId" name="my-userId" style="margin-left: 10px;"> 
-						
-					</li>
 
-					<li class="sidebar-item active">
-						<a class="sidebar-link" href="index.html">
-              <i class="align-middle" data-feather="user"></i> <span class="align-middle">MY홈</span>
-            </a>
-					</li>
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
-              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">활동내역</span>
-            </a>
-					</li>
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
-              <i class="align-middle" data-feather="star"></i> <span class="align-middle">포인트</span>
-            </a>
-					</li>
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
-              <i class="align-middle" data-feather="user-x"></i> <span class="align-middle">회원탈퇴</span>
-            </a>
-					</li>
+					<li class="sidebar-header" align="center"><a
+						href="/mypageUser.ptsd"><img
+							src="/resources/img/userProfile.png" alt="" style="width: 100px;">
+							<input type="text" id="my-userId" name="my-userId"
+							value="${loginUser.userId }"
+							style="text-align: center; font-size: 18px; font-weight: bold; width: 200px; height: 40px; background-color: transparent; border: none; outline: none; pointer-events: none; color: white;">
+					</a></li>
+
+					<li class="sidebar-item active"><a class="sidebar-link"
+						href="mypageMyHome.ptsd"> <i class="align-middle"
+							data-feather="user"></i> <span class="align-middle">MY홈</span>
+					</a></li>
+					<li class="sidebar-item"><a class="sidebar-link"
+						href="mypageDetail.ptsd"> <i class="align-middle"
+							data-feather="sliders"></i> <span class="align-middle">활동내역</span>
+					</a></li>
+					<li class="sidebar-item"><a class="sidebar-link"
+						href="mypagePoint.ptsd"> <i class="align-middle"
+							data-feather="star"></i> <span class="align-middle">포인트</span>
+					</a></li>
+					<li class="sidebar-item"><a class="sidebar-link"
+						href="pages-profile.html"> <i class="align-middle"
+							data-feather="user-x"></i> <span class="align-middle">회원탈퇴</span>
+					</a></li>
 				</ul>
 			</div>
 		</nav>
 
 		<div class="main">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
-				<a class="sidebar-toggle js-sidebar-toggle">
-          <i class="hamburger align-self-center"></i>
-        </a>
+				<a class="sidebar-toggle js-sidebar-toggle"> <i
+					class="hamburger align-self-center"></i>
+				</a>
 			</nav>
 
 			<main class="content">
+
+				<h1 class="h3 mb-3">
+					<strong>MY홈</strong>
+				</h1>
 				<div class="container-fluid p-0">
+					<div class="box">
+						<div class="box1">
+							<div class="card" style="width: 500px; float: left;">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">보유 포인트</h5>
+										</div>
 
-					<h1 class="h3 mb-3"><strong>MY홈</strong> </h1>
-
-					<div class="row">
-						<div class="col-xl-6 col-xxl-5 d-flex">
-							<div class="w-100">
-								<div class="row" >
-									<div class="col-sm-10">
-										<div class="card">
-											<div class="card-body">
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">보유 포인트</h5>
-													</div>
-
-													<div class="col-auto">
-														<div class="stat text-primary">
-															<i class="align-middle" data-feather="star"></i>
-														</div>
-													</div>
-												</div>
-												<h1 class="mt-1 mb-3">2.382</h1>
-												<div class="mb-0">
-													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-													<span class="text-muted">Since last week</span>
-												</div>
+										<div class="col-auto">
+											<div class="stat text-primary">
+												<i class="align-middle" data-feather="star"></i>
 											</div>
 										</div>
-										<div class="card">
-											<div class="card-body" >
-												<div class="row">
-													<div class="col mt-0">
-														<h5 class="card-title">총 기부금</h5>
-													</div>
+									</div>
+									<h1 class="point1">2.382</h1>
+									<div class="point-btn">
+										<button>충전하기</button>
+									</div>
+								</div>
+							</div>
+							<div class="card" style="width: 500px;">
+								<div class="card-body">
+									<div class="row">
+										<div class="col mt-0">
+											<h5 class="card-title">총 기부금</h5>
+										</div>
 
-													<div class="col-auto">
-														<div class="stat text-primary">
-															<i class="align-middle" data-feather="users"></i>
-														</div>
-													</div>
-												</div>
-												<h1 class="mt-1 mb-3">14.212</h1>
-												<div class="mb-0">
-													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-													<span class="text-muted">Since last week</span>
-												</div>
+										<div class="col-auto">
+											<div class="stat text-primary">
+												<i class="align-middle" data-feather="users"></i>
 											</div>
 										</div>
+									</div>
+									<h1 class="point2">14.212</h1>
+									<div class="camp-btn">
+										<button>기부하기</button>
+										<button>기부내역</button>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-	
+					<hr>
+					<br> <br>
 					<!-- 게시판 -->
-					<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-9 d-flex">
+					<div align="center">
+						<div class="board">
 							<div class="card flex-fill">
 								<div class="card-header">
 
@@ -205,31 +200,27 @@
 							</div>
 						</div>
 					</div>
-				</div>
-			</main>
+				</main>
 
 			<footer class="footer">
 				<div class="container-fluid">
 					<div class="row text-muted">
 						<div class="col-6 text-start">
 							<p class="mb-0">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> &copy;
+								<a class="text-muted" href="https://adminkit.io/"
+									target="_blank"><strong>AdminKit</strong></a> &copy;
 							</p>
 						</div>
 						<div class="col-6 text-end">
 							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-								</li>
+								<li class="list-inline-item"><a class="text-muted"
+									href="https://adminkit.io/" target="_blank">Support</a></li>
+								<li class="list-inline-item"><a class="text-muted"
+									href="https://adminkit.io/" target="_blank">Help Center</a></li>
+								<li class="list-inline-item"><a class="text-muted"
+									href="https://adminkit.io/" target="_blank">Privacy</a></li>
+								<li class="list-inline-item"><a class="text-muted"
+									href="https://adminkit.io/" target="_blank">Terms</a></li>
 							</ul>
 						</div>
 					</div>
@@ -238,7 +229,7 @@
 		</div>
 	</div>
 
-	<script src="js/app.js"></script>
+	<script src="/resources/js/app.js"></script>
 
 </body>
 </html>

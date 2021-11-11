@@ -13,6 +13,18 @@ public class PageInfo {
 	public PageInfo() {}
 
 	public PageInfo(int currentPage, int campaignLimit, int naviLimit, int startNavi, int endNavi, int totalCount,
+			int maxPage) {
+		super();
+		this.currentPage = currentPage;
+		this.campaignLimit = campaignLimit;
+		this.naviLimit = naviLimit;
+		this.startNavi = startNavi;
+		this.endNavi = endNavi;
+		this.totalCount = totalCount;
+		this.maxPage = maxPage;
+	}
+
+	public PageInfo(int currentPage, int campaignLimit, int naviLimit, int startNavi, int endNavi, int totalCount,
 			int maxPage, String type) {
 		super();
 		this.currentPage = currentPage;

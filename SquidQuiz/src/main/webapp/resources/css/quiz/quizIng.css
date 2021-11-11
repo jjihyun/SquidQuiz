@@ -1,0 +1,22 @@
+@charset "UTF-8";
+.sec7-text-box{
+	position:absolute;
+	top: 50%;
+	left: 55%; 
+	color: white;
+	transform: translateX(-50%);
+}
+.font15{
+	font-size: 2em;
+	font-weight: bold;
+	color: black;
+/* 	text-shadow: 0 0 7px #fff, 0 0 10px #80ff00, 0 0 21px #00ff00, 0 0 42px #ff80c0, */
+/*     0 0 82px #ff80c0, 0 0 92px #ff80c0, 0 0 102px #ff80c0, 0 0 151px #ff80c0; */
+}
+.font40{
+	font-size: 1.2em;
+	font-weight: bold;
+	color: black;
+/* 	text-shadow: 0 0 7px #fff, 0 0 10px #80ff00, 0 0 21px #00ff00, 0 0 42px #ff80c0, */
+/*     0 0 82px #ff80c0, 0 0 92px #ff80c0, 0 0 102px #ff80c0, 0 0 151px #ff80c0; */
+}

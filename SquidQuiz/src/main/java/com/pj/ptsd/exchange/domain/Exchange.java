@@ -10,9 +10,33 @@ public class Exchange {
 	private String exchangeStatus;
 	private int exchangeMoney;
 	private int account;
+	private String exchangeBank;
 	private String userName;
+	private String userId;
 	
 	public Exchange() {}
+	
+	
+
+	public String getUserId() {
+		return userId;
+	}
+
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+
+	public String getExchangeBank() {
+		return exchangeBank;
+	}
+
+	public void setExchangeBank(String exchangeBank) {
+		this.exchangeBank = exchangeBank;
+	}
 
 	public int getExchangeNo() {
 		return exchangeNo;
@@ -78,11 +102,15 @@ public class Exchange {
 		this.userName = userName;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Exchange [exchangeNo=" + exchangeNo + ", userNo=" + userNo + ", exchangeEnrollDate="
 				+ exchangeEnrollDate + ", exchangeDate=" + exchangeDate + ", exchangeStatus=" + exchangeStatus
-				+ ", exchangeMoney=" + exchangeMoney + ", account=" + account + ", userName=" + userName + "]";
+				+ ", exchangeMoney=" + exchangeMoney + ", account=" + account + ", exchangeBank=" + exchangeBank
+				+ ", userName=" + userName + ", userId=" + userId + "]";
 	}
+
 	
 }
