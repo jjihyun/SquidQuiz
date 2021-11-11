@@ -29,20 +29,26 @@ public class BoardStoreLogic implements BoardStore {
 	}
 
 	@Override
+	public Board printOne(int bNo) {
+		Board board = sqlSession.selectOne("boardMapper.selectOneBoard", bNo);
+		return board;
+	}
+
+	@Override
+	public int selectListCount() {
+//		int count = sqlSession.selectOne("boardMapper.selectListCount");
+		return 0;
+	}
+	
+	@Override
 	public List<Board> selectSearchAll(Search search) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Board selectOne(int bNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int insertBoard(Board board) {
-		int result = sqlSession.insert("",board);
+		int result = sqlSession.insert("boardMapper.insertBoard",board);
 		return result;
 	}
 
@@ -80,12 +86,6 @@ public class BoardStoreLogic implements BoardStore {
 	public int deleteReply(Reply reply) {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public Board printOne(int bNo) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

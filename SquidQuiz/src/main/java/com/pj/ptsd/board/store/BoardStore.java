@@ -10,9 +10,9 @@ import com.pj.ptsd.board.domain.Search;
 
 public interface BoardStore {
 	
+	public int selectListCount();
 	public List<Board> selectAll(PageInfo pi);
 	public List<Board> selectSearchAll(Search search);	
-	public Board selectOne(int bNo);
 	
 	public int insertBoard(Board board);
 	public int updateBoard(Board board);

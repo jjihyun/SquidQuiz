@@ -38,7 +38,7 @@ public class BoardController {
 	//게시글 작성
 	@RequestMapping(value="boardWrite.ptsd",method=RequestMethod.GET)
 	public String boardWrite() {
-		return "board/userNo";
+		return "board/boardWrite";
 	}
 	
 	//게시글 등록
@@ -55,20 +55,20 @@ public class BoardController {
 				board.setbFileRename(bFileName);
 			}
 		}
+		System.out.println(board.getbTitle()+board.getUserId()+board.getbContents());
 		int result = service.registerBoard(board);
-		
-				if(result > 0) {
-					return "redirect:boardList.ptsd";
-				}else {
-					model.addAttribute("msg", "게시물 조회 실패");
-					return "common/errorPage";
-				}
+		if(result > 0) {
+			return "redirect:boardList.ptsd";
+		}else {
+			model.addAttribute("msg", "게시물 조회 실패");
+			return "common/errorPage";
+		}
 	}
 	
 	//파일저장	
 	public String saveFile(MultipartFile uploadFile, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\buploadFiles";
+		String savePath = root + "\\boardloadFiles";
 		File folder = new File(savePath);
 		if(!folder.exists()) {
 			folder.mkdir();
@@ -173,7 +173,7 @@ public class BoardController {
 	public void deleteFile(String fileName, HttpServletRequest request) {
 		String root = request.getSession()
 				.getServletContext().getRealPath("resources");
-		String fullPath = root + "\\buploadFiles";
+		String fullPath = root + "\boardloadFiles";
 		File file = new File(fullPath + "\\" + fileName);
 		if(file.exists()) {
 			file.delete(); 

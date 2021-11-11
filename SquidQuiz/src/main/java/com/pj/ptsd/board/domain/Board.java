@@ -8,10 +8,9 @@ public class Board {
 	private int bNo;
 	private String bTitle;
 	private String bContents;
-	private int userNo;
+	private String userId;
 	private String bFileName;
 	private String bFileRename;
-	private int bFileSize;
 	private String bFilePath;
 	private Date bCreateDate;
 	private Date bUpdateDate;
@@ -35,8 +34,8 @@ public class Board {
 	}
 
 
-	public int getUserNo() {
-		return userNo;
+	public String getUserId() {
+		return userId;
 	}
 
 
@@ -47,11 +46,6 @@ public class Board {
 
 	public String getbFileRename() {
 		return bFileRename;
-	}
-
-
-	public int getbFileSize() {
-		return bFileSize;
 	}
 
 
@@ -85,8 +79,8 @@ public class Board {
 	}
 
 
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 
@@ -97,11 +91,6 @@ public class Board {
 
 	public void setbFileRename(String bFileRename) {
 		this.bFileRename = bFileRename;
-	}
-
-
-	public void setbFileSize(int bFileSize) {
-		this.bFileSize = bFileSize;
 	}
 
 
@@ -122,9 +111,9 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [bNo=" + bNo + ", bTitle=" + bTitle + ", bContents=" + bContents + ", userNo=" + userNo
-				+ ", bFileName=" + bFileName + ", bFileRename=" + bFileRename + ", bFileSize=" + bFileSize
-				+ ", bFilePath=" + bFilePath + ", bCreateDate=" + bCreateDate + ", bUpdateDate=" + bUpdateDate + "]";
+		return "Board [bNo=" + bNo + ", bTitle=" + bTitle + ", bContents=" + bContents + ", userId=" + userId
+				+ ", bFileName=" + bFileName + ", bFileRename=" + bFileRename + ", bFilePath=" + bFilePath
+				+ ", bCreateDate=" + bCreateDate + ", bUpdateDate=" + bUpdateDate + "]";
 	}
 
 

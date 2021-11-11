@@ -10,10 +10,10 @@
 </head>
 <body>
 <script>
-		//자바스크립트로 헤더 파일 받아오는 소스 
-		$(document).ready(function() {
-			$('#headerMain').load("/resources/html/header.jsp");
-		});
+// 		//자바스크립트로 헤더 파일 받아오는 소스 
+// 		$(document).ready(function() {
+// 			$('#headerMain').load("/resources/html/header.jsp");
+// 		});
 </script>
 <jsp:include page="../../../resources/html/header.jsp"/>
 	<br style="clear:both">
@@ -27,7 +27,7 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" size="50" name="userNo"></td>
+				<td><input type="text" size="50" name="userId"></td>
 			</tr>
 			<tr>
 				<th>내용</th>

@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>자유게시판 목록</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="/resources/css/app.css">
+<!-- <link rel="stylesheet" href="/resources/css/app.css"> -->
 </head>
 <body>
 <script>
@@ -15,34 +16,53 @@
 			$('#headerMain').load("/resources/html/header.jsp");
 		});
 </script>
-<%-- 	<jsp:include page="../errorPage.jsp"></jsp:include> --%>
+<jsp:include page="../../../resources/html/header.jsp"/>
 	<br style="clear:both">
 	<h1 align="center"></h1>
-	<br><br><a href="boardWriteView.ptsd">게시글 작성하기</a>
+	<br><br>
 	<br>
-	<table align="center" border="1"></table>
+	<table align="center" width="600" border="1" cellspacing="0" style="clear:right;">
 	<tr>
 		<th>번호</th>
-		<th>제목</th>
+		<th width="300">제목</th>
 		<th>작성자</th>
 		<th>날짜</th>
-		<th>첨부파일</th>
+		
 	</tr>
-	<c:forEach items="${bList }" var="board">
+	
+		<c:if test="${ empty nList }">
+<!-- 			<tr> -->
+<!-- 				<td colspan="5" align="center">조회된 정보가 없습니다.</td> -->
+<!-- 			</tr> -->
+		</c:if>
+<%-- 		<c:if test="${not empty nList }"> --%>
+		
+		<c:forEach items="${bList }" var="board">
 			<tr>
-				<td>${board.bNo }</td>
-				<td>
+				<td align="center">${board.bNo }</td>
+				
+				<td align="center">
 					<c:url var="bDetail" value="boardDetail.ptsd">
 						<c:param name="boardNo" value="${board.bNo }"></c:param>
 					</c:url>
 					<a href="${bDetail }">${board.bTitle }</a>
 				</td>
-				<td>${board.userNo }</td>
-				<td>${board.bCreateDate }</td>
+				
+				<td align="center">${board.userId }</td>
+				
+				<td align="center">${board.bCreateDate }</td>
+				
 			</tr>
 		</c:forEach>
+		    <tr>
+		    	<td align="center" colspan="4">
+					<a href="boardWrite.ptsd">글쓰기</a>
+				</td>
+			</tr>
+		
+<%-- 		</c:if> --%>
 		<tr align="center" height="20">
-			<td colspan="6">
+			<td colspan="4">
 				<c:url var="before" value="boardList.ptsd">
 					<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 				</c:url>
@@ -74,7 +94,6 @@
 				</c:if>
 			</td>
 		</tr>
-	</table>
 </body>
 </html>
 
