@@ -31,9 +31,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int findId(User userOne) {
-		int result = store.findId(userOne);
-		return result;
+	public User findId(User userOne) {
+		User uOne = store.findId(userOne);
+		return uOne;
 	}
 
 	@Override

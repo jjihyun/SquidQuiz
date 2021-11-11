@@ -37,7 +37,6 @@
         <c:if test="${ empty sessionScope.loginUser }">
         <form action="findId.ptsd" class="form-signin"  method="post">
             <table align="center">
-             <p class="text2"> ${findid2}</p>
                 <tr>
                     <td>이름 </td>
                     <td><input type="text" name="userName" id="userName" class="form-control" placeholder="이름을 입력 해주세요" required autofocus></td>
@@ -46,43 +45,61 @@
                     <td>이메일 </td>
                     <td><input type="email" name="userEmail" id="userEmail" class="form-control" placeholder="가입시 입력한  이메일" required></td>
                 </tr>
+                <p id="id-value"><br>
                 <tr>
                     <td colspan="2" align="center">
-                    <p class="check" id="check">${check}</p><br/>
                         <a href="/findPwd.ptsd">PW찾기</a> | <a href="/login.ptsd">로그인</a> | <a href="/join.ptsd">회원가입</a>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <button type="button" id="check" onclick="location.href='/findId.ptsd';">아이디 찾기</button>
+                        <input type="submit" value="아이디 찾기">
                     </td>
                 </tr>		  
             </table>
         </form>
         </c:if>
   <script type="text/javascript">
-		
-  		
-  
-  		$("#userName").focusout(function(){
+
+//   		$("#check").on("click",function(){
   			
-	     if($('#userName').val() == ""){
-	   		$('#check').text('이름을 입력해주세요.');
-	   	  	$('#check').css('color', 'red');
+// 	     if($('#userName').val() == ""){
+// 	   		$('#check').text('이름을 입력해주세요.');
+// 	   	  	$('#check').css('color', 'red');
 	   
-	     }else{
-	    	 $('#check').hide();
-	     }
-	     });
+// 	     }else{
+// 	    	 $('#check').hide();
+// 	     }
+// 	     });
 	     
-  		$("#userEmail").focusout(function(){
-	     if($('#userEmail').val() == ""){
-	   		$('#check').text('이메일을 입력해주세요');
-	   	  	$('#check').css('color', 'red');
-	     }else{
-	    	 $('#check').hide();
-	     }
-	     });
+//   		s
+  		
+  		
+//   		$(document).on('click','#check',function(){
+//   			var name =$('#userName').val();
+//   			var email =$('#userEmail').val();
+  			
+//   			var postData = {'userName' : name, 'userEmail' : email};
+  			
+//   			$.ajax({
+//   				url : '/findId.ptsd',
+//   				data : postData,
+//   				dataType : "JSON",
+  				
+//   				success : function(data){
+//   					if(data == 0){
+//   						$('#id-value').text("회원정보를 확인 해주세요");
+  						
+//   					}else{
+//   				       alert("아이디찾기 실패");
+//                     }
+//                  },
+//                  error : function(){
+//                     alert("AJAX 통신 오류! 관리자에게 문의하세요")
+//                  },
+  					
+//                  complete : function(){
+//                  }
   
   </script>
   </body>

@@ -2,10 +2,13 @@ package com.pj.ptsd.user.controller;
 
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,6 +112,30 @@ public class UserController {
 	        return "user/findIdForm";
 	    }
 	   
+	   //아이디 찾기실행
+	   @RequestMapping(value="/findId.ptsd", method=RequestMethod.POST)
+	   public void findId(HttpServletRequest request
+			   , @RequestParam("userName") String userName
+			   , @RequestParam("userEmail") String userEmail
+			   , Model model
+			   , HttpServletResponse response) {
+		   User userOne = new User();
+		   userOne.setUserName(userName);
+		   userOne.setUserEmail(userEmail);
+		   response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out;
+			try {
+				User foundOne = service.findId(userOne);
+				out = response.getWriter();
+				if(foundOne != null) {
+					out.println("<script>alert('회원 아이디는"+foundOne.getUserId()+"입니다!');");
+			   }
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+//		   return "user/findIdForm";
+	   }
+
 
 	   
 	   //비밀번호 찾기 페이지 이동
@@ -127,18 +154,24 @@ public class UserController {
 	   
 	   //마이페이지 회원정보 수정
 	   @RequestMapping(value ="memberModify.ptsd", method = RequestMethod.POST)
-	    public String MemberListOne(@ModelAttribute User user
+	    public String modifyMember(@ModelAttribute User user
 	    		, @RequestParam("bankAccountValue") String accountValue  //계좌번호 string으로 변경
 				, @RequestParam("post") String post
 				, @RequestParam("address1") String address1
 				, @RequestParam("address2") String address2
-				, Model model) {
+				, Model model
+				, HttpServletRequest request
+				, HttpServletResponse response) {
+		   HttpSession session = request.getSession();
 		   user.setBankAccount(Integer.parseInt(accountValue)); //계좌번호 string으로 변경
 		   user.setUserAddr(post+","+address1+","+address2);
-
 		   try {
 				int result = service.modifyMember(user);
 				if(result > 0) {
+					session.setAttribute("loginUser", user);
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>alert('회원정보 수정이 완료되었습니다!');");
 					return "redirect:mypageUser.ptsd";
 				}else {
 					model.addAttribute("msg", "회원 정보 수정 실패!");
