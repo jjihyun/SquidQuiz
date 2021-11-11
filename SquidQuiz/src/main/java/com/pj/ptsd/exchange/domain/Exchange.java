@@ -1,6 +1,6 @@
 package com.pj.ptsd.exchange.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Exchange {
 	private int exchangeNo;

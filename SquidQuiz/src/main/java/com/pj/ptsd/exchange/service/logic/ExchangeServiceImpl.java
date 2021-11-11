@@ -43,8 +43,8 @@ public class ExchangeServiceImpl implements ExchangeService{
 	}
 	// 환전 처리 (status 수정)
 	@Override
-	public int modifyExchangeStatus() {
-		int result = store.updateExchangeStatus();
+	public int modifyExchangeStatus(int exchangeNo) {
+		int result = store.updateExchangeStatus(exchangeNo);
 		return result;
 	}
 	//전체 게시물 개수

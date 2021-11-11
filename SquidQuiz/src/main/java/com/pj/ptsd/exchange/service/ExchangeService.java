@@ -16,7 +16,7 @@ public interface ExchangeService {
 	//환전신청(등록, 회원)
 	public int registerExchange(Exchange exchange);
 	//환전처리( 수정 , 관리자)
-	public int modifyExchangeStatus();
+	public int modifyExchangeStatus(int exchangeNo);
 	
 	//전체 게시물 개수 조회
 	public int getAllListCount();

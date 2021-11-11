@@ -1,8 +1,7 @@
-package com.pj.ptsd.exchange.domain;
+package com.pj.ptsd.report.domain;
 
-import com.pj.ptsd.qna.domain.PageInfo;
 
-public class ExchangePagination {
+public class ReportPagination {
 	public static PageInfo getPageInfo(int currentPage , int totalCount) {
 		PageInfo pi = null;
 		

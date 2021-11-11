@@ -37,6 +37,7 @@ public class ExchangeController {
 			List<Exchange> eList = service.printAllExchange(pi);
 			if(!eList.isEmpty()) {
 				model.addAttribute("eList", eList);
+				model.addAttribute("pi",pi);
 			}else {
 				model.addAttribute("eList", null);
 			}
@@ -82,7 +83,7 @@ public class ExchangeController {
 				model.addAttribute("eList", eList);
 				model.addAttribute("search", search);
 				model.addAttribute("page", 1);
-				return "exchange/exchangeList";
+				return "exchange/exchangeListView";
 			}else {
 				model.addAttribute("msg","환전 목록 아이디/검색 실패");
 				return "common/errorPage";
@@ -119,14 +120,17 @@ public class ExchangeController {
 	//환전 처리 ( 수정 , 관리자)
 	@RequestMapping(value="exchangeHandling.ptsd")
 	public String exchangeModify(Model model,
-			@RequestParam("exchangeNo") int exchangeNo) {
+			@RequestParam("exchangeNo") int exchangeNo
+			) {
 		try {
-			int result = service.modifyExchangeStatus();
+			
+			
+			//환전내역 수정처리
+			int result = service.modifyExchangeStatus(exchangeNo);
 			if (result > 0) {
-				//회원 포인트 차감하는 메소드... 필요함
 				
 				
-				return "exchangeListView.ptsd";
+				return "redirect:exchangeListView.ptsd";
 			} else {
 				model.addAttribute("msg", "환전 처리 상태 변경 실패");
 				return "common/errorPage";
