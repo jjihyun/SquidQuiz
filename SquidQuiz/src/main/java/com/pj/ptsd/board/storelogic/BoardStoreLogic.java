@@ -2,6 +2,7 @@ package com.pj.ptsd.board.storelogic;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,8 +21,11 @@ public class BoardStoreLogic implements BoardStore {
 	
 	@Override
 	public List<Board> selectAll(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		List<Board> bList 
+			= sqlSession.selectList("boardMapper.selectAllList", pi, rowBounds);
+		return bList;
 	}
 
 	@Override
@@ -44,14 +48,14 @@ public class BoardStoreLogic implements BoardStore {
 
 	@Override
 	public int updateBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.update("boardMapper.updateBoard", board);
+		return result;
 	}
 
 	@Override
 	public int deleteBoard(int bNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.delete("boardMapper.deleteBoard", bNo);
+		return result;
 	}
 
 	@Override
@@ -76,6 +80,12 @@ public class BoardStoreLogic implements BoardStore {
 	public int deleteReply(Reply reply) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public Board printOne(int bNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

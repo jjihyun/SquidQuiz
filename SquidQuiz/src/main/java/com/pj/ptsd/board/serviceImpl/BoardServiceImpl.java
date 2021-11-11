@@ -19,8 +19,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<Board> printAll(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Board> bList = store.selectAll(pi);
+		return bList;
 	}
 
 	@Override
@@ -31,8 +31,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Board printOne(int bNo) {
-		// TODO Auto-generated method stub
-		return null;
+		Board board = store.printOne(bNo);
+		return board;
 	}
 
 	@Override
@@ -43,14 +43,14 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int modifyBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.updateBoard(board);
+		return result;
 	}
 
 	@Override
 	public int removeBoard(int bNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.deleteBoard(bNo);
+		return result;
 	}
 
 	@Override
