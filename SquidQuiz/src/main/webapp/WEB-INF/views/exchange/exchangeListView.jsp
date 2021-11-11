@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 날짜 jstl -->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,11 +51,11 @@ a:hover{color:#495057;	text-decoration: none;}
 							data-feather="user"></i> <span class="align-middle">퀴즈관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="#"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">신고관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="exchangeListView.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">환전관리</span>
 					</a></li>
 				</ul>
@@ -71,71 +72,111 @@ a:hover{color:#495057;	text-decoration: none;}
 			<main class="content">
 				<div class="card flex-fill">
 					<div class="card-header">
-						<h5 class="card-title mb-0">OX퀴즈</h5>
+						<h5 class="card-title mb-0">환전 관리</h5>
 					</div>
-						<button id="" class="btn btn-success" style="opacity: 0.7; color: black;" onclick="location.href='quizWriteView.ptsd';">OX퀴즈등록</button>
-					<table class="table table-hover my-0">
-						<thead>
+					<!-- 아이디 검색창 -->
+					<div align="center">
+						<form action="exchangeSearchListView.ptsd" method="get">
+							<select name="searchCondition">
+								<option value="all" <c:if test="${search.searchCondition == 'all' }">selected</c:if>>전체</option>
+								<option value="userId" <c:if test="${search.searchCondition == 'userId' }">selected</c:if>>아이디</option>
+								<option value="userName" <c:if test="${search.searchCondition == 'userName' }">selected</c:if>>이름</option>
+								<option value="bank" <c:if test="${search.searchCondition == 'bank' }">selected</c:if>>은행명</option>
+							</select>
+							<input type="hidden" name="page" value="1">
+							<input type="text" name="searchValue" value="${search.searchValue }">
+							<input type="submit" value="검색">
+						</form>
+				</div>
+					<table class="table table-hover my-0" >
+						<thead align="center">
 							<tr>
-								<th>퀴즈번호</th>
-								<th class="d-none d-xl-table-cell">제목</th>
-								<th class="d-none d-xl-table-cell">내용</th>
-								<th>정답</th>
-								<th class="d-none d-md-table-cell">등록일</th>
+								<th>환전 No</th>
+								<th class="d-none d-xl-table-cell">아이디</th>
+								<th class="d-none d-xl-table-cell">이름</th>
+								<th>계좌번호</th>
+								<th>은행명</th>
+								<th class="d-none d-md-table-cell">신청 포인트</th>
+								<th class="d-none d-md-table-cell">처리상태</th>
+								<th>신청 날짜</th>
+								<th>처리 날짜</th>
+								
 							</tr>
 						</thead>
-						<c:forEach items="${oxList }" var="ox">
-						<tbody>
+						<c:forEach items="${eList }" var="eList">
+						<tbody align="center">
 							<tr>
-								<td>${ox.oxNo }</td>
+							
+								<td>${eList.exchangeNo }</td>
 								<td class="d-none d-xl-table-cell">
-									<c:url var="oxDetail" value="oxDetail.ptsd">
-										<c:param name="oxNo" value="${ox.oxNo }"></c:param>
-									</c:url>
-									<a href="${oxDetail }">${ox.oxTitle }</a>
+									${eList.userId }
 								</td>
-								<td class="d-none d-xl-table-cell">${ox.oxContents }</td>
-								<td><span class="badge bg-success">${ox.oxAnswer }</span></td>
-								<td class="d-none d-md-table-cell">
-									<fmt:formatDate value="${ox.oxEnrollDate }" pattern="yyyy-MM-dd / HH-mm"/>
+								<td class="d-none d-xl-table-cell">${eList.userName}</td>
+								<td>${eList.account }</td>
+								<td>${eList.exchangeBank }</td>
+								<td>${eList.exchangeMoney }</td>
+								<c:if test="${eList.exchangeStatus eq 'N' }">
+									<c:url var="exchangeModify" value="exchangeHandling.ptsd">
+										<c:param name="exchangeNo" value="${eList.exchangeNo }"></c:param>
+									</c:url>
+									<td><a href="${exchangeModify }"><span class="badge bg-warning">대기중</span></a></td>
+								</c:if>
+								<c:if test="${eList.exchangeStatus eq 'Y' }">
+									<td><span class="badge bg-success">처리완료</span></td>
+								</c:if>
+								
+								<td>
+									<fmt:formatDate value="${eList.exchangeEnrollDate }" pattern="yyyy-MM-dd  HH:mm"/>
+								</td>
+								<td>
+									<fmt:formatDate value="${eList.exchangeDate }" pattern="yyyy-MM-dd  HH:mm"/>
 								</td>
 							</tr>
 						</tbody>
 						</c:forEach>
-						<tr align="center" height="20">
-							<td colspan="6">
-								<c:url var="before" value="oxList.ptsd">
-									<c:param name="page" value="${pd.currentPage - 1 }"></c:param>
+						
+							<tr align="center" height="20">
+								<td colspan="9">
+								<c:url var="before" value="exchangeListView.ptsd">
+								<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
+							</c:url>
+							<c:if test="${pi.currentPage <= 1 }">
+								[이전]
+							</c:if>
+							<c:if test="${pi.currentPage > 1 }">
+								<a id="title-a" href="${before }">[이전]</a>
+							</c:if>
+							<!-- 검색시 페이징 처리 X -->
+							<c:if test="${pi.startNavi eq null }">
+									<font color="black" size="4">[1]</font>
+							</c:if>
+							<c:if test="${pi.startNavi ne null }">
+							<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
+								
+								<c:url var="pagination" value="exchangeListView.ptsd">
+									<c:param name="page" value="${p }"></c:param>
 								</c:url>
-								<c:if test="${pd.currentPage <= 1 }">
-									[이전]
+								
+								<c:if test="${p eq pi.currentPage }">
+									<font color="black" size="4">[${p }]</font>
 								</c:if>
-								<c:if test="${pd.currentPage > 1 }">
-									<a href="${before }">[이전]</a>
+								<c:if test="${p ne pi.currentPage }">
+									<a id="title-a" href="${pagination }">${p }</a>&nbsp;
 								</c:if>
-<!-- 								페이징갯수 -->
-								<c:forEach var="p" begin="${pd.startNavi }" end="${pd.endNavi }">
-									<c:url var="pagination" value="oxList.ptsd">
-										<c:param name="page" value="${p }"></c:param>
-									</c:url>
-									<c:if test="${p eq pd.currentPage }">
-										<font color="red" size="4">[${p }]</font>
-									</c:if>
-									<c:if test="${p ne pd.currentPage }">
-										<a href="${pagination }">${p }</a>&nbsp;
-									</c:if>
-								</c:forEach>
-								<c:url var="after" value="oxList.ptsd">
-									<c:param name="page" value="${pd.currentPage + 1 }"></c:param>
-								</c:url>
-								<c:if test="${pd.currentPage >= pd.maxPage }">
-									[다음]
-								</c:if>
-								<c:if test="${pd.currentPage < pd.maxPage }">
-									<a href="${after }">[다음]</a>
-								</c:if>
+							</c:forEach>
+							
+							<c:url var="after" value="exchangeListView.ptsd">
+								<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
+							</c:url>
+							<c:if test="${pi.currentPage >= pi.maxPage }">
+								[다음]
+							</c:if>
+							<c:if test="${pi.currentPage < pi.maxPage }">
+								<a id="title-a" href="${after }">[다음]</a>
+							</c:if>
+							</c:if>
 							</td>
-						</tr>
+							</tr>
 					</table>
 				</div>
 			</main>

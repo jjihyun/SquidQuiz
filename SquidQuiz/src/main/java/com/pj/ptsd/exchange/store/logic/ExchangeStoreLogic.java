@@ -45,8 +45,8 @@ public class ExchangeStoreLogic implements ExchangeStore{
 	}
 	//상태 수정
 	@Override
-	public int updateExchangeStatus() {
-		int result = sqlSession.update("exchangeMapper.updateExchange");
+	public int updateExchangeStatus(int exchangeNo) {
+		int result = sqlSession.update("exchangeMapper.updateExchange",exchangeNo);
 		return result;
 	}
 	@Override

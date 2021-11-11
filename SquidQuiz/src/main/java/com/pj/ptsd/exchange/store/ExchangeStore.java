@@ -16,7 +16,7 @@ public interface ExchangeStore {
 	//환전신청(등록)
 	public int insertExchange(Exchange exchange);
 	//환전처리
-	public int updateExchangeStatus();
+	public int updateExchangeStatus(int exchangeNo);
 	//전체 게시물 개수 조회
 	public int selectAllListCount();
 	//회원 게시물 개수 조회
