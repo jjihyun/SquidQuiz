@@ -25,12 +25,11 @@
                         <li class="menu3"><a href="#">기부</a></li>
                         <li class="menu4"><a href="#">자유게시판</a></li>
                         <li class="menu5"><a href="#">공지/문의</a></li>
-                        <li class="menu6"><a href="#"><img style="width: 50px; margin: 5px;" src="/resources/img/myPageLogo.png" alt="마이페이지"></a></li>
 		                <c:if test="${ empty loginUser }">
-		                <li class="menu5"><a href="/login.ptsd"><img style="width: 50px; margin: 5px;" src="/resources/img/myPageLogo.png" alt="마이페이지"></a></li>
+		                <li class="menu6"><a href="/login.ptsd"><img style="width: 50px; margin: 5px;" src="/resources/img/myPageLogo.png" alt="마이페이지"></a></li>
 		                </c:if>
                         <c:if test="${ not empty loginUser }">
-	                    <li class="menu5"><a href="/mypageUser.ptsd">
+	                    <li class="menu6"><a href="/mypageUser.ptsd">
 	                    
 	                    <c:choose>
 	                    	<c:when test = "${loginUser.userName eq '관리자' }">
@@ -41,7 +40,7 @@
 	                    	
 	                    	</c:otherwise>
 	                    </c:choose>
-	                    	<div class="login-btn" style="margin-left:480px;" >
+	                    	<div class="login-btn" style="margin-left:625px;" >
 	                    	
 	                    	  <c:choose>
 	                    	<c:when test = "${loginUser.userName eq '관리자' }">

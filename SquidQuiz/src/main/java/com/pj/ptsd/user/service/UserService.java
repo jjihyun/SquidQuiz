@@ -11,7 +11,7 @@ public interface UserService {
 	
 	public User loginMember(User userOne);
 	public int checkIdDup(String userId);
-	public int findId(User userOne);
+	public User findId(User userOne);
 	public int registerMember(User user);
 	public int modifyMember(User user);
 	public int removeMember(String userId);

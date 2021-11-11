@@ -33,9 +33,9 @@ public class UserStoreLogic implements UserStore{
 	}
 
 	@Override
-	public int findId(User userOne) {
-		int result = sqlSession.selectOne("userMapper.findId", userOne);
-		return result;
+	public User findId(User userOne) {
+		User uOne = sqlSession.selectOne("userMapper.findUserId", userOne);
+		return uOne;
 	}
 	
 	@Override

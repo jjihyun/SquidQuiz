@@ -10,7 +10,7 @@ import com.pj.ptsd.user.domain.User;
 public interface UserStore {
 		public User selectMember(User userOne);
 		public int checkIdDup(String userId);
-		public int findId(User userOne);
+		public User findId(User userOne);
 		public int insertMember(User user);
 		public int updateMember(User user);
 		public int deleteMember(String userId);
