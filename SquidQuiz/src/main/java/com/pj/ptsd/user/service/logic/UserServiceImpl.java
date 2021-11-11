@@ -1,8 +1,13 @@
 package com.pj.ptsd.user.service.logic;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pj.ptsd.board.domain.Board;
+import com.pj.ptsd.campaign.domain.CampaignRecord;
+import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.user.domain.User;
 import com.pj.ptsd.user.service.UserService;
 import com.pj.ptsd.user.store.UserStore;
@@ -18,15 +23,16 @@ public class UserServiceImpl implements UserService{
 		User uOne = store.selectMember(userOne);
 		return uOne;
 	}
-	@Override
-	public User readMember(User userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public int checkIdDup(String userId) {
 		int result = store.checkIdDup(userId);
+		return result;
+	}
+
+	@Override
+	public int findId(User userOne) {
+		int result = store.findId(userOne);
 		return result;
 	}
 
@@ -47,6 +53,20 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public List<CampaignRecord> printCRList(PageInfo pi, int userNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Board> printBoardList(PageInfo pi, int userNo) {
+		return null;
+	}
+
+
+
 
 
 
