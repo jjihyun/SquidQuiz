@@ -43,4 +43,7 @@
 	font-size: 20px;
 	text-align: center;
 	font-weight: bold;
+	
 }
+.navi{height:50px;}
+.login-btn button{border: 0; outline: 0;font-size: 12px; cursor: pointer;}

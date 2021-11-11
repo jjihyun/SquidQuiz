@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <a href="#">ID찾기</a>&nbsp;<a href="#">PW찾기</a>
+                        <a href="/findId.ptsd">ID찾기</a>&nbsp;<a href="#">PW찾기</a>
                     </td>
                 </tr>
                 <tr>
@@ -43,12 +43,7 @@
         </form>
         </c:if>
         <c:if test="${ not empty loginUser }">
-			<table align="center">
-				<tr>
-					<td><button>마이페이지</button></td>
-					<td><button onclick="location.href='/logout.ptsd';">로그아웃</button></td>
-				</tr>
-			</table>
+        	<c:url></c:url>
 		</c:if>
     </main>
 </body>
