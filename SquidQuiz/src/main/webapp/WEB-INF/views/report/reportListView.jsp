@@ -74,14 +74,34 @@ a:hover{color:#495057;	text-decoration: none;}
 					<div class="card-header">
 						<h5 class="card-title mb-0">게시물 관리</h5>
 					</div>
+					<!-- 아래로탭 -->
+					<ul class="nav nav-tabs">
+						  <li class="nav-item">
+						    <a class="nav-link active" data-toggle="tab" href="#report">게시물</a>
+						  </li>
+						  <li class="nav-item">
+						    <a class="nav-link" data-toggle="tab" href="#reportreply">댓글</a>
+						  </li>
+						</ul>
+						  <!-- 두번째 탭 -->
+						<div class="tab-content">
+						  <div class="tab-pane fade show active" id="report">
+						   <p>1111111111</p>
+						  </div>
+						  <!-- 두번째 탭 -->
+						  <div class="tab-pane fade" id="reportreply">
+						    <p>22222222222</p>
+						  </div>
+						</div>
+					<!-- 위로탭 -->
 					<!-- 아이디 검색창 -->
 					<div align="center">
-						<form action="" method="get">
+						<form action="reportSearchView.ptsd" method="get">
 							<select name="searchCondition">
 								<option value="all" <c:if test="${search.searchCondition == 'all' }">selected</c:if>>전체</option>
 								<option value="userId" <c:if test="${search.searchCondition == 'userId' }">selected</c:if>>신고자</option>
-								<option value="writer" <c:if test="${search.searchCondition == 'userName' }">selected</c:if>>게시자</option>
-								<option value="boardTitle" <c:if test="${search.searchCondition == 'bank' }">selected</c:if>>게시물제목</option>
+								<option value="writer" <c:if test="${search.searchCondition == 'writer' }">selected</c:if>>게시자</option>
+								<option value="boardTitle" <c:if test="${search.searchCondition == 'boardTitle' }">selected</c:if>>게시물제목</option>
 							</select>
 							<input type="hidden" name="page" value="1">
 							<input type="text" name="searchValue" value="${search.searchValue }">
@@ -109,12 +129,16 @@ a:hover{color:#495057;	text-decoration: none;}
 								<td>
 									${rList.reportedUserId }
 								</td>
-								<td>${rList.boardTitle}</td>
+								<c:url var="bDetail" value="boardDetail.ptsd">
+									<c:param name="bNo" value="${rList.boardNo }"></c:param>
+								</c:url>
+								<td><a href="${bDetail }">${rList.boardTitle}</a></td>
 								<td>${rList.boardWriter }</td>
 								<td><fmt:formatDate value="${rList.boardReportDate }" pattern="yyyy-MM-dd  HH:mm"/></td>
 								
 								<c:url var="bDelete" value="reportBoardDelete.ptsd">
 									<c:param name="boardNo" value="${rList.boardNo }"></c:param>
+									<c:param name="reportNo" value="${rList.reportNo }"></c:param>
 								</c:url>
 								<td><button class="btn btn-warning" onclick="location.href='${bDelete}'">삭제</button></td>
 								
@@ -130,7 +154,7 @@ a:hover{color:#495057;	text-decoration: none;}
 						
 							<tr align="center" height="20">
 								<td colspan="7">
-								<c:url var="before" value="exchangeListView.ptsd">
+								<c:url var="before" value="reportListView.ptsd">
 								<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 							</c:url>
 							<c:if test="${pi.currentPage <= 1 }">
@@ -146,7 +170,7 @@ a:hover{color:#495057;	text-decoration: none;}
 							<c:if test="${pi.startNavi ne null }">
 							<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
 								
-								<c:url var="pagination" value="exchangeListView.ptsd">
+								<c:url var="pagination" value="reportListView.ptsd">
 									<c:param name="page" value="${p }"></c:param>
 								</c:url>
 								
@@ -158,7 +182,7 @@ a:hover{color:#495057;	text-decoration: none;}
 								</c:if>
 							</c:forEach>
 							
-							<c:url var="after" value="exchangeListView.ptsd">
+							<c:url var="after" value="reportListView.ptsd">
 								<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 							</c:url>
 							<c:if test="${pi.currentPage >= pi.maxPage }">
@@ -182,7 +206,17 @@ a:hover{color:#495057;	text-decoration: none;}
 			<div class="row text-muted"></div>
 		</div>
 	</footer>
+	<script>
+	var triggerTabList = [].slice.call(document.querySelectorAll('#report'))
+	triggerTabList.forEach(function (triggerEl) {
+	  var tabTrigger = new bootstrap.Tab(triggerEl)
 	
+	  triggerEl.addEventListener('click', function (event) {
+	    event.preventDefault()
+	    tabTrigger.show()
+	  })
+	})
+	</script>
 	<script src="/resources/js/app.js"></script>
 </body>
 </html>

@@ -4,12 +4,33 @@ import java.util.Date;
 
 public class ReplyReport {
 	private int replyReportNo;
+	private int replyNo;
+	private int boardNo;
 	private String reportedUserId;
 	private String replyContents;
 	private String replyWriter;
 	private Date replyReportDate;
 	
 	public ReplyReport() {}
+	
+	//getter/setter
+	
+	
+	public int getBoardNo() {
+		return boardNo;
+	}
+
+	public int getReplyNo() {
+		return replyNo;
+	}
+
+	public void setReplyNo(int replyNo) {
+		this.replyNo = replyNo;
+	}
+
+	public void setBoardNo(int boardNo) {
+		this.boardNo = boardNo;
+	}
 
 	public int getReplyReportNo() {
 		return replyReportNo;

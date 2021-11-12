@@ -5,8 +5,17 @@
 <!-- 		<result property="bTitle" column="BOARD_TITLE"> -->
 <!-- 		<result property="userId" column="USER_ID"> -->
 <!-- 	</resultMap> -->
+	<resultMap type="ReplyReport" id="replyReportResultMap">
+		<id property="replyReportNo" column="REPLY_REPORT_NO"></id>
+		<result property="boardNo" column="BOARD_NO"></result>
+		<result property="reportedUserId" column="USER_ID"></result>
+		<result property="replyContents" column="REPLY_CONTENTS"></result>
+		<result property="replyWriter" column="WRITER"></result>
+		<result property="replyReportDate" column="REPLY_REPORT_DATE"></result>
+	</resultMap>
 	<resultMap type="Report" id="reportResultMap">
 		<id property="reportNo" column="REPORT_NO"></id>
+		<result property="replyNo" column="REPLY_NO"></result>
 		<result property="boardNo" column="BOARD_NO"></result>
 		<result property="reportedUserId" column="REPORT_USER_ID"></result>
 		<result property="boardTitle" column="BOARD_TITLE"></result>
@@ -15,62 +24,128 @@
 	
 <!-- 		<collection property="Board" resultMap="Board"></collection> -->
 	</resultMap>
-		
+<!-- 게시물 -->
+		<!-- 전체 조회 -->
 		<select id="selectAllReport" resultMap="reportResultMap">
 			SELECT BOARD_REPORT.REPORT_NO, BOARD.BOARD_NO,BOARD_REPORT.REPORT_USER_ID, BOARD.BOARD_TITLE, BOARD.USER_ID AS WRITER, BOARD_REPORT.BOARD_REPORT_DATE
 			FROM BOARD INNER JOIN BOARD_REPORT
 			ON BOARD.BOARD_NO = BOARD_REPORT.BOARD_NO
 			ORDER BY BOARD_REPORT.REPORT_NO DESC
 		</select>
+		<!-- 전체 내역 개수 -->
 		<select id="selectReportCount" resultType="_int">
 			SELECT COUNT(*) FROM BOARD_REPORT 
 		</select>
-		
-		<delete id="deleteReportBaord">
+		<!-- search 조회 -->
+		<select id="selectSearchList" resultMap="reportResultMap">
+			SELECT BOARD_REPORT.REPORT_NO, BOARD.BOARD_NO,BOARD_REPORT.REPORT_USER_ID, BOARD.BOARD_TITLE, BOARD.USER_ID AS WRITER, BOARD_REPORT.BOARD_REPORT_DATE
+			FROM BOARD INNER JOIN BOARD_REPORT
+			ON BOARD.BOARD_NO = BOARD_REPORT.BOARD_NO
+			<if test="searchCondition.toString() == 'userId'">
+				WHERE BOARD_REPORT.REPORT_USER_ID LIKE '%' || #{searchValue} || '%'
+			</if>
+			<if test="searchCondition.toString() == 'writer'">
+				WHERE BOARD.USER_ID LIKE '%' || #{searchValue} || '%'
+			</if>
+			<if test="searchCondition.toString() == 'boardTitle'">
+				WHERE BOARD.BOARD_TITLE LIKE '%' || #{searchValue} || '%'
+			</if>
+			<if test="searchCondition.toString() == 'all'">
+				WHERE BOARD_REPORT.REPORT_USER_ID LIKE '%' || #{searchValue} || '%'
+				OR BOARD.USER_ID LIKE '%' || #{searchValue} || '%'
+				OR BOARD.BOARD_TITLE LIKE '%' || #{searchValue} || '%'
+			</if>
+			ORDER BY BOARD_REPORT.REPORT_NO DESC
+		</select>
+		<!-- search 개수 -->
+		<select id="selectSearchCount" resultType="_int">
+			SELECT COUNT(*)
+			FROM BOARD INNER JOIN BOARD_REPORT
+			ON BOARD.BOARD_NO = BOARD_REPORT.BOARD_NO
+			<if test="searchCondition.toString() == 'userId'">
+				WHERE BOARD_REPORT.REPORT_USER_ID LIKE '%' || #{searchValue} || '%'
+			</if>
+			<if test="searchCondition.toString() == 'writer'">
+				WHERE BOARD.USER_ID LIKE '%' || #{searchValue} ||'%'
+			</if>
+			<if test="searchCondition.toString() == 'boardTitle'">
+				WHERE BOARD.BOARD_TITLE LIKE '%' || #{searchValue} || '%'
+			</if>
+			<if test="searchCondition.toString() == 'all'">
+				WHERE BOARD_REPORT.REPORT_USER_ID LIKE '%' || #{searchValue} || '%'
+				OR BOARD.USER_ID LIKE '%' || #{searchValue} || '%'
+				OR BOARD.BOARD_TITLE LIKE '%' || #{searchValue} || '%'
+			</if>
+			
+		</select>
+		<!-- 해당 게시물 삭제 -->
+		<delete id="deleteReportBoard">
 			DELETE FROM BOARD WHERE BOARD_NO = #{boardNo}
 		</delete>
+		<!-- 신고 내역 삭제 -->
 		<delete id="deleteReport">
 			DELETE FROM BOARD_REPORT WHERE REPORT_NO = #{reportNo}
 		</delete>
-<!-- 	<select id="selectExchangeList" resultMap="exchangeResultMap"> -->
-<!-- 		SELECT * FROM EXCHANGE ORDER BY EXCHANGE_NO DESC -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="selectOwnExchange" parameterType="_int" resultMap="exchangeResultMap"> -->
-<!-- 		SELECT * FROM EXCHANGE WHERE USER_NO = #{userNo} ORDER BY EXCHANGE_NO DESC -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="selectSearchExchange"  resultMap="exchangeResultMap"> -->
-<!-- 		SELECT * FROM EXCHANGE -->
-<!-- 		<if test="searchCondition.toString() == 'userId'"> -->
-<!-- 			 WHERE USER_ID LIKE  '%' || #{searchValue} || '%' -->
-<!-- 		</if> -->
-<!-- 		<if test="searchCondition.toString() == 'userName'"> -->
-<!-- 			 WHERE USER_NAME LIKE  '%' || #{searchValue} || '%' -->
-<!-- 		</if> -->
-<!-- 		<if test="searchCondition.toString() == 'bank'"> -->
-<!-- 			 WHERE  EXCHANGE_BANK LIKE  '%' || #{searchValue} || '%' -->
-<!-- 		</if> -->
-<!-- 		<if test="searchCondition.toString() == 'all'"> -->
-<!-- 			 WHERE USER_ID LIKE  '%' || #{searchValue} || '%' -->
-<!-- 			 OR USER_NAME LIKE  '%' || #{searchValue} || '%' -->
-<!-- 			 OR EXCHANGE_BANK LIKE  '%' || #{searchValue} || '%' -->
-<!-- 		</if> -->
-<!-- 		ORDER BY EXCHANGE_ENROLLDATE DESC -->
-<!-- 	</select> -->
-	
-<!-- 		<select id="selectListCount" resultType="_int"> -->
-<!-- 		SELECT COUNT(*) FROM EXCHANGE -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="selectOwnListCount" resultType="_int"> -->
-<!-- 		SELECT COUNT(*) FROM EXCHANGE WHERE USER_NO=#{userNo} -->
-<!-- 	</select> -->
-	
-<!-- 	<insert id="insertExchange" parameterType="Exchange"> -->
-<!-- 		INSERT INTO EXCHANGE VALUES(SEQ_EXCHANGE.NEXTVAL,#{userNo},DEFAULT,null,DEFAULT,#{exchangeMoney},#{account},#{exchangeBank},#{userName},#{userId}) -->
-<!-- 	</insert> -->
-	
-
+	<!-- 댓글 -->
+		<!-- 신고댓글전체 -->
+		<select id="selectReplyReportList" resultMap="replyReportResultMap">
+			SELECT REPLY_REPORT.REPLY_REPORT_NO, REPLY_REPORT.REPLY_NO, REPLY_REPORT.BOARD_NO, REPLY_REPORT.USER_ID, REPLY_REPORT.REPLY_REPORT_DATE, REPLY.REPLY_CONTENTS, REPLY.USER_ID AS WRITER
+			FROM REPLY_REPORT INNER JOIN REPLY
+			ON REPLY_REPORT.REPLY_NO = REPLY.REPLY_NO
+			ORDER BY REPLY_REPORT.REPLY_REPORT_NO DESC
+		</select>
+		<!-- 신고댓글 COUNT -->
+		<select id="selectReplyReportCount" resultType="_int">
+			SELECT COUNT(*)
+			FROM REPLY_REPORT INNER JOIN REPLY
+			ON REPLY_REPORT.REPLY_NO = REPLY.REPLY_NO
+			<if test="searchContition!=null and searchCondition.toString() == 'userId">
+				WHERE REPLY_REPORT.USER_ID LIKE '%' || #{searchValue } || '%'
+			</if>
+			<if test="searchContition!=null and  searchCondition.toString() == 'writer">
+				WHERE REPLY.USER_ID LIKE '%' || #{searchValue } || '%'
+			</if>
+			<if test="searchContition!=null and searchCondition.toString() == 'contents">
+				WHERE REPLY.REPLY_CONTENTS LIKE '%' || #{searchValue } || '%'
+			</if>
+			<if test="searchContition!=null and searchCondition.toString() == 'all">
+				WHERE REPLY_REPORT.USER_ID LIKE '%' || #{searchValue } || '%'
+				OR REPLY.USER_ID LIKE '%' || #{searchValue } || '%'
+				OR REPLY.REPLY_CONTENTS LIKE '%' || #{searchValue } || '%'
+			</if>
+		</select>
+		<!-- 신고댓글 search list -->
+		<select id="selectSearchReplyReportCount">
+			SELECT REPLY_REPORT.REPLY_REPORT_NO, REPLY_REPORT.REPLY_NO, REPLY_REPORT.BOARD_NO, REPLY_REPORT.USER_ID, REPLY_REPORT.REPLY_REPORT_DATE, REPLY.REPLY_CONTENTS, REPLY.USER_ID AS WRITER
+			FROM REPLY_REPORT INNER JOIN REPLY
+			ON REPLY_REPORT.REPLY_NO = REPLY.REPLY_NO
+			<if test="searchContition!=null and searchCondition.toString() == 'userId">
+				WHERE REPLY_REPORT.USER_ID LIKE '%' || #{searchValue } || '%'
+			</if>
+			<if test="searchContition!=null and  searchCondition.toString() == 'writer">
+				WHERE REPLY.USER_ID LIKE '%' || #{searchValue } || '%'
+			</if>
+			<if test="searchContition!=null and searchCondition.toString() == 'contents">
+				WHERE REPLY.REPLY_CONTENTS LIKE '%' || #{searchValue } || '%'
+			</if>
+			<if test="searchContition!=null and searchCondition.toString() == 'all">
+				WHERE REPLY_REPORT.USER_ID LIKE '%' || #{searchValue } || '%'
+				OR REPLY.USER_ID LIKE '%' || #{searchValue } || '%'
+				OR REPLY.REPLY_CONTENTS LIKE '%' || #{searchValue } || '%'
+			</if>
+			ORDER BY REPLY_REPORT.REPLY_REPORT_NO DESC;
+		</select>
+		<!-- 댓글 삭제 -->
+		<delete id="deleteReply">
+			DELETE FROM REPLY WHERE REPLY_NO = #{replyNo}
+		</delete>
+		<!-- 댓글 삭제 전에 replyNo가 같은 신고내역 삭제 -->
+		<delete id="deleteReplyReports">
+			DELETE FROM REPLY_REPORT WHERE REPLY_NO = #{replyNo}
+		</delete>
+		<!-- 댓글 신고 내역 삭제 -->
+		<delete id="deleteReplyReport">
+			DELETE FROM REPLY_REPORT WHERE REPLY_REPORT_NO = #{replyReportNo}
+		</delete>
 	
 </mapper>
