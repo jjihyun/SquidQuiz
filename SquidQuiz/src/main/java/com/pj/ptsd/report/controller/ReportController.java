@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.pj.ptsd.exchange.domain.Search;
 import com.pj.ptsd.report.domain.PageInfo;
+import com.pj.ptsd.report.domain.ReplyReport;
 import com.pj.ptsd.report.domain.Report;
 import com.pj.ptsd.report.domain.ReportPagination;
 import com.pj.ptsd.report.service.ReportService;
@@ -19,7 +21,7 @@ import com.pj.ptsd.report.service.ReportService;
 public class ReportController {
 	@Autowired
 	private ReportService service;
-	
+
 	//신고 게시물 리스트
 	@RequestMapping(value="reportListView.ptsd")
 	public String reportListView(Model model,
@@ -28,13 +30,15 @@ public class ReportController {
 		int totalCount = service.getReportCount();
 		PageInfo pi = ReportPagination.getPageInfo(currentPage, totalCount);
 		List<Report> rList = service.printReportList(pi);
+		
 		if (!rList.isEmpty()) {
 			model.addAttribute("pi", pi);
 			model.addAttribute("rList", rList);
 			return "report/reportListView";
 		} else {
-			model.addAttribute("msg", "서치 실패");
-			return "common/errorPage";
+			model.addAttribute("pi", pi);
+			model.addAttribute("rList", null);
+			return "report/reportListView";
 		}
 	}
 	//신고 리스트 키워드로 search
@@ -52,8 +56,10 @@ public class ReportController {
 			model.addAttribute("search", search);
 			return "report/reportListView";
 		}else {
-			model.addAttribute("msg", "서치 실패");
-			return "common/errorPage";
+			model.addAttribute("pi", pi);
+			model.addAttribute("rList", null);
+			model.addAttribute("search", search);
+			return "report/reportListView";
 		}
 	}
 	//신고 게시물 삭제
@@ -79,7 +85,7 @@ public class ReportController {
 		
 	
 	}
-	//신고 내역 삭제
+	//게시물 신고 내역 삭제
 	@RequestMapping(value="reportDelete.ptsd")
 	public String reportDelete (Model model,@RequestParam("reportNo") int reportNo) {
 		try {
@@ -103,37 +109,42 @@ public class ReportController {
 	public String replyReportListView(Model model,
 			@RequestParam(value="page",required=false)Integer page) {
 		int currentPage = (page != null) ? page : 1;
-		int totalCount = service.getReportCount();
+		Search search = null;
+		int totalCount = service.getReplyReport(search );
 		PageInfo pi = ReportPagination.getPageInfo(currentPage, totalCount);
-		List<Report> rList = service.printReportList(pi);
+		List<ReplyReport> rList = service.printReplyReportList(pi);
+//		System.out.println(totalCount);
 		if (!rList.isEmpty()) {
 			model.addAttribute("pi", pi);
 			model.addAttribute("rList", rList);
-			return "report/reportListView";
+			return "report/reportReplyListView";
 		} else {
-			model.addAttribute("msg", "서치 실패");
-			return "common/errorPage";
+			model.addAttribute("pi", pi);
+			model.addAttribute("rList", null);
+			return "report/reportReplyListView";
 		}
 	}
 	//신고 댓글 search
 	
-	//신고 리스트 키워드로 search
+	
 	@RequestMapping(value="replyReportSearchView.ptsd")
 	public String replySearchView(Model model,
 			@ModelAttribute Search search,
 			@RequestParam(value="page",required=false)Integer page) {
 		int currentPage = (page != null) ? page : 1  ;  
-		int totalCount = service.getSearchCount(search);
+		int totalCount = service.getReplyReport(search);
 		PageInfo pi = ReportPagination.getPageInfo(currentPage, totalCount);
-		List<Report> rList = service.printSearchList(pi, search);
+		List<ReplyReport> rList = service.printReplySearchList(pi, search);
 		if(!rList.isEmpty()) {
 			model.addAttribute("pi", pi);
 			model.addAttribute("rList", rList);
 			model.addAttribute("search", search);
-			return "report/reportListView";
+			return "report/reportReplyListView";
 		}else {
-			model.addAttribute("msg", "서치 실패");
-			return "common/errorPage";
+			model.addAttribute("pi", pi);
+			model.addAttribute("rList", null);
+			model.addAttribute("search", search);
+			return "report/reportReplyListView";
 		}
 	}
 	//신고 댓글 삭제
@@ -143,14 +154,12 @@ public class ReportController {
 			,@RequestParam("replyReportNo") int replyReportNo
 			,@RequestParam("replyNo") int replyNo) {
 		try {
-			//??????
-			service.removeReplyReport(replyReportNo);
 			int result = service.removeReply(replyNo);
 			if(result>0) {
 				
-				return "redirect:reportListView.ptsd";
+				return "redirect:replyReportListView.ptsd";
 			}else {
-				model.addAttribute("msg","신고된 게시물 삭제 실패");
+				model.addAttribute("msg","신고된 댓글 삭제 실패");
 				return "common/errorPage"; 
 			}
 		} catch (Exception e) {
@@ -165,12 +174,12 @@ public class ReportController {
 	@RequestMapping(value="replyReportDelete.ptsd")
 	public String replyReportDelete (Model model,@RequestParam("replyReportNo") int replyReportNo) {
 		try {
-			int result = service.removeReport(replyReportNo);
+			int result = service.removeReplyReport(replyReportNo);
 			if(result>0) {
 				
-				return "redirect:reportListView.ptsd";
+				return "redirect:replyReportListView.ptsd";
 			}else {
-				model.addAttribute("msg","신고된 게시물 삭제 실패");
+				model.addAttribute("msg","댓글 신고 내역 삭제 실패");
 				return "common/errorPage"; 
 			}
 		} catch (Exception e) {

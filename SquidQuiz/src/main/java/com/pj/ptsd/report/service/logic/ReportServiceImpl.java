@@ -58,32 +58,32 @@ public class ReportServiceImpl implements ReportService{
 	//댓글신고내역 all list
 	@Override
 	public List<ReplyReport> printReplyReportList(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ReplyReport> rrList = store.selectReplyReportList(pi);
+		return rrList;
 	}
 	//댓글 신고 내역 search
 	@Override
 	public List<ReplyReport> printReplySearchList(PageInfo pi, Search search) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ReplyReport> rrList = store.selectReplySearchList(pi, search);
+		return rrList;
 	}
 	//댓글 갯수 
 	@Override
 	public int getReplyReport(Search search) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.selectReplyReport(search);
+		return result;
 	}
 	//댓글 삭제
 	@Override
 	public int removeReply(int replyNo) {
-		int result = 0;
+		int result = store.deleteReply(replyNo);
 		return result;
 	}
 	//댓글 신고 내역 삭제
 	@Override
 	public int removeReplyReport(int replyReportNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.deleteReplyReport(replyReportNo);
+		return result;
 	}
 
 
