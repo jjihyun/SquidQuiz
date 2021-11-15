@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pj.ptsd.campaign.domain.Campaign;
+import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.campaign.domain.DonationRecord;
 import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.campaign.service.CampaignService;
@@ -17,11 +18,30 @@ public class CampaignServiceImpl implements CampaignService{
 	@Autowired
 	private CampaignStore store;
 
+	@Override
+	public List<Campaign> printAll() {
+		List<Campaign> cList = store.selectAll();
+		return cList;
+	}
+	
+	//고정기부처 기부 개수
+	@Override
+	public int getListCount() {
+		int totalCount = store.selectListStaticCount();
+		return totalCount;
+	}
+	//고정기부처 기부 리스트 조회
+	@Override
+	public List<DonationRecord> printStaticRecord(PageInfo pi) {
+		List<DonationRecord> dRList = store.selectListStatic(pi);
+		return dRList;
+	}
+	
 	//캠페인 게시글 개수
 	@Override
 	public int getListCount(String type) {
 		int totalCount = store.selectListCount(type);
-		System.out.println("service의 totalCount : "+totalCount);
+		//System.out.println("service의 totalCount : "+totalCount);
 		return totalCount;
 	}
 
@@ -78,6 +98,7 @@ public class CampaignServiceImpl implements CampaignService{
 		int result = store.updateCampaign(campaign);
 		return result;
 	}
+
 
 
 }

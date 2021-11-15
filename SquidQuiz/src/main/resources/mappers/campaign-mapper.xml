@@ -19,6 +19,18 @@
 	<insert id="insertCampaign" parameterType="Campaign">
 		INSERT INTO CAMPAIGN VALUES(SEQ_CAMPAIGN.NEXTVAL, #{campaignName}, #{campaignType}, #{campaignTitle}, #{campaignContents}, #{cLink}, #{cTargetAmount}, DEFAULT, #{cEndDate}, #{cFileName}, #{cFileRename}, SYSDATE)
 	</insert>
+	<!-- <insert id="insertcRecord" parameterType="CampaignRecord">
+		INSERT INTO CAMPAIGN_RECORD(SEQ_CAMPAIGN_RECORD_NEXTVAL, #{userNo}, #{campaignNo}, #{cRecordPoint}, SYSDATE, #{campaignName})
+	</insert> -->
+
+
+	<select id="selectListStaticCount" resultType="_int">
+		SELECT COUNT(*) FROM MAIN_GAME_INFO
+	</select>
+	<!-- 임시로 사용중... -->
+	<select id="selectCampaignStaticList" resultMap="campaignResultMap">
+		SELECT CAMPAIGN_NO,CAMPAIGN_NOW_AMOUNT,CAMPAIGN_TARGET_AMOUNT, CAMPAIGN_ENROLL_DATE FROM CAMPAIGN ORDER BY CAMPAIGN_NO DESC
+	</select>
 
 	<select id="selectListCount" resultType="_int">
 		<choose>
@@ -44,6 +56,10 @@
 		</choose>
 	</select>
 	
+	<select id="selectCampaignRandomList" resultMap="campaignResultMap">
+		SELECT * FROM CAMPAIGN WHERE ROWNUM<![CDATA[<]]> 4
+	</select>
+	
 	<select id="selectOneCampaign" resultMap="campaignResultMap">
 		SELECT * FROM CAMPAIGN WHERE CAMPAIGN_NO=#{campaignNo}
 	</select>
@@ -54,7 +70,7 @@
 		SELECT SUM(TOTAL_MONEY)-SUM(RECEIVE_MONEY) FROM MAIN_GAME_INFO
 	</select>
 	<select id="selectPrice" resultType="_int">
-		SELECT (TOTAL_MONEY-RECEIVE_MONEY) FROM MAIN_GAME_INFO_TEST WHERE TURN_NO=(SELECT MAX(TURN_NO) FROM MAIN_GAME_INFO)
+		SELECT (TOTAL_MONEY-RECEIVE_MONEY) FROM MAIN_GAME_INFO WHERE TURN_NO=(SELECT MAX(TURN_NO) FROM MAIN_GAME_INFO)
 	</select>
 	
 	<update id="updateCampaign" parameterType="Campaign">

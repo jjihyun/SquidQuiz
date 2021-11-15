@@ -11,6 +11,7 @@ import java.util.List;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,6 +32,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.pj.ptsd.campaign.Pagination;
 import com.pj.ptsd.campaign.domain.Campaign;
+import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.campaign.domain.DonationRecord;
 import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.campaign.service.CampaignService;
@@ -127,35 +129,45 @@ public class CampaignController {
 	//캠페인 고정기부처 상세조회
 	@RequestMapping(value="campaignStaticDetail.ptsd", method=RequestMethod.GET)
 	public String printStaticOneCampaign(Model model) {
-		int result = 0;
 		return "campaign/campaignStaticDetail";
 	}
 	
 	//캠페인 상세페이지 조회
 	@RequestMapping(value="campaignDetail.ptsd", method=RequestMethod.GET)
 	public ModelAndView printCampaignDetail(ModelAndView mv
-			, @RequestParam("campaignNo") int campaignNo, Model model) {
+			, @RequestParam("campaignNo") int campaignNo, Model model, HttpServletRequest request) {
 		Campaign camp = service.printCampaignDetail(campaignNo);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		//HttpSession session = request.getSession();
+		//String userId = (String)session.getAttribute("userId");
+		
+		System.out.println("test1");
+		List<Campaign> cList = service.printAll();  //다른 후원보기 볼때 필요한 코드.
+		System.out.println("test2");
+		
 		if(camp!=null) {
 			mv.addObject("campaign", camp);
 			String formatDate = sdf.format(camp.getcEndDate());
+			String enrollDate = sdf.format(camp.getcEnrollDate());
 			
 			Date startDate = new Date();
 			Date endDate = camp.getcEndDate();
-			System.out.println("끝나는 날짜 : "+endDate);
-			System.out.println("시작 날짜 : "+startDate);
+//			System.out.println("끝나는 날짜 : "+endDate);
+//			System.out.println("시작 날짜 : "+startDate);
 			int gap = (int) (endDate.getTime()-startDate.getTime());
 			int result = (int) Math.ceil(gap/(1000*60*60*24));
 			if(result>=1) {
 				result+=1;
 			}
-			System.out.println("차이" + result);
+			//System.out.println("차이" + result);
+			
+			mv.addObject("cList", cList);
 			
 			//현재 모금 상황 퍼센트 계산
 			double campMount = (double)camp.getcNowAmount()/(double)camp.getcTargetAmount()*100;
 			mv.addObject("detail", campMount);
 			mv.addObject("formatDate", formatDate);
+			mv.addObject("enrollDate", enrollDate);
 			mv.addObject("dDay", result);
 			mv.setViewName("campaign/campaignDetail");
 		} else {
@@ -176,8 +188,13 @@ public class CampaignController {
 			model.addAttribute("msg", "캠페인 기부 페이지 조회 실패!");
 			return "common/errorPage";
 		}
-//		return "campaign/campaignDonationPay";
 	}
+	//캠페인에 기부하기
+	@RequestMapping(value="donateCampaign.ptsd", method=RequestMethod.POST)
+	public String registerDonation(@ModelAttribute CampaignRecord cRecord, @RequestParam("campaignNo") int campaignNo) {
+		return "campaign/campaignDetail";
+	}
+	
 	
 	//캠페인 작성 페이지
 	@RequestMapping(value="campaignWriteView.ptsd", method=RequestMethod.GET)
@@ -314,8 +331,22 @@ public class CampaignController {
 	
 	//임시로 작성, 일단 페이지만 보이게.
 	@RequestMapping(value="campaignAllCampaignRecord.ptsd", method=RequestMethod.GET)
-	public String printAllCampaignRe() {
-		return "campaign/campaignStaticDonationList";
+	public String printAllCampaignRe(Model model, HttpServletRequest request, 
+			@RequestParam(value="page", required=false) Integer page) {
+		int currentPage =(page!=null)?page:1;
+		int totalCount = service.getListCount();
+		System.out.println("총 개수 : "+totalCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
+		//int result = 0;
+		List<DonationRecord> dRList = service.printStaticRecord(pi);
+		if(!dRList.isEmpty()) {
+			model.addAttribute("dRList", dRList);
+			model.addAttribute("pi", pi);
+			return "campaign/campaignStaticDonationList";
+		} else {
+			model.addAttribute("msg", "캠페인 조회 실패");
+			return "common/errorPage";
+		}	
 	}
 	//캠페인 기부 목록 조회(고정 캠페인)
 	public String printAllCampaignRecord2() {

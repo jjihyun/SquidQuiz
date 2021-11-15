@@ -17,12 +17,34 @@ public class CampaignStoreLogic implements CampaignStore{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
+	
+	//다른 후원보기(기부 디테일 페이지에서)
+	@Override
+	public List<Campaign> selectAll() {
+		List<Campaign> cList = sqlSession.selectList("campaignMapper.selectCampaignRandomList");
+		return cList;
+	}
+	
+	//고정기부처 기부 개수
+	@Override
+	public int selectListStaticCount() {
+		int count = sqlSession.selectOne("campaignMapper.selectListStaticCount");
+		return count;
+	}
+	//고정기부처 기부 리스트 조회
+	@Override
+	public List<DonationRecord> selectListStatic(PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)*pi.getCampaignLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getCampaignLimit());
+		List<DonationRecord> dRList = sqlSession.selectList("campaignMapper.", pi, rowBounds);
+		return dRList;
+	}
+	
 	//캠페인 게시글 개수
 	@Override
 	public int selectListCount(String type) {
 		int count = sqlSession.selectOne("campaignMapper.selectListCount", type);
-		System.out.println("store의 count : "+count);
+		//System.out.println("store의 count : "+count);
 		return count;
 	}
 	
@@ -82,6 +104,7 @@ public class CampaignStoreLogic implements CampaignStore{
 		int result = sqlSession.update("campaignMapper.updateCampaign", campaign);
 		return result;
 	}
+
 
 
 
