@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reportMapper">
-<!-- 	<resultMap type="Board" id="Board"> -->
-<!-- 		<result property="bTitle" column="BOARD_TITLE"> -->
-<!-- 		<result property="userId" column="USER_ID"> -->
-<!-- 	</resultMap> -->
+
 	<resultMap type="ReplyReport" id="replyReportResultMap">
 		<id property="replyReportNo" column="REPLY_REPORT_NO"></id>
+		<result property="replyNo" column="REPLY_NO"></result>
 		<result property="boardNo" column="BOARD_NO"></result>
 		<result property="reportedUserId" column="USER_ID"></result>
 		<result property="replyContents" column="REPLY_CONTENTS"></result>
@@ -22,7 +20,6 @@
 		<result property="boardWriter" column="WRITER"></result>
 		<result property="boardReportDate" column="BOARD_REPORT_DATE"></result>
 	
-<!-- 		<collection property="Board" resultMap="Board"></collection> -->
 	</resultMap>
 <!-- 게시물 -->
 		<!-- 전체 조회 -->
@@ -99,41 +96,41 @@
 			SELECT COUNT(*)
 			FROM REPLY_REPORT INNER JOIN REPLY
 			ON REPLY_REPORT.REPLY_NO = REPLY.REPLY_NO
-			<if test="searchContition!=null and searchCondition.toString() == 'userId">
+			<if test="searchCondition != null and searchCondition.toString() == 'userId'">
 				WHERE REPLY_REPORT.USER_ID LIKE '%' || #{searchValue } || '%'
 			</if>
-			<if test="searchContition!=null and  searchCondition.toString() == 'writer">
+			<if test="searchCondition != null and  searchCondition.toString() == 'writer'">
 				WHERE REPLY.USER_ID LIKE '%' || #{searchValue } || '%'
 			</if>
-			<if test="searchContition!=null and searchCondition.toString() == 'contents">
+			<if test="searchCondition != null and searchCondition.toString() == 'contents'">
 				WHERE REPLY.REPLY_CONTENTS LIKE '%' || #{searchValue } || '%'
 			</if>
-			<if test="searchContition!=null and searchCondition.toString() == 'all">
+			<if test="searchCondition!=null and searchCondition.toString() == 'all'">
 				WHERE REPLY_REPORT.USER_ID LIKE '%' || #{searchValue } || '%'
 				OR REPLY.USER_ID LIKE '%' || #{searchValue } || '%'
 				OR REPLY.REPLY_CONTENTS LIKE '%' || #{searchValue } || '%'
 			</if>
 		</select>
 		<!-- 신고댓글 search list -->
-		<select id="selectSearchReplyReportCount">
+		<select id="selectSearchReplyReportCount" resultMap="replyReportResultMap">
 			SELECT REPLY_REPORT.REPLY_REPORT_NO, REPLY_REPORT.REPLY_NO, REPLY_REPORT.BOARD_NO, REPLY_REPORT.USER_ID, REPLY_REPORT.REPLY_REPORT_DATE, REPLY.REPLY_CONTENTS, REPLY.USER_ID AS WRITER
 			FROM REPLY_REPORT INNER JOIN REPLY
 			ON REPLY_REPORT.REPLY_NO = REPLY.REPLY_NO
-			<if test="searchContition!=null and searchCondition.toString() == 'userId">
+			<if test="searchCondition!=null and searchCondition.toString() == 'userId'">
 				WHERE REPLY_REPORT.USER_ID LIKE '%' || #{searchValue } || '%'
 			</if>
-			<if test="searchContition!=null and  searchCondition.toString() == 'writer">
+			<if test="searchCondition!=null and  searchCondition.toString() == 'writer'">
 				WHERE REPLY.USER_ID LIKE '%' || #{searchValue } || '%'
 			</if>
-			<if test="searchContition!=null and searchCondition.toString() == 'contents">
+			<if test="searchCondition!=null and searchCondition.toString() == 'contents'">
 				WHERE REPLY.REPLY_CONTENTS LIKE '%' || #{searchValue } || '%'
 			</if>
-			<if test="searchContition!=null and searchCondition.toString() == 'all">
+			<if test="searchCondition!=null and searchCondition.toString() == 'all'">
 				WHERE REPLY_REPORT.USER_ID LIKE '%' || #{searchValue } || '%'
 				OR REPLY.USER_ID LIKE '%' || #{searchValue } || '%'
 				OR REPLY.REPLY_CONTENTS LIKE '%' || #{searchValue } || '%'
 			</if>
-			ORDER BY REPLY_REPORT.REPLY_REPORT_NO DESC;
+			ORDER BY REPLY_REPORT.REPLY_REPORT_NO DESC
 		</select>
 		<!-- 댓글 삭제 -->
 		<delete id="deleteReply">

@@ -78,14 +78,18 @@ public class ReportStoreLogic implements ReportStore{
 	//댓글신고내역 count
 	@Override
 	public int selectReplyReport(Search search) {
-		int result = session.selectOne("repotMapper.selectReplyReportCount", search);
+		int result = session.selectOne("reportMapper.selectReplyReportCount", search);
 		return result;
 	}
 	//신고된 댓글 삭제
 	@Override
 	public int deleteReply(int replyNo) {
-		session.delete("reportMapper.deleteReplyReports", replyNo);
-		int result = session.delete("reportMapper.deleteReply", replyNo);
+		int result = 0;
+		int result1 = session.delete("reportMapper.deleteReplyReports", replyNo);
+//		System.out.println(result1);
+		if (result1>0) {
+			result = session.delete("reportMapper.deleteReply", replyNo);
+		}
 		return result;
 	}
 	 

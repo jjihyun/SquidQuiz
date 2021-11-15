@@ -38,10 +38,11 @@ public class ExchangeController {
 			if(!eList.isEmpty()) {
 				model.addAttribute("eList", eList);
 				model.addAttribute("pi",pi);
+				return "exchange/exchangeListView";
 			}else {
 				model.addAttribute("eList", null);
+				return "exchange/exchangeListView";
 			}
-			return "exchange/exchangeListView";
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", e.toString());
@@ -83,11 +84,12 @@ public class ExchangeController {
 				model.addAttribute("eList", eList);
 				model.addAttribute("search", search);
 				model.addAttribute("page", 1);
-				return "exchange/exchangeListView";
+				
 			}else {
-				model.addAttribute("msg","환전 목록 아이디/검색 실패");
-				return "common/errorPage";
+				model.addAttribute("eList", null);
+				model.addAttribute("search", search);
 			}
+			return "exchange/exchangeListView";
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", e.toString());

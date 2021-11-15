@@ -10,7 +10,6 @@
 <meta charset="UTF-8">
 <title>신고 관리</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="/resources/css/quiz/oxWrite.css">
 <link rel="stylesheet" href="/resources/css/app.css">
 </head>
 <script>
@@ -67,6 +66,7 @@ a:hover{color:#495057;	text-decoration: none;}
 				</ul>
 			</div>
 		</nav>
+
 		<div class="main">
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
 				<a class="sidebar-toggle js-sidebar-toggle"> <i
@@ -80,10 +80,10 @@ a:hover{color:#495057;	text-decoration: none;}
 						<ul class="nav nav-pills nav-justified">
 						
 						  <li  class="nav-item">
-						    <a class="nav-link active" data-toggle="tab" href="#report">게시물</a>
+						    <a class="nav-link "  href="reportListView.ptsd">게시물</a>
 						  </li>
 						  <li class="nav-item">
-						    <a class="nav-link" href="replyReportListView.ptsd">댓글</a>
+						    <a class="nav-link active"data-toggle="tab"  href="#">댓글</a>
 						  </li>
 						
 						
@@ -93,13 +93,14 @@ a:hover{color:#495057;	text-decoration: none;}
 					</div>
 					 <!-- 아이디 검색창 -->
 					<div align="center">
-						<form action="reportSearchView.ptsd" method="get">
+						<form action="replyReportSearchView.ptsd" method="get">
 							<select name="searchCondition">
 								<option value="all" <c:if test="${search.searchCondition == 'all' }">selected</c:if>>전체</option>
 								<option value="userId" <c:if test="${search.searchCondition == 'userId' }">selected</c:if>>신고자</option>
 								<option value="writer" <c:if test="${search.searchCondition == 'writer' }">selected</c:if>>게시자</option>
-								<option value="boardTitle" <c:if test="${search.searchCondition == 'boardTitle' }">selected</c:if>>게시물제목</option>
+								<option value="contents" <c:if test="${search.searchCondition == 'contents' }">selected</c:if>>댓글내용</option>
 							</select>
+<!-- 							<input type="hidden" name="pageType" value="board"> -->
 							<input type="hidden" name="page" value="1">
 							<input type="text" name="searchValue" value="${search.searchValue }">
 							<input type="submit" value="검색">
@@ -112,10 +113,10 @@ a:hover{color:#495057;	text-decoration: none;}
 							<tr>
 								<th style="width:10%"> No</th>
 								<th style="width:10%">신고자</th>
-								<th style="width:35%">제목</th>
+								<th style="width:35%">댓글내용</th>
 								<th style="width:10%">게시자</th>
 								<th style="width:15%">신고일</th>
-								<th style="width:10%">게시물 삭제</th>
+								<th style="width:10%">댓글 삭제</th>
 								<th style="width:10%">내역 삭제</th>
 								
 							</tr>
@@ -131,41 +132,40 @@ a:hover{color:#495057;	text-decoration: none;}
 						<tbody align="center">
 							<tr>
 							
-								<td>${rList.reportNo }</td>
+								<td>${rList.replyReportNo }</td>
 								<td>
 									${rList.reportedUserId }
 								</td>
 								<c:url var="bDetail" value="boardDetail.ptsd">
 									<c:param name="bNo" value="${rList.boardNo }"></c:param>
-								
 								</c:url>
-								<td><a href="${bDetail }">${rList.boardTitle}</a></td>
-								<td>${rList.boardWriter }</td>
-								<td><fmt:formatDate value="${rList.boardReportDate }" pattern="yyyy-MM-dd  HH:mm"/></td>
+								<td><a href="${bDetail }">${rList.replyContents}</a></td>
+								<td>${rList.replyWriter }</td>
+								<td><fmt:formatDate value="${rList.replyReportDate }" pattern="yyyy-MM-dd  HH:mm"/></td>
 								
-								<c:url var="bDelete" value="reportBoardDelete.ptsd">
-									<c:param name="boardNo" value="${rList.boardNo }"></c:param>
-									<c:param name="reportNo" value="${rList.reportNo }"></c:param>
+								<c:url var="rDelete" value="replyDelete.ptsd">
+									<c:param name="replyReportNo" value="${rList.replyReportNo }"></c:param>
+									<c:param name="replyNo" value="${rList.replyNo }"></c:param>
 								</c:url>
-								<td><button class="btn btn-warning" onclick="location.href='${bDelete}'">삭제</button></td>
+								<td><button class="btn btn-warning" onclick="location.href='${rDelete}'">삭제</button></td>
 								
-								<c:url var="rDelete" value="reportDelete.ptsd">
-									<c:param name="reportNo" value="${rList.reportNo }"></c:param>
+								<c:url var="rrDelete" value="replyReportDelete.ptsd">
+									<c:param name="replyReportNo" value="${rList.replyReportNo }"></c:param>
 								</c:url>
-								<td><button class="btn btn-warning" onclick="location.href='${rDelete }'">삭제</button></td>
+								<td><button class="btn btn-warning" onclick="location.href='${rrDelete }'">삭제</button></td>
+								
+									
 							</tr>
-							
 						</tbody>
 						</c:forEach>
-						
-							<tr align="center" height="20">
-								<!-- search일 경우 페이징 -->
-							<c:if test="${search.searchValue ne null }">
-								<td colspan="7">
 							
-							<c:url var="before" value="reportSearchView.ptsd">
+							<tr align="center" height="20">
+							<!-- search일 경우 페이징 -->
+							<c:if test="${search.searchValue ne null }">
+									<td colspan="7">
+								<c:url var="before" value="replyReportSearchView.ptsd">
 								<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
-									<!-- search 페이징  -->
+								<!-- search 페이징  -->
 									<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
 									<c:param name="searchValue" value="${search.searchValue }"></c:param>
 									<!-- /search 페이징  -->
@@ -184,7 +184,7 @@ a:hover{color:#495057;	text-decoration: none;}
 							<c:if test="${pi.startNavi ne null }">
 							<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
 								
-								<c:url var="pagination" value="reportSearchView.ptsd">
+								<c:url var="pagination" value="replyReportSearchView.ptsd">
 									<c:param name="page" value="${p }"></c:param>
 									<!-- search 페이징  -->
 									<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
@@ -200,9 +200,9 @@ a:hover{color:#495057;	text-decoration: none;}
 								</c:if>
 							</c:forEach>
 							
-							<c:url var="after" value="reportSearchView.ptsd">
+							<c:url var="after" value="replyReportSearchView.ptsd">
 								<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
-									<!-- search 페이징  -->
+								<!-- search 페이징  -->
 									<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
 									<c:param name="searchValue" value="${search.searchValue }"></c:param>
 									<!-- /search 페이징  -->
@@ -218,10 +218,9 @@ a:hover{color:#495057;	text-decoration: none;}
 							</c:if>
 							<!-- /search일 경우 페이징 -->
 							<!-- 전체 리스트 페이징 -->
-								<c:if test="${search.searchValue eq null }">
+							<c:if test="${search.searchValue eq null }">
 								<td colspan="7">
-							
-							<c:url var="before" value="reportListView.ptsd">
+								<c:url var="before" value="replyReportListView.ptsd">
 								<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 								
 							</c:url>
@@ -239,7 +238,7 @@ a:hover{color:#495057;	text-decoration: none;}
 							<c:if test="${pi.startNavi ne null }">
 							<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
 								
-								<c:url var="pagination" value="reportListView.ptsd">
+								<c:url var="pagination" value="replyReportListView.ptsd">
 									<c:param name="page" value="${p }"></c:param>
 									
 								</c:url>
@@ -252,7 +251,7 @@ a:hover{color:#495057;	text-decoration: none;}
 								</c:if>
 							</c:forEach>
 							
-							<c:url var="after" value="reportListView.ptsd">
+							<c:url var="after" value="replyReportListView.ptsd">
 								<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 								
 							</c:url>
@@ -265,6 +264,7 @@ a:hover{color:#495057;	text-decoration: none;}
 							</c:if>
 							</td>
 							</c:if>
+							<!-- 전체 리스트 페이징 -->
 							</tr>
 					</table>
 					<!-- 신고 리스트 테이블 끝-->

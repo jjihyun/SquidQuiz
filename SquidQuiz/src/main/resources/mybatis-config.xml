@@ -33,5 +33,6 @@
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/report-mapper.xml"/>
 		<mapper resource="mappers/game-mapper.xml"/>
+		<mapper resource="mappers/userManagement-mapper.xml"/>
 	</mappers>
 </configuration>
