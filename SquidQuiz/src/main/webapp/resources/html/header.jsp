@@ -23,8 +23,8 @@
                         <li class="menu1"><a href="#">소개</a></li>
                         <li class="menu2"><a href="#">역대오징어</a></li>
                         <li class="menu3"><a href="campaignList.ptsd">기부</a></li>
-                        <li class="menu4"><a href="#">자유게시판</a></li>
-                        <li class="menu5"><a href="#">공지/문의</a></li>
+                        <li class="menu4"><a href="boardList.ptsd">자유게시판</a></li>
+                        <li class="menu5"><a href="qnaListView.ptsd">공지/문의</a></li>
 		                <c:if test="${ empty loginUser }">
 		                <li class="menu6"><a href="/login.ptsd"><img style="width: 50px; margin: 5px;" src="/resources/img/myPageLogo.png" alt="마이페이지"></a></li>
 		                </c:if>

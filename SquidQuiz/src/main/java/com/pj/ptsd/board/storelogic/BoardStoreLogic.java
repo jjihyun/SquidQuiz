@@ -42,8 +42,9 @@ public class BoardStoreLogic implements BoardStore {
 	
 	@Override
 	public List<Board> selectSearchAll(Search search) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Board> searchList 
+		= sqlSession.selectList("boardMapper.selectSearchList", search);
+	return searchList;
 	}
 
 	@Override

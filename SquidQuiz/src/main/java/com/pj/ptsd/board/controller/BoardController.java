@@ -6,6 +6,7 @@ import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,8 +30,10 @@ import com.pj.ptsd.board.domain.Board;
 import com.pj.ptsd.board.domain.PageInfo;
 import com.pj.ptsd.board.domain.Pagination;
 import com.pj.ptsd.board.domain.Reply;
+import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.board.service.BoardService;
 import com.pj.ptsd.user.domain.User;
+
 
 
 
@@ -96,24 +99,46 @@ public class BoardController {
 	}
 	
 	//게시글 목록 / 페이징
-	@RequestMapping(value="boardList.ptsd", method=RequestMethod.GET)
-	public ModelAndView boardListView(
-			ModelAndView mv
-			, @RequestParam(value="page", required=false) Integer page) {
-		int currentPage = (page != null) ? page : 1;
-		int totalCount = service.getListCount();
-		PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
-		List<Board> bList = service.printAll(pi);
-		if(!bList.isEmpty()) {
-			mv.addObject("bList", bList);
-			mv.addObject("pi", pi);
-			mv.setViewName("board/boardList");
-		}else {
-			mv.addObject("msg", "게시물 조회 실패");
-			mv.setViewName("common/errorPage");
-		}
-		return mv;
-	}
+	 @RequestMapping(value = "/board/boardList.ptsd")
+	    public ModelAndView BoardList(HttpServletRequest request) throws Exception {
+	        ModelAndView mv = new ModelAndView("/board/boardList");
+
+	        try {
+	            int currentPage = 1; // 현재 페이지 번호
+	            // pageNum이 null이 아니면 현재 페이지를 받아온다.
+	            if (request.getParameter("pageNum") != null) {
+	                currentPage = Integer.parseInt(request.getParameter("pageNum"));
+	            }
+
+	            String select = request.getParameter("select");
+	            String search = request.getParameter("search");
+
+//	            // 페이지 정보를 담는다.
+//	            PageInfo boardPage = new PageInfo();
+//	            boardPage.setCurrentPage(currentPage); // 현재 페이지 번호 set
+//	            boardPage.setTotalCount(BoardService.get(select, search));
+//
+//	            // 게시글을 불러온다.
+//	            List<Map<String, Object>> boardList = BoardService.selectBoardList(boardPage.getStartRow(),
+//	                                                                               boardPage.getEndRow(),
+//	                                                                               select,
+//	                                                                               search);
+
+//	            // boardList를 넘겨준다.
+//	            mv.addObject("list", boardList);
+//	            // 페이징 정보를 넘긴다.
+//	            mv.addObject("page", boardPage);
+	            // select, search를 넘겨줘서 페이징을 했을때도 값이 남아있게 한다.
+	            mv.addObject("select", select);
+	            mv.addObject("search", search);
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            mv = new ModelAndView("redirect:result/error.html");
+	            mv.addObject("Exception", e.toString());
+	        }
+	        return mv;
+	    }
 	
 	//게시글 상세 조회
 	@RequestMapping(value="boardDetail.ptsd", method=RequestMethod.GET)
@@ -269,29 +294,21 @@ public class BoardController {
 				return "fail";
 			}
 		}	
+		//검색
+		@RequestMapping(value="boardSearch.ptsd", method=RequestMethod.GET)
+		public String noticeSearchList(
+				@ModelAttribute Search search
+				,Model model) {
+			List<Board> searchList = service.printSearchAll(search);
+			if(!searchList.isEmpty()) {
+				model.addAttribute("bList", searchList);
+				model.addAttribute("search", search);
+				model.addAttribute("page", 1);
+				return "board/boardList";
+			}else {
+				model.addAttribute("msg", "공지사항 검색 실패");
+				return "common/errorPage";
+			}
+		}
+		
 }
-
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -143,7 +143,7 @@
 		</script>	
 		
 		
-		<h1 align="center">${board.userId }님의 글</h1>
+		<h1 align="center">${board.userId } 님의 게시글</h1>
 			<input type="hidden" value="${board.bNo }" id="bNo">
 			<table align="center" width="600" border="1" >
 				<tr>

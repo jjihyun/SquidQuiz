@@ -39,6 +39,27 @@
 		<delete id="deleteBoard" parameterType="_int">
 			DELETE FROM BOARD WHERE BOARD_NO = #{bNo }
 		</delete>
+		
+		
+		<select id="selectSearchList" resultMap="boardResultMap">
+		SELECT * FROM BOARD
+		<if test="searchCondition.toString() == 'writer'">
+			WHERE USER_ID LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition.toString() == 'title'">
+			WHERE BOARD_TITLE LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition.toString() == 'contents'">
+			WHERE BOARD_CONTENTS LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition.toString() == 'all'">
+			WHERE USER_ID LIKE '%' || #{searchValue} || '%' 
+			OR BOARD_TITLE LIKE '%' || #{searchValue} || '%'
+			OR BOARD_CONTENTS LIKE '%' || #{searchValue} || '%'
+		</if>
+		ORDER BY BOARD_CREATE_DATE DESC
+		</select>
+		
 
 
 		<resultMap type="Reply" id="replyResultMap">
