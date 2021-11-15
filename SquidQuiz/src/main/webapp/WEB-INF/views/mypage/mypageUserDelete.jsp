@@ -87,7 +87,7 @@
 			
         <br><br><br><br><br><br>
         <c:if test="${ not empty loginUser }">
-        <form action="userDelete.ptsd" method="post">
+        <form action="userDelete.ptsd" id="removeForm" method="post">
             <table align="center">
                 <tr>
                     <td>아이디 </td>
@@ -100,7 +100,7 @@
               
                 <tr>
                     <td colspan="2" align="center">
-                        <input type="submit" value="회원탈퇴"><br>
+                        <input type="submit" id="removeUser"  value="회원탈퇴"><br>
                     </td>
                 </tr>		  
             </table>
@@ -109,6 +109,27 @@
        
    
 	<script src="/resources/js/app.js"></script>
+	
+	<script>
+	$("#removeForm").on("submit",function(){
+		if($("#userPwd").val()==""){
+			alert("비밀번호를 입력해주세요");
+			$("#userPwd").focus();
+			return false;
+		}
+		
+		var point = "${loginUser.point }";
+		if(confirm(point+"의 포인트가 남아있습니다. 정말 탈퇴하시겠습니까?")){
+			alert("탈퇴되었습니다.");
+			return true;
+		}else{
+			alert("취소되었습니다.");
+			return false;
+			
+		}
+	});
+	
+	</script>
 	
 
 </body>

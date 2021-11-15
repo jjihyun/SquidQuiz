@@ -119,15 +119,14 @@ ul.tabs li.current{
 				</h1>
 				<div class="container-fluid p-0">
 					<div align="center">
-						<input type="button" class="point-btn" value="포인트 충전"> <input
-							type="button" class="point-btn" value="포인트 환전">
+						<input type="button" class="point-btn" value="포인트 충전" onclick="location.href='/chargePoint.ptsd'"> 
+						<input type="button" class="point-btn" value="포인트 환전">
 					</div>
 					<br>
 					<div align="center">
 						<form align="center" action="">
 							<div class="box">
-								<br> <b>보유 포인트</b><br> <input type="text"
-									class="point-box">
+								<br> <b>보유 포인트</b><br> <input type="text" class="point-box">
 							</div>
 						</form>
 					</div>
@@ -313,7 +312,7 @@ ul.tabs li.current{
 	</div>
 
 	<script src="/resources/js/app.js"></script>
-</body>
+
 <script>
 
 $(document).ready(function(){
@@ -331,3 +330,5 @@ $(document).ready(function(){
 })
 
 </script>
+</body>
+</html>

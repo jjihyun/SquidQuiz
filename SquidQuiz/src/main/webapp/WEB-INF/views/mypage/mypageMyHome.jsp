@@ -105,7 +105,7 @@
 									</div>
 									<h1 class="point1"><input type="text" name="Point" value="${userPoint }"></h1>
 									<div class="point-btn">
-										<button id="check_module" type="button">충전하기</button>
+										<button id="check_module" onclick = "location.href = '/chargePoint.ptsd' " type="button">충전하기</button>
 									</div>
 								</div>
 							</div>

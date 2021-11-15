@@ -13,6 +13,8 @@
 		<result property="bankAccount" column="BANK_ACCOUNT"></result>
 		<result property="userAddr" column="USER_ADDR"/>
 		<result property="point" column="POINT"></result>
+		<result property="adminType" column="ADMIN_TYPE"></result>
+		<result property="gameType" column="GAME_TYPE"></result>
 	</resultMap>
 	
 	<!-- 로그인 -->
