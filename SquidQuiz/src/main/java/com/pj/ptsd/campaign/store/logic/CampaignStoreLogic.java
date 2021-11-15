@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pj.ptsd.campaign.domain.Campaign;
+import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.campaign.domain.DonationRecord;
 import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.campaign.store.CampaignStore;
+import com.pj.ptsd.quiz.domain.MainGameInfo;
 
 @Repository
 public class CampaignStoreLogic implements CampaignStore{
@@ -36,7 +38,7 @@ public class CampaignStoreLogic implements CampaignStore{
 	public List<DonationRecord> selectListStatic(PageInfo pi) {
 		int offset = (pi.getCurrentPage()-1)*pi.getCampaignLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getCampaignLimit());
-		List<DonationRecord> dRList = sqlSession.selectList("campaignMapper.", pi, rowBounds);
+		List<DonationRecord> dRList = sqlSession.selectList("campaignMapper.selectCampaignStaticList", pi, rowBounds);
 		return dRList;
 	}
 	
@@ -103,6 +105,24 @@ public class CampaignStoreLogic implements CampaignStore{
 	public int updateCampaign(Campaign campaign) {
 		int result = sqlSession.update("campaignMapper.updateCampaign", campaign);
 		return result;
+	}
+
+	//캠페인 기부하기
+	@Override
+	public int insertCampaignRecord(CampaignRecord cRecord) {
+		int result = sqlSession.insert("campaignMapper.insertCampaignRecord", cRecord);
+		return result;
+	}
+
+	@Override
+	public int selectPointCount(String userId) {
+		int point = sqlSession.selectOne("campaignMapper.selectPointCount", userId);
+		return point;
+	}
+	@Override
+	public int updateCampaignMoney(int moneySum) {
+		int updateMoney = sqlSession.update("campaignMapper.updateCampaignMoney", moneySum);
+		return updateMoney;
 	}
 
 

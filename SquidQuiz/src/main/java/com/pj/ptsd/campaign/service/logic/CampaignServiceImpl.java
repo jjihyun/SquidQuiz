@@ -99,6 +99,25 @@ public class CampaignServiceImpl implements CampaignService{
 		return result;
 	}
 
+	//캠페인 기부하기
+	@Override
+	public int registerCampaignRecord(CampaignRecord cRecord) {
+		int result = store.insertCampaignRecord(cRecord);
+		return result;
+	}
+
+	@Override
+	public int printPointCount(String userId) {
+		int point = store.selectPointCount(userId);
+		return point;
+	}
+
+	@Override
+	public int modifyCampaignMoney(int moneySum) {
+		int updateMoney = store.updateCampaignMoney(moneySum);
+		return updateMoney;
+	}
+
 
 
 }

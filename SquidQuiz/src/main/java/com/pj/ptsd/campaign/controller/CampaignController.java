@@ -2,6 +2,7 @@ package com.pj.ptsd.campaign.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.campaign.domain.DonationRecord;
 import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.campaign.service.CampaignService;
+import com.pj.ptsd.quiz.domain.MainGameInfo;
 
 @Controller
 public class CampaignController {
@@ -126,10 +128,30 @@ public class CampaignController {
 	}
 	
 	
-	//캠페인 고정기부처 상세조회
+	//캠페인 고정기부처 상세조회(자세히 보기)
 	@RequestMapping(value="campaignStaticDetail.ptsd", method=RequestMethod.GET)
 	public String printStaticOneCampaign(Model model) {
 		return "campaign/campaignStaticDetail";
+	}
+	
+	//캠페인 기부 목록 조회(퀴즈 참여 모금액 후원 내역)
+	@RequestMapping(value="campaignAllCampaignRecord.ptsd", method=RequestMethod.GET)
+	public String printAllCampaignRecord(Model model, HttpServletRequest request, 
+			@RequestParam(value="page", required=false) Integer page) {
+		int currentPage =(page!=null)?page:1;
+		int totalCount = service.getListCount();
+		System.out.println("총 개수 : "+totalCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
+		//int result = 0;
+		List<DonationRecord> dRList = service.printStaticRecord(pi);
+		if(!dRList.isEmpty()) {
+			model.addAttribute("dRList", dRList);
+			model.addAttribute("pi", pi);
+			return "campaign/campaignStaticDonationList";
+		} else {
+			model.addAttribute("msg", "캠페인 조회 실패");
+			return "common/errorPage";
+		}	
 	}
 	
 	//캠페인 상세페이지 조회
@@ -141,9 +163,9 @@ public class CampaignController {
 		//HttpSession session = request.getSession();
 		//String userId = (String)session.getAttribute("userId");
 		
-		System.out.println("test1");
+		//System.out.println("test1");
 		List<Campaign> cList = service.printAll();  //다른 후원보기 볼때 필요한 코드.
-		System.out.println("test2");
+		//System.out.println("test2");
 		
 		if(camp!=null) {
 			mv.addObject("campaign", camp);
@@ -159,10 +181,7 @@ public class CampaignController {
 			if(result>=1) {
 				result+=1;
 			}
-			//System.out.println("차이" + result);
-			
 			mv.addObject("cList", cList);
-			
 			//현재 모금 상황 퍼센트 계산
 			double campMount = (double)camp.getcNowAmount()/(double)camp.getcTargetAmount()*100;
 			mv.addObject("detail", campMount);
@@ -177,7 +196,7 @@ public class CampaignController {
 		return mv;
 	}
 	
-	//캠페인 기부 결제페이지
+	//캠페인 기부 페이지
 	@RequestMapping(value="donationPayView.ptsd", method=RequestMethod.GET)
 	public String showDonationPay(@RequestParam("campaignNo") int campaignNo, Model model ) {
 		Campaign camp = service.printCampaignDetail(campaignNo);
@@ -190,11 +209,46 @@ public class CampaignController {
 		}
 	}
 	//캠페인에 기부하기
+	@ResponseBody
 	@RequestMapping(value="donateCampaign.ptsd", method=RequestMethod.POST)
-	public String registerDonation(@ModelAttribute CampaignRecord cRecord, @RequestParam("campaignNo") int campaignNo) {
-		return "campaign/campaignDetail";
+	public String registerDonation(@ModelAttribute CampaignRecord cRecord, @RequestParam("campaignNo") int campaignNo
+			, Model model, HttpServletResponse response, @RequestParam("userId") String userId
+			, @RequestParam("cRecordPoint") int cPoint, @ModelAttribute Campaign campaign) throws Exception {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		//PrintWriter out = response.getWriter();
+		
+		int point = service.printPointCount(userId);
+		if(point>cPoint) {
+			System.out.println("충분한 포인트가 있습니다.");
+			// 캠페인 기부 등록(마이페이지에서 확인 가능)
+			int result = service.registerCampaignRecord(cRecord);
+			
+			int nowMoney = campaign.getcNowAmount();
+			int moneySum = nowMoney+cPoint;
+			int updateCamp = service.modifyCampaignMoney(moneySum);
+			System.out.println("선택한 포인트 값  : "+cPoint);
+			System.out.println("기부금 업데이트 값 ; "+moneySum);
+			System.out.println("updateCamp값 ; "+updateCamp);
+			
+			if(result>0 && updateCamp>0) {
+				return "<script>alert('donate success.');location.href='campaignList.ptsd';</script>";
+			} else {
+				model.addAttribute("msg", "기부하기 실패");
+				return "<script language='javascript'>alert('기부하기 실패.');location.href='common/errorPage';</script>common/errorPage";
+			}
+		} else {
+			System.out.println("충분한 포인트가 없습니다.");
+			//out.println("<script>alert('충분한 포인트가 없습니다.');</script>");
+			return "<script>alert('충분한 포인트가 없습니다. 포인트를 충전해주세요.');location.href='campaignList.ptsd';</script>";
+		}
+
 	}
 	
+	//캠페인 기부 목록 조회(마이페이지)
+	public String printMyCampaignRecord() {
+		return "";
+	}
 	
 	//캠페인 작성 페이지
 	@RequestMapping(value="campaignWriteView.ptsd", method=RequestMethod.GET)
@@ -215,7 +269,6 @@ public class CampaignController {
 				campaign.setcFileRename(rename);  //새로운 파일
 			}
 		}
-		
 		campaign.setCampaignType(option);
 		
 		Date formatDate = sdf.parse(cEndDate);
@@ -314,43 +367,11 @@ public class CampaignController {
 		}
 	}
 	
-	//캠페인 기부 등록(마이페이지)
-	public String registerCampaignRecord(){
-		return "";
-	}
-	
-	//캠페인 기부 목록 조회(마이페이지)
-	public String printAllCampaignRecord() {
-		return "";
-	}
 	
 	//캠페인 기부 등록(고정 캠페인)
 	public String registerDontaionRecord() {
 		return "";
 	}
-	
-	//임시로 작성, 일단 페이지만 보이게.
-	@RequestMapping(value="campaignAllCampaignRecord.ptsd", method=RequestMethod.GET)
-	public String printAllCampaignRe(Model model, HttpServletRequest request, 
-			@RequestParam(value="page", required=false) Integer page) {
-		int currentPage =(page!=null)?page:1;
-		int totalCount = service.getListCount();
-		System.out.println("총 개수 : "+totalCount);
-		PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
-		//int result = 0;
-		List<DonationRecord> dRList = service.printStaticRecord(pi);
-		if(!dRList.isEmpty()) {
-			model.addAttribute("dRList", dRList);
-			model.addAttribute("pi", pi);
-			return "campaign/campaignStaticDonationList";
-		} else {
-			model.addAttribute("msg", "캠페인 조회 실패");
-			return "common/errorPage";
-		}	
-	}
-	//캠페인 기부 목록 조회(고정 캠페인)
-	public String printAllCampaignRecord2() {
-		return "";
-	}
+
 		
 }

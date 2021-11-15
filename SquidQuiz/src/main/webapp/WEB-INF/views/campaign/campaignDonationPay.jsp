@@ -43,13 +43,17 @@
 	<jsp:include page="../../../resources/html/header.jsp"/><br><hr><br><br>
 	<div id="first">
 		<form action="donateCampaign.ptsd" method="post">
+			<input type="hidden" value="${loginUser.userId }" name="userId">
+			<input type="hidden" value="${campaign.campaignNo }" name="campaignNo">
+			<input type="hidden" value="${campaign.campaignName }" name="campaignName">
+			
 			<h1 align="center">${campaign.campaignTitle }</h1>
 			<h4>${campaign.campaignTitle }</h4>
 			<img src="../../../resources/campaignUpload/${campaign.cFileName }" alt="사진 없음"  align="center"
 			 	style="height: 300px; width: 450px;">
 			<h3>"투명한 운영으로 보답하겠습니다."</h3>
 			<div>
-				결제 포인트 : <input type="text" name="pointValue" id="pointValue" value="0" size="5px;" readonly>&nbsp;&nbsp;&nbsp;POINT<br>
+				결제 포인트 : <input type="text" name="cRecordPoint" id="pointValue" value="0" size="5px;" readonly>&nbsp;&nbsp;&nbsp;POINT<br>
 				<pre>*충전해두신 POINT에서 차감됩니다.</pre>
 				<div class="btn-group" role="group" aria-label="...">
 					<button type="button" class="btn btn-default" onclick="money(10000)">1만원</button>
@@ -71,7 +75,6 @@
 		(footer 자리)
 	</div>
 
-
 	<!-- Small modal(모달창) -->
 	<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-sm">
@@ -89,6 +92,8 @@
 	  </div>
 	  </div>
 	</div>
+	
+	
 	<script type="text/javascript">
 		
 		function money(a){

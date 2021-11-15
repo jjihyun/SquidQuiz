@@ -10,6 +10,8 @@
 	
 	<typeAliases>
 		<typeAlias type="com.pj.ptsd.campaign.domain.Campaign" alias="Campaign"/>
+		<typeAlias type="com.pj.ptsd.campaign.domain.CampaignRecord" alias="CampaignRecord"/>
+		<typeAlias type="com.pj.ptsd.campaign.domain.DonationRecord" alias="DonationRecord"/>
 		<typeAlias type="com.pj.ptsd.user.domain.User" alias="User"/>
 		<typeAlias type="com.pj.ptsd.notice.domain.Notice" alias="Notice"/>
 		<typeAlias type="com.pj.ptsd.qna.domain.Qna" alias="Qna"/>

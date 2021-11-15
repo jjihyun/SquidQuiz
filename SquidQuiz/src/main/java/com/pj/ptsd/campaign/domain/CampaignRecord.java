@@ -6,7 +6,7 @@ import java.util.Date;
 public class CampaignRecord {
 
 	private int cRecordNo;
-	private int userNo;
+	private String userId;
 	private int campaignNo;
 	private int cRecordPoint;
 	private Date cRecordDate;
@@ -22,12 +22,12 @@ public class CampaignRecord {
 		this.cRecordNo = cRecordNo;
 	}
 
-	public int getUserNo() {
-		return userNo;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public int getCampaignNo() {
@@ -64,7 +64,7 @@ public class CampaignRecord {
 
 	@Override
 	public String toString() {
-		return "CampaignRecord [cRecordNo=" + cRecordNo + ", userNo=" + userNo + ", campaignNo=" + campaignNo
+		return "CampaignRecord [cRecordNo=" + cRecordNo + ", userId=" + userId + ", campaignNo=" + campaignNo
 				+ ", cRecordPoint=" + cRecordPoint + ", cRecordDate=" + cRecordDate + ", campaignName=" + campaignName
 				+ "]";
 	}

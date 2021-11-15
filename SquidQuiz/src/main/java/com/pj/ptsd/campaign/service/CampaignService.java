@@ -6,6 +6,7 @@ import com.pj.ptsd.campaign.domain.Campaign;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.campaign.domain.DonationRecord;
 import com.pj.ptsd.campaign.domain.PageInfo;
+import com.pj.ptsd.quiz.domain.MainGameInfo;
 
 
 public interface CampaignService {
@@ -25,6 +26,12 @@ public interface CampaignService {
 	public int printAllDonationRecord(); //메인게임테이블에 값이 있는지 체크
 	public int printDonationRecord();  //고정 기부처의 누적 기부금액
 	public int printOneDonationRecord(); //고정 기부처의 현재 회차 금액
+
+	public int registerCampaignRecord(CampaignRecord cRecord); //캠페인 기부하기
+
+	public int printPointCount(String userId);  //기부할 때 그만큼의 포인트가 유저에게 있는지 없는지 체크
+
+	public int modifyCampaignMoney(int moneySum);
 
 
 	

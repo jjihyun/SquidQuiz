@@ -15,21 +15,38 @@
 		<result property="cFileRename" column="CAMPAIGN_FILE_RENAME" />
 		<result property="cEnrollDate" column="CAMPAIGN_ENROLL_DATE" />
 	</resultMap>
+	<resultMap type="DonationRecord" id="donationRecordResultMap">
+		<id property="donationNo" column="TURN_NO"></id>
+		<result property="donationPrice" column="TOTAL_MONEY" />
+		<result property="donationSumPrice" column="RECEIVE_MONEY" />
+		<result property="donationDate" column="OPEN_DATE" />
+	</resultMap>
+	<resultMap type="CampaignRecord" id="campaignRecordResultMap">
+		<id property="cRecordNo" column="CAMPAIGN_RECORD_NO" ></id>
+		<result property="userId" column="USER_ID" />
+		<result property="campaignNo" column="CAMPAIGN_NO" />
+		<result property="cRecordPoint" column="CAMPAIGN_RECORD_POINT" />
+		<result property="cRecordDate" column="CAMPAIGN_RECORD_DATE" />
+		<result property="campaignName" column="CAMPAIGN_NAME" />
+	</resultMap>
 	
 	<insert id="insertCampaign" parameterType="Campaign">
 		INSERT INTO CAMPAIGN VALUES(SEQ_CAMPAIGN.NEXTVAL, #{campaignName}, #{campaignType}, #{campaignTitle}, #{campaignContents}, #{cLink}, #{cTargetAmount}, DEFAULT, #{cEndDate}, #{cFileName}, #{cFileRename}, SYSDATE)
 	</insert>
-	<!-- <insert id="insertcRecord" parameterType="CampaignRecord">
-		INSERT INTO CAMPAIGN_RECORD(SEQ_CAMPAIGN_RECORD_NEXTVAL, #{userNo}, #{campaignNo}, #{cRecordPoint}, SYSDATE, #{campaignName})
-	</insert> -->
+	<insert id="insertCampaignRecord" parameterType="CampaignRecord">
+		INSERT INTO CAMPAIGN_RECORD VALUES(SEQ_CAMPAIGN_RECORD.NEXTVAL, #{userId}, #{campaignNo}, #{cRecordPoint}, SYSDATE, #{campaignName})
+	</insert>
 
 
 	<select id="selectListStaticCount" resultType="_int">
 		SELECT COUNT(*) FROM MAIN_GAME_INFO
 	</select>
-	<!-- 임시로 사용중... -->
-	<select id="selectCampaignStaticList" resultMap="campaignResultMap">
-		SELECT CAMPAIGN_NO,CAMPAIGN_NOW_AMOUNT,CAMPAIGN_TARGET_AMOUNT, CAMPAIGN_ENROLL_DATE FROM CAMPAIGN ORDER BY CAMPAIGN_NO DESC
+	<select id="selectCampaignStaticList" resultMap="donationRecordResultMap">
+		SELECT * FROM MAIN_GAME_INFO ORDER BY TURN_NO DESC
+	</select>
+
+	<select id="selectPointCount" resultType="_int">
+		SELECT POINT FROM MEMBER WHERE USER_ID=#{userId}
 	</select>
 
 	<select id="selectListCount" resultType="_int">
@@ -41,7 +58,6 @@
 				SELECT COUNT(*) FROM CAMPAIGN 
 			</otherwise>
 		</choose>
-	<!-- 	SELECT COUNT(*) FROM CAMPAIGN -->
 	</select>
 	
 	<select id="selectCampaignList" resultMap="campaignResultMap">
@@ -75,6 +91,9 @@
 	
 	<update id="updateCampaign" parameterType="Campaign">
 		UPDATE CAMPAIGN SET CAMPAIGN_TITLE=#{campaignTitle}, CAMPAIGN_CONTENTS=#{campaignContents}, CAMPAIGN_FILE_NAME=#{cFileName}, CAMPAIGN_FILE_RENAME=#{cFileRename}, CAMPAIGN_LINK=#{cLink}, CAMPAIGN_TYPE=#{campaignType} WHERE CAMPAIGN_NO=#{campaignNo}
+	</update>
+	<update id="updateCampaignMoney" parameterType="Campaign">
+		UPDATE CAMPAIGN SET CAMPAIGN_NOW_AMOUNT=#{moneySum} WHERE CAMPAIGN_NO=#{campaignNo}
 	</update>
 	
 	<delete id="deleteCampaign" parameterType="_int">

@@ -133,11 +133,13 @@ button{
 				<a href="campaignAllCampaignRecord.ptsd" style="float:right;">퀴즈 참여 모금액 후원 내역>&nbsp;&nbsp;</a><br><br>
 			</div><br><br><br>
 			<button style="float:right;" onclick="location.href='campaignWriteView.ptsd'">캠페인 글 작성</button><br>
-			<c:if test="${sessionScope.loginUser ne null }">
+			<!-- 수정하기 -->
+			<c:if test="${sessionScope.loginUser eq null }">
 				test
-				<c:if test="${sessionScope.loginUser.adminType ne N }">
+				<button>${sessionScope.loginUser.adminType }</button>
+				<c:if test="${sessionScope.loginUser.adminType ne Y }">
 				<!-- vo.number eq '1'.charAt(0) -->
-					<button>${sessionScope.loginUser.bankAccount }</button>
+					<button>${sessionScope.loginUser.bankAccount }</button>7
 				</c:if>
 			</c:if>
 		</div>
