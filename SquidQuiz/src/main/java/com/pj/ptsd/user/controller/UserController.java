@@ -34,6 +34,7 @@ public class UserController {
 	private UserService service;
 	@Autowired
     JavaMailSender mailSender; //root-context에서 생성한 google mailsender 빈
+	
 
 	
 	
@@ -209,7 +210,7 @@ public class UserController {
 	   
 	   //마이페이지 회원정보 수정
 	   @RequestMapping(value ="memberModify.ptsd", method = RequestMethod.POST)
-	    public String modifyMember(@ModelAttribute User user
+	    public void modifyMember(@ModelAttribute User user
 	    		, @RequestParam("bankAccountValue") String accountValue  //계좌번호 string으로 변경
 				, @RequestParam("post") String post
 				, @RequestParam("address1") String address1
@@ -227,15 +228,12 @@ public class UserController {
 				if(result > 0) {
 					session.setAttribute("loginUser", user);
 					out = response.getWriter();
-					out.println("<script>alert('회원정보 수정이 완료되었습니다!');<script>");
-					return "redirect:mypageUser.ptsd";
+					out.println("<script>alert('회원정보 수정이 완료되었습니다!');location.href='mypageUser.ptsd'</script>");
 				}else {
 					model.addAttribute("msg", "회원 정보 수정 실패!");
-					return "common/errorPage";
 				}
 		   } catch (IOException e) {
 				model.addAttribute("msg", "회원 정보 수정 실패!");
-				return "common/errorPage";
 			}
 		}
 	   
@@ -257,15 +255,12 @@ public class UserController {
 			   , HttpServletResponse response) {
 		   HttpSession session = request.getSession();
 		   User userOne = new User();
-			user.setUserId(userId);
-			user.setUserPwd(userPwd);
+		   userOne.setUserId(userId);
+		   userOne.setUserPwd(userPwd);
 			int result = service.removeMember(user);
-			response.setContentType("text/html; charset=UTF-8");
 			try {
 				 if(result > 0) {
-					 session.setAttribute("loginUser", user);
-					 PrintWriter out = response.getWriter();
-						out.println("<script>alert('탈퇴되었습니다!');<script>");
+					 session.invalidate();
 			         return "redirect:main.ptsd";
 			      }else {
 			         model.addAttribute("msg","회원탈퇴실패");
@@ -276,6 +271,8 @@ public class UserController {
 				return "common/errorPage";
 			}
 		}
+	   
+	   
 	   
 	   
 	   
@@ -302,6 +299,13 @@ public class UserController {
 	   public String selectPointList(Model model) {
 	 			return "mypage/mypagePoint";
 	 		}
+	   
+	   //포인트 충전 페이지 이동
+	   @RequestMapping(value="/chargePoint.ptsd", method=RequestMethod.GET)
+		public String chargePoint(Model model) {
+			return "mypage/chargePoint";
+		}
+	   
 	   
 	 
 	   
