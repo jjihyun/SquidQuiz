@@ -43,7 +43,11 @@
 						    </tr>
 						    <tr>
 						    	<td>&nbsp;</td>
-						      <td colspan="3">${notice.noticeContents }</td>
+						       <td colspan="3">
+						       	<div style="min-height:300px;">
+   								${notice.noticeContents }
+   							   </div>
+							</td>
 						    </tr>
 						    <tr>
 						     
@@ -57,20 +61,30 @@
 						
 						<div id="back-btn">
 							<a class="btn btn-secondary btn-lg" href="qnaListView.ptsd" role="button">목록으로</a>
-							<c:url var="nDelete" value="noticeRemove.ptsd">
-								<c:param name="noticeNo" value="${notice.noticeNo }"></c:param>
-							</c:url>
+<%-- 							<c:url var="nDelete" value="noticeRemove.ptsd"> --%>
+<%-- 								<c:param name="noticeNo" value="${notice.noticeNo }"></c:param> --%>
+<%-- 							</c:url> --%>
 							<c:url var="nModify" value="noticeModifyView.ptsd">
 								<c:param name="noticeNo" value="${notice.noticeNo }"></c:param>
 							</c:url>
-							<a href="${nDelete }" class="btn btn-secondary btn-lg">삭제하기</a>
-							<a href="${nModify }" class="btn btn-secondary btn-lg">수정하기</a>
+							<c:if test="${loginUser.adminType eq Y }">
+								<a href="javascript:void(0)" class="btn btn-secondary btn-lg" onclick="deleteNotice();">삭제하기</a>
+								<a href="${nModify }" class="btn btn-secondary btn-lg">수정하기</a>
+							</c:if>
 						</div>
 					</section>
 		</div>
 	</main>
 	<script>
-	
+		function deleteNotice(){
+			var deleteChk = window.confirm("해당 공지사항을 삭제하시겠습니까?");
+			var noticeNo = '${notice.noticeNo}';
+			if(deleteChk){
+				location.href="noticeRemove.ptsd?noticeNo="+noticeNo;
+			}else{
+				alert("취소하였습니다.");
+			}
+		}
 	</script>
 </body>
 </html>

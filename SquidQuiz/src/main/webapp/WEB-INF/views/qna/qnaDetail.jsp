@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+        
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,14 +40,24 @@
 						    </tr>
 						  </thead>
 						  <tbody>
+						  	<tr>
+						  		<th>작성자</th>
+						  		<td  colspan="3">${qna.userId }</td>
+						  	</tr>
 						    <tr>
 						      <th scope="row">작성일</th>
-						      <td >${qna.qCreateDate }</td>
+						      <td>
+						      	<fmt:formatDate value="${qna.qCreateDate }" pattern="yyyy-MM-dd  HH:mm"/>
+							  </td>
 						      <td colspan="2">&nbsp;</td>
 						    </tr>
 						    <tr>
 						    	<td>&nbsp;</td>
-						      <td colspan="3">${qna.qnaContents }</td>
+						      <td colspan="3">
+						      <div style="min-height:300px;">
+   								${qna.qnaContents }
+   							   </div>
+   							   </td>
 						    </tr>
 						    <tr>
 						      <th scope="row">답변</th>
@@ -59,11 +71,17 @@
 								  </div>
 							 </td>
 							 </c:if>
-								<c:if test="${qna.qnaAnswer ne null }">
-									<td colspan="3">
-										${qna.qnaAnswer }
-									</td>
-								</c:if>
+							<c:if test="${qna.qnaAnswer ne null }">
+								<td colspan="1">
+									${qna.qnaAnswer }
+								</td>
+								<td style="width:10%">
+									<b>답변일시</b>
+								</td>
+								<td style="width:15%">
+									<fmt:formatDate value="${qna.qAnswerDate }" pattern="yyyy-MM-dd  HH:mm"/>
+								</td>
+							</c:if>
 						    </tr>
 						  </tbody>
 						</table>
@@ -73,11 +91,12 @@
 						
 						<div id="back-btn">
 							<a class="btn btn-secondary btn-lg" href="qnaListView.ptsd" role="button">목록으로</a>
-							<c:url var="qDelete" value="removeQna.ptsd">
-								<c:param name="qnaNo" value="${qna.qnaNo }"></c:param>
-							</c:url>
-							<a href="${qDelete }" class="btn btn-secondary btn-lg">삭제하기</a>
-							
+<%-- 							<c:url var="qDelete" value="removeQna.ptsd"> --%>
+<%-- 								<c:param name="qnaNo" value="${qna.qnaNo }"></c:param> --%>
+<%-- 							</c:url> --%>
+							<c:if test="${loginUser.userId eq qna.userId }">
+								<a href="javascript:(0)" class="btn btn-secondary btn-lg" onclick="deleteQna();">삭제하기</a>
+							</c:if>
 						</div>
 					</section>
 			</form>
@@ -85,9 +104,13 @@
 	</main>
 	<script>
 		function deleteQna(){
-			$("#deleteButton").on("click", function(){
-				
-			});
+			var deleteChk = window.confirm("문의 글을 삭제하시겠습니까?");
+			var qnaNo = '${qna.qnaNo}';
+			if(deleteChk){
+				location.href="removeQna.ptsd?qnaNo="+qnaNo;
+			}else{
+				alert("취소하였습니다.");
+			}
 		}
 		
 	</script>

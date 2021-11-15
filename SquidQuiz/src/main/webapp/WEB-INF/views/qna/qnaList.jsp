@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,11 +46,15 @@
 			    </tr>
 			  </thead>
 			  <tbody>
+			   
 			  	<c:if test="${empty qList }">
 					<tr>
 						<td colspan="6" align="center">조회된 정보가 없습니다.</td>
 					</tr>
 				</c:if>
+				 <c:if test="${loginUser eq null }">
+			    	<td colspan="6" align="center">로그인 후 이용해주세요 !</td>
+			    </c:if>
 				<c:if test="${not empty qList }">
 					<c:forEach items="${qList }" var="qna" varStatus="">
 						<tr>
@@ -75,7 +81,7 @@
 								</td>
 							</c:if>
 							<td align="center">${qna.userId }</td>
-							<td align="center">${qna.qCreateDate }</td>
+							<td align="center"><fmt:formatDate value="${qna.qCreateDate }" pattern="yyyy-MM-dd  HH:mm"/></td>
 						</tr>
 					</c:forEach>
 				</c:if>
@@ -91,9 +97,9 @@
 							<a id="title-a" href="${before }">[이전]</a>
 						</c:if>
 						<!-- 검색시 페이징 처리 X -->
-						<c:if test="${pi.startNavi eq null }">
-								<font color="black" size="4">[1]</font>
-						</c:if>
+<%-- 						<c:if test="${pi.startNavi eq null }"> --%>
+<!-- 								<font color="black" size="4">[1]</font> -->
+<%-- 						</c:if> --%>
 						<c:if test="${pi.startNavi ne null }">
 						<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
 							
@@ -122,9 +128,9 @@
 					</td>
 				</tr>
 			    <tr>
-			    	<c:if test="true">
-			      <td colspan="5" align="right">
-			      	<div><button class="btn btn-primary" onclick="location.href='qnaWriteView.ptsd'">글쓰기</button></div>
+			    	<c:if test="${loginUser ne null}">
+			      <td colspan="6" align="center">
+			      	<div><button class="btn btn-primary btn-lg" onclick="location.href='qnaWriteView.ptsd'">1:1 문의글 작성하기</button></div>
 			      </td>
 			      </c:if>
 			    </tr>

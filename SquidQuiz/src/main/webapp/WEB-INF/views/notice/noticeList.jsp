@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,11 +65,13 @@
 					</c:forEach>
 				</c:if>
 			    <tr>
-			    	<c:if test="true">
-			      <td colspan="5" align="right">
-			      	<div><button class="btn btn-primary" onclick="location.href='noticeWriteView.ptsd'">글쓰기</button></div>
-			      </td>
-			      </c:if>
+			      <!-- adminType 이 char임... -->
+					<!--  char 비교-->
+					<c:if test="${sessionScope.loginUser.adminType eq 'A'.charAt(0) }">
+			     	 <td colspan="4" align="right">
+			      	    <div><button class="btn btn-primary" onclick="location.href='noticeWriteView.ptsd'">글쓰기</button></div>
+			    	  </td>
+			        </c:if>
 			    </tr>
 		  </tbody>
 		</table>

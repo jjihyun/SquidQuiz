@@ -1,6 +1,6 @@
 package com.pj.ptsd.qna.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Qna {
 	private int qnaNo;
