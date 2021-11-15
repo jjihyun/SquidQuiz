@@ -100,7 +100,6 @@ a:hover{color:#495057;	text-decoration: none;}
 								<option value="writer" <c:if test="${search.searchCondition == 'writer' }">selected</c:if>>게시자</option>
 								<option value="boardTitle" <c:if test="${search.searchCondition == 'boardTitle' }">selected</c:if>>게시물제목</option>
 							</select>
-<!-- 							<input type="hidden" name="pageType" value="board"> -->
 							<input type="hidden" name="page" value="1">
 							<input type="text" name="searchValue" value="${search.searchValue }">
 							<input type="submit" value="검색">
@@ -138,6 +137,7 @@ a:hover{color:#495057;	text-decoration: none;}
 								</td>
 								<c:url var="bDetail" value="boardDetail.ptsd">
 									<c:param name="bNo" value="${rList.boardNo }"></c:param>
+								
 								</c:url>
 								<td><a href="${bDetail }">${rList.boardTitle}</a></td>
 								<td>${rList.boardWriter }</td>
@@ -154,12 +154,74 @@ a:hover{color:#495057;	text-decoration: none;}
 								</c:url>
 								<td><button class="btn btn-warning" onclick="location.href='${rDelete }'">삭제</button></td>
 							</tr>
+							
 						</tbody>
 						</c:forEach>
 						
 							<tr align="center" height="20">
+								<!-- search일 경우 페이징 -->
+							<c:if test="${search.searchValue ne null }">
 								<td colspan="7">
-								<c:url var="before" value="reportListView.ptsd">
+							
+							<c:url var="before" value="reportSearchView.ptsd">
+								<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
+									<!-- search 페이징  -->
+									<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
+									<c:param name="searchValue" value="${search.searchValue }"></c:param>
+									<!-- /search 페이징  -->
+							</c:url>
+							<c:if test="${pi.currentPage <= 1 }">
+								[이전]
+							</c:if>
+							<c:if test="${pi.currentPage > 1 }">
+								<a id="title-a" href="${before }">[이전]</a>
+								
+							</c:if>
+							<!-- 검색시 페이징 처리 X -->
+							<c:if test="${pi.startNavi eq null }">
+									<font color="black" size="4">[1]</font>
+							</c:if>
+							<c:if test="${pi.startNavi ne null }">
+							<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
+								
+								<c:url var="pagination" value="reportSearchView.ptsd">
+									<c:param name="page" value="${p }"></c:param>
+									<!-- search 페이징  -->
+									<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
+									<c:param name="searchValue" value="${search.searchValue }"></c:param>
+									<!-- /search 페이징  -->
+								</c:url>
+								
+								<c:if test="${p eq pi.currentPage }">
+									<font color="black" size="4">[${p }]</font>
+								</c:if>
+								<c:if test="${p ne pi.currentPage }">
+									<a id="title-a" href="${pagination }">${p }</a>&nbsp;
+								</c:if>
+							</c:forEach>
+							
+							<c:url var="after" value="reportSearchView.ptsd">
+								<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
+									<!-- search 페이징  -->
+									<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
+									<c:param name="searchValue" value="${search.searchValue }"></c:param>
+									<!-- /search 페이징  -->
+							</c:url>
+							<c:if test="${pi.currentPage >= pi.maxPage }">
+								[다음]
+							</c:if>
+							<c:if test="${pi.currentPage < pi.maxPage }">
+								<a id="title-a" href="${after }">[다음]</a>
+							</c:if>
+							</c:if>
+							</td>
+							</c:if>
+							<!-- /search일 경우 페이징 -->
+							<!-- 전체 리스트 페이징 -->
+								<c:if test="${search.searchValue eq null }">
+								<td colspan="7">
+							
+							<c:url var="before" value="reportListView.ptsd">
 								<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 								
 							</c:url>
@@ -202,6 +264,7 @@ a:hover{color:#495057;	text-decoration: none;}
 							</c:if>
 							</c:if>
 							</td>
+							</c:if>
 							</tr>
 					</table>
 					<!-- 신고 리스트 테이블 끝-->

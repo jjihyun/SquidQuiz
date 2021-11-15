@@ -46,15 +46,15 @@ a:hover{color:#495057;	text-decoration: none;}
 						href="pages-profile.html"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">퀴즈진행</span>
 					</a></li>
-					<li class="sidebar-item active"><a class="sidebar-link"
+					<li class="sidebar-item"><a class="sidebar-link"
 						href="oxList.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">퀴즈관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="#"> <i class="align-middle"
+						href="reportListView.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">신고관리</span>
 					</a></li>
-					<li class="sidebar-item"><a class="sidebar-link"
+					<li class="sidebar-item active"><a class="sidebar-link"
 						href="exchangeListView.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">환전관리</span>
 					</a></li>
@@ -87,7 +87,7 @@ a:hover{color:#495057;	text-decoration: none;}
 							<input type="text" name="searchValue" value="${search.searchValue }">
 							<input type="submit" value="검색">
 						</form>
-				</div>
+				</div><br><br>
 					<table class="table table-hover my-0" >
 						<thead align="center">
 							<tr>
@@ -103,6 +103,15 @@ a:hover{color:#495057;	text-decoration: none;}
 								
 							</tr>
 						</thead>
+						<c:if test="${eList eq null }">
+							<tbody align="center">
+								<tr align="center">
+									<td colspan="9">
+										<span>조회된 환전 신청 내역이 없습니다.</span>	
+									</td>
+								</tr>
+							</tbody>
+						</c:if>
 						<c:forEach items="${eList }" var="eList">
 						<tbody align="center">
 							<tr>

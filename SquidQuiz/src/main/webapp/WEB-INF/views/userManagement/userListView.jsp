@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>신고 관리</title>
+<title>회원 관리</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/resources/css/app.css">
 </head>
@@ -22,12 +22,6 @@
 a:link{color:#495057;	text-decoration: none;} 
 a:visited{color:#495057;	text-decoration: none;}
 a:hover{color:#495057;	text-decoration: none;}
-	.nav nav-pills{
-		align-content: center;
-	}
-	.tap{
-		text-align: center;
-	}
 </style>
 <body>
 	<div id="headerMain"></div>
@@ -43,9 +37,9 @@ a:hover{color:#495057;	text-decoration: none;}
 				<ul class="sidebar-nav">
 					<li class="sidebar-header">목록</li>
 					
-					<li class="sidebar-item"><a class="sidebar-link"
-						href="#"> <i class="align-middle"
-							data-feather="sliders"></i> <span>회원정보수정</span>
+					<li class="sidebar-item active"><a class="sidebar-link"
+						href="userListView.ptsd"> <i class="align-middle"
+							data-feather="sliders"></i> <span>회원관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
 						href="pages-profile.html"> <i class="align-middle"
@@ -55,7 +49,7 @@ a:hover{color:#495057;	text-decoration: none;}
 						href="oxList.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">퀴즈관리</span>
 					</a></li>
-					<li class="sidebar-item active"><a class="sidebar-link"
+					<li class="sidebar-item"><a class="sidebar-link"
 						href="reportListView.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">신고관리</span>
 					</a></li>
@@ -73,163 +67,83 @@ a:hover{color:#495057;	text-decoration: none;}
 					class="hamburger align-self-center"></i>
 				</a>
 			</nav>
-			
+
 			<main class="content">
 				<div class="card flex-fill">
 					<div class="card-header">
-						<ul class="nav nav-pills nav-justified">
-						
-						  <li  class="nav-item">
-						    <a class="nav-link "  href="reportListView.ptsd">게시물</a>
-						  </li>
-						  <li class="nav-item">
-						    <a class="nav-link active"data-toggle="tab"  href="#">댓글</a>
-						  </li>
-						
-						
-						</ul>
-						
-<!-- 						<h1 class="card-title mb-0">게시물 관리</h1> -->
+						<h5 class="card-title mb-0">회원 관리</h5>
 					</div>
-					 <!-- 아이디 검색창 -->
+					<!-- 아이디 검색창 -->
 					<div align="center">
-						<form action="replyReportSearchView.ptsd" method="get">
+						<form action="userSearchListView.ptsd" method="get">
 							<select name="searchCondition">
 								<option value="all" <c:if test="${search.searchCondition == 'all' }">selected</c:if>>전체</option>
-								<option value="userId" <c:if test="${search.searchCondition == 'userId' }">selected</c:if>>신고자</option>
-								<option value="writer" <c:if test="${search.searchCondition == 'writer' }">selected</c:if>>게시자</option>
-								<option value="contents" <c:if test="${search.searchCondition == 'contents' }">selected</c:if>>댓글내용</option>
+								<option value="userId" <c:if test="${search.searchCondition == 'userId' }">selected</c:if>>아이디</option>
+								<option value="userName" <c:if test="${search.searchCondition == 'userName' }">selected</c:if>>이름</option>
+								<option value="userAddr" <c:if test="${search.searchCondition == 'userAddr' }">selected</c:if>>주소</option>
 							</select>
-<!-- 							<input type="hidden" name="pageType" value="board"> -->
 							<input type="hidden" name="page" value="1">
 							<input type="text" name="searchValue" value="${search.searchValue }">
 							<input type="submit" value="검색">
 						</form>
-				   </div>
-				   <!-- 아이디 검색창 끝 -->
-				   <!-- 신고 리스트 테이블 -->
+				</div><br><br>
 					<table class="table table-hover my-0" >
 						<thead align="center">
 							<tr>
-								<th style="width:10%"> No</th>
-								<th style="width:10%">신고자</th>
-								<th style="width:35%">댓글내용</th>
-								<th style="width:10%">게시자</th>
-								<th style="width:15%">신고일</th>
-								<th style="width:10%">댓글 삭제</th>
-								<th style="width:10%">내역 삭제</th>
+								<th>회원 No</th>
+								<th>아이디</th>
+								<th>이름</th>
+								<th>주소</th>
+								<th>이메일</th>
+								<th>전화번호</th>
+								<th>포인트</th>
+								<th>은행</th>
+								<th>계좌번호</th>
+								<th>회원 탈퇴</th>
 								
 							</tr>
 						</thead>
-						<c:if test="${rList eq null }">
-							<tbody >
-								<tr>
-									<td colspan="7" align="center">조회된 내용이 없습니다.</td>
+						<c:if test="${uList eq null }">
+							<tbody align="center">
+								<tr align="center">
+									<td colspan="10">
+										<span>조회된 회원 정보가 없습니다.</span>	
+									</td>
 								</tr>
 							</tbody>
 						</c:if>
-						<c:forEach items="${rList }" var="rList">
+						<c:forEach items="${uList }" var="uList">
 						<tbody align="center">
 							<tr>
-							
-								<td>${rList.replyReportNo }</td>
+								<td>${uList.userNo }</td>
+								<td>${uList.userId }</td>
+								<td>${uList.userName }</td>
+								<td>${uList.userAddr}</td>
+								<td>${uList.userEmail }</td>
+								<td>${uList.userPhone }</td>
+								<td>${uList.point }</td>
+								<td>${uList.bankName }</td>
+								<td>${uList.bankAccount }</td>
 								<td>
-									${rList.reportedUserId }
+									<input type="hidden" value="${uList.userNo }">
+									<button class="btn btn-danger" onclick="deleteUser(this);">삭제</button>
 								</td>
-								<c:url var="bDetail" value="boardDetail.ptsd">
-									<c:param name="bNo" value="${rList.boardNo }"></c:param>
-								</c:url>
-								<td><a href="${bDetail }">${rList.replyContents}</a></td>
-								<td>${rList.replyWriter }</td>
-								<td><fmt:formatDate value="${rList.replyReportDate }" pattern="yyyy-MM-dd  HH:mm"/></td>
-								
-								<c:url var="rDelete" value="replyDelete.ptsd">
-									<c:param name="replyReportNo" value="${rList.replyReportNo }"></c:param>
-									<c:param name="replyNo" value="${rList.replyNo }"></c:param>
-								</c:url>
-								<td><button class="btn btn-warning" onclick="location.href='${rDelete}'">삭제</button></td>
-								
-								<c:url var="rrDelete" value="replyReportDelete.ptsd">
-									<c:param name="replyReportNo" value="${rList.replyReportNo }"></c:param>
-								</c:url>
-								<td><button class="btn btn-warning" onclick="location.href='${rrDelete }'">삭제</button></td>
-								
-									
 							</tr>
 						</tbody>
 						</c:forEach>
-							
+						
 							<tr align="center" height="20">
-							<!-- search일 경우 페이징 -->
-							<c:if test="${search.searchValue ne null }">
-									<td colspan="7">
-								<c:url var="before" value="replyReportSearchView.ptsd">
-								<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
-								<!-- search 페이징  -->
-									<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
-									<c:param name="searchValue" value="${search.searchValue }"></c:param>
-									<!-- /search 페이징  -->
-							</c:url>
-							<c:if test="${pi.currentPage <= 1 }">
-								[이전]
-							</c:if>
-							<c:if test="${pi.currentPage > 1 }">
-								<a id="title-a" href="${before }">[이전]</a>
-								
-							</c:if>
-							<!-- 검색시 페이징 처리 X -->
-							<c:if test="${pi.startNavi eq null }">
-									<font color="black" size="4">[1]</font>
-							</c:if>
-							<c:if test="${pi.startNavi ne null }">
-							<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
-								
-								<c:url var="pagination" value="replyReportSearchView.ptsd">
-									<c:param name="page" value="${p }"></c:param>
-									<!-- search 페이징  -->
-									<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
-									<c:param name="searchValue" value="${search.searchValue }"></c:param>
-									<!-- /search 페이징  -->
-								</c:url>
-								
-								<c:if test="${p eq pi.currentPage }">
-									<font color="black" size="4">[${p }]</font>
-								</c:if>
-								<c:if test="${p ne pi.currentPage }">
-									<a id="title-a" href="${pagination }">${p }</a>&nbsp;
-								</c:if>
-							</c:forEach>
-							
-							<c:url var="after" value="replyReportSearchView.ptsd">
-								<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
-								<!-- search 페이징  -->
-									<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
-									<c:param name="searchValue" value="${search.searchValue }"></c:param>
-									<!-- /search 페이징  -->
-							</c:url>
-							<c:if test="${pi.currentPage >= pi.maxPage }">
-								[다음]
-							</c:if>
-							<c:if test="${pi.currentPage < pi.maxPage }">
-								<a id="title-a" href="${after }">[다음]</a>
-							</c:if>
-							</c:if>
-							</td>
-							</c:if>
-							<!-- /search일 경우 페이징 -->
 							<!-- 전체 리스트 페이징 -->
 							<c:if test="${search.searchValue eq null }">
-								<td colspan="7">
-								<c:url var="before" value="replyReportListView.ptsd">
+								<td colspan="9">
+								<c:url var="before" value="userListView.ptsd">
 								<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
-								
 							</c:url>
 							<c:if test="${pi.currentPage <= 1 }">
 								[이전]
 							</c:if>
 							<c:if test="${pi.currentPage > 1 }">
 								<a id="title-a" href="${before }">[이전]</a>
-								
 							</c:if>
 							<!-- 검색시 페이징 처리 X -->
 							<c:if test="${pi.startNavi eq null }">
@@ -238,9 +152,8 @@ a:hover{color:#495057;	text-decoration: none;}
 							<c:if test="${pi.startNavi ne null }">
 							<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
 								
-								<c:url var="pagination" value="replyReportListView.ptsd">
+								<c:url var="pagination" value="userListView.ptsd">
 									<c:param name="page" value="${p }"></c:param>
-									
 								</c:url>
 								
 								<c:if test="${p eq pi.currentPage }">
@@ -251,9 +164,8 @@ a:hover{color:#495057;	text-decoration: none;}
 								</c:if>
 							</c:forEach>
 							
-							<c:url var="after" value="replyReportListView.ptsd">
+							<c:url var="after" value="userListView.ptsd">
 								<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
-								
 							</c:url>
 							<c:if test="${pi.currentPage >= pi.maxPage }">
 								[다음]
@@ -264,11 +176,59 @@ a:hover{color:#495057;	text-decoration: none;}
 							</c:if>
 							</td>
 							</c:if>
-							<!-- 전체 리스트 페이징 -->
+							<!-- /전체 리스트 페이징 -->
+							<!-- 검색시 페이징 -->
+							<c:if test="${search.searchValue ne null }">
+							<td colspan="9">
+								<c:url var="before" value="userSearchListView.ptsd">
+								<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
+								<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
+									<c:param name="searchValue" value="${search.searchValue }"></c:param>
+							</c:url>
+							<c:if test="${pi.currentPage <= 1 }">
+								[이전]
+							</c:if>
+							<c:if test="${pi.currentPage > 1 }">
+								<a id="title-a" href="${before }">[이전]</a>
+							</c:if>
+							<!-- 검색시 페이징 처리 X -->
+							<c:if test="${pi.startNavi eq null }">
+									<font color="black" size="4">[1]</font>
+							</c:if>
+							<c:if test="${pi.startNavi ne null }">
+							<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
+								
+								<c:url var="pagination" value="userSearchListView.ptsd">
+									<c:param name="page" value="${p }"></c:param>
+									<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
+									<c:param name="searchValue" value="${search.searchValue }"></c:param>
+								</c:url>
+								
+								<c:if test="${p eq pi.currentPage }">
+									<font color="black" size="4">[${p }]</font>
+								</c:if>
+								<c:if test="${p ne pi.currentPage }">
+									<a id="title-a" href="${pagination }">${p }</a>&nbsp;
+								</c:if>
+							</c:forEach>
+							
+							<c:url var="after" value="userSearchListView.ptsd">
+								<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
+								<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
+									<c:param name="searchValue" value="${search.searchValue }"></c:param>
+							</c:url>
+							<c:if test="${pi.currentPage >= pi.maxPage }">
+								[다음]
+							</c:if>
+							<c:if test="${pi.currentPage < pi.maxPage }">
+								<a id="title-a" href="${after }">[다음]</a>
+							</c:if>
+							</c:if>
+							</td>
+							</c:if>
+							<!-- /검색시 페이징 -->
 							</tr>
 					</table>
-					<!-- 신고 리스트 테이블 끝-->
-					
 				</div>
 			</main>
 		</div>
@@ -281,11 +241,17 @@ a:hover{color:#495057;	text-decoration: none;}
 		</div>
 	</footer>
 	<script>
+		function deleteUser(obj){
 
-	
+			var userNo =$(obj).parent().find("input").val();
+			var deleteUserChk = window.confirm("회원을 탈퇴시키겠습니까?");
+			if(deleteUserChk){
+				location.href="userRemove.ptsd?userNo=" + userNo  ;
+			}else{
+				window.alert("취소하였습니다.");
+			}
+		}
 	</script>
-	<!-- 탭 동작용 부트스트랩 4 cdn... -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 	<script src="/resources/js/app.js"></script>
 </body>
 </html>
