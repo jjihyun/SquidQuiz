@@ -18,6 +18,7 @@
 		<typeAlias type="com.pj.ptsd.board.domain.Board" alias="Board"/>
 		<typeAlias type="com.pj.ptsd.report.domain.Report" alias="Report"/>
 		<typeAlias type="com.pj.ptsd.report.domain.ReplyReport" alias="ReplyReport"/>
+		<typeAlias type="com.pj.ptsd.quiz.domain.MainGameInfo" alias="MainGameInfo"/>
 <!-- 		<typeAlias type="com.iei.spring.member.domain.Member" alias="Member"/> -->
 	</typeAliases>
 	
@@ -30,5 +31,6 @@
 		<mapper resource="mappers/quiz-mapper.xml"/>
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/report-mapper.xml"/>
+		<mapper resource="mappers/game-mapper.xml"/>
 	</mappers>
 </configuration>

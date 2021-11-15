@@ -1,10 +1,12 @@
 package com.pj.ptsd.quiz.service.logic;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pj.ptsd.quiz.domain.MainGameInfo;
 import com.pj.ptsd.quiz.domain.Ox;
 import com.pj.ptsd.quiz.domain.PageData;
 import com.pj.ptsd.quiz.domain.QuizSearch;
@@ -56,6 +58,18 @@ public class QuizServiceImpl implements QuizService{
 		List<Ox> oxSearchList = store.selectSearchAll(search);
 		return oxSearchList;
 	}
+
+
+	//--------------------------게임--------------------------
+	
+	//게임 시작
+	@Override
+	public int quizGameModify(String quizGameStatus) {
+		int result = store.updatequizGameStatus(quizGameStatus);
+		return result;
+	}
+
+	//게임등록
 
 
 }
