@@ -44,22 +44,17 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <a href="/findId.ptsd">ID찾기</a> | <a href="/login.ptsd">로그인</a> | <a href="/join.ptsd">회원가입</a>
+                        <a href="/findIdView.ptsd">ID찾기</a> | <a href="/login.ptsd">로그인</a> | <a href="/join.ptsd">회원가입</a>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <button type="button" id="mailCheck" onclick="location.href='/findPwd.ptsd';">이메일 전송</button>
+                        <input type="submit" value="이메일 전송">
                     </td>
                 </tr>		  
             </table>
         </form>
         </c:if>
-  <script type="text/javascript">
-		
-  		
-  
-  		
-  </script>
+
   </body>
 </html>

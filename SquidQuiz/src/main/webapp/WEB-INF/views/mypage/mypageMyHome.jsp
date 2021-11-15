@@ -18,7 +18,19 @@
 <link rel="stylesheet" href="/resources/css/app.css">
 <link rel="stylesheet" href="/resources/js/app.js">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
+<style>
+.userDel-btn{border:none;float:center;background-color:transparent;}
+.userDer-btn :hover{background:rgba(0,0,0,.1)}
+</style>
+<style>
+
+.box1{ width:1100px; margin: 0; padding:0;}
+.card{width:500px;float:left;margin-left:10px;margin-right:10px;}
+.card-body{text-align:left;}
+
+</style>
 <body>
 	<header>
 		<jsp:include page="../../../resources/html/header.jsp" />
@@ -31,7 +43,7 @@
 					src="/src/img/icons/icon-48x48.png" alt=""> <span
 					class="align-middle">MY PAGE</span>
 				</a>
-
+				
 				<ul class="sidebar-nav">
 
 					<li class="sidebar-header" align="center"><a
@@ -54,11 +66,13 @@
 						href="mypagePoint.ptsd"> <i class="align-middle"
 							data-feather="star"></i> <span class="align-middle">포인트</span>
 					</a></li>
+					
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="userDelete.ptsd"> <i class="align-middle"
 							data-feather="user-x"></i> <span class="align-middle">회원탈퇴</span>
 					</a></li>
 				</ul>
+				
 			</div>
 		</nav>
 
@@ -71,13 +85,12 @@
 
 			<main class="content">
 
-				<h1 class="h3 mb-3">
-					<strong>MY홈</strong>
-				</h1>
-				<div class="container-fluid p-0">
-					<div class="box">
+				<h1 class="h3 mb-3"><strong>MY홈</strong></h1>
+				
+				<form action="pointAll" id="pointAll" method="post">
+					<div align="center" class="box">
 						<div class="box1">
-							<div class="card" style="width: 500px; float: left;">
+							<div class="card">
 								<div class="card-body">
 									<div class="row">
 										<div class="col mt-0">
@@ -90,13 +103,13 @@
 											</div>
 										</div>
 									</div>
-									<h1 class="point1">2.382</h1>
+									<h1 class="point1"><input type="text" name="Point" value="${userPoint }"></h1>
 									<div class="point-btn">
-										<button>충전하기</button>
+										<button id="check_module" type="button">충전하기</button>
 									</div>
 								</div>
 							</div>
-							<div class="card" style="width: 500px;">
+							<div class="card">
 								<div class="card-body">
 									<div class="row">
 										<div class="col mt-0">
@@ -109,7 +122,7 @@
 											</div>
 										</div>
 									</div>
-									<h1 class="point2">14.212</h1>
+									<h1 class="point2"><input type="text" name="Point2" value="${userPoint }"></h1>
 									<div class="camp-btn">
 										<button>기부하기</button>
 										<button>기부내역</button>
@@ -118,16 +131,19 @@
 							</div>
 						</div>
 					</div>
+					</form>
+					<br><br><br><br><br><br><br><br><br><br>
 					<hr>
 					<br> <br>
 					<!-- 게시판 -->
 					<div align="center">
 						<div class="board">
-							<div class="card flex-fill">
-								<div class="card-header">
+							<div class="board flex-fill">
+								<div class="board-header">
 
-									<h5 class="card-title mb-0">내가 쓴 게시물</h5>
+									<h5 class="board-title mb-0">내가 쓴 게시물</h5>
 								</div>
+								<br><br>
 								<table class="table table-hover my-0">
 									<thead>
 										<tr>
@@ -201,7 +217,7 @@
 						</div>
 					</div>
 				</main>
-
+			<br><br>
 			<footer class="footer">
 				<div class="container-fluid">
 					<div class="row text-muted">
@@ -228,6 +244,8 @@
 			</footer>
 		</div>
 	</div>
+
+
 
 	<script src="/resources/js/app.js"></script>
 

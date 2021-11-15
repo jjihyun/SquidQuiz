@@ -22,6 +22,39 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <style>
+
+.container{
+	width: 500px;
+	margin: 0 auto;
+}
+
+ul.tabs{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+ul.tabs li{
+	background: none;
+	color: #222;
+	display: inline-block;
+	padding: 10px 15px;
+	cursor: pointer;
+}
+
+ul.tabs li.current{
+	background: #ededed;
+	color: #222;
+}
+
+.tab-content{
+	display: none;
+	background: #ededed;
+	padding: 15px;
+}
+
+.tab-content.current{
+	display: inherit;
+}
 .point-btn{width:400px;height:50px;}
 .box{width:600px; height:200px;background-color:pink; margin:0 auto;}
 .box b{font-size:30px;}
@@ -65,7 +98,7 @@
 							data-feather="star"></i> <span class="align-middle">포인트</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="userDelete.ptsd"> <i class="align-middle"
 							data-feather="user-x"></i> <span class="align-middle">회원탈퇴</span>
 					</a></li>
 				</ul>
@@ -98,23 +131,28 @@
 							</div>
 						</form>
 					</div>
+					<br><br>
+					<div align="center" class="container">
+
+							<ul class="tabs">
+								<li class="tab-link current" data-tab="tab-1">충전 내역</li>
+								<li class="tab-link" data-tab="tab-2">환전 내역</li>
+							</ul>
+							<br>
+						</div>
+						
+					<div id="tab-1" class="tab-content current">
 					<hr>
 					<!-- 게시판 -->
 					<div align="center">
 						<div class="board">
 							<div class="card flex-fill">
-								<div class="card-header">
-
-									<h5 class="card-title mb-0">내가 쓴 게시물</h5>
-								</div>
 								<table class="table table-hover my-0">
 									<thead>
 										<tr>
-											<th>Name</th>
-											<th class="d-none d-xl-table-cell">Start Date</th>
-											<th class="d-none d-xl-table-cell">End Date</th>
-											<th>Status</th>
-											<th class="d-none d-md-table-cell">Assignee</th>
+											<th>충전 번호</th>
+											<th class="d-none d-xl-table-cell">충전 금액</th>
+											<th class="d-none d-xl-table-cell">날짜</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -122,119 +160,174 @@
 											<td>Project Apollo</td>
 											<td class="d-none d-xl-table-cell">01/01/2021</td>
 											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Vanessa Tucker</td>
 										</tr>
 										<tr>
 											<td>Project Fireball</td>
 											<td class="d-none d-xl-table-cell">01/01/2021</td>
 											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-danger">Cancelled</span></td>
-											<td class="d-none d-md-table-cell">William Harris</td>
 										</tr>
 										<tr>
 											<td>Project Hades</td>
 											<td class="d-none d-xl-table-cell">01/01/2021</td>
 											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Sharon Lessman</td>
 										</tr>
 										<tr>
 											<td>Project Nitro</td>
 											<td class="d-none d-xl-table-cell">01/01/2021</td>
 											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-warning">In progress</span></td>
-											<td class="d-none d-md-table-cell">Vanessa Tucker</td>
 										</tr>
 										<tr>
 											<td>Project Phoenix</td>
 											<td class="d-none d-xl-table-cell">01/01/2021</td>
 											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">William Harris</td>
 										</tr>
 										<tr>
 											<td>Project X</td>
 											<td class="d-none d-xl-table-cell">01/01/2021</td>
 											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Sharon Lessman</td>
 										</tr>
 										<tr>
 											<td>Project Romeo</td>
 											<td class="d-none d-xl-table-cell">01/01/2021</td>
 											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Christina Mason</td>
 										</tr>
 										<tr>
 											<td>Project Wombat</td>
 											<td class="d-none d-xl-table-cell">01/01/2021</td>
 											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-warning">In progress</span></td>
-											<td class="d-none d-md-table-cell">William Harris</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
 						</div>
 					</div>
+					</div>
+					<div id="tab-2" class="tab-content">
+					<hr>
+					<!-- 게시판 -->
+					<div align="center">
+						<div class="board">
+							<div class="card flex-fill">
+								<table class="table table-hover my-0">
+									<thead>
+										<tr>
+											<th>환전 번호</th>
+											<th class="d-none d-xl-table-cell">계좌 정보</th>
+											<th class="d-none d-xl-table-cell">환전 금액</th>
+											<th class="d-none d-md-table-cell">신청날짜</th>
+											<th>상태</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Project Apollo</td>
+											<td class="d-none d-xl-table-cell">01/01/2021</td>
+											<td class="d-none d-xl-table-cell">31/06/2021</td>
+											<td class="d-none d-md-table-cell">Vanessa Tucker</td>
+											<td><span class="badge bg-success">Done</span></td>
+										</tr>
+										<tr>
+											<td>Project Fireball</td>
+											<td class="d-none d-xl-table-cell">01/01/2021</td>
+											<td class="d-none d-xl-table-cell">31/06/2021</td>
+											<td class="d-none d-md-table-cell">William Harris</td>
+											<td><span class="badge bg-danger">Cancelled</span></td>
+										</tr>
+										<tr>
+											<td>Project Hades</td>
+											<td class="d-none d-xl-table-cell">01/01/2021</td>
+											<td class="d-none d-xl-table-cell">31/06/2021</td>
+											<td class="d-none d-md-table-cell">Sharon Lessman</td>
+											<td><span class="badge bg-success">Done</span></td>
+										</tr>
+										<tr>
+											<td>Project Nitro</td>
+											<td class="d-none d-xl-table-cell">01/01/2021</td>
+											<td class="d-none d-xl-table-cell">31/06/2021</td>
+											<td class="d-none d-md-table-cell">Vanessa Tucker</td>
+											<td><span class="badge bg-warning">In progress</span></td>
+										</tr>
+										<tr>
+											<td>Project Phoenix</td>
+											<td class="d-none d-xl-table-cell">01/01/2021</td>
+											<td class="d-none d-xl-table-cell">31/06/2021</td>
+											<td class="d-none d-md-table-cell">William Harris</td>
+											<td><span class="badge bg-success">Done</span></td>
+										</tr>
+										<tr>
+											<td>Project X</td>
+											<td class="d-none d-xl-table-cell">01/01/2021</td>
+											<td class="d-none d-xl-table-cell">31/06/2021</td>
+											<td class="d-none d-md-table-cell">Sharon Lessman</td>
+											<td><span class="badge bg-success">Done</span></td>
+										</tr>
+										<tr>
+											<td>Project Romeo</td>
+											<td class="d-none d-xl-table-cell">01/01/2021</td>
+											<td class="d-none d-xl-table-cell">31/06/2021</td>
+											<td class="d-none d-md-table-cell">Christina Mason</td>
+											<td><span class="badge bg-success">Done</span></td>
+										</tr>
+										<tr>
+											<td>Project Wombat</td>
+											<td class="d-none d-xl-table-cell">01/01/2021</td>
+											<td class="d-none d-xl-table-cell">31/06/2021</td>
+											<td class="d-none d-md-table-cell">William Harris</td>
+											<td><span class="badge bg-warning">In progress</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					</div>
+					
 				</main>
-				</div>
-			</div>
-		</div>
+		
 
-	<footer class="footer">
-		<div class="container-fluid">
-			<div class="row text-muted">
-				<div class="col-6 text-start">
-					<p class="mb-0">
-						<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a>
-						&copy;
-					</p>
-				</div>
-				<div class="col-6 text-end">
-					<ul class="list-inline">
-						<li class="list-inline-item"><a class="text-muted"
-							href="https://adminkit.io/" target="_blank">Support</a></li>
-						<li class="list-inline-item"><a class="text-muted"
-							href="https://adminkit.io/" target="_blank">Help Center</a></li>
-						<li class="list-inline-item"><a class="text-muted"
-							href="https://adminkit.io/" target="_blank">Privacy</a></li>
-						<li class="list-inline-item"><a class="text-muted"
-							href="https://adminkit.io/" target="_blank">Terms</a></li>
-					</ul>
+		<footer class="footer">
+			<div class="container-fluid">
+				<div class="row text-muted">
+					<div class="col-6 text-start">
+						<p class="mb-0">
+							<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a>
+							&copy;
+						</p>
+					</div>
+					<div class="col-6 text-end">
+						<ul class="list-inline">
+							<li class="list-inline-item"><a class="text-muted"
+								href="https://adminkit.io/" target="_blank">Support</a></li>
+							<li class="list-inline-item"><a class="text-muted"
+								href="https://adminkit.io/" target="_blank">Help Center</a></li>
+							<li class="list-inline-item"><a class="text-muted"
+								href="https://adminkit.io/" target="_blank">Privacy</a></li>
+							<li class="list-inline-item"><a class="text-muted"
+								href="https://adminkit.io/" target="_blank">Terms</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
+		</footer>
 		</div>
-	</footer>
-	</div>
 	</div>
 
 	<script src="/resources/js/app.js"></script>
 </body>
 <script>
-	const tabList = document.querySelectorAll('.tab_menu .list li');
-	const contents = document.querySelectorAll('.tab_menu .cont_area .cont')
-	let activeCont = ''; // 현재 활성화 된 컨텐츠 (기본:#tab1 활성화)
 
-	for (var i = 0; i < tabList.length; i++) {
-		tabList[i].querySelector('.btn').addEventListener('click', function(e) {
-			e.preventDefault();
-			for (var j = 0; j < tabList.length; j++) {
-				// 나머지 버튼 클래스 제거
-				tabList[j].classList.remove('is_on');
+$(document).ready(function(){
+	
+	$('ul.tabs li').click(function(){
+		var tab_id = $(this).attr('data-tab');
 
-				// 나머지 컨텐츠 display:none 처리
-				contents[j].style.display = 'none';
-			}
+		$('ul.tabs li').removeClass('current');
+		$('.tab-content').removeClass('current');
 
-			// 버튼 관련 이벤트
-			this.parentNode.classList.add('is_on');
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
+	})
 
-			// 버튼 클릭시 컨텐츠 전환
-			activeCont = this.getAttribute('href');
-			document.querySelector(activeCont).style.display = 'block';
-		});
-	}
+})
+
 </script>

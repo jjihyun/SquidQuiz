@@ -67,7 +67,7 @@
             </div>
             <div class="form-group">
             <label for="bankAccount">계좌번호</label><br>
-                <input type="text" id="bankAccount" name="bankAccount">
+                <input type="text" id="bankAccount" name="bankAccountValue">
             </div><br>
             <div class="form-btn" align="center">
                     <input type="submit" id="signupbtn" name="signup" value="회원가입"><br>

@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <a href="/findId.ptsd">ID찾기</a>&nbsp;<a href="#">PW찾기</a>
+                        <a href="/findIdView.ptsd">ID찾기</a>&nbsp;<a href="/findPwdView.ptsd">PW찾기</a>
                     </td>
                 </tr>
                 <tr>

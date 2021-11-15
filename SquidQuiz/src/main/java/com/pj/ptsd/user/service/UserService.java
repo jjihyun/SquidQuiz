@@ -11,11 +11,14 @@ public interface UserService {
 	
 	public User loginMember(User userOne);
 	public int checkIdDup(String userId);
-	public User findId(User userOne);
+	public String findId(User userOne);
+	public String findPwd(User userOne);
 	public int registerMember(User user);
 	public int modifyMember(User user);
-	public int removeMember(String userId);
+	public int removeMember(User user);
 	public List<CampaignRecord> printCRList(PageInfo pi, int userNo);
 	public List<Board> printBoardList(PageInfo pi,int userNo);
+	
+	public User printOne(String uId);
 	
 }
