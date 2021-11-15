@@ -248,22 +248,22 @@ public class QuizController {
 //	-------------------------게임 참가--------------------------------------------
 	
 	//메인화면으로 이동
-	@RequestMapping(value="main.ptsd",method=RequestMethod.GET)
-	public String mainView() {
-		return"main";
-	}
-	
-	public ModelAndView quizGameMoney(
-			ModelAndView mv
-			,HttpServletRequest request
-			,@ModelAttribute User user) {
-		int result = service.insertGameUser(user);
-		if(result > 0) {
-			mv.setViewName("redirect:main.ptsd");
-		}else {
-			mv.addObject("msg", "게임 참가 실패").setViewName("common/errorPage");
-		}
-		return mv;
-	}
+//	@RequestMapping(value="main.ptsd",method=RequestMethod.GET)
+//	public String mainView() {
+//		return"main";
+//	}
+//	@RequestMapping(value="main.ptsd",method=RequestMethod.POST)
+//	public ModelAndView quizGameMoney(
+//			ModelAndView mv
+//			,HttpServletRequest request
+//			,@ModelAttribute User user) {
+//		int result = service.insertGameUser(user);
+//		if(result > 0) {
+//			mv.setViewName("redirect:main.ptsd");
+//		}else {
+//			mv.addObject("msg", "게임 참가 실패").setViewName("common/errorPage");
+//		}
+//		return mv;
+//	}
 	
 }
