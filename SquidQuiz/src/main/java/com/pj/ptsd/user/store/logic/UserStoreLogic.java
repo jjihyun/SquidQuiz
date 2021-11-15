@@ -33,8 +33,14 @@ public class UserStoreLogic implements UserStore{
 	}
 
 	@Override
-	public User findId(User userOne) {
-		User uOne = sqlSession.selectOne("userMapper.findUserId", userOne);
+	public String findId(User userOne) {
+		String uOne = sqlSession.selectOne("userMapper.findUserId", userOne);
+		return uOne;
+	}
+	
+	@Override
+	public String findPwd(User userOne) {
+		String uOne = sqlSession.selectOne("userMapper.findUserPwd", userOne);
 		return uOne;
 	}
 	
@@ -51,9 +57,9 @@ public class UserStoreLogic implements UserStore{
 	}
 
 	@Override
-	public int deleteMember(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteMember(User user) {
+		int result = sqlSession.delete("userMapper.deleteUser",user);
+		return result;
 	}
 
 	@Override
@@ -67,6 +73,13 @@ public class UserStoreLogic implements UserStore{
 	
 		return null;
 	}
+
+	@Override
+	public User selectOne(String uId) {
+		User user = sqlSession.selectOne("userMapper.selectOnePoint", uId);
+		return user;
+	}
+
 
 
 

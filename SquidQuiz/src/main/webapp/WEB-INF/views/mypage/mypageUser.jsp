@@ -64,7 +64,7 @@
             </a>
 					</li>
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
+						<a class="sidebar-link" href="userDelete.ptsd">
               <i class="align-middle" data-feather="user-x"></i> <span class="align-middle">회원탈퇴</span>
             </a>
 					</li>
@@ -101,7 +101,7 @@
 		            </div>
 		            <div class="form-group">
 		            <label for="userName">이름</label><br>
-		                <input type="text" id="userName" name="userName" value="${loginUser.userName }"><br>
+		                <input type="text" id="userName" name="userName" value="${loginUser.userName }" readonly><br>
 		                 <div class="name-regex"></div>
 		            </div>
 		            <div class="form-group">

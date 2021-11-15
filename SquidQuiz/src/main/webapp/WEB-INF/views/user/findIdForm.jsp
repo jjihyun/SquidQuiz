@@ -48,7 +48,7 @@
                 <p id="id-value"><br>
                 <tr>
                     <td colspan="2" align="center">
-                        <a href="/findPwd.ptsd">PW찾기</a> | <a href="/login.ptsd">로그인</a> | <a href="/join.ptsd">회원가입</a>
+                        <a href="/findPwdView.ptsd">PW찾기</a> | <a href="/login.ptsd">로그인</a> | <a href="/join.ptsd">회원가입</a>
                     </td>
                 </tr>
                 <tr>

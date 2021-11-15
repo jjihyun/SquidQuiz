@@ -31,11 +31,17 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User findId(User userOne) {
-		User uOne = store.findId(userOne);
+	public String findId(User userOne) {
+		String uOne = store.findId(userOne);
 		return uOne;
 	}
 
+	@Override
+	public String findPwd(User userOne) {
+		String uOne = store.findPwd(userOne);
+		return uOne;
+	}
+	
 	@Override
 	public int registerMember(User user) {
 		int result = store.insertMember(user);
@@ -49,9 +55,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int removeMember(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int removeMember(User user) {
+		int result = store.deleteMember(user);
+		return result;
 	}
 
 	@Override
@@ -64,6 +70,14 @@ public class UserServiceImpl implements UserService{
 	public List<Board> printBoardList(PageInfo pi, int userNo) {
 		return null;
 	}
+
+	//포인트 출력
+	@Override
+	public User printOne(String uId) {
+		User user = store.selectOne(uId);
+		return user;
+	}
+
 
 
 

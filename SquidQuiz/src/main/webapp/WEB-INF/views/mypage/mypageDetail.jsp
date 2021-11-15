@@ -56,7 +56,11 @@ ul.tabs li.current{
 .tab-content.current{
 	display: inherit;
 }
-
+.box{text-align: center; width:825px; margin: 0; padding:0;}
+.box1{text-align: center; width:410px; margin: 0; padding:0;}
+.gibu-box,.quiz-box1{float:left;list-style:none;}
+.gibu-box b,.quiz-box1 b{font-size:18px;}
+.gibu-box input, .quiz-box1 input{width:400px;height:50px;margin-top:10px;}
 </style>
 <body>
 	<header>
@@ -95,13 +99,14 @@ ul.tabs li.current{
             </a>
 					</li>
 					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
+						<a class="sidebar-link" href="userDelete.ptsd">
               <i class="align-middle" data-feather="user-x"></i> <span class="align-middle">회원탈퇴</span>
             </a>
 					</li>
 				</ul>
 			</div>
 		</nav>
+		
 		
 			<div class="main">
 				<nav class="navbar navbar-expand navbar-light navbar-bg">
@@ -116,27 +121,23 @@ ul.tabs li.current{
 
 					<h1 class="h3 mb-3"><strong>활동내역</strong> </h1>
 				</div>
-					<div class="container">
+					<div align="center" class="container">
 
 							<ul class="tabs">
-								<li class="tab-link current" data-tab="tab-1">메뉴_하나</li>
-								<li class="tab-link" data-tab="tab-2">메뉴_둘</li>
-								<li class="tab-link" data-tab="tab-3">메뉴_셋</li>
+								<li class="tab-link current" data-tab="tab-1">전체 내역</li>
+								<li class="tab-link" data-tab="tab-2">캠페인 내역</li>
+								<li class="tab-link" data-tab="tab-3">퀴즈 내역</li>
 							</ul>
 							<br><br><br>
-							<div id="tab-1" class="tab-content current">
 							
-							</div>
-							<div id="tab-2" class="tab-content">
-							</div>
-							<div id="tab-3" class="tab-content">
-							</div>
 						
 						</div>
+						
+						<div align="center">
 							<div id="tab-1" class="tab-content current">
+							<hr>
 							<!-- 게시판 -->
-							<div class="row">
-								<div class="col-12 col-lg-8 col-xxl-9 d-flex">
+							
 									<div class="card flex-fill">
 										<table class="table table-hover my-0">
 											<thead>
@@ -208,168 +209,172 @@ ul.tabs li.current{
 										</table>
 									</div>
 								</div>
-							</div>
-						  </div>
 						 <div id="tab-2" class="tab-content">
-							<br><br><br>
-							<!-- 게시판 -->
-							<div class="row">
-								<div class="col-12 col-lg-8 col-xxl-9 d-flex">
-									<div class="card flex-fill">
-										<table class="table table-hover my-0">
-											<thead>
-												<tr>
-													<th>Name</th>
-													<th class="d-none d-xl-table-cell">Start Date</th>
-													<th class="d-none d-xl-table-cell">End Date</th>
-													<th>Status</th>
-													<th class="d-none d-md-table-cell">Assignee</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>Project Apollo</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-success">Done</span></td>
-													<td class="d-none d-md-table-cell">Vanessa Tucker</td>
-												</tr>
-												<tr>
-													<td>Project Fireball</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-danger">Cancelled</span></td>
-													<td class="d-none d-md-table-cell">William Harris</td>
-												</tr>
-												<tr>
-													<td>Project Hades</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-success">Done</span></td>
-													<td class="d-none d-md-table-cell">Sharon Lessman</td>
-												</tr>
-												<tr>
-													<td>Project Nitro</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-warning">In progress</span></td>
-													<td class="d-none d-md-table-cell">Vanessa Tucker</td>
-												</tr>
-												<tr>
-													<td>Project Phoenix</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-success">Done</span></td>
-													<td class="d-none d-md-table-cell">William Harris</td>
-												</tr>
-												<tr>
-													<td>Project X</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-success">Done</span></td>
-													<td class="d-none d-md-table-cell">Sharon Lessman</td>
-												</tr>
-												<tr>
-													<td>Project Romeo</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-success">Done</span></td>
-													<td class="d-none d-md-table-cell">Christina Mason</td>
-												</tr>
-												<tr>
-													<td>Project Wombat</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-warning">In progress</span></td>
-													<td class="d-none d-md-table-cell">William Harris</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						  </div>
-						  <div id="tab-3" class="tab-content">
-							<!-- 게시판 -->
-							<div class="row">
-								<div class="col-12 col-lg-8 col-xxl-9 d-flex">
-									<div class="card flex-fill">
-										<table class="table table-hover my-0">
-											<thead>
-												<tr>
-													<th>Name</th>
-													<th class="d-none d-xl-table-cell">Start Date</th>
-													<th class="d-none d-xl-table-cell">End Date</th>
-													<th>Status</th>
-													<th class="d-none d-md-table-cell">Assignee</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>Project Apollo</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-success">Done</span></td>
-													<td class="d-none d-md-table-cell">Vanessa Tucker</td>
-												</tr>
-												<tr>
-													<td>Project Fireball</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-danger">Cancelled</span></td>
-													<td class="d-none d-md-table-cell">William Harris</td>
-												</tr>
-												<tr>
-													<td>Project Hades</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-success">Done</span></td>
-													<td class="d-none d-md-table-cell">Sharon Lessman</td>
-												</tr>
-												<tr>
-													<td>Project Nitro</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-warning">In progress</span></td>
-													<td class="d-none d-md-table-cell">Vanessa Tucker</td>
-												</tr>
-												<tr>
-													<td>Project Phoenix</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-success">Done</span></td>
-													<td class="d-none d-md-table-cell">William Harris</td>
-												</tr>
-												<tr>
-													<td>Project X</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-success">Done</span></td>
-													<td class="d-none d-md-table-cell">Sharon Lessman</td>
-												</tr>
-												<tr>
-													<td>Project Romeo</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-success">Done</span></td>
-													<td class="d-none d-md-table-cell">Christina Mason</td>
-												</tr>
-												<tr>
-													<td>Project Wombat</td>
-													<td class="d-none d-xl-table-cell">01/01/2021</td>
-													<td class="d-none d-xl-table-cell">31/06/2021</td>
-													<td><span class="badge bg-warning">In progress</span></td>
-													<td class="d-none d-md-table-cell">William Harris</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
+						 <div class="gibu">
+						 <form action="">
+							<ul class="box">
+								<li class="gibu-box"> <b>후원단체</b><br> <input type="text"class="point-box"></li>
+								<li class="gibu-box"><div class="vr" style="height:100px;margin-left:10px;margin-right:10px;"></div></li>
+								<li class="gibu-box"> <b>총 기부금액</b><br>  <input type="text"class="point-box"></li><br><br><br><br>
+								
+							</ul>
+						</form>
 						</div>
+						<br>
+						 <hr>
+						 <br>
+							<!-- 게시판 -->
+							
+									<div class="card flex-fill">
+										<table class="table table-hover my-0">
+											<thead>
+												<tr>
+													<th>번호</th>
+													<th class="d-none d-xl-table-cell">단체 명</th>
+													<th class="d-none d-xl-table-cell">금액</th>
+													<th class="d-none d-md-table-cell">날짜</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Project Apollo</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">Vanessa Tucker</td>
+												</tr>
+												<tr>
+													<td>Project Fireball</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">William Harris</td>
+												</tr>
+												<tr>
+													<td>Project Hades</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">Sharon Lessman</td>
+												</tr>
+												<tr>
+													<td>Project Nitro</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">Vanessa Tucker</td>
+												</tr>
+												<tr>
+													<td>Project Phoenix</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">William Harris</td>
+												</tr>
+												<tr>
+													<td>Project X</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">Sharon Lessman</td>
+												</tr>
+												<tr>
+													<td>Project Romeo</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">Christina Mason</td>
+												</tr>
+												<tr>
+													<td>Project Wombat</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">William Harris</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+						  <div id="tab-3" class="tab-content">
+						   <div class="gibu">
+						 <form action="">
+							<ul class="box">
+								<li class="quiz-box1"> <b>총 참여수</b><br> <input type="text"class="point-box"></li>
+								<li class="quiz-box1"><div class="vr" style="height:100px;margin-left:10px;margin-right:10px;"></div></li>
+								<li class="quiz-box1"> <b>누적 기부금액</b><br>  <input type="text"class="point-box"></li><br><br><br><br>
+								
+							</ul>
+						</form>
+						</div>
+						<br>
+						 <hr>
+						 <br>
+						 	<div class="box1">
+						 		<div class="quiz-box1" > <b>누적 참여금액</b><br> <input type="text" class="point-box"> </div> 
+						 	</div>
+						 <br><br><br><br><br>
+						  <hr>
+						  <br>
+							<!-- 게시판 -->
+									<div class="card flex-fill">
+										<table class="table table-hover my-0">
+											<thead>
+												<tr>
+													<th>회차 번호</th>
+													<th class="d-none d-xl-table-cell">문제 통과 카운트</th>
+													<th class="d-none d-xl-table-cell">참가 금액</th>
+													<th class="d-none d-md-table-cell">날짜</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Project Apollo</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">Vanessa Tucker</td>
+												</tr>
+												<tr>
+													<td>Project Fireball</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">William Harris</td>
+												</tr>
+												<tr>
+													<td>Project Hades</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">Sharon Lessman</td>
+												</tr>
+												<tr>
+													<td>Project Nitro</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">Vanessa Tucker</td>
+												</tr>
+												<tr>
+													<td>Project Phoenix</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">William Harris</td>
+												</tr>
+												<tr>
+													<td>Project X</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">Sharon Lessman</td>
+												</tr>
+												<tr>
+													<td>Project Romeo</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">Christina Mason</td>
+												</tr>
+												<tr>
+													<td>Project Wombat</td>
+													<td class="d-none d-xl-table-cell">01/01/2021</td>
+													<td class="d-none d-xl-table-cell">31/06/2021</td>
+													<td class="d-none d-md-table-cell">William Harris</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
 					</div>
-				</div>
 			</main>
+			
 
 			<footer class="footer">
 				<div class="container-fluid">
@@ -398,6 +403,7 @@ ul.tabs li.current{
 					</div>
 				</div>
 			</footer>
+		</div>
 		</div>
 	
 	
