@@ -39,8 +39,8 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public List<Board> printSearchAll(Search search) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Board> searchList = store.selectSearchAll(search);
+		return searchList;
 	}
 
 	@Override
