@@ -90,12 +90,24 @@
 	        	<button id="game-app" class="Game-btn" style="color: black;">○   △   □ </button>
 	        </div>
 	        <div id="game-area" class="game-area" >
+	        	<div class="quiz_show" id="quiz_show">
+	        		<table align="center">
+	        			<tr>
+	        				<td>OX퀴즈</td>
+	        			</tr>
+	        			<tr>
+	        				<td>문제내용</td>
+	        			</tr>
+	        			<tr>
+				        	<button class="game_start_O" id="game_start_O">O</button>
+				        	<button class="game_start_X" id="game_start_X">X</button>
+	        			</tr>
+	        		</table>
+	        	</div>
 	        	<center><h1 class="game_insert_info" id="game_insert_info">참가 신청하셨습니다.</h1></center>
 	        	<button class="game_btn_insert" id="game-insert">참가신청</button>
 	        	<button class="game_btn_start" id="game-start">퀴즈시작</button>
 	        	<button class="game_btn_delete" id="game-delete">참가취소</button>
-	        	<button class="game_start_O" id="game_start_O">O</button>
-	        	<button class="game_start_X" id="game_start_X">X</button>
 	        </div>
 	      </div>
 			<div class="sec7-text-box">

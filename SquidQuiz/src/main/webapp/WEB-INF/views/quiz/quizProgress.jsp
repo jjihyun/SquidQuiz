@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="/resources/css/quiz/oxWrite.css">
 <link rel="stylesheet" href="/resources/css/quiz/quizIng.css">
 <link rel="stylesheet" href="/resources/css/app.css">
+<script src="//code.jquery.com/jquery.min.js"></script>
 </head>
 <script>
 	//자바스크립트로 헤더 파일 받아오는 소스 
@@ -154,8 +155,14 @@
 				             	 </div>
 				            </div>
 				            <div class="quiz_btn">
-				           		<button class="quiz_start_btn" id="quiz_start_btn">퀴즈시작</button>
-				           		<button class="quzi_reset_btn" id="quiz_reset_btn">초기화</button>
+				            <form action="quizProgressStart.ptsd" method="post">
+				            	<input type="hidden" name="quizGameStatus" value="Y">
+				           		<button style="float: left;" type="submit" class="quiz_start_btn" id="quiz_start_btn">퀴즈시작</button>
+				            </form>
+				            <form action="" method="post">
+				            	<input type="hidden" name="quizGameStatusEnd" value="N">
+				           		<button type="submit" class="quzi_reset_btn" id="quiz_reset_btn">초기화</button>
+				            </form>
 				            </div>
 					</div>
 			</main>
@@ -172,7 +179,17 @@
 	<script>
 		function showRegister(){
 			location.href="oxList.ptsd";
+		};
+		$(function(){
+			$('#quiz_start_btn').click(function(){
+				if($('#quiz_end_btn').css("display")=="none"){
+					$('#quiz_start_btn').hide();
+					$('#quiz_end_btn').show();
+				}
+			})
 		}
+	</script>
+	<script>
 	</script>
 </body>
 </html>

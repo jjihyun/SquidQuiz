@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.pj.ptsd.quiz.domain.MainGameInfo;
 import com.pj.ptsd.quiz.domain.Ox;
 import com.pj.ptsd.quiz.domain.PageData;
 import com.pj.ptsd.quiz.domain.QuizSearch;
@@ -58,6 +59,13 @@ public class QuizStoreLogic implements QuizStore{
 	public List<Ox> selectSearchAll(QuizSearch search) {
 		List<Ox> oxSearchList = sqlSession.selectList("quizMapper.selectSearchList",search);
 		return oxSearchList;
+	}
+	//---------------------------------게임---------------------------------------
+
+	@Override
+	public int updatequizGameStatus(String quizGameStatus) {
+		int result = sqlSession.update("gameMapper.updateGame",quizGameStatus);
+		return result;
 	}
 
 }

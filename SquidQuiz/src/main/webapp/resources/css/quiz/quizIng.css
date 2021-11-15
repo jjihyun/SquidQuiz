@@ -30,6 +30,7 @@
 }
 .quiz_btn{
 	position:absolute;
+	width:400px;
 	top: 70%;
 	left: 55%; 
 	transform: translateX(-50%);
@@ -42,7 +43,6 @@
 	border: none;
 	border-radius: 10px;
 	background-color: #008000;
-	
 }
 .quiz_start_btn:hover{
 	background-color: #dbf280;

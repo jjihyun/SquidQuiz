@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pj.ptsd.campaign.Pagination;
+import com.pj.ptsd.quiz.domain.MainGameInfo;
 import com.pj.ptsd.quiz.domain.Ox;
 import com.pj.ptsd.quiz.domain.PageData;
 import com.pj.ptsd.quiz.domain.QuizPagenation;
@@ -139,7 +140,7 @@ public class QuizController {
 		return mv;
 	}
 	
-	@RequestMapping(value="oxUpdate.ptsd")
+	@RequestMapping(value="oxUpdate.ptsd",method=RequestMethod.POST)
 	public ModelAndView oxUpdate(
 			ModelAndView mv
 			,HttpServletRequest request
@@ -205,4 +206,35 @@ public class QuizController {
 			return "common/errorPage";
 		}
 	}
+	
+//	---------------------------게임 servlet-----------------------------------
+	
+	//퀴즈 게임 시작
+	@RequestMapping(value="quizProgressStart.ptsd",method = RequestMethod.POST)
+	public ModelAndView quizGameStart(
+			ModelAndView mv
+			,HttpServletRequest request
+			,@RequestParam(value="quizGameStatus")String quizGameStatus) {
+		int result =service.quizGameModify(quizGameStatus);
+		if(result>0) {
+			mv.setViewName("redirect:quizStart.ptsd");
+		}else {
+			mv.addObject("msg", "게임 시작 실패").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	//퀴즈 게임 종료
+//	public ModelAndView quizGameEnd(
+//			ModelAndView mv
+//			,HttpServletRequest request
+//			,@RequestParam(value="quizGameStatusEnd")String quizGameStatus) {
+//		int result = service.quizGameModify(quizGameStatus);
+//	}
+	
+	@RequestMapping(value="quizStart.ptsd",method=RequestMethod.GET)
+	public String gameStartView() {
+		return "quiz/quizProgress";
+	}
+	
 }
