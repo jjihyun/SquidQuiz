@@ -68,4 +68,10 @@ public class QuizStoreLogic implements QuizStore{
 		return result;
 	}
 
+	@Override
+	public int updatequizGameEndStatus(String quizGameStatus) {
+		int result = sqlSession.update("gameMapper.updateGame",quizGameStatus);
+		return result;
+	}
+
 }

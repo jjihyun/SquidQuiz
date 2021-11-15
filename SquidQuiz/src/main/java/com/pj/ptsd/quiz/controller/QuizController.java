@@ -26,6 +26,7 @@ import com.pj.ptsd.quiz.domain.PageData;
 import com.pj.ptsd.quiz.domain.QuizPagenation;
 import com.pj.ptsd.quiz.domain.QuizSearch;
 import com.pj.ptsd.quiz.service.QuizService;
+import com.pj.ptsd.user.domain.User;
 
 @Controller
 public class QuizController {
@@ -225,16 +226,44 @@ public class QuizController {
 	}
 	
 	//퀴즈 게임 종료
-//	public ModelAndView quizGameEnd(
-//			ModelAndView mv
-//			,HttpServletRequest request
-//			,@RequestParam(value="quizGameStatusEnd")String quizGameStatus) {
-//		int result = service.quizGameModify(quizGameStatus);
-//	}
+	@RequestMapping(value="quizProgressEnd.ptsd",method = RequestMethod.POST)
+	public ModelAndView quizGameEnd(
+			ModelAndView mv
+			,HttpServletRequest request
+			,@RequestParam(value="quizGameStatusEnd")String quizGameStatus) {
+		int result = service.quizGameModifyEnd(quizGameStatus);
+		if(result>0) {
+			mv.setViewName("redirect:quizStart.ptsd");
+		}else {
+			mv.addObject("msg", "게임 시작 실패").setViewName("common/errorPage");
+		}
+		return mv;
+	}
 	
 	@RequestMapping(value="quizStart.ptsd",method=RequestMethod.GET)
 	public String gameStartView() {
 		return "quiz/quizProgress";
+	}
+	
+//	-------------------------게임 참가--------------------------------------------
+	
+	//메인화면으로 이동
+	@RequestMapping(value="main.ptsd",method=RequestMethod.GET)
+	public String mainView() {
+		return"main";
+	}
+	
+	public ModelAndView quizGameMoney(
+			ModelAndView mv
+			,HttpServletRequest request
+			,@ModelAttribute User user) {
+		int result = service.insertGameUser(user);
+		if(result > 0) {
+			mv.setViewName("redirect:main.ptsd");
+		}else {
+			mv.addObject("msg", "게임 참가 실패").setViewName("common/errorPage");
+		}
+		return mv;
 	}
 	
 }

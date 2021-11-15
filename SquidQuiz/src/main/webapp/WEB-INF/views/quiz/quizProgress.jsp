@@ -159,7 +159,7 @@
 				            	<input type="hidden" name="quizGameStatus" value="Y">
 				           		<button style="float: left;" type="submit" class="quiz_start_btn" id="quiz_start_btn">퀴즈시작</button>
 				            </form>
-				            <form action="" method="post">
+				            <form action="quizProgressEnd.ptsd" method="post">
 				            	<input type="hidden" name="quizGameStatusEnd" value="N">
 				           		<button type="submit" class="quzi_reset_btn" id="quiz_reset_btn">초기화</button>
 				            </form>
@@ -180,14 +180,14 @@
 		function showRegister(){
 			location.href="oxList.ptsd";
 		};
-		$(function(){
-			$('#quiz_start_btn').click(function(){
-				if($('#quiz_end_btn').css("display")=="none"){
-					$('#quiz_start_btn').hide();
-					$('#quiz_end_btn').show();
-				}
-			})
-		}
+// 		$(function(){
+// 			$('#quiz_start_btn').click(function(){
+// 				if($('#quiz_end_btn').css("display")=="none"){
+// 					$('#quiz_start_btn').hide();
+// 					$('#quiz_end_btn').show();
+// 				}
+// 			})
+// 		}
 	</script>
 	<script>
 	</script>

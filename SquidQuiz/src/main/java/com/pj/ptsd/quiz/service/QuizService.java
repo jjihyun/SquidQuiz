@@ -6,6 +6,7 @@ import com.pj.ptsd.quiz.domain.MainGameInfo;
 import com.pj.ptsd.quiz.domain.Ox;
 import com.pj.ptsd.quiz.domain.PageData;
 import com.pj.ptsd.quiz.domain.QuizSearch;
+import com.pj.ptsd.user.domain.User;
 
 public interface QuizService {
 	public int getListCount();
@@ -20,7 +21,11 @@ public interface QuizService {
 	public List<Ox> printSearchAll(QuizSearch search);
 	//관리자 게임 시작/종료
 	public int quizGameModify(String quizGameStatus);
+	public int quizGameModifyEnd(String quizGameStatus);
 	//퀴즈 게임 등록
+	
+	//퀴즈 게임 참가
+	public int insertGameUser(User user);
 	
 	
 }

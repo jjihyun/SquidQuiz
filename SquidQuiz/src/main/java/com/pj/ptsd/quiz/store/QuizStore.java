@@ -15,10 +15,11 @@ public interface QuizStore {
 		public int deleteOxQuiz(int oxNo);
 		public List<Ox> selectAll(PageData ox);
 		public Ox selectOne(int oxNo);
-	//퀴즈 검색
+		//퀴즈 검색
 		public List<Ox> selectSearchAll(QuizSearch search);
 		//관리자 게임 시작/종료
 		public int updatequizGameStatus(String quizGameStatus);
+		public int updatequizGameEndStatus(String quizGameStatus);
 		//게임 등록
 		
 }
