@@ -16,6 +16,7 @@
 		<typeAlias type="com.pj.ptsd.exchange.domain.Exchange" alias="Exchange"/>
 		<typeAlias type="com.pj.ptsd.quiz.domain.Ox" alias="Ox"/>
 		<typeAlias type="com.pj.ptsd.board.domain.Board" alias="Board"/>
+		<typeAlias type="com.pj.ptsd.board.domain.Reply" alias="Reply"/>
 <!-- 		<typeAlias type="com.iei.spring.member.domain.Member" alias="Member"/> -->
 	</typeAliases>
 	

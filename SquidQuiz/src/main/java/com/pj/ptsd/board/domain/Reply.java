@@ -5,75 +5,94 @@ import java.sql.Date;
 public class Reply {
 	
 	private int replyNo;
-	private int BoardNo;
+	private int bNo;
 	private String replyContents;
-	private String replyWriter;
+	private String userId;
 	private Date rCreateDate;
 	private Date rUpdateDate;
-	private String rStatus;
+	
 	
 	public Reply()  {}
+
+	
+	
+
+	public Reply(int replyNo, int bNo, String replyContents, String userId, Date rCreateDate, Date rUpdateDate) {
+		super();
+		this.replyNo = replyNo;
+		this.bNo = bNo;
+		this.replyContents = replyContents;
+		this.userId = userId;
+		this.rCreateDate = rCreateDate;
+		this.rUpdateDate = rUpdateDate;
+	}
+
+
+
 
 	public int getReplyNo() {
 		return replyNo;
 	}
 
-	public void setReplyNo(int replyNo) {
-		this.replyNo = replyNo;
+
+	public int getbNo() {
+		return bNo;
 	}
 
-	public int getBoardNo() {
-		return BoardNo;
-	}
-
-	public void setBoardNo(int boardNo) {
-		BoardNo = boardNo;
-	}
 
 	public String getReplyContents() {
 		return replyContents;
 	}
 
-	public void setReplyContents(String replyContents) {
-		this.replyContents = replyContents;
+
+	public String getUserId() {
+		return userId;
 	}
 
-	public String getReplyWriter() {
-		return replyWriter;
-	}
-
-	public void setReplyWriter(String replyWriter) {
-		this.replyWriter = replyWriter;
-	}
 
 	public Date getrCreateDate() {
 		return rCreateDate;
 	}
 
-	public void setrCreateDate(Date rCreateDate) {
-		this.rCreateDate = rCreateDate;
-	}
 
 	public Date getrUpdateDate() {
 		return rUpdateDate;
 	}
 
+
+	public void setReplyNo(int replyNo) {
+		this.replyNo = replyNo;
+	}
+
+
+	public void setbNo(int bNo) {
+		this.bNo = bNo;
+	}
+
+
+	public void setReplyContents(String replyContents) {
+		this.replyContents = replyContents;
+	}
+
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+
+	public void setrCreateDate(Date rCreateDate) {
+		this.rCreateDate = rCreateDate;
+	}
+
+
 	public void setrUpdateDate(Date rUpdateDate) {
 		this.rUpdateDate = rUpdateDate;
 	}
 
-	public String getrStatus() {
-		return rStatus;
-	}
-
-	public void setrStatus(String rStatus) {
-		this.rStatus = rStatus;
-	}
 
 	@Override
 	public String toString() {
-		return "Reply [replyNo=" + replyNo + ", BoardNo=" + BoardNo + ", replyContents=" + replyContents
-				+ ", replyWriter=" + replyWriter + ", rCreateDate=" + rCreateDate + ", rUpdateDate=" + rUpdateDate
-				+ ", rStatus=" + rStatus + "]";
+		return "Reply [replyNo=" + replyNo + ", bNo=" + bNo + ", replyContents=" + replyContents + ", userId=" + userId
+				+ ", rCreateDate=" + rCreateDate + ", rUpdateDate=" + rUpdateDate + "]";
 	}
 }

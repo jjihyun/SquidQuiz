@@ -23,7 +23,7 @@
 	
 		<select id="selectOneBoard" resultMap="boardResultMap">
 			SELECT * FROM BOARD WHERE BOARD_NO = #{bNo }
-		</select>
+		</select>   
 		
 		<insert id="insertBoard" parameterType="Board">
 			INSERT INTO BOARD VALUES(SEQ_BOARD.NEXTVAL, #{bTitle }, #{bContents }, #{userId }, #{bFileName }, #{bFileRename }, #{bFilePath }, DEFAULT, DEFAULT)
@@ -41,12 +41,31 @@
 		</delete>
 
 
+		<resultMap type="Reply" id="replyResultMap">
+		<id property="replyNo" column="REPLY_NO" />
+		<result property="bNo" column="BOARD_NO"/>
+		<result property="replyContents" column="REPLY_CONTENTS"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="rCreateDate" column="R_CREATE_DATE"/>
+		<result property="rUpdateDate" column="R_UPDATE_DATE"/>
+	</resultMap>
+	
+	<select id="selectReplyList" resultMap="replyResultMap">
+		SELECT * FROM REPLY WHERE BOARD_NO = #{bNo } ORDER BY REPLY_NO DESC
+	</select>
+	
+	<insert id="insertReply" parameterType="Reply">
+		INSERT INTO REPLY VALUES(SEQ_REPLY.NEXTVAL, #{bNo}, #{replyContents}, #{userId}, SYSDATE, SYSDATE)
+	</insert>
 
-
-
-
-
-
-
-
+	<update id="updateReply" parameterType="Reply">
+		UPDATE REPLY SET REPLY_CONTENTS = #{replyContents}
+		WHERE BOARD_NO = #{bNo } AND REPLY_NO = #{replyNo } 
+	</update>
+	
+	<update id="deleteReply">
+		DELETE REPLY 
+		WHERE REPLY_NO = #{replyNo } 
+	</update>    
+	
 </mapper>
