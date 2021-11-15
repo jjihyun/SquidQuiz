@@ -22,7 +22,7 @@
 	<main id="main">
 		<div class="container">
 			<form action="qnaRegister.ptsd" method="post">
-				<input type="hidden" value="1" name="userNo">
+				<input type="hidden" value="${loginUser.userId }" name="userId">
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label" >제목</label>
 				  <input type="text" class="form-control" id="exampleFormControlInput1" name="qnaTitle" placeholder="제목을 입력해주세요!" pattern=".{1,100}" required>

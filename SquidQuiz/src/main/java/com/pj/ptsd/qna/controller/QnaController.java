@@ -1,8 +1,10 @@
 package com.pj.ptsd.qna.controller;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.qna.domain.PageInfo;
@@ -19,6 +22,7 @@ import com.pj.ptsd.qna.domain.Qna;
 import com.pj.ptsd.qna.domain.QnaPagination;
 import com.pj.ptsd.qna.domain.QnaSearch;
 import com.pj.ptsd.qna.service.QnaService;
+import com.pj.ptsd.user.domain.User;
 
 @Controller
 public class QnaController {
@@ -32,22 +36,24 @@ public class QnaController {
 			, @RequestParam(value="page",required=false) Integer page) {
 		int currentPage = (page!=null) ? page : 1 ;
 		int totalCount = 0;
-		String userId="user01"; 
 		HttpSession session = request.getSession();
-//				Integer.parseInt((String)(session.getAttribute("userNo")));
-		String adminType = "N";
-//				(String)session.getAttribute("adminType");
-		if(adminType=="Y") {
+		User loginUser = (User) session.getAttribute("loginUser");
+		String userId =	loginUser.getUserId();
+		char adminType = loginUser.getAdminType();
+		if(adminType=='Y') {
 			totalCount = service.getAllListCount();
-		}else if(adminType=="N") {
+		}else if(adminType=='N') {
 			totalCount = service.getOwnListCount(userId);
+		}else {
+			model.addAttribute("qList", null);
+			return "qna/qnaList";
 		}
 		PageInfo pi = QnaPagination.getPageInfo(currentPage, totalCount);
-		
+		List<Qna> qList = null;
 		try {
-			List<Qna> qList = null;
 			
-			if (adminType == "Y") {
+			
+			if (adminType == 'Y') {
 				qList = service.printAllQna(pi);
 				
 			} else {
@@ -115,36 +121,27 @@ public class QnaController {
 		return "qna/qnaWriteForm";
 	}
 	@RequestMapping(value="qnaRegister.ptsd", method=RequestMethod.POST)
-	public String registerQna(Model model,@ModelAttribute Qna qna) {
+	public void registerQna(ModelAndView mv,@ModelAttribute Qna qna
+			,HttpServletResponse response) {
 		try {
-			//테스트용 유저넘버
-			qna.setUserId("user01");
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
 			int result = service.registerQna(qna);
 			if (result > 0) {
-				
-				return "redirect:qnaListView.ptsd";
+				out.println("<script>alert('문의글이 게시되었습니다. 빠른 시일내에 답변드리겠습니다.\n 감사합니다.');location.href = 'qnaListView.ptsd';</script>");
 			} else {
-				model.addAttribute("msg", "문의 상세 조회 실패");
-				return "qna/qnaError";
+				out.println("<script>alert('문의글이 게시에 실패하였습니다. 다시 시도해주세요.');</script>");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", e.toString());
-			return "qna/qnaError";
+			mv.addObject("msg", e.toString()).setViewName("common/errerPage");
 		}
 		
 	}
-	//문의답변(관리자)
-//	@RequestMapping(value="modifyQnaView.ptsd")
-//	public String modifyQnaView(Model model,@RequestParam("qnaNo") int qnaNo) {
-//	
-//			Qna qna = service.printOneQna(qnaNo);
-//			model.addAttribute("qna", qna);
-//				return "qna/qnaUpdate";
-	
-//	}
+	//문의답변
 	@RequestMapping(value="modifyAnswer.ptsd", method=RequestMethod.POST)
-	public String modifyQna(Model model,@ModelAttribute Qna qna) {
+	public String modifyQna(Model model,@ModelAttribute Qna qna
+			) {
 		try {
 			int result = service.modifyAnswer(qna);
 			if (result>0) {
@@ -162,19 +159,21 @@ public class QnaController {
 	}
 	//문의 삭제 (회원)
 	@RequestMapping(value="removeQna.ptsd", method=RequestMethod.GET)
-	public String remove(Model model,HttpServletRequest request,@RequestParam("qnaNo") int qnaNo) {
+	public void remove(ModelAndView mv,HttpServletRequest request
+			,@RequestParam("qnaNo") int qnaNo
+			,HttpServletResponse response) {
 		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
 			int result = service.removeQna(qnaNo);
 			if (result > 0) {
-				return "redirect:qnaListView.ptsd";
+				out.println("<script>alert('문의글이 삭제되었습니다.');location.href = 'qnaListView.ptsd';</script>");
 			} else {
-				model.addAttribute("msg", "문의 삭제 실패");
-				return "qna/qnaError";
+				out.println("<script>alert('문의글 삭제 실패. 관리자에게 문의하세요.');location.href ='qnaListView.ptsd';</script>");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", e.toString());
-			return "qna/qnaError";
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
 	}
 	
