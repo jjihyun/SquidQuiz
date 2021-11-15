@@ -12,6 +12,7 @@ import com.pj.ptsd.quiz.domain.PageData;
 import com.pj.ptsd.quiz.domain.QuizSearch;
 import com.pj.ptsd.quiz.service.QuizService;
 import com.pj.ptsd.quiz.store.QuizStore;
+import com.pj.ptsd.user.domain.User;
 @Service
 public class QuizServiceImpl implements QuizService{
 	@Autowired
@@ -69,7 +70,20 @@ public class QuizServiceImpl implements QuizService{
 		return result;
 	}
 
-	//게임등록
+	@Override
+	public int quizGameModifyEnd(String quizGameStatus) {
+		int result = store.updatequizGameEndStatus(quizGameStatus);
+		return result;
+	}
 
+
+	//게임등록
+	
+	//user
+	@Override
+	public int insertGameUser(User user) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }
