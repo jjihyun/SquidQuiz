@@ -19,6 +19,7 @@
 		<typeAlias type="com.pj.ptsd.report.domain.Report" alias="Report"/>
 		<typeAlias type="com.pj.ptsd.report.domain.ReplyReport" alias="ReplyReport"/>
 		<typeAlias type="com.pj.ptsd.quiz.domain.MainGameInfo" alias="MainGameInfo"/>
+		<typeAlias type="com.pj.ptsd.board.domain.Reply" alias="Reply"/>
 <!-- 		<typeAlias type="com.iei.spring.member.domain.Member" alias="Member"/> -->
 	</typeAliases>
 	

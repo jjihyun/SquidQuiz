@@ -66,26 +66,26 @@ public class BoardStoreLogic implements BoardStore {
 
 	@Override
 	public List<Reply> selectAllReply(int bNo) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Reply> rList = sqlSession.selectList("boardMapper.selectReplyList", bNo);
+		return rList;
 	}
 
 	@Override
 	public int insertReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.insert("boardMapper.insertReply", reply);
+		return result;
 	}
 
 	@Override
 	public int updateReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.update("boardMapper.updateReply", reply);
+		return result;
 	}
 
 	@Override
 	public int deleteReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.update("boardMapper.deleteReply",reply);
+		return result;
 	}
 
 }

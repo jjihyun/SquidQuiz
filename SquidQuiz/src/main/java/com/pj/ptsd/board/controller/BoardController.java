@@ -2,11 +2,14 @@ package com.pj.ptsd.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,15 +18,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonIOException;
 import com.pj.ptsd.board.domain.Board;
 import com.pj.ptsd.board.domain.PageInfo;
 import com.pj.ptsd.board.domain.Pagination;
+import com.pj.ptsd.board.domain.Reply;
 import com.pj.ptsd.board.service.BoardService;
+import com.pj.ptsd.user.domain.User;
 
 
 
@@ -88,7 +95,7 @@ public class BoardController {
 		return bFileName;
 	}
 	
-	//게시글 목록
+	//게시글 목록 / 페이징
 	@RequestMapping(value="boardList.ptsd", method=RequestMethod.GET)
 	public ModelAndView boardListView(
 			ModelAndView mv
@@ -116,7 +123,7 @@ public class BoardController {
 		Board board = service.printOne(bNo);
 		if(board != null) {
 			mv.addObject("board", board);
-			mv.setViewName("board/boardListDetail");
+			mv.setViewName("board/boardDetail");
 		}else {
 			mv.addObject("msg", "게시물 조회 실패");
 			mv.setViewName("common/errorPage");
@@ -128,8 +135,8 @@ public class BoardController {
 	@RequestMapping(value="boardModify.ptsd")
 	public ModelAndView boardModifyView(
 			ModelAndView mv
-			,@RequestParam("boardNo") int boardNo) {
-		Board board = service.printOne(boardNo);
+			,@RequestParam("bNo") int bNo) {
+		Board board = service.printOne(bNo);
 		if(board != null) {
 			mv.addObject("board", board);
 			mv.setViewName("board/boardUpdate");
@@ -202,8 +209,68 @@ public class BoardController {
 		}
 	}
 	
+	//댓글 작성
+	@ResponseBody
+	@RequestMapping(value="addReply.ptsd", method=RequestMethod.POST)
+	public String addReply(
+			@ModelAttribute Reply reply , HttpSession session) {
+		User loginUser = (User)session.getAttribute("loginUser");
+		reply.setUserId(loginUser.getUserId());
+		int result = service.registerReply(reply);
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
 	
+	//댓글 목록
+		@RequestMapping(value="replyList.ptsd", method=RequestMethod.GET)
+		public void getReplyList(
+				@RequestParam("bNo")int bNo, HttpServletResponse response) {
+			List<Reply> rList = service.printAllReply(bNo);
+			//JSONobject
+			if(!rList.isEmpty()) {
+				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+				try {
+					gson.toJson(rList, response.getWriter());
+				} catch (JsonIOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}else {
+					System.out.println("데이터가 없습니다");
+			}
+		}
+	
+		//댓글 수정
+		@ResponseBody
+		@RequestMapping(value="modifyReply.ptsd", method=RequestMethod.POST)
+		public String modifyReply(@ModelAttribute Reply reply) {
+			int result = service.modifyReply(reply);
+			if(result > 0 ) {
+				return "success";
+			}else {
+				return "fail";
+			}
+		}
+		
+		//댓글 삭제
+		@ResponseBody
+		@RequestMapping(value = "deleteReply.ptsd", method=RequestMethod.GET)
+		public String deleteReply(@ModelAttribute Reply reply) {
+			int result = service.removeReply(reply);
+			if(result > 0 ) {
+				return "success";
+			}else {
+				return "fail";
+			}
+		}	
 }
+
 	
 	
 	

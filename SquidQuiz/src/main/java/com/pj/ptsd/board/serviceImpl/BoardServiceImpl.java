@@ -30,14 +30,12 @@ public class BoardServiceImpl implements BoardService {
 //		int totalCount = store.selectListCount();
 		return 0;
 	}
-	
 
 	@Override
 	public Board printOne(int bNo) {
 		Board board = store.printOne(bNo);
 		return board;
 	}
-
 	
 	@Override
 	public List<Board> printSearchAll(Search search) {
@@ -64,33 +62,26 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public Board printreply(int replyNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Reply> printAllReply(int bNo) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Reply> rList = store.selectAllReply(bNo);
+		return rList;
 	}
 
 	@Override
 	public int registerReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.insertReply(reply);
+		return result;
 	}
 
 	@Override
 	public int modifyReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.updateReply(reply);
+		return result;
 	}
 
 	@Override
 	public int removeReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = store.deleteReply(reply);
+		return result;
 	}
-
 }

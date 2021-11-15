@@ -9,6 +9,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- <link rel="stylesheet" href="/resources/css/app.css"> -->
 </head>
+
+
 <body>
 <script>
 		//자바스크립트로 헤더 파일 받아오는 소스 
@@ -18,51 +20,45 @@
 </script>
 <jsp:include page="../../../resources/html/header.jsp"/>
 	<br style="clear:both">
-	<h1 align="center"></h1>
+	<h1 align="center">게시글 목록보기</h1>
 	<br><br>
-	<br>
 	<table align="center" width="600" border="1" cellspacing="0" style="clear:right;">
 	<tr>
-		<th>번호</th>
-		<th width="300">제목</th>
-		<th>작성자</th>
-		<th>날짜</th>
-		
+		<th align="center">번호</th>
+		<th align="center" width="300">제목</th>
+		<th align="center">작성자</th>
+		<th align="center">날짜</th>
+		<th align="center">첨부파일</th>
 	</tr>
-	
-		<c:if test="${ empty nList }">
-<!-- 			<tr> -->
-<!-- 				<td colspan="5" align="center">조회된 정보가 없습니다.</td> -->
-<!-- 			</tr> -->
-		</c:if>
-<%-- 		<c:if test="${not empty nList }"> --%>
-		
 		<c:forEach items="${bList }" var="board">
 			<tr>
 				<td align="center">${board.bNo }</td>
 				
 				<td align="center">
-					<c:url var="bDetail" value="boardDetail.ptsd">
-						<c:param name="boardNo" value="${board.bNo }"></c:param>
+					<c:url var="boardDetail" value="boardDetail.ptsd">
+						<c:param name="bNo" value="${board.bNo }"/>
 					</c:url>
-					<a href="${bDetail }">${board.bTitle }</a>
+					<a href="${boardDetail }">${board.bTitle }</a>
 				</td>
 				
 				<td align="center">${board.userId }</td>
 				
 				<td align="center">${board.bCreateDate }</td>
-				
+				<td align="center">
+					<c:if test="${!empty board.bFileName }">O</c:if>
+					<c:if test="${ empty board.bFileName }">X</c:if>
+				</td>
 			</tr>
 		</c:forEach>
 		    <tr>
-		    	<td align="center" colspan="4">
+		    	<td align="center" colspan="5">
 					<a href="boardWrite.ptsd">글쓰기</a>
 				</td>
 			</tr>
 		
-<%-- 		</c:if> --%>
+	
 		<tr align="center" height="20">
-			<td colspan="4">
+			<td colspan="6">
 				<c:url var="before" value="boardList.ptsd">
 					<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
 				</c:url>
@@ -94,6 +90,7 @@
 				</c:if>
 			</td>
 		</tr>
+	</table>
 </body>
 </html>
 
