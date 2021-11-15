@@ -4,10 +4,11 @@ import java.util.Date;
 
 //고정 기부처 관련 도메인
 public class DonationRecord {
-	private int donationNo;
-	private int donationPrice;
-	private int donationSumPrice;
-	private Date donationDate;
+	
+	private int donationNo;  //회차별 번호
+	private int donationPrice;  //회차별 기부금
+	private int donationSumPrice;  //전체 기부금 합
+	private Date donationDate; //회차별 기부날짜
 	
 	public DonationRecord() {}
 

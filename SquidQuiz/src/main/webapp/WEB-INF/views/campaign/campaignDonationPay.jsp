@@ -42,7 +42,7 @@
 <body>
 	<jsp:include page="../../../resources/html/header.jsp"/><br><hr><br><br>
 	<div id="first">
-		<form action="" method="post">
+		<form action="donateCampaign.ptsd" method="post">
 			<h1 align="center">${campaign.campaignTitle }</h1>
 			<h4>${campaign.campaignTitle }</h4>
 			<img src="../../../resources/campaignUpload/${campaign.cFileName }" alt="사진 없음"  align="center"
