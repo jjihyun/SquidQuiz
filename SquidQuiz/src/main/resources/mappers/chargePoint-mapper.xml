@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chargePointMapper">
+	<resultMap type="ChargePoint" id="chargePointResultMap">
+		<id property="pointNo" column="POINT_NO"></id>
+		<result property="userNo" column="USER_NO"></result>
+		<result property="chargePoint" column="CHARGE_POINT"></result>
+		<result property="pointDate" column="POINT_DATE"></result>
+	</resultMap>
+	<resultMap type="Exchange" id="exchangeResultMap">
+		<id property="exchangeNo" column="EXCHANGE_NO"></id>
+		<result property="userNo" column="USER_NO"></result>
+		<result property="exchangeEnrollDate" column="EXCHANGE_ENROLLDATE"></result>
+		<result property="exchangeDate" column="EXCHANGE_DATE"></result>
+		<result property="exchangeStatus" column="EXCHANGE_PROCESSING_STATUS"></result>
+		<result property="exchangeMoney" column="EXCHANGE_MONEY"></result>
+		<result property="account" column="EXCHANGE_BANK_ACCOUNT"></result>
+		<result property="exchangeBank" column="EXCHANGE_BANK"></result>
+		<result property="userName" column="USER_NAME"></result>
+		<result property="userId" column="USER_ID"></result>
+	</resultMap>
+	
+	<!-- 충전포인트내역 리스트 조회 -->
+	<select id="selectChargePoint" parameterType="_int" resultMap="chargePointResultMap">
+		SELECT POINT_NO, CHARGE_POINT, POINT_DATE FROM CHARGE_POINT WHERE USER_NO = #{userNo }
+	</select>
+	
+	<!-- 환전내역 리스트 조회 -->
+	<select id="selectExchange" parameterType="string" resultMap="exchangeResultMap">
+		SELECT EXCHANGE_NO, EXCHANGE_BANK_ACCOUNT, EXCHANGE_MONEY, EXCHANGE_ENROLLDATE, EXCHANGE_PROCESSING_STATUS FROM EXCHANGE WHERE USER_ID = #{userId }
+	</select>
+	
+	<!-- 환전내역 리스트 갯수 조회 -->
+	<select id="selectEListCount" resultType="_int">
+		SELECT COUNT(*) FROM EXCHANGE
+	</select>
+	
+	<!-- 충전포인트내역 리스트 갯수 조회 -->
+	<select id="selectCListCount" resultType="_int">
+		SELECT COUNT(*) FROM CHARGE_POINT
+	</select>
+
+</mapper>

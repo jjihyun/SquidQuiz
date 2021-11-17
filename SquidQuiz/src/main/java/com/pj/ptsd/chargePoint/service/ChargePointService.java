@@ -3,9 +3,18 @@ package com.pj.ptsd.chargePoint.service;
 import java.util.List;
 
 import com.pj.ptsd.chargePoint.domain.ChargePoint;
+import com.pj.ptsd.chargePoint.domain.PageInfo;
+import com.pj.ptsd.exchange.domain.Exchange;
+import com.pj.ptsd.user.domain.User;
 
 public interface ChargePointService {
 	
-	public List<ChargePoint> printAll(); 
+	public List<ChargePoint> printChargeList(PageInfo pi, int userNo);
+	public List<Exchange> printExchangeList(PageInfo pi, String userId);
+	//전체 게시물 개수 조회
+	public int getAllEListCount();
+	public int getAllCListCount();
+	
+	public User printOne(String uId);
 
 }

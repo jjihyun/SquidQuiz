@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.pj.ptsd.board.domain.Board;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
-import com.pj.ptsd.campaign.domain.PageInfo;
+import com.pj.ptsd.exchange.domain.Exchange;
+import com.pj.ptsd.user.domain.ChargePoint;
+import com.pj.ptsd.user.domain.PageInfo;
 import com.pj.ptsd.user.domain.User;
 import com.pj.ptsd.user.service.UserService;
 import com.pj.ptsd.user.store.UserStore;
@@ -67,9 +69,18 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<Board> printBoardList(PageInfo pi, int userNo) {
-		return null;
+	public List<Board> printBoardList(PageInfo pi, String userId) {
+		List<Board> bList = store.selectBoardList(pi, userId);
+		return bList;
 	}
+
+	//전체 게시물 개수
+	@Override
+	public int getBListCount() {
+		int result = store.selectBListCount(); 
+		return result;
+	}
+
 
 	//포인트 출력
 	@Override
@@ -77,6 +88,8 @@ public class UserServiceImpl implements UserService{
 		User user = store.selectOne(uId);
 		return user;
 	}
+
+	
 
 
 

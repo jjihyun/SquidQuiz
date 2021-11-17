@@ -136,6 +136,7 @@
 					<hr>
 					<br> <br>
 					<!-- 게시판 -->
+					
 					<div align="center">
 						<div class="board">
 							<div class="board flex-fill">
@@ -147,71 +148,69 @@
 								<table class="table table-hover my-0">
 									<thead>
 										<tr>
-											<th>Name</th>
-											<th class="d-none d-xl-table-cell">Start Date</th>
-											<th class="d-none d-xl-table-cell">End Date</th>
-											<th>Status</th>
-											<th class="d-none d-md-table-cell">Assignee</th>
+											<th>게시글 번호</th>
+											<th class="d-none d-xl-table-cell">제목</th>
+											<th class="d-none d-xl-table-cell">날짜</th>
 										</tr>
 									</thead>
+									<c:if test="${bList eq null }">
+											<tbody align="center">
+												<tr align="center">
+													<td colspan="9"><span>조회된 게시글이 없습니다.</span></td>
+												</tr>
+											</tbody>
+										</c:if>
+									<c:forEach items="${bList }" var="bList">
 									<tbody>
 										<tr>
-											<td>Project Apollo</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Vanessa Tucker</td>
-										</tr>
-										<tr>
-											<td>Project Fireball</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-danger">Cancelled</span></td>
-											<td class="d-none d-md-table-cell">William Harris</td>
-										</tr>
-										<tr>
-											<td>Project Hades</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Sharon Lessman</td>
-										</tr>
-										<tr>
-											<td>Project Nitro</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-warning">In progress</span></td>
-											<td class="d-none d-md-table-cell">Vanessa Tucker</td>
-										</tr>
-										<tr>
-											<td>Project Phoenix</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">William Harris</td>
-										</tr>
-										<tr>
-											<td>Project X</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Sharon Lessman</td>
-										</tr>
-										<tr>
-											<td>Project Romeo</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Christina Mason</td>
-										</tr>
-										<tr>
-											<td>Project Wombat</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-warning">In progress</span></td>
-											<td class="d-none d-md-table-cell">William Harris</td>
+											<td>${bList.bNo }</td>
+											<td>${bList.bTitle }</td>
+											<td>${bList.bCreateDate }</td>
 										</tr>
 									</tbody>
+									</c:forEach>
+									<tr align="center" height="20">
+											<td colspan="9">
+											<c:url var="before" value="mypageMyHome.ptsd">
+											<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
+										</c:url>
+										<c:if test="${pi.currentPage <= 1 }">
+											[이전]
+										</c:if>
+										<c:if test="${pi.currentPage > 1 }">
+											<a id="title-a" href="${before }">[이전]</a>
+										</c:if>
+										<!-- 검색시 페이징 처리 X -->
+										<c:if test="${pi.startNavi eq null }">
+												<font color="black" size="4">[1]</font>
+										</c:if>
+										<c:if test="${pi.startNavi ne null }">
+										<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
+											
+											<c:url var="pagination" value="mypageMyHome.ptsd">
+												<c:param name="page" value="${p }"></c:param>
+											</c:url>
+											
+											<c:if test="${p eq pi.currentPage }">
+												<font color="black" size="4">[${p }]</font>
+											</c:if>
+											<c:if test="${p ne pi.currentPage }">
+												<a id="title-a" href="${pagination }">${p }</a>&nbsp;
+											</c:if>
+										</c:forEach>
+										
+										<c:url var="after" value="mypageMyHome.ptsd">
+											<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
+										</c:url>
+										<c:if test="${pi.currentPage >= pi.maxPage }">
+											[다음]
+										</c:if>
+										<c:if test="${pi.currentPage < pi.maxPage }">
+											<a id="title-a" href="${after }">[다음]</a>
+										</c:if>
+										</c:if>
+										</td>
+										</tr>
 								</table>
 							</div>
 						</div>

@@ -1,4 +1,4 @@
-package com.pj.ptsd.user.domain;
+package com.pj.ptsd.chargePoint.domain;
 
 
 public class Pagination {
