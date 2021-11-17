@@ -11,6 +11,7 @@ import com.pj.ptsd.campaign.domain.DonationRecord;
 import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.campaign.service.CampaignService;
 import com.pj.ptsd.campaign.store.CampaignStore;
+import com.pj.ptsd.user.domain.User;
 
 @Service
 public class CampaignServiceImpl implements CampaignService{
@@ -111,11 +112,20 @@ public class CampaignServiceImpl implements CampaignService{
 		int point = store.selectPointCount(userId);
 		return point;
 	}
-
 	@Override
-	public int modifyCampaignMoney(int moneySum) {
-		int updateMoney = store.updateCampaignMoney(moneySum);
-		return updateMoney;
+	public int modifyMyPoint(User user) {
+		int result = store.updateMyPoint(user);
+		return result;
+	}
+	@Override
+	public int printCampaignNowPoint(int cNo) {
+		int nowPoint = store.selectCampaignNowPoint(cNo);
+		return nowPoint;
+	}
+	@Override
+	public int modifyCampaignMoney(Campaign campaign) {
+		int result = store.updateCampaignMoney(campaign);
+		return result;
 	}
 
 

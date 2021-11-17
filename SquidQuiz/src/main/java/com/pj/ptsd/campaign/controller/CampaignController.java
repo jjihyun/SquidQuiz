@@ -38,6 +38,7 @@ import com.pj.ptsd.campaign.domain.DonationRecord;
 import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.campaign.service.CampaignService;
 import com.pj.ptsd.quiz.domain.MainGameInfo;
+import com.pj.ptsd.user.domain.User;
 
 @Controller
 public class CampaignController {
@@ -92,8 +93,6 @@ public class CampaignController {
 				model.addAttribute("msg", "캠페인 조회 실패");
 				return "common/errorPage";
 			}	
-			
-		
 		} catch(Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", e.toString());
@@ -131,7 +130,23 @@ public class CampaignController {
 	//캠페인 고정기부처 상세조회(자세히 보기)
 	@RequestMapping(value="campaignStaticDetail.ptsd", method=RequestMethod.GET)
 	public String printStaticOneCampaign(Model model) {
-		return "campaign/campaignStaticDetail";
+		try {
+			//메인게임테이블에 값이 있는지 체크. null값 방지 위해서.
+			int dRecord = service.printAllDonationRecord();
+			if(dRecord>0) { 
+				//누적모금액
+				int dSumPrice = service.printDonationRecord();
+				model.addAttribute("dSumPrice", dSumPrice);
+			}else {
+				int dSumPrice = 0;
+				model.addAttribute("dSumPrice", dSumPrice);
+			}
+			return "campaign/campaignStaticDetail";
+			
+		}catch(Exception e) {
+			return "common/erroPage";
+		}
+//		return "campaign/campaignStaticDetail";
 	}
 	
 	//캠페인 기부 목록 조회(퀴즈 참여 모금액 후원 내역)
@@ -198,9 +213,12 @@ public class CampaignController {
 	
 	//캠페인 기부 페이지
 	@RequestMapping(value="donationPayView.ptsd", method=RequestMethod.GET)
-	public String showDonationPay(@RequestParam("campaignNo") int campaignNo, Model model ) {
+	public String showDonationPay(@RequestParam("campaignNo") int campaignNo, Model model
+	/* , @RequestParam("userId") String userId */ ) {
 		Campaign camp = service.printCampaignDetail(campaignNo);
+//		int myPoint = service.printPointCount(userId);
 		if(camp!=null) {
+//			model.addAttribute("point", myPoint);
 			model.addAttribute("campaign", camp);
 			return "campaign/campaignDonationPay";
 		} else {
@@ -211,31 +229,45 @@ public class CampaignController {
 	//캠페인에 기부하기
 	@ResponseBody
 	@RequestMapping(value="donateCampaign.ptsd", method=RequestMethod.POST)
-	public String registerDonation(@ModelAttribute CampaignRecord cRecord, @RequestParam("campaignNo") int campaignNo
+	public String registerDonation(@ModelAttribute CampaignRecord cRecord
 			, Model model, HttpServletResponse response, @RequestParam("userId") String userId
-			, @RequestParam("cRecordPoint") int cPoint, @ModelAttribute Campaign campaign) throws Exception {
+			,@RequestParam("campaignNo") int cNo
+			, @RequestParam("cRecordPoint") int cPoint, @ModelAttribute Campaign campaign
+			,@ModelAttribute User user) throws Exception {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		//PrintWriter out = response.getWriter();
 		
-		int point = service.printPointCount(userId);
-		if(point>cPoint) {
+		//내가 가지고 있는 포인트 값 조회
+		int myPoint = service.printPointCount(userId);
+		if(myPoint>=cPoint) {  //가지고 있는 포인트가 선택한 포인트보다 크거나 같을 경우
 			System.out.println("충분한 포인트가 있습니다.");
 			// 캠페인 기부 등록(마이페이지에서 확인 가능)
 			int result = service.registerCampaignRecord(cRecord);
 			
-			int nowMoney = campaign.getcNowAmount();
-			int moneySum = nowMoney+cPoint;
-			int updateCamp = service.modifyCampaignMoney(moneySum);
-			System.out.println("선택한 포인트 값  : "+cPoint);
-			System.out.println("기부금 업데이트 값 ; "+moneySum);
-			System.out.println("updateCamp값 ; "+updateCamp);
+			//가지고 있는 포인트 업데이트(감소)
+			System.out.println("유저 보유 포인트 :"+myPoint); 
+			int updatePoint = myPoint-cPoint;
+			System.out.println("업데이트할 나의 포인트  : "+ updatePoint);
+			user.setPoint(updatePoint);
+			int myPointResult = service.modifyMyPoint(user);
+			System.out.println("업데이트 여부(나의 포인트)(1이면 성공) : "+myPointResult);
 			
-			if(result>0 && updateCamp>0) {
+			//캠페인 현재 기부금 업데이트
+			int cNowMoney = service.printCampaignNowPoint(cNo);
+			System.out.println("\n캠페인 현재 기부금 : "+cNowMoney);
+			//int moneySum = cNowMoney+cPoint;
+			campaign.setcNowAmount(cNowMoney+cPoint);
+			System.out.println("선택한 포인트 값  : "+cPoint);
+			System.out.println("기부금 업데이트할 값 ; "+(cNowMoney+cPoint));
+			int updateCampaignResult = service.modifyCampaignMoney(campaign);
+			System.out.println("updateCamp값(1이면 성공) ; "+updateCampaignResult);
+			
+			if(result>0 && myPointResult>0) {
 				return "<script>alert('donate success.');location.href='campaignList.ptsd';</script>";
 			} else {
 				model.addAttribute("msg", "기부하기 실패");
-				return "<script language='javascript'>alert('기부하기 실패.');location.href='common/errorPage';</script>common/errorPage";
+				return "<script language='javascript'>alert('failed.');location.href='common/errorPage';</script>common/errorPage";
 			}
 		} else {
 			System.out.println("충분한 포인트가 없습니다.");
@@ -243,11 +275,6 @@ public class CampaignController {
 			return "<script>alert('충분한 포인트가 없습니다. 포인트를 충전해주세요.');location.href='campaignList.ptsd';</script>";
 		}
 
-	}
-	
-	//캠페인 기부 목록 조회(마이페이지)
-	public String printMyCampaignRecord() {
-		return "";
 	}
 	
 	//캠페인 작성 페이지
@@ -373,5 +400,9 @@ public class CampaignController {
 		return "";
 	}
 
+	//캠페인 기부 목록 조회(마이페이지)
+	public String printMyCampaignRecord() {
+		return "";
+	}
 		
 }

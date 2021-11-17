@@ -44,6 +44,7 @@
 	<div id="first">
 		<form action="donateCampaign.ptsd" method="post">
 			<input type="hidden" value="${loginUser.userId }" name="userId">
+			<%-- 보유하고 있는 포인트 : ${point } --%>
 			<input type="hidden" value="${campaign.campaignNo }" name="campaignNo">
 			<input type="hidden" value="${campaign.campaignName }" name="campaignName">
 			
