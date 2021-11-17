@@ -10,7 +10,7 @@ public interface ExchangeService {
 	//환전신청 전체 목록 조회 (관리자)
 	public List<Exchange> printAllExchange(PageInfo pi);
 	//환전신청 회원정보로 조회 ( 회원 )
-	public List<Exchange> printOwnExchange(PageInfo pi, int userNo);
+	public List<Exchange> printOwnExchange(PageInfo pi, String userId);
 	//search by Id
 	public List<Exchange> printSearchExchange(Search search);
 	//환전신청(등록, 회원)
@@ -21,5 +21,5 @@ public interface ExchangeService {
 	//전체 게시물 개수 조회
 	public int getAllListCount();
 	//회원 게시물 개수 조회
-	public int getOwnListCount(int userNo);
+	public int getOwnListCount(String userId);
 }

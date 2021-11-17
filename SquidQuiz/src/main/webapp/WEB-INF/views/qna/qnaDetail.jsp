@@ -59,9 +59,16 @@
    							   </div>
    							   </td>
 						    </tr>
+						    
 						    <tr>
 						      <th scope="row">답변</th>
-						      <c:if test="${qna.qnaAnswer eq null }">
+						      <c:if test="${qna.qnaAnswer eq null and loginUser.adminType eq 'N'.charAt(0) }">
+						      	<td>
+						      		빠른 시일 내에 답변드리겠습니다. 조금만 기다려주세요!
+						      	</td>
+						      </c:if>
+						      
+						      <c:if test="${qna.qnaAnswer eq null and loginUser.adminType eq 'Y'.charAt(0) }">
 						    	  <td colspan="2">
 						    	   <textarea class="form-control"  rows="5" name="qnaAnswer" placeholder="답변을 작성해주세요." required></textarea>
 						      	 </td>
@@ -83,6 +90,7 @@
 								</td>
 							</c:if>
 						    </tr>
+						 
 						  </tbody>
 						</table>
 					</div>

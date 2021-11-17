@@ -27,8 +27,10 @@ public class ExchangeStoreLogic implements ExchangeStore{
 	}
 	//회원 정보로 조회
 	@Override
-	public List<Exchange> selectOwnExchange(PageInfo pi, int userNo) {
-		List<Exchange> eList = sqlSession.selectList("exchangeMapper.selectOwnExchange",userNo);
+	public List<Exchange> selectOwnExchange(PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		List<Exchange> eList = sqlSession.selectList("exchangeMapper.selectOwnExchange",userId,rowBounds);
 		return eList;
 	}
 	//아이디로 Search
@@ -40,8 +42,16 @@ public class ExchangeStoreLogic implements ExchangeStore{
 	//등록
 	@Override
 	public int insertExchange(Exchange exchange) {
-		int result = sqlSession.insert("exchangeMapper.insertExchange", exchange);
+		
+		int result = 0;
+		int result1 = sqlSession.update("exchangeMapper.subtractUserPoint", exchange);
+		if (result1>0) {
+			result = sqlSession.insert("exchangeMapper.insertExchange", exchange);
+		}else {
+			return result1;
+		}
 		return result;
+		
 	}
 	//상태 수정
 	@Override
@@ -55,8 +65,8 @@ public class ExchangeStoreLogic implements ExchangeStore{
 		return result;
 	}
 	@Override
-	public int selectOwnListCount(int userNo) {
-		int result = sqlSession.selectOne("exchangeMapper.selectOwnListCount", userNo);
+	public int selectOwnListCount(String userId) {
+		int result = sqlSession.selectOne("exchangeMapper.selectOwnListCount", userId);
 		return result;
 	}
 
