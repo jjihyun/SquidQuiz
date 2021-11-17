@@ -23,6 +23,9 @@
 		<typeAlias type="com.pj.ptsd.quiz.domain.MainGameInfo" alias="MainGameInfo"/>
 		<typeAlias type="com.pj.ptsd.board.domain.Reply" alias="Reply"/>
 <!-- 		<typeAlias type="com.iei.spring.member.domain.Member" alias="Member"/> -->
+<!-- 		<typeAlias type=""/> -->
+
+
 	</typeAliases>
 	
 	<mappers>

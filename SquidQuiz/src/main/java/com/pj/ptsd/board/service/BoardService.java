@@ -20,6 +20,7 @@ public interface BoardService {
 	public int removeBoard(int bNo);
 	
 	public List<Reply> printAllReply(int bNo);
+//	public int registerReplyreport(Replyreport replyport);
 	public int registerReply(Reply reply);
 	public int modifyReply(Reply reply);
 	public int removeReply(Reply reply);

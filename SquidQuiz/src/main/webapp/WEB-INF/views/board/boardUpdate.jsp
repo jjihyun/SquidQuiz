@@ -9,7 +9,8 @@
 <jsp:include page="../../../resources/html/header.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/css/bootsrap.min.css">
-<script src="/ckeditor5/ckeditor.js"></script>
+<script language="javascript" src="/ckeditor/ckeditor.js"></script>
+<script src="/resources/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 	<br><br>
@@ -37,13 +38,25 @@
 				<input type="reset" value="취소">
 		</form>
 	</div>
+	
+	
 	<script>
-	 ClassicEditor.create(document.querySelector('#bContents'),{
-		 language: {ui:'ko', content:'ko'}
-	 })
-	 .catch(error => {
-		 console.error(error);
-	 });
-	</script>
+	CKEDITOR.replace( 'bContents', {
+		 width:'100%',
+         height:'400px',
+	filebrowserImageUploadUrl: "${path}/boardck.ptsd" 
+	}); 
+	
+	
+	
+//  <script> 
+// 	 ClassicEditor.create(document.querySelector('#bContents'),{
+// 		 language: {ui:'ko', content:'ko'}
+// 	 })
+// 	 .catch(error => {
+// 		 console.error(error);
+// 	 });
+
+	</script> 
 </body>
 </html>

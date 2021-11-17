@@ -9,7 +9,8 @@
 <jsp:include page="../../../resources/html/header.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/css/bootsrap.min.css">
-<script src="/ckeditor5/ckeditor.js"></script>
+<script language="javascript" src="/ckeditor/ckeditor.js"></script>
+<script src="/resources/ckeditor/ckeditor.js"></script>
 	<style>
 		.ck-editor_editable{
 			min-height:300px;
@@ -80,10 +81,12 @@
 							$btnArea = $("<td width='80'>")
 							.append("<a href='#' onclick='modifyReply(this,"+bNo+","+data[i].replyNo+",\""+data[i].replyContents+"\");'>수정</a>")
 							.append("<a href='#' onclick='removeReply("+bNo+","+data[i].replyNo+")'>삭제</a>")
+							$btnAreb = $("<td colspan='4' align='right'>").append("<a href='#' onclick='reportReply(this,"+postNo+","+data[i].replyAllNo+",""+data[i].replyContents+"");'>신고</a>");
 							$tr.append($userId);
 							$tr.append($rContent);
 							$tr.append($rCreateDate);
 							$tr.append($btnArea);
+							$tr.append($btnAreb);
 							$tableBody.append($tr);
 									
 								}
@@ -142,7 +145,6 @@
 
 		</script>	
 		
-		
 		<h1 align="center">${board.userId } 님의 게시글</h1>
 			<input type="hidden" value="${board.bNo }" id="bNo">
 			<table align="center" width="600" border="1" >
@@ -176,8 +178,15 @@
 							<c:param name="bNo" value="${board.bNo }"></c:param>
 							<c:param name="fileName" value="${board.bFileRename }"></c:param>
 						</c:url>
-						<a href="${bModify }">수정</a>
-						<a href="${bDelete }">삭제</a>
+					
+						<!--로그인한 사용자가 볼수있는 항목-->
+						<c:if test ="${loginUser.userId eq board.userId }">
+			            	<a href="${bModify }">수정</a>
+			            	<a href="${bDelete }">삭제</a>
+<!-- 			            	<a 신고></a> -->
+			    		</c:if>
+    					<!-- 글목록은 본인이 아니어도 확인 가능하게 한다. -->
+    					<a href="boardList.ptsd">목록</a>
 					</td>
 				</tr>					
 			</table>
@@ -185,7 +194,7 @@
 		<table align="center" width="500" border="1">
 			<tr>
 				<td>
-					<textarea rows="3" cols="55" id="rContents"></textarea>
+					<textarea rows="3" cols="55" id="rContents" ></textarea>
 				</td>
 				<td><button id="rSubmit">등록하기</button>
 			</tr>
@@ -210,14 +219,12 @@
 // 			tmpStr=tmpStr.replaceAll("&amp;nbsp;"," ");
 // 			tmpStr=tmpStr.replaceAll("&amp;amp;","&");
 // 			document.getElementById('bContents').innerHTML=tmpStr;-->
-			
-		<script language="javascript">
-			$(".bContents").each(function() {
-                var editor = CKEDITOR.instances[bContents + nCkeditorNum];
-                strData = editor.getData();
-                editor.setData(strData.replace(/, /g, "!^"));
-                nCkeditorNum++;
-            });
-		</script>
+<!--   			<script>  
+// 				CKEDITOR.replace('bContents', {
+// 					width : '100%',
+// 					height : '400px',
+// 					filebrowserImageUploadUrl : "${path}/boardck.ptsd"
+// 				});
+ 			</script-->
 </body>
 </html>
