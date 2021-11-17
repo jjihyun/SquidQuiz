@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import com.pj.ptsd.board.domain.Board;
 import com.pj.ptsd.campaign.domain.Campaign;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
-import com.pj.ptsd.campaign.domain.PageInfo;
+import com.pj.ptsd.exchange.domain.Exchange;
+import com.pj.ptsd.user.domain.ChargePoint;
+import com.pj.ptsd.user.domain.PageInfo;
 import com.pj.ptsd.user.domain.User;
 import com.pj.ptsd.user.store.UserStore;
 
@@ -62,23 +64,46 @@ public class UserStoreLogic implements UserStore{
 		return result;
 	}
 
-	@Override
-	public List<CampaignRecord> selectCRList(PageInfo pi, int userNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public List<Board> selectBoardList(PageInfo pi, int userNo) {
-	
-		return null;
-	}
 
 	@Override
 	public User selectOne(String uId) {
 		User user = sqlSession.selectOne("userMapper.selectOnePoint", uId);
 		return user;
 	}
+
+
+	@Override
+	public List<CampaignRecord> selectCRList(PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		List<CampaignRecord> cList = sqlSession.selectList("campaignMapper.selectMypageDonate", userId);
+		return cList;
+	}
+
+	@Override
+	public List<Board> selectBoardList(PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		List<Board> bList = sqlSession.selectList("userMapper.selectBoard", userId);
+		return bList;
+	}
+
+	@Override
+	public int selectBListCount() {
+		int result = sqlSession.selectOne("userMapper.selectBListCount");
+		return result;
+	}
+
+
+	
+
+
+
+
+
+
+
 
 
 

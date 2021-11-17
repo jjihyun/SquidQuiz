@@ -115,26 +115,26 @@
 		                <div class="phone-regex"></div>
 		            </div>
 		            <c:forTokens items="${loginUser.userAddr }" delims="," var="addr" varStatus="status">
-					<c:if test="${status.index eq 0 }">
-		            <div class="form-postgroup">
-		            <label for="post">우편번호</label><br>
-		                <input type="text" id="post" name="post" class="postcodify_postcode5" value="${addr }" readonly>
-		                <button type="button" id="postcodify_search_button" onclick="execPostCode();">검색</button>
-		            </div><br>
-			</c:if>
-			<c:if test="${status.index eq 1 }">
-		            <div class="form-group">
-		            <label for="address1">도로명</label><br>
-		                <input type="text" name="address1" class="postcodify_address" value="${addr }" readonly>
-		            </div>
-			</c:if>
-			<c:if test="${status.index eq 2 }">
-		            <div class="form-group">
-		            <label for="address2">상세 주소</label><br>
-		                <input type="text" name="address2" class="postcodify_extra_info"value="${addr }">
-		            </div>
-			</c:if>
-			</c:forTokens>
+							<c:if test="${status.index eq 0 }">
+				            <div class="form-postgroup">
+				            <label for="post">우편번호</label><br>
+				                <input type="text" id="post" name="post" class="postcodify_postcode5" value="${addr }" readonly>
+				                <button type="button" id="postcodify_search_button" onclick="execPostCode();">검색</button>
+				            </div><br>
+					</c:if>
+					<c:if test="${status.index eq 1 }">
+				            <div class="form-group">
+				            <label for="address1">도로명</label><br>
+				                <input type="text" name="address1" class="postcodify_address" value="${addr }" readonly>
+				            </div>
+					</c:if>
+					<c:if test="${status.index eq 2 }">
+				            <div class="form-group">
+				            <label for="address2">상세 주소</label><br>
+				                <input type="text" name="address2" class="postcodify_extra_info"value="${addr }">
+				            </div>
+					</c:if>
+					</c:forTokens>
 		            <div class="form-group">
 		            <label for="bankName">은행명</label><br>
 		                <input type="text" id="bankName" name="bankName" value="${loginUser.bankName }">

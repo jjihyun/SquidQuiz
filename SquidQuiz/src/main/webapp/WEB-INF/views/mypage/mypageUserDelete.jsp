@@ -64,7 +64,7 @@
             </a>
 					</li>
 					<li class="sidebar-item active">
-						<a class="sidebar-link" href="mypageUserDelete.ptsd">
+						<a class="sidebar-link" href="userDelete.ptsd">
               <i class="align-middle" data-feather="user-x"></i> <span class="align-middle">회원탈퇴</span>
             </a>
 					</li>

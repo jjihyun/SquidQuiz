@@ -124,14 +124,23 @@ ul.tabs li.current{
 				<div class="container-fluid p-0">
 					<div align="center">
 						<div class="charge">
-							<input type="button" class="charge-btn" name="cp_item" value="10,000원"><br>
-							<input type="button" class="charge-btn" name="cp_item" value="20,000원"><br>
-							<input type="text" id="numPoint" name="cp_item" placeholder="직접입력 "onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>원 <br>
-							<input type="button" class="p-btn" id="charge_kakao" value="결제하기">
+						 <div class="card-body bg-white mt-0 shadow">
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="10000"><span>10,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="15000"><span>15,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="20000"><span>20,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="25000"><span>25,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="30000"><span>30,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="35000"><span>35,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="40000"><span>40,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="50000"><span>50,000원</span></label>
+			                <p  style="color: #ac2925; margin-top: 30px">카카오페이의 최소 충전금액은 10,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p>
+			                <button type="button" class="btn btn-lg btn-block  btn-custom" id="charge_kakao">충 전 하 기</button>
+			 				</div>
 							<input type="button" class="p-btn" onclick="location.href='/mypagePoint.ptsd'" value="돌아가기">
 							
 						</div>
 					
+					</div>
 					</div>
 					<br>
 					
@@ -175,7 +184,7 @@ ul.tabs li.current{
         console.log(money);
 
         IMP.request_pay({
-            pg: 'kakao',
+            pg: 'kakaopay',
             merchant_uid: 'merchant_' + new Date().getTime(),
 
             name: '주문명 : 주문명 설정',
@@ -205,7 +214,7 @@ ul.tabs li.current{
                 msg += '에러내용 : ' + rsp.error_msg;
             }
             alert(msg);
-            document.location.href="/mypage/chargePoint.ptsd"; //alert창 확인 후 이동할 url 설정
+            document.location.href="/mypage/mypagePoint.ptsd"; //alert창 확인 후 이동할 url 설정
         });
     });
 </script>
