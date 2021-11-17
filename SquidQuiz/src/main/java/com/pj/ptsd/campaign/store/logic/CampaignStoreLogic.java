@@ -13,6 +13,7 @@ import com.pj.ptsd.campaign.domain.DonationRecord;
 import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.campaign.store.CampaignStore;
 import com.pj.ptsd.quiz.domain.MainGameInfo;
+import com.pj.ptsd.user.domain.User;
 
 @Repository
 public class CampaignStoreLogic implements CampaignStore{
@@ -120,12 +121,20 @@ public class CampaignStoreLogic implements CampaignStore{
 		return point;
 	}
 	@Override
-	public int updateCampaignMoney(int moneySum) {
-		int updateMoney = sqlSession.update("campaignMapper.updateCampaignMoney", moneySum);
-		return updateMoney;
+	public int updateMyPoint(User user) {
+		int result = sqlSession.update("campaignMapper.updateMyPoint", user);
+		return result;
 	}
-
-
+	@Override
+	public int selectCampaignNowPoint(int cNo) {
+		int nowPoint = sqlSession.selectOne("campaignMapper.selectCampaignPoint", cNo);
+		return nowPoint;
+	}
+	@Override
+	public int updateCampaignMoney(Campaign campaign) {
+		int result = sqlSession.update("campaignMapper.updateCampaignMoney", campaign);
+		return result;
+	}
 
 
 }

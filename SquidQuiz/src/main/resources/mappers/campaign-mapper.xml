@@ -38,6 +38,11 @@
 	</insert>
 
 
+	<!-- 마이페이지 캠페인 기부 내역 -->
+	<select id="selectMypageDonate" resultMap="campaignRecordResultMap">
+		SELECT * FROM CAMPAIGN_RECORD WHERE USER_ID=#{userId}
+	</select>
+
 	<select id="selectListStaticCount" resultType="_int">
 		SELECT COUNT(*) FROM MAIN_GAME_INFO
 	</select>
@@ -47,6 +52,10 @@
 
 	<select id="selectPointCount" resultType="_int">
 		SELECT POINT FROM MEMBER WHERE USER_ID=#{userId}
+	</select>
+	
+	<select id="selectCampaignPoint" resultType="_int">
+		SELECT CAMPAIGN_NOW_AMOUNT FROM CAMPAIGN WHERE CAMPAIGN_NO=#{cNo}
 	</select>
 
 	<select id="selectListCount" resultType="_int">
@@ -92,8 +101,12 @@
 	<update id="updateCampaign" parameterType="Campaign">
 		UPDATE CAMPAIGN SET CAMPAIGN_TITLE=#{campaignTitle}, CAMPAIGN_CONTENTS=#{campaignContents}, CAMPAIGN_FILE_NAME=#{cFileName}, CAMPAIGN_FILE_RENAME=#{cFileRename}, CAMPAIGN_LINK=#{cLink}, CAMPAIGN_TYPE=#{campaignType} WHERE CAMPAIGN_NO=#{campaignNo}
 	</update>
+	
 	<update id="updateCampaignMoney" parameterType="Campaign">
-		UPDATE CAMPAIGN SET CAMPAIGN_NOW_AMOUNT=#{moneySum} WHERE CAMPAIGN_NO=#{campaignNo}
+		UPDATE CAMPAIGN SET CAMPAIGN_NOW_AMOUNT=#{cNowAmount} WHERE CAMPAIGN_NO=#{campaignNo}
+	</update>
+	<update id="updateMyPoint" parameterType="com.pj.ptsd.user.domain.User">
+		UPDATE MEMBER SET POINT=#{point} WHERE USER_ID=#{userId}
 	</update>
 	
 	<delete id="deleteCampaign" parameterType="_int">

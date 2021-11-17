@@ -79,11 +79,11 @@ main{
       	position:relative;
       }
       .slick-prev{
-      	right:80px;
+      	right:100px;
       	top:70px;
       }
       .slick-next{
-      	left:80px;
+      	left:100px;
       	bottom:90px;    
       }
       
@@ -108,8 +108,10 @@ main{
 			<h2>${campaign.campaignTitle }</h2><hr>
 			<h4>(${campaign.campaignType })
 				<div style="float: right;">
-					<button onclick="location.href='${cModify}'" class="admin-btn" style="background-color:rgb(53,182,44);">수정하기</button>&nbsp;&nbsp;
-					<button onclick="location.href='${cDelete}'" class="admin-btn" style="background-color:rgb(204,61,61);">삭제하기</button>
+					<c:if test="${sessionScope.loginUser.adminType eq 'Y'.charAt(0) }">
+						<button onclick="location.href='${cModify}'" class="admin-btn" style="background-color:rgb(53,182,44);">수정하기</button>&nbsp;&nbsp;
+						<button onclick="location.href='${cDelete}'" class="admin-btn" style="background-color:rgb(204,61,61);">삭제하기</button>
+					</c:if>
 				</div>
 			</h4><br><br>
 			<input type="hidden" id="dday" value="${campaign.cEndDate }">
@@ -143,7 +145,7 @@ main{
 						다른 후원><br>
 						<div style="width: 150px; height: 150px; display: inline-block;" class="slick-div">
 							<c:forEach items="${cList }" var="c">
-								<div>
+								<div style="cursor: pointer; border: 1px solid yellow;" onclick="location.href='campaignDetail.ptsd?campaignNo=${c.campaignNo}'">
 									<img alt="이미지없음"
 										src="../../../resources/campaignUpload/${c.cFileName }"
 										style="display: block; margin: auto; width: 100px; height: 100px; border:1px solid red;">

@@ -127,19 +127,14 @@ button{
 			<hr>
 			<div class="static-div"><br>
 				<h3 style="color:rgb(0, 34, 102); font-weight: bold;">정기후원</h3><br>
-				<img src="../../../resources/campaignStaticImg/정기후원.png" alt="img 안뜸">
-				<h2 style="color:rgb(0, 34, 102); font-weight: bold;">"세계 어린이 돕기"</h2><br>
+				<img src="../../../resources/campaignStaticImg/정기후원.jpg" alt="img 안뜸">
+				<h2 style="color:rgb(0, 34, 102); font-weight: bold;">"작은 후원이..."</h2><br>
 				<button onclick="location.href='campaignStaticDetail.ptsd'">자세히보기</button><br><br>
 				<a href="campaignAllCampaignRecord.ptsd" style="float:right;">퀴즈 참여 모금액 후원 내역>&nbsp;&nbsp;</a><br><br>
 			</div><br><br><br>
-			<button style="float:right;" onclick="location.href='campaignWriteView.ptsd'">캠페인 글 작성</button><br>
-			<!-- 수정하기 -->
-			<c:if test="${sessionScope.loginUser eq null }">
-				test
-				<button>${sessionScope.loginUser.adminType }</button>
-				<c:if test="${sessionScope.loginUser.adminType ne Y }">
-				<!-- vo.number eq '1'.charAt(0) -->
-					<button>${sessionScope.loginUser.bankAccount }</button>7
+			<c:if test="${sessionScope.loginUser ne null }">
+				<c:if test="${sessionScope.loginUser.adminType eq 'Y'.charAt(0) }">
+					<button style="float:right;" onclick="location.href='campaignWriteView.ptsd'">캠페인 글 작성</button><br>
 				</c:if>
 			</c:if>
 		</div>
@@ -225,7 +220,7 @@ button{
 		$(function(){
 			var test;
 
-			alert(test);
+			//alert(test);
 		});
 	
   		function campaignType(f){
