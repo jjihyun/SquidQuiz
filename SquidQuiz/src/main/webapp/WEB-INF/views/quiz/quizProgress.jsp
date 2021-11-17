@@ -138,7 +138,7 @@
 				</h1>
 					<div class="writeArea">
 						<div class="count_area">
-							<h1 class="user_count">참가자:300명</h1>
+							<h1 class="user_count">참가자:${mgi.participantTotal}명</h1>
 						</div>
 							<div class="sec7-text-box">
 				<!--               	<p class="font18">게임 시작 시간</p> -->
@@ -156,12 +156,15 @@
 				            </div>
 				            <div class="quiz_btn">
 				            <form action="quizProgressStart.ptsd" method="post">
-				            	<input type="hidden" name="quizGameStatus" value="Y">
-				           		<button style="float: left;" type="submit" class="quiz_start_btn" id="quiz_start_btn">퀴즈시작</button>
+				           		<button style="float: left;" type="submit" class="quiz_start_btn" id="quiz_start_btn">퀴즈 모집</button>
+				            </form>
+				            <form action="quizProgreStarting.ptsd" method="post">
+				            	<input type="hidden" name="quizGameStatusStart" value="Y">
+				           		<button style="float: left;" type="submit" class="quiz_starting_btn" id="quiz_starting_btn">퀴즈 시작</button>
 				            </form>
 				            <form action="quizProgressEnd.ptsd" method="post">
 				            	<input type="hidden" name="quizGameStatusEnd" value="N">
-				           		<button type="submit" class="quzi_reset_btn" id="quiz_reset_btn">초기화</button>
+				           		<button style="float: left;" type="submit" class="quzi_reset_btn" id="quiz_reset_btn">퀴즈 종료</button>
 				            </form>
 				            </div>
 					</div>

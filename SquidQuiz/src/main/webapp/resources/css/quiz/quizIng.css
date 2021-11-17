@@ -30,7 +30,7 @@
 }
 .quiz_btn{
 	position:absolute;
-	width:400px;
+	width:600px;
 	top: 70%;
 	left: 55%; 
 	transform: translateX(-50%);
@@ -46,6 +46,18 @@
 }
 .quiz_start_btn:hover{
 	background-color: #dbf280;
+}
+.quiz_starting_btn{
+	width: 200px;
+	height: 150px;
+	font-size: 1.3em;
+	font-weight: bold;
+	border: none;
+	border-radius: 10px;
+	background-color: #d5c21c;
+}
+.quiz_starting_btn:hover{
+	background-color: #8d8112;
 }
 .quzi_reset_btn{
 	width: 200px;

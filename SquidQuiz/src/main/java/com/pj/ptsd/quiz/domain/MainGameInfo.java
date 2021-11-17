@@ -16,6 +16,9 @@ public class MainGameInfo {
 	private Date openDate; // 시작한 날짜 
 	private String quizGameStatus; // 게임 시작/종료
 	
+	public MainGameInfo() {
+		
+	}
 
 	public MainGameInfo(int turnNo, int participantTotal, int moneyTotal, int moneyReceive, String winnerId,
 			Date openDate, String quizGameStatus) {

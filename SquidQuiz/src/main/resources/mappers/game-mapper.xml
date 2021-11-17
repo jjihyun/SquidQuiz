@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gameMapper">
-<!-- 	<resultMap tpye="MainGameInfo" id="gameResultMap"> -->
+	<resultMap type="MainGameInfo" id="gameResultMap">
+		<id property="turnNo" column="TURN_NO"/>
+		<result property="participantTotal" column="TOTAL_PARTICIPANT"/>
+		<result property="moneyTotal" column="TOTAL_MONEY"/>
+		<result property="moneyReceive" column="RECEIVE_MONEY"/>
+		<result property="winnerId" column="WINNER_ID"/>
+		<result property="openDate" column="OPEN_DATE"/>
+		<result property="quizGameStatus" column="GAME_STATUS"/>
+	</resultMap>
 	
-<!-- 	</resultMap> -->
-	
+	<select id="selectParticpantCount" resultMap="gameResultMap">
+		SELECT * FROM (SELECT ROWNUM, MAIN_GAME_INFO.* FROM MAIN_GAME_INFO ORDER BY TURN_NO DESC) WHERE ROWNUM = 1
+	</select>
+	<insert id="insertGame" parameterType="MainGameInfo">
+		INSERT INTO MAIN_GAME_INFO VALUES(SEQ_MAIN_GAME_INFO.NEXTVAL,DEFAULT,DEFAULT,DEFAULT,NULL,DEFAULT,DEFAULT)
+	</insert>
 	<update id="updateGame" parameterType="MainGameInfo">
-		UPDATE MAIN_GAME_INFO SET GAME_STATUS = #{quizGameStatus}
+		UPDATE MAIN_GAME_INFO SET GAME_STATUS = #{quizGameStatus} WHERE TURN_NO IN(SELECT TURN_NO FROM (SELECT * FROM MAIN_GAME_INFO ORDER BY TURN_NO DESC)WHERE ROWNUM = 1)
 	</update>
 </mapper>

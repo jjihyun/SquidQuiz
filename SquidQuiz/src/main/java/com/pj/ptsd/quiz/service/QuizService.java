@@ -20,12 +20,14 @@ public interface QuizService {
 	//퀴즈 검색
 	public List<Ox> printSearchAll(QuizSearch search);
 	//관리자 게임 시작/종료
-	public int quizGameModify(String quizGameStatus);
+//	public int quizGameModify(String quizGameStatus);
+	public int registerGameStart();
+	public int quizGameModifyStart(String quizGameStatus);
 	public int quizGameModifyEnd(String quizGameStatus);
+	public MainGameInfo printParticpant();
 	//퀴즈 게임 등록
+
+
 	
 	//퀴즈 게임 참가
-	public int insertGameUser(User user);
-	
-	
 }

@@ -61,17 +61,31 @@ public class QuizStoreLogic implements QuizStore{
 		return oxSearchList;
 	}
 	//---------------------------------게임---------------------------------------
-
+	//퀴즈 시작
 	@Override
 	public int updatequizGameStatus(String quizGameStatus) {
 		int result = sqlSession.update("gameMapper.updateGame",quizGameStatus);
 		return result;
 	}
-
+	
+	//게임모집
+	@Override
+	public int insertGameStart() {
+		int result = sqlSession.insert("gameMapper.insertGame");
+		return result;
+	}
+	//퀴즈 종료
 	@Override
 	public int updatequizGameEndStatus(String quizGameStatus) {
 		int result = sqlSession.update("gameMapper.updateGame",quizGameStatus);
 		return result;
 	}
+	//참여자 수 
+	@Override
+	public MainGameInfo selectParticpant() {
+		MainGameInfo mgi = sqlSession.selectOne("gameMapper.selectParticpantCount");
+		return mgi;
+	}
+
 
 }

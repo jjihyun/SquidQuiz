@@ -64,11 +64,6 @@ public class QuizServiceImpl implements QuizService{
 	//--------------------------게임--------------------------
 	
 	//게임 시작
-	@Override
-	public int quizGameModify(String quizGameStatus) {
-		int result = store.updatequizGameStatus(quizGameStatus);
-		return result;
-	}
 
 	@Override
 	public int quizGameModifyEnd(String quizGameStatus) {
@@ -76,14 +71,24 @@ public class QuizServiceImpl implements QuizService{
 		return result;
 	}
 
-
 	//게임등록
-	
-	//user
 	@Override
-	public int insertGameUser(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int registerGameStart() {
+		int result = store.insertGameStart();
+		return result;
 	}
+	//참가자 수
+	@Override
+	public MainGameInfo printParticpant() {
+		MainGameInfo mgi = store.selectParticpant();
+		return mgi;
+	}
+
+	@Override
+	public int quizGameModifyStart(String quizGameStatus) {
+		int result = store.updatequizGameStatus(quizGameStatus);
+		return result;
+	}
+	
 
 }

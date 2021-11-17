@@ -19,7 +19,9 @@ public interface QuizStore {
 		public List<Ox> selectSearchAll(QuizSearch search);
 		//관리자 게임 시작/종료
 		public int updatequizGameStatus(String quizGameStatus);
+		public int insertGameStart();
 		public int updatequizGameEndStatus(String quizGameStatus);
+		public MainGameInfo selectParticpant();
 		//게임 등록
 		
 }
