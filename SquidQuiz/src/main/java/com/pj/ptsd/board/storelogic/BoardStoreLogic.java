@@ -28,10 +28,11 @@ public class BoardStoreLogic implements BoardStore {
 		return bList;
 	}
 
+	//다르게 적용한  return 이렇게도 되는구나
 	@Override
 	public Board printOne(int bNo) {
-		Board board = sqlSession.selectOne("boardMapper.selectOneBoard", bNo);
-		return board;
+		return  sqlSession.selectOne("boardMapper.selectOneBoard", bNo);
+		
 	}
 
 	@Override

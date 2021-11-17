@@ -26,6 +26,9 @@
 		<typeAlias type="com.pj.ptsd.chargePoint.domain.ChargePoint" alias="ChargePoint"/>
 		
 <!-- 		<typeAlias type="com.iei.spring.member.domain.Member" alias="Member"/> -->
+<!-- 		<typeAlias type=""/> -->
+
+
 	</typeAliases>
 	
 	<mappers>

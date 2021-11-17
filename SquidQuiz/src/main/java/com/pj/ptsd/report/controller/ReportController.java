@@ -22,6 +22,10 @@ public class ReportController {
 	@Autowired
 	private ReportService service;
 
+	
+	
+	
+	
 	//신고 게시물 리스트
 	@RequestMapping(value="reportListView.ptsd")
 	public String reportListView(Model model,

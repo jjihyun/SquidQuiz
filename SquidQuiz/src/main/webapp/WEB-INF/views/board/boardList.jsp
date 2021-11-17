@@ -13,6 +13,8 @@
 
 <body>
 <script>
+
+
 		//자바스크립트로 헤더 파일 받아오는 소스 
 		$(document).ready(function() {
 			$('#headerMain').load("/resources/html/header.jsp");
@@ -28,8 +30,8 @@
 	<tr>
 		<th align="center">번호</th>
 		<th align="center" width="300">제목</th>
-		<th align="center">작성자</th>
-		<th align="center">날짜</th>
+		<th align="center">글쓴이</th>
+		<th align="center">등록일</th>
 <!-- 		<th align="center">첨부파일</th> -->
 	</tr>
 		<c:forEach items="${bList }" var="board">
@@ -58,66 +60,40 @@
 			</tr>
 		
 	
-		<div align="center">
-				<!-- 페이징 시작 -->
-				<c:if test="${ page.currentPage > page.block }">
-					<c:choose>
-						<c:when test="${search == null }">
-							<a href="boardList.ptsd?pageNum=1">처음</a>&nbsp;
-			                    <a
-								href="boardList.ptsd?pageNum=${ page.startPage - 1 }">이전</a>&nbsp;
-	                        </c:when>
-						<c:otherwise>
-							<a
-								href="boardList.ptsd?pageNum=1&select=${select }&search=${search }">처음</a>&nbsp;  
-	                            <a
-								href="boardList.ptsd?pageNum=${ page.startPage - 1 }&select=${select }&search=${search }">이전</a>&nbsp;
-	                        </c:otherwise>
-					</c:choose>
+		<tr align="center" height="20">
+			<td colspan="6">
+				<c:url var="before" value="boardList.ptsd">
+					<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
+				</c:url>
+				<c:if test="${pi.currentPage <= 1 }">
+					[이전]
 				</c:if>
-				<c:if test="${ page.currentPage <= page.block }">
-					<!-- <span style="color: gray;">처음&nbsp;</span>-->
-					<!-- <span style="color: gray;">이전&nbsp;</span>-->
+				<c:if test="${pi.currentPage > 1 }">
+					<a href="${before }">[이전]</a>
 				</c:if>
-				<c:forEach var="i" begin="${ page.startPage }"
-					end="${ page.endPage }">
-					<c:if test="${ i == page.currentPage }">
-						<strong>${ i }&nbsp;</strong>
+				<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
+					<c:url var="pagination" value="boardList.ptsd">
+						<c:param name="page" value="${p }"></c:param>
+					</c:url>
+					<c:if test="${p eq pi.currentPage }">
+						<font color="red" size="4">[${p }]</font>
 					</c:if>
-					<c:if test="${ i != page.currentPage }">
-						<c:choose>
-							<c:when test="${search == null }">
-								<a href="boardList.ptsd?pageNum=${ i }">${ i }&nbsp;</a>
-							</c:when>
-							<c:otherwise>
-								<a
-									href="boardList.ptsd?pageNum=${ i }&select=${select }&search=${search }">${ i }&nbsp;</a>
-							</c:otherwise>
-						</c:choose>
+					<c:if test="${p ne pi.currentPage }">
+						<a href="${pagination }">${p }</a>&nbsp;
 					</c:if>
 				</c:forEach>
-				<c:if test="${ page.endPage < page.allPage }">
-					<c:choose>
-						<c:when test="${search == null }">
-                                    &nbsp;<a
-								href="boardList.ptsd?pageNum=${ page.endPage + 1 }">다음</a>
-                                    &nbsp;<a
-								href="boardList.ptsd?pageNum=${ page.allPage }">끝</a>
-						</c:when>
-						<c:otherwise>
-	                                &nbsp;<a
-								href="boardList.ptsd?pageNum=${ page.endPage + 1 }&select=${select }&search=${search }">다음</a>
-	                                &nbsp;<a
-								href="boardList.ptsd?pageNum=${ page.allPage }&select=${select }&search=${search }">끝</a>
-						</c:otherwise>
-					</c:choose>
+				<c:url var="after" value="boardList.ptsd">
+					<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
+				</c:url>
+				<c:if test="${pi.currentPage >= pi.maxPage }">
+					[다음]
 				</c:if>
-				<c:if test="${ page.endPage >= page.allPage }">
-					<!-- <span style="color: gray;">&nbsp;다음</span>-->
-					<!-- <span style="color: gray;">&nbsp;끝</span>-->
+				<c:if test="${pi.currentPage < pi.maxPage }">
+					<a href="${after }">[다음]</a>
 				</c:if>
-				<!-- 페이징 끝 -->
-			</div>
+			</td>
+		</tr>
+	</table>
 	
 	<div align="center">
 		<form action="boardSearch.ptsd" method="get">
@@ -132,7 +108,6 @@
 			<input type="submit" value="검색">
 		</form>
 	</div>
-	
 	
 </body>
 </html>
