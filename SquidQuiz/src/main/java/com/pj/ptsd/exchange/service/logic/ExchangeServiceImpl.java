@@ -24,8 +24,8 @@ public class ExchangeServiceImpl implements ExchangeService{
 	}
 	//회원정보로 조회(회원)
 	@Override
-	public List<Exchange> printOwnExchange(PageInfo pi, int userNo) {
-		List<Exchange> eList = store.selectOwnExchange(pi, userNo);
+	public List<Exchange> printOwnExchange(PageInfo pi, String userId) {
+		List<Exchange> eList = store.selectOwnExchange(pi, userId);
 		return eList;
 	}
 	//Search by Id (관리자)
@@ -55,8 +55,8 @@ public class ExchangeServiceImpl implements ExchangeService{
 	}
 	//해당 회원이 작성한 게시물 개수
 	@Override
-	public int getOwnListCount(int userNo) {
-		int result = store.selectOwnListCount(userNo);
+	public int getOwnListCount(String userId) {
+		int result = store.selectOwnListCount(userId);
 		return result;
 	}
 

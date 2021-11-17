@@ -21,7 +21,7 @@
 	<br><br>
 	<main id="main">
 		<div class="container">
-			<form action="qnaRegister.ptsd" method="post">
+			<form action="noticeRegister.ptsd" method="post">
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label" >제목</label>
 				  <input type="text" class="form-control" id="exampleFormControlInput1" name="noticeTitle" placeholder="제목을 입력해주세요!" pattern=".{1,100}" required>

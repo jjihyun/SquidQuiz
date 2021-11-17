@@ -36,20 +36,26 @@ public class QnaController {
 			, @RequestParam(value="page",required=false) Integer page) {
 		int currentPage = (page!=null) ? page : 1 ;
 		int totalCount = 0;
+		List<Qna> qList = null;
 		HttpSession session = request.getSession();
 		User loginUser = (User) session.getAttribute("loginUser");
+		//로그인 정보 없을시 문의사항 리스트는 없음
+		if(loginUser==null) {
+			model.addAttribute("qList", null);
+			return "qna/qnaList";
+		}
 		String userId =	loginUser.getUserId();
 		char adminType = loginUser.getAdminType();
+		System.out.println(userId + adminType);
 		if(adminType=='Y') {
 			totalCount = service.getAllListCount();
 		}else if(adminType=='N') {
 			totalCount = service.getOwnListCount(userId);
-		}else {
+		}else{
 			model.addAttribute("qList", null);
 			return "qna/qnaList";
 		}
 		PageInfo pi = QnaPagination.getPageInfo(currentPage, totalCount);
-		List<Qna> qList = null;
 		try {
 			
 			

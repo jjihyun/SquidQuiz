@@ -18,8 +18,8 @@
 		SELECT * FROM EXCHANGE ORDER BY EXCHANGE_NO DESC
 	</select>
 	
-	<select id="selectOwnExchange" parameterType="_int" resultMap="exchangeResultMap">
-		SELECT * FROM EXCHANGE WHERE USER_NO = #{userNo} ORDER BY EXCHANGE_NO DESC
+	<select id="selectOwnExchange" parameterType="string" resultMap="exchangeResultMap">
+		SELECT * FROM EXCHANGE WHERE USER_ID = #{userId} ORDER BY EXCHANGE_NO DESC
 	</select>
 	
 	<select id="selectSearchExchange"  resultMap="exchangeResultMap">
@@ -45,16 +45,20 @@
 		SELECT COUNT(*) FROM EXCHANGE
 	</select>
 	
-	<select id="selectOwnListCount" resultType="_int">
-		SELECT COUNT(*) FROM EXCHANGE WHERE USER_NO=#{userNo}
+	<select id="selectOwnListCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM EXCHANGE WHERE USER_ID = #{userId}
 	</select>
 	
 	<insert id="insertExchange" parameterType="Exchange">
-		INSERT INTO EXCHANGE VALUES(SEQ_EXCHANGE.NEXTVAL,#{userNo},DEFAULT,null,DEFAULT,#{exchangeMoney},#{account},#{exchangeBank},#{userName},#{userId})
+		INSERT INTO EXCHANGE VALUES(SEQ_EXCHANGE.NEXTVAL,DEFAULT,null,DEFAULT,#{exchangeMoney},#{account},#{exchangeBank},#{userName},#{userId})
 	</insert>
 	
 
 	<update id="updateExchange" >
 		UPDATE EXCHANGE SET EXCHANGE_PROCESSING_STATUS='Y', EXCHANGE_DATE = SYSDATE WHERE EXCHANGE_NO = #{exchangeNo}
+	</update>
+	
+	<update id="subtractUserPoint" >
+		UPDATE MEMBER SET POINT = POINT - #{exchangeMoney} WHERE USER_ID = #{userId} 
 	</update>
 </mapper>

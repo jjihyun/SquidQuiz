@@ -67,7 +67,7 @@
 							<c:url var="nModify" value="noticeModifyView.ptsd">
 								<c:param name="noticeNo" value="${notice.noticeNo }"></c:param>
 							</c:url>
-							<c:if test="${loginUser.adminType eq Y }">
+							<c:if test="${loginUser.adminType eq 'Y'.charAt(0) }">
 								<a href="javascript:void(0)" class="btn btn-secondary btn-lg" onclick="deleteNotice();">삭제하기</a>
 								<a href="${nModify }" class="btn btn-secondary btn-lg">수정하기</a>
 							</c:if>
