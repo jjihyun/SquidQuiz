@@ -86,6 +86,12 @@ public class QuizStoreLogic implements QuizStore{
 		MainGameInfo mgi = sqlSession.selectOne("gameMapper.selectParticpantCount");
 		return mgi;
 	}
+	//참가 등록
+	@Override
+	public int insertParticipant() {
+		int result = sqlSession.insert("");
+		return result;
+	}
 
 
 }

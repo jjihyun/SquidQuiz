@@ -27,7 +27,6 @@ public interface QuizService {
 	public MainGameInfo printParticpant();
 	//퀴즈 게임 등록
 	//퀴즈 게임 참가
-	
 	public int registerParticipant();
 	
 
