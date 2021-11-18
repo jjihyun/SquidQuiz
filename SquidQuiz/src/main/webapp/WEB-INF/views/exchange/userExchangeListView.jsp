@@ -210,8 +210,8 @@ a:hover{color:#495057;	text-decoration: none;}
 					<!-- tab button -->
 					<div align="center" class="container">
 							<ul class="tabs">
-							    <li class="tab-link current" data-tab="tab-1">시벌려나</li>
-							    <li class="tab-link" data-tab="tab-2">왜안되냐고싯팔</li>
+							    <li class="tab-link current" data-tab="tab-1">tab1test</li>
+							    <li class="tab-link" data-tab="tab-2">tab2test</li>
 						 	 </ul>
 						 	
 							

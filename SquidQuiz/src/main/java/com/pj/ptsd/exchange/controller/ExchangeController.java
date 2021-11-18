@@ -114,12 +114,6 @@ public class ExchangeController {
 		}
 		
 	}
-	//환전 신청 입력 페이지로
-	@RequestMapping(value="showRegisterView.ptsd")
-	public String showRegisterView(Model model) {
-		
-		return "";
-	}
 	//환전 신청(등록 )-회원
 	@RequestMapping(value="exchangeRegister.ptsd",method=RequestMethod.POST)
 	public void exchangeRegister(ModelAndView mv
@@ -136,9 +130,9 @@ public class ExchangeController {
 			int result = service.registerExchange(exchange);
 			if (result>0) {
 				session.setAttribute("loginUser", user);
-				out.println("<script>alert('환전 신청이 완료되었습니다. 빠른 시일내에 처리해드리겠습니다. 감사합니다.');location.href = 'exchangeOwnListView.ptsd';</script>");
+				out.println("<script>alert('환전 신청이 완료되었습니다. 빠른 시일내에 처리해드리겠습니다. 감사합니다.');location.href = 'mypagePoint.ptsd';</script>");
 			} else {
-				out.println("<script>alert('환전 신청이 실패하였습니다. 다시 시도해주세요.(반복될 경우 관리자에게 문의해주세요.)');location.href = 'document.referrer';</script>");
+				out.println("<script>alert('환전 신청이 실패하였습니다. 다시 시도해주세요.(반복될 경우 관리자에게 문의해주세요.)');window.location=document.referrer;</script>");
 			}
 			out.flush();
 			out.close();

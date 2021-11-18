@@ -39,8 +39,8 @@ a:hover{color:#495057;	text-decoration: none;}
 					<li class="sidebar-header">목록</li>
 					
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="#"> <i class="align-middle"
-							data-feather="sliders"></i> <span>회원정보수정</span>
+						href="userListView.ptsd"> <i class="align-middle"
+							data-feather="sliders"></i> <span>회원관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
 						href="pages-profile.html"> <i class="align-middle"

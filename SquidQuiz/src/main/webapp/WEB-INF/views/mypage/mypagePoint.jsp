@@ -125,8 +125,71 @@ ul.tabs li.current{
 				<div class="container-fluid p-0">
 					<div align="center">
 						<input type="button" class="point-btn" value="포인트 충전" onclick="location.href='/chargePoint.ptsd'"> 
-						<input type="button" class="point-btn" value="포인트 환전">
+						<button type="button" class="point-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						  포인트 환전
+						</button>
 					</div>
+					<!-- 모달 테스트 -->
+						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="exampleModalLabel">환전 신청</h5>
+						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						      </div>
+						      <div class="modal-body">
+						          <form class="was-validated" action="exchangeRegister.ptsd" method="post" id="exchangeForm">
+						          	  <input type="hidden" name="userId" value="${loginUser.userId }">
+							           <div class="mb-3">
+							          	<label for="validationCustom04" class="form-label">은행</label>
+										    <select class="form-select" id="validationCustom04" name="exchangeBank" required>
+										      <option selected disabled value="nothing">은행명</option>
+										      <option value="국민" <c:if test="${loginUser.bankName == '국민' }">selected</c:if>>국민</option>
+										      <option value="KDB산업" <c:if test="${loginUser.bankName == 'KDB산업은행' }">selected</c:if>>KDB산업은행</option>
+										      <option value="IBK기업" <c:if test="${loginUser.bankName == 'IBK기업은행' }">selected</c:if>>IBK기업은행</option>
+										      <option value="수협" <c:if test="${loginUser.bankName == '수협' }">selected</c:if>>수협</option>
+										      <option value="NH농협" <c:if test="${loginUser.bankName == 'NH농협' }">selected</c:if>>NH농협</option>
+										      <option value="지역농협" <c:if test="${loginUser.bankName == '지역농협' }">selected</c:if>>지역농협</option>
+										      <option value="우리" <c:if test="${loginUser.bankName == '우리' }">selected</c:if>>우리</option>
+										      <option value="SC제일" <c:if test="${loginUser.bankName == 'SC제일' }">selected</c:if>>SC제일</option>
+										      <option value="씨티" <c:if test="${loginUser.bankName == '씨티' }">selected</c:if>>씨티</option>
+										      <option value="하나" <c:if test="${loginUser.bankName == '하나' }">selected</c:if>>하나</option>
+										      <option value="신한" <c:if test="${loginUser.bankName == '신한' }">selected</c:if>>신한</option>
+										      <option value="대구" <c:if test="${loginUser.bankName == '대구' }">selected</c:if>>대구</option>
+										      <option value="부산" <c:if test="${loginUser.bankName == '부산' }">selected</c:if>>부산</option>
+										      <option value="광주" <c:if test="${loginUser.bankName == '광주' }">selected</c:if>>광주</option>
+										      <option value="제주" <c:if test="${loginUser.bankName == '제주' }">selected</c:if>>제주</option>
+										      <option value="전북" <c:if test="${loginUser.bankName == '전북' }">selected</c:if>>전북</option>
+										      <option value="경남" <c:if test="${loginUser.bankName == '경남' }">selected</c:if>>경남</option>
+										      <option value="케이뱅크" <c:if test="${loginUser.bankName == '케이뱅크' }">selected</c:if>>케이뱅크</option>
+										      <option value="카카오뱅크" <c:if test="${loginUser.bankName == '카카오뱅크' }">selected</c:if>>카카오뱅크</option>
+										      <option value="토스뱅크" <c:if test="${loginUser.bankName == '토스뱅크' }">selected</c:if>>토스뱅크</option>
+										    </select>
+									 </div> 
+							           <div class="mb-3">
+							            <label for="recipient-name" class="col-form-label">예금주</label>
+							            <input type="text" class="form-control" id="recipient-name" name="userName" value="${loginUser.userName }" required>
+							          </div>
+							           <div class="mb-3">
+							            <label for="recipient-name" class="col-form-label">계좌번호</label>
+							            <input type="text" class="form-control" id="recipient-name" name="account" value="${loginUser.bankAccount }" required>
+							          </div>
+							           <div class="mb-3">
+							            <label for="recipient-name" class="col-form-label">환전 신청 금액</label>
+							            <input type="number" class="form-control is-valid" id="recipient-name" name="exchangeMoney" min="1000" max="${loginUser.point }" placeholder="환전할 POINT를 입력해주세요." required><br>
+							            <span>환전 가능 POINT : ${loginUser.point }P </span>
+							          </div>
+						      </form>
+							        
+						      </div>
+						      <div class="modal-footer">
+						        <button type="submit" id="modalSubmit" class="btn btn-primary" form="exchangeForm">신청하기</button>
+						        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+					<!-- /모달 테스트 -->
 					<br>
 					<div align="center">
 							<div class="box">
