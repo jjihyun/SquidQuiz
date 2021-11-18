@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService{
 
 	//전체 게시물 개수
 	@Override
-	public int getBListCount() {
+	public int getBCount() {
 		int result = store.selectBListCount(); 
 		return result;
 	}
@@ -88,6 +88,13 @@ public class UserServiceImpl implements UserService{
 		User user = store.selectOne(uId);
 		return user;
 	}
+
+	@Override
+	public Board printbOne(int bNo) {
+		Board board = store.selectbOne(bNo);
+		return board;
+	}
+
 
 	
 

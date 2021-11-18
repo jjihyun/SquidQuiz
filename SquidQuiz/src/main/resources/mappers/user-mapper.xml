@@ -66,6 +66,11 @@
 		SELECT COUNT(*) FROM BOARD
 	</select>
 	
+	<!-- 자유게시판 상세 -->
+	<select id="selectOneBoard" resultMap="boardResultMap">
+			SELECT * FROM BOARD WHERE BOARD_NO = #{bNo }
+	</select>   
+	
 	
 	<!-- 회원가입db등록 -->
 	<insert id="insertUser" parameterType="User">

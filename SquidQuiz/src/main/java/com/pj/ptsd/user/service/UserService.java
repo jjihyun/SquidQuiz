@@ -21,8 +21,9 @@ public interface UserService {
 	public List<CampaignRecord> printCRList(PageInfo pi, int userNo);
 	
 	public List<Board> printBoardList(PageInfo pi,String userId);
+	public Board printbOne(int bNo);
 	//전체 게시물 개수 조회
-	public int getBListCount();
+	public int getBCount();
 	
 	public User printOne(String uId);
 	
