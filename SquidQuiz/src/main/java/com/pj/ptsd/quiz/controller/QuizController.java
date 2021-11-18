@@ -273,4 +273,11 @@ public class QuizController {
 		return"main";
 	}
 	
+	public ModelAndView registerParticipant(
+			ModelAndView mv
+			,HttpServletRequest request) {
+		int result = service.registerParticipant();
+		return mv;
+	}
+	
 }

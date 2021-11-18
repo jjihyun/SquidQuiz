@@ -26,8 +26,10 @@ public interface QuizService {
 	public int quizGameModifyEnd(String quizGameStatus);
 	public MainGameInfo printParticpant();
 	//퀴즈 게임 등록
-
+	//퀴즈 게임 참가
+	
+	public int registerParticipant();
+	
 
 	
-	//퀴즈 게임 참가
 }
