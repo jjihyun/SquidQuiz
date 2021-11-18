@@ -89,6 +89,13 @@ public class QuizServiceImpl implements QuizService{
 		int result = store.updatequizGameStatus(quizGameStatus);
 		return result;
 	}
+
+	//참가 등록
+	@Override
+	public int registerParticipant() {
+		int result = store.insertParticipant();
+		return result;
+	}
 	
 
 }

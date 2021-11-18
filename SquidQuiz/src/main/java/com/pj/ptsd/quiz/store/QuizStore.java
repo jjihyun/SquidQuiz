@@ -22,6 +22,7 @@ public interface QuizStore {
 		public int insertGameStart();
 		public int updatequizGameEndStatus(String quizGameStatus);
 		public MainGameInfo selectParticpant();
-		//게임 등록
+		//참가 등록
+		public int insertParticipant();
 		
 }
