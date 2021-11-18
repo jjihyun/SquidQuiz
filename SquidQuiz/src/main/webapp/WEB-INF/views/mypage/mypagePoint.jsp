@@ -5,6 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- 최신부트스트랩 -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -133,7 +137,7 @@ ul.tabs li.current{
 					<div align="center" class="container">
 
 							<ul class="tabs">
-								<li class="tab-link current" data-tab="tab-1">충전 내역</li>
+								<li class="tab-link current" data-tab="tab-1" onclick="location.href='/mypagePoint.ptsd'">충전 내역</li>
 								<li class="tab-link" data-tab="tab-2">환전 내역</li>
 							</ul>
 							<br>
@@ -174,40 +178,40 @@ ul.tabs li.current{
 										<tr align="center" height="20">
 											<td colspan="9">
 											<c:url var="before" value="mypagePoint.ptsd">
-											<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
+											<c:param name="page" value="${cPi.currentPage - 1 }"></c:param>
 										</c:url>
-										<c:if test="${pi.currentPage <= 1 }">
+										<c:if test="${cPi.currentPage <= 1 }">
 											[이전]
 										</c:if>
-										<c:if test="${pi.currentPage > 1 }">
+										<c:if test="${cPi.currentPage > 1 }">
 											<a id="title-a" href="${before }">[이전]</a>
 										</c:if>
 										<!-- 검색시 페이징 처리 X -->
-										<c:if test="${pi.startNavi eq null }">
+										<c:if test="${cPi.startNavi eq null }">
 												<font color="black" size="4">[1]</font>
 										</c:if>
-										<c:if test="${pi.startNavi ne null }">
-										<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
+										<c:if test="${cPi.startNavi ne null }">
+										<c:forEach var="p" begin="${cPi.startNavi }" end="${cPi.endNavi }">
 											
 											<c:url var="pagination" value="mypagePoint.ptsd">
 												<c:param name="page" value="${p }"></c:param>
 											</c:url>
 											
-											<c:if test="${p eq pi.currentPage }">
+											<c:if test="${p eq cPi.currentPage }">
 												<font color="black" size="4">[${p }]</font>
 											</c:if>
-											<c:if test="${p ne pi.currentPage }">
+											<c:if test="${p ne cPi.currentPage }">
 												<a id="title-a" href="${pagination }">${p }</a>&nbsp;
 											</c:if>
 										</c:forEach>
 										
 										<c:url var="after" value="mypagePoint.ptsd">
-											<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
+											<c:param name="page" value="${cPi.currentPage + 1 }"></c:param>
 										</c:url>
-										<c:if test="${pi.currentPage >= pi.maxPage }">
+										<c:if test="${cPi.currentPage >= cPi.maxPage }">
 											[다음]
 										</c:if>
-										<c:if test="${pi.currentPage < pi.maxPage }">
+										<c:if test="${cPi.currentPage < cPi.maxPage }">
 											<a id="title-a" href="${after }">[다음]</a>
 										</c:if>
 										</c:if>
@@ -253,47 +257,52 @@ ul.tabs li.current{
 												<td>
 													<fmt:formatDate value="${eList.exchangeEnrollDate }" pattern="yyyy-MM-dd"/>
 												</td>
-												<td>${eList.exchangeStatus }</td>
+												<c:if test="${eList.exchangeStatus eq 'N' }">
+													<td><span class="badge bg-warning">대기중</span></td>
+												</c:if>
+												<c:if test="${eList.exchangeStatus eq 'Y' }">
+													<td><span class="badge bg-success">처리완료</span></td>
+												</c:if>
 											</tr>
 										</tbody>
 										</c:forEach>
 										<tr align="center" height="20">
 											<td colspan="9">
-											<c:url var="before" value="mypagePoint.ptsd">
-											<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
+											<c:url var="before" value="exchangeList.ptsd">
+											<c:param name="page" value="${ePi.currentPage - 1 }"></c:param>
 										</c:url>
-										<c:if test="${pi.currentPage <= 1 }">
+										<c:if test="${ePi.currentPage <= 1 }">
 											[이전]
 										</c:if>
-										<c:if test="${pi.currentPage > 1 }">
+										<c:if test="${ePi.currentPage > 1 }">
 											<a id="title-a" href="${before }">[이전]</a>
 										</c:if>
 										<!-- 검색시 페이징 처리 X -->
-										<c:if test="${pi.startNavi eq null }">
+										<c:if test="${ePi.startNavi eq null }">
 												<font color="black" size="4">[1]</font>
 										</c:if>
-										<c:if test="${pi.startNavi ne null }">
-										<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
+										<c:if test="${ePi.startNavi ne null }">
+										<c:forEach var="p" begin="${ePi.startNavi }" end="${ePi.endNavi }">
 											
-											<c:url var="pagination" value="mypagePoint.ptsd">
+											<c:url var="pagination" value="exchangeList.ptsd">
 												<c:param name="page" value="${p }"></c:param>
 											</c:url>
 											
-											<c:if test="${p eq pi.currentPage }">
+											<c:if test="${p eq ePi.currentPage }">
 												<font color="black" size="4">[${p }]</font>
 											</c:if>
-											<c:if test="${p ne pi.currentPage }">
+											<c:if test="${p ne ePi.currentPage }">
 												<a id="title-a" href="${pagination }">${p }</a>&nbsp;
 											</c:if>
 										</c:forEach>
 										
-										<c:url var="after" value="mypagePoint.ptsd">
-											<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
+										<c:url var="after" value="exchangeList.ptsd">
+											<c:param name="page" value="${ePi.currentPage + 1 }"></c:param>
 										</c:url>
-										<c:if test="${pi.currentPage >= pi.maxPage }">
+										<c:if test="${ePi.currentPage >= ePi.maxPage }">
 											[다음]
 										</c:if>
-										<c:if test="${pi.currentPage < pi.maxPage }">
+										<c:if test="${ePi.currentPage < ePi.maxPage }">
 											<a id="title-a" href="${after }">[다음]</a>
 										</c:if>
 										</c:if>
@@ -339,19 +348,20 @@ ul.tabs li.current{
 
 <script>
 
-$(document).ready(function(){
+ $('ul.tabs li').click(function(){
 	
-	$('ul.tabs li').click(function(){
-		var tab_id = $(this).attr('data-tab');
+	var tab_id = $(this).attr('data-tab');
+	
+	$('ul.tabs li').removeClass('current');
+	$('.tab-content').removeClass('current');
 
-		$('ul.tabs li').removeClass('current');
-		$('.tab-content').removeClass('current');
+	$(this).addClass('current');
+	$("#"+tab_id).addClass('current');
 
-		$(this).addClass('current');
-		$("#"+tab_id).addClass('current');
-	})
 
 })
+
+
 
 </script>
 </body>
