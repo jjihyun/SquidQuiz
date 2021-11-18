@@ -284,27 +284,35 @@ public class UserController {
 
 	//my홈 페이지 이동
 	@RequestMapping(value="mypageMyHome.ptsd", method=RequestMethod.GET)
-	public ModelAndView selectHomeList(HttpServletRequest request
-			, ModelAndView mv
+	public String selectHomeList(HttpServletRequest request
+			, Model model
 			, @RequestParam(value="page",required=false)Integer page) {
 		HttpSession session = request.getSession();
 		User userOne = (User)session.getAttribute("loginUser");
 		int currentPage = (page!=null) ? page : 1;
-		int totalCount = service.getBListCount();
-		PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
-		List<Board> bList = service.printBoardList(pi, "");
-		if(!bList.isEmpty()) {
-			mv.addObject("bList", bList);
-			mv.addObject("pi", pi);
-			mv.addObject("userPoint",userOne.getPoint());
-			mv.setViewName("mypage/mypageMyHome");
-		}else {
-			mv.addObject("bList", null);
-			mv.setViewName("mypage/mypageMyHome");
+		String userId = userOne.getUserId();
+		int totalBCount = service.getBCount();
+		PageInfo bPi = Pagination.getPageInfo(currentPage, totalBCount);
+		List<Board> bList = service.printBoardList(bPi, userId);
+		model.addAttribute("bList", bList);
+		model.addAttribute("bPi", bPi);
+		model.addAttribute("userPoint",userOne.getPoint());
+		return "mypage/mypageMyHome";
+		
 		}
 	
-		return mv;
-		}
+	//마이페이지->자유게시판 상세
+	@RequestMapping(value="boatdDetail.ptsd", method=RequestMethod.GET)
+	public String boardDetail(Model model
+			, @RequestParam("bNo") int bNo
+			, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User loginUser = (User)session.getAttribute("loginUser");
+		Board board = service.printbOne(bNo);
+		return "board/boardDetail";
+	}
+
+		
 
 
 	//활동내역 페이지 이동

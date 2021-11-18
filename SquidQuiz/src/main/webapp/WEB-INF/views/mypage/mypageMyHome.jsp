@@ -147,7 +147,7 @@
 								<br><br>
 								<table class="table table-hover my-0">
 									<thead>
-										<tr>
+										<tr align="center">
 											<th>게시글 번호</th>
 											<th class="d-none d-xl-table-cell">제목</th>
 											<th class="d-none d-xl-table-cell">날짜</th>
@@ -162,50 +162,55 @@
 										</c:if>
 									<c:forEach items="${bList }" var="bList">
 									<tbody>
-										<tr>
-											<td>${bList.bNo }</td>
-											<td>${bList.bTitle }</td>
-											<td>${bList.bCreateDate }</td>
+										<tr align="center">
+											<td align="center">${bList.bNo }</td>
+											<td align="center">
+												<c:url var="boardDetail" value="boardDetail.ptsd">
+													<c:param name="bNo" value="${bList.bNo }"/>
+												</c:url>
+												<a href="${boardDetail }">${bList.bTitle }</a>
+											</td>
+											<td align="center">${bList.bCreateDate }</td>
 										</tr>
 									</tbody>
 									</c:forEach>
 									<tr align="center" height="20">
 											<td colspan="9">
 											<c:url var="before" value="mypageMyHome.ptsd">
-											<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
+											<c:param name="page" value="${bPi.currentPage - 1 }"></c:param>
 										</c:url>
-										<c:if test="${pi.currentPage <= 1 }">
+										<c:if test="${bPi.currentPage <= 1 }">
 											[이전]
 										</c:if>
-										<c:if test="${pi.currentPage > 1 }">
+										<c:if test="${bPi.currentPage > 1 }">
 											<a id="title-a" href="${before }">[이전]</a>
 										</c:if>
 										<!-- 검색시 페이징 처리 X -->
-										<c:if test="${pi.startNavi eq null }">
+										<c:if test="${bPi.startNavi eq null }">
 												<font color="black" size="4">[1]</font>
 										</c:if>
-										<c:if test="${pi.startNavi ne null }">
-										<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
+										<c:if test="${bPi.startNavi ne null }">
+										<c:forEach var="p" begin="${bPi.startNavi }" end="${bPi.endNavi }">
 											
 											<c:url var="pagination" value="mypageMyHome.ptsd">
 												<c:param name="page" value="${p }"></c:param>
 											</c:url>
 											
-											<c:if test="${p eq pi.currentPage }">
+											<c:if test="${p eq bPi.currentPage }">
 												<font color="black" size="4">[${p }]</font>
 											</c:if>
-											<c:if test="${p ne pi.currentPage }">
+											<c:if test="${p ne bPi.currentPage }">
 												<a id="title-a" href="${pagination }">${p }</a>&nbsp;
 											</c:if>
 										</c:forEach>
 										
 										<c:url var="after" value="mypageMyHome.ptsd">
-											<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
+											<c:param name="page" value="${bPi.currentPage + 1 }"></c:param>
 										</c:url>
-										<c:if test="${pi.currentPage >= pi.maxPage }">
+										<c:if test="${bPi.currentPage >= bPi.maxPage }">
 											[다음]
 										</c:if>
-										<c:if test="${pi.currentPage < pi.maxPage }">
+										<c:if test="${bPi.currentPage < bPi.maxPage }">
 											<a id="title-a" href="${after }">[다음]</a>
 										</c:if>
 										</c:if>

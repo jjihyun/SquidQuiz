@@ -95,6 +95,13 @@ public class UserStoreLogic implements UserStore{
 		return result;
 	}
 
+	@Override
+	public Board selectbOne(int bNo) {
+		Board board = sqlSession.selectOne("boardMapper.selectOneBoard", bNo);
+		return board;
+	}
+
+	
 
 	
 

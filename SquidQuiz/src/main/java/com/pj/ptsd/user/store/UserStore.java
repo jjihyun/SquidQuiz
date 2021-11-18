@@ -19,6 +19,7 @@ public interface UserStore {
 		
 		
 		public List<Board> selectBoardList(PageInfo pi,String userId);
+		public Board selectbOne(int bNo);
 		//전체 게시물 개수 조회
 		public int selectBListCount();
 		
