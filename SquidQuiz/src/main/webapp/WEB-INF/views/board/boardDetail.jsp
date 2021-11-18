@@ -141,6 +141,42 @@
 								
 							}
 						});
+						
+						//이부분 수정중
+// 						//게시판 신고
+// 						function removeReply(bNo, replyNo) {
+// 							$.ajax({
+// 								url : "deleteReply.ptsd",
+// 								type : "get",
+// 								data : {"bNo" : bNo, "replyNo" : replyNo},
+// 								success : function(data) {
+// 									if(data == "success") {
+// 										getReplyList();
+										
+// 									}else {
+// 										alert("댓글 삭제 실패");
+// 									}
+									
+// 								}
+// 							});
+							
+// 							//댓글 신고
+// 							function removeReply(bNo, replyNo) {
+// 								$.ajax({
+// 									url : "deleteReply.ptsd",
+// 									type : "get",
+// 									data : {"bNo" : bNo, "replyNo" : replyNo},
+// 									success : function(data) {
+// 										if(data == "success") {
+// 											getReplyList();
+											
+// 										}else {
+// 											alert("댓글 삭제 실패");
+// 										}
+										
+// 									}
+// 								});
+						
 					}
 
 		</script>	

@@ -310,6 +310,11 @@ public class BoardController {
 			}
 		}
 		
+		//신고 처리 컨트롤러..
+		
+		
+		
+		
 //		@RequestMapping(value = "boardck.ptsd", method = RequestMethod.POST)
 //		public void communityImageUpload(HttpServletRequest request, HttpServletResponse response, 
 //				@RequestParam MultipartFile upload)throws Exception {
