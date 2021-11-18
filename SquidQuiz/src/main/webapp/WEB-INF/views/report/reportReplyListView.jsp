@@ -44,8 +44,8 @@ a:hover{color:#495057;	text-decoration: none;}
 					<li class="sidebar-header">목록</li>
 					
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="#"> <i class="align-middle"
-							data-feather="sliders"></i> <span>회원정보수정</span>
+						href="userListView.ptsd"> <i class="align-middle"
+							data-feather="sliders"></i> <span>회원관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
 						href="pages-profile.html"> <i class="align-middle"
@@ -143,16 +143,23 @@ a:hover{color:#495057;	text-decoration: none;}
 								<td>${rList.replyWriter }</td>
 								<td><fmt:formatDate value="${rList.replyReportDate }" pattern="yyyy-MM-dd  HH:mm"/></td>
 								
-								<c:url var="rDelete" value="replyDelete.ptsd">
-									<c:param name="replyReportNo" value="${rList.replyReportNo }"></c:param>
-									<c:param name="replyNo" value="${rList.replyNo }"></c:param>
-								</c:url>
-								<td><button class="btn btn-warning" onclick="location.href='${rDelete}'">삭제</button></td>
+<%-- 								<c:url var="rDelete" value="replyDelete.ptsd"> --%>
+<%-- 									<c:param name="replyReportNo" value="${rList.replyReportNo }"></c:param> --%>
+<%-- 									<c:param name="replyNo" value="${rList.replyNo }"></c:param> --%>
+<%-- 								</c:url> --%>
+								<td>
+									<input type="hidden" value="${rList.replyReportNo }">
+									<input type="hidden" value="${rList.replyNo }">
+									<button class="btn btn-warning" onclick="deleteReply(this);">삭제</button>
+								</td>
 								
-								<c:url var="rrDelete" value="replyReportDelete.ptsd">
-									<c:param name="replyReportNo" value="${rList.replyReportNo }"></c:param>
-								</c:url>
-								<td><button class="btn btn-warning" onclick="location.href='${rrDelete }'">삭제</button></td>
+<%-- 								<c:url var="rrDelete" value="replyReportDelete.ptsd"> --%>
+<%-- 									<c:param name="replyReportNo" value="${rList.replyReportNo }"></c:param> --%>
+<%-- 								</c:url> --%>
+								<td>
+									<input type="hidden" value="${rList.replyReportNo }">
+									<button class="btn btn-warning" onclick="deleteReport(this);">삭제</button>
+								</td>
 								
 									
 							</tr>
@@ -281,7 +288,29 @@ a:hover{color:#495057;	text-decoration: none;}
 		</div>
 	</footer>
 	<script>
-
+	//댓글삭제
+	function deleteReply(obj){
+		var deleteReplyChk = confirm("해당 댓글을 삭제하시겠습니까?");
+		var replyReportNo = $(obj).prev().prev().val();
+		var replyNo = $(obj).prev().val();
+		if(deleteReplyChk){
+			location.href="replyDelete.ptsd?replyNo="+ replyNo + "&replyReportNo=" + replyReportNo;
+		}else{
+			alert("게시물 삭제를 취소하였습니다.");
+		}
+		
+	}
+	//댓글 신고 내역 삭제
+	function deleteReport(obj){
+		var deleteReportChk = confirm("해당 신고 내역을 삭제하시겠습니까?");
+		var replyReportNo = $(obj).prev().val();
+		if(deleteReportChk){
+			location.href="replyReportDelete.ptsd?replyReportNo="+ replyReportNo;
+		}else{
+			alert("신고 내역 삭제를 취소하였습니다.");
+		}
+		
+	}
 	
 	</script>
 	<!-- 탭 동작용 부트스트랩 4 cdn... -->

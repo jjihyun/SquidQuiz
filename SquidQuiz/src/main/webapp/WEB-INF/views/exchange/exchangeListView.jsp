@@ -125,10 +125,13 @@ a:hover{color:#495057;	text-decoration: none;}
 								<td>${eList.exchangeBank }</td>
 								<td>${eList.exchangeMoney }</td>
 								<c:if test="${eList.exchangeStatus eq 'N' }">
-									<c:url var="exchangeModify" value="exchangeHandling.ptsd">
-										<c:param name="exchangeNo" value="${eList.exchangeNo }"></c:param>
-									</c:url>
-									<td><a href="${exchangeModify }"><span class="badge bg-warning">대기중</span></a></td>
+<%-- 									<c:url var="exchangeModify" value="exchangeHandling.ptsd"> --%>
+<%-- 										<c:param name="exchangeNo" value="${eList.exchangeNo }"></c:param> --%>
+<%-- 									</c:url> --%>
+									<td>
+										<input type="hidden" value="${eList.exchangeNo }">
+										<a href="javascript:(0)" onclick="modifyEx(this);"><span class="badge bg-warning">대기중</span></a>
+									</td>
 								</c:if>
 								<c:if test="${eList.exchangeStatus eq 'Y' }">
 									<td><span class="badge bg-success">처리완료</span></td>
@@ -198,7 +201,17 @@ a:hover{color:#495057;	text-decoration: none;}
 			<div class="row text-muted"></div>
 		</div>
 	</footer>
-	
+	<script>
+	function modifyEx(obj){
+		var modifyChk = confirm("환전 완료 처리 하시겠습니까?");
+		var exchangeNo = $(obj).prev().val();
+		if(modifyChk){
+			location.href="exchangeHandling.ptsd?exchangeNo=" + exchangeNo;
+		}else{
+			alert("취소되었습니다.");
+		}
+	};
+	</script>
 	<script src="/resources/js/app.js"></script>
 </body>
 </html>

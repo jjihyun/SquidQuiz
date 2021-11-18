@@ -138,6 +138,9 @@ public class QnaController {
 			} else {
 				out.println("<script>alert('문의글이 게시에 실패하였습니다. 다시 시도해주세요.');</script>");
 			}
+			out.flush();
+			out.close();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", e.toString()).setViewName("common/errerPage");

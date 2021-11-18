@@ -1,6 +1,9 @@
 package com.pj.ptsd.report.controller;
 
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,43 +71,44 @@ public class ReportController {
 	}
 	//신고 게시물 삭제
 	@RequestMapping(value="reportBoardDelete.ptsd")
-	public String reportBoardDelete (Model model
+	public void reportBoardDelete (ModelAndView mv
 			,@RequestParam("boardNo") int boardNo
-			,@RequestParam("reportNo") int reportNo) {
+			,@RequestParam("reportNo") int reportNo
+			,HttpServletResponse response) {
 		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
 			service.removeReport(reportNo);
 			int result = service.removeReportBoard(boardNo);
 			if(result>0) {
-				
-				return "redirect:reportListView.ptsd";
+				out.println("<script>alert('게시물이 삭제되었습니다.');window.location=document.referrer;</script>");
 			}else {
-				model.addAttribute("msg","신고된 게시물 삭제 실패");
-				return "common/errorPage"; 
+				out.println("<script>alert('게시물 삭제에 실패하였습니다. 다시 시도해주세요.');window.location=document.referrer;</script>");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", e.toString());
-			return "common/errorPage"; 
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
 		
 	
 	}
 	//게시물 신고 내역 삭제
 	@RequestMapping(value="reportDelete.ptsd")
-	public String reportDelete (Model model,@RequestParam("reportNo") int reportNo) {
+	public void reportDelete (ModelAndView mv,@RequestParam("reportNo") int reportNo,HttpServletResponse response) {
 		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
 			int result = service.removeReport(reportNo);
 			if(result>0) {
-				
-				return "redirect:reportListView.ptsd";
+				out.println("<script>alert('신고 내역이 삭제되었습니다.');window.location=document.referrer;</script>");
 			}else {
-				model.addAttribute("msg","신고된 게시물 삭제 실패");
-				return "common/errorPage"; 
+				out.println("<script>alert('신고 내역 삭제에 실패하였습니다.');window.location=document.referrer;</script>");
 			}
+			out.flush();
+			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", e.toString());
-			return "common/errorPage"; 
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
 		
 	}
@@ -154,42 +158,47 @@ public class ReportController {
 	//신고 댓글 삭제
 	
 	@RequestMapping(value="replyDelete.ptsd")
-	public String reportReplyDelete (Model model
-			,@RequestParam("replyReportNo") int replyReportNo
-			,@RequestParam("replyNo") int replyNo) {
+	public void reportReplyDelete (ModelAndView mv
+			,@RequestParam("replyNo") int replyNo
+ 			,@RequestParam("replyReportNo") int replyReportNo
+			,HttpServletResponse response) {
 		try {
+			System.out.println("cont"+replyNo + replyReportNo);
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			service.removeReplyReport(replyReportNo);
 			int result = service.removeReply(replyNo);
 			if(result>0) {
-				
-				return "redirect:replyReportListView.ptsd";
+				out.println("<script>alert('해당 댓글을 삭제하였습니다.');window.location=document.referrer;</script>");
 			}else {
-				model.addAttribute("msg","신고된 댓글 삭제 실패");
-				return "common/errorPage"; 
+				out.println("<script>alert('해당 댓글 삭제에 실패하였습니다.');window.location=document.referrer;</script>");
 			}
+			out.flush();
+			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", e.toString());
-			return "common/errorPage"; 
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
 		
 	
 	}
 	//댓글 신고 내역 삭제
 	@RequestMapping(value="replyReportDelete.ptsd")
-	public String replyReportDelete (Model model,@RequestParam("replyReportNo") int replyReportNo) {
+	public void replyReportDelete (ModelAndView mv,@RequestParam("replyReportNo") int replyReportNo,HttpServletResponse response) {
 		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
 			int result = service.removeReplyReport(replyReportNo);
 			if(result>0) {
-				
-				return "redirect:replyReportListView.ptsd";
+				out.println("<script>alert('해당 신고 내역을 삭제하였습니다.');window.location=document.referrer;</script>");
 			}else {
-				model.addAttribute("msg","댓글 신고 내역 삭제 실패");
-				return "common/errorPage"; 
+				out.println("<script>alert('해당 신고 내역 삭제에 실패하였습니다.');window.location=document.referrer;</script>");
 			}
+			out.flush();
+			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", e.toString());
-			return "common/errorPage"; 
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
 		
 	}

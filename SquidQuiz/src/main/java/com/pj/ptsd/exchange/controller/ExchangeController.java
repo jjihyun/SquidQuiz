@@ -138,7 +138,7 @@ public class ExchangeController {
 				session.setAttribute("loginUser", user);
 				out.println("<script>alert('환전 신청이 완료되었습니다. 빠른 시일내에 처리해드리겠습니다. 감사합니다.');location.href = 'exchangeOwnListView.ptsd';</script>");
 			} else {
-				out.println("<script>alert('환전 신청이 실패하였습니다. 다시 시도해주세요.(반복될 경우 관리자에게 문의해주세요.)');location.href = document.referrer;</script>");
+				out.println("<script>alert('환전 신청이 실패하였습니다. 다시 시도해주세요.(반복될 경우 관리자에게 문의해주세요.)');location.href = 'document.referrer';</script>");
 			}
 			out.flush();
 			out.close();
@@ -149,26 +149,26 @@ public class ExchangeController {
 	}
 	//환전 처리 ( 수정 , 관리자)
 	@RequestMapping(value="exchangeHandling.ptsd")
-	public String exchangeModify(Model model,
+	public void exchangeModify(ModelAndView mv,
 			@RequestParam("exchangeNo") int exchangeNo
+			,HttpServletResponse response
 			) {
 		try {
-			
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out = response.getWriter();
 			
 			//환전내역 수정처리
 			int result = service.modifyExchangeStatus(exchangeNo);
 			if (result > 0) {
-				
-				
-				return "redirect:exchangeListView.ptsd";
+				out.println("<script>alert('환전 완료 처리되었습니다.');window.location=document.referrer;</script>");
 			} else {
-				model.addAttribute("msg", "환전 처리 상태 변경 실패");
-				return "common/errorPage";
+				out.println("<script>alert('환전 완료 처리에 실패하였습니다.');window.location=document.referrer;</script>");
 			}
+			out.flush();
+			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", e.toString());
-			return "common/errorPage";
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
 	}
 	

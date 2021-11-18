@@ -84,9 +84,10 @@ public class ReportStoreLogic implements ReportStore{
 	//신고된 댓글 삭제
 	@Override
 	public int deleteReply(int replyNo) {
+		System.out.println(replyNo);
 		int result = 0;
 		int result1 = session.delete("reportMapper.deleteReplyReports", replyNo);
-//		System.out.println(result1);
+		System.out.println(result1);
 		if (result1>0) {
 			result = session.delete("reportMapper.deleteReply", replyNo);
 		}

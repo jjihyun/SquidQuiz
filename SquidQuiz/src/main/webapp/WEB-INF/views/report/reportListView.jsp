@@ -45,8 +45,8 @@ a:hover{color:#495057;	text-decoration: none;}
 					<li class="sidebar-header">목록</li>
 					
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="#"> <i class="align-middle"
-							data-feather="sliders"></i> <span>회원정보수정</span>
+						href="userListView.ptsd"> <i class="align-middle"
+							data-feather="sliders"></i> <span>회원관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
 						href="pages-profile.html"> <i class="align-middle"
@@ -143,16 +143,23 @@ a:hover{color:#495057;	text-decoration: none;}
 								<td>${rList.boardWriter }</td>
 								<td><fmt:formatDate value="${rList.boardReportDate }" pattern="yyyy-MM-dd  HH:mm"/></td>
 								
-								<c:url var="bDelete" value="reportBoardDelete.ptsd">
-									<c:param name="boardNo" value="${rList.boardNo }"></c:param>
-									<c:param name="reportNo" value="${rList.reportNo }"></c:param>
-								</c:url>
-								<td><button class="btn btn-warning" onclick="location.href='${bDelete}'">삭제</button></td>
+<%-- 								<c:url var="bDelete" value="reportBoardDelete.ptsd"> --%>
+<%-- 									<c:param name="boardNo" value="${rList.boardNo }"></c:param> --%>
+<%-- 									<c:param name="reportNo" value="${rList.reportNo }"></c:param> --%>
+<%-- 								</c:url> --%>
+								<td>
+									<input type="hidden" value="${rList.boardNo }">
+									<input type="hidden" value="${rList.reportNo }">
+									<button class="btn btn-warning" onclick="deleteBoard(this);">삭제</button>
+								</td>
 								
-								<c:url var="rDelete" value="reportDelete.ptsd">
-									<c:param name="reportNo" value="${rList.reportNo }"></c:param>
-								</c:url>
-								<td><button class="btn btn-warning" onclick="location.href='${rDelete }'">삭제</button></td>
+<%-- 								<c:url var="rDelete" value="reportDelete.ptsd"> --%>
+<%-- 									<c:param name="reportNo" value="${rList.reportNo }"></c:param> --%>
+<%-- 								</c:url> --%>
+								<td>
+									<input type="hidden" value="${rList.reportNo }">
+									<button class="btn btn-warning" onclick="deleteReport(this);">삭제</button>
+								</td>
 							</tr>
 							
 						</tbody>
@@ -281,7 +288,30 @@ a:hover{color:#495057;	text-decoration: none;}
 		</div>
 	</footer>
 	<script>
-
+	//게시물 삭제
+	function deleteBoard(obj){
+		var deleteBoardChk = confirm("해당 게시물을 삭제하시겠습니까?");
+		var boardNo = $(obj).prev().prev().val();
+		var reportNo = $(obj).prev().val();
+		if(deleteBoardChk){
+			location.href="reportBoardDelete.ptsd?boardNo="+ boardNo + "&reportNo=" + reportNo;
+		}else{
+			alert("게시물 삭제를 취소하였습니다.");
+		}
+		
+	}
+	//게시물 신고 내역 삭제
+	function deleteReport(obj){
+		var deleteReportChk = confirm("해당 신고 내역을 삭제하시겠습니까?");
+		var reportNo = $(obj).prev().val();
+		if(deleteReportChk){
+			location.href="reportDelete.ptsd?reportNo="+ reportNo;
+		}else{
+			alert("신고 내역 삭제를 취소하였습니다.");
+		}
+		
+	}
+	
 	
 	</script>
 	<!-- 탭 동작용 부트스트랩 4 cdn... -->
