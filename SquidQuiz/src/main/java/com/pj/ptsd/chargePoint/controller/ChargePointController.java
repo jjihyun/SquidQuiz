@@ -28,7 +28,7 @@ public class ChargePointController {
 	private ChargePointService service;
 	
 	//포인트 페이지 이동
-	@RequestMapping(value="/mypagePoint.ptsd", method=RequestMethod.GET)
+	@RequestMapping(value="mypagePoint.ptsd", method=RequestMethod.GET)
 	public String selectPointList(Model model
 			,@RequestParam(value="page",required=false)Integer page
 			, HttpServletRequest request) {
@@ -51,6 +51,26 @@ public class ChargePointController {
 		return "mypage/mypagePoint";
 	}
 
+//	  환전내역 리스트
+	
+	@RequestMapping(value="exchangeList.ptsd", method=RequestMethod.GET)
+	public String exchangeListView (Model model
+			,@RequestParam(value="page",required=false)Integer page 
+			,HttpServletRequest request) { 
+		HttpSession session = request.getSession(); 
+		User userOne = (User)session.getAttribute("loginUser");
+		int currentPage = (page!=null) ? page : 1; 
+		String userId = userOne.getUserId();
+		int totalCount = 0;
+		int totalEcount = service.getAllEListCount();
+		PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
+		PageInfo ePi = Pagination.getPageInfo(currentPage, totalEcount);
+		List<Exchange> eList = service.printExchangeList(ePi, userId); 
+			model.addAttribute("eList", eList); 
+			model.addAttribute("ePi", ePi);
+			model.addAttribute("userPoint",userOne.getPoint());
+			return "mypage/mypagePoint";
+	}
 	
 	//충전 포인트 내역 리스트 
 //	@RequestMapping(value="/chargePointView.ptsd", method=RequestMethod.GET)
@@ -76,27 +96,7 @@ public class ChargePointController {
 //		return mv;
 //	}
 
-	//환전내역 리스트 
-//	@RequestMapping(value="/exchangeListView.ptsd", method=RequestMethod.GET)
-//	public ModelAndView exchangeListView ( ModelAndView mv
-//			,@RequestParam(value="page",required=false)Integer page
-//			,HttpServletRequest request) {
-//		HttpSession session = request.getSession();
-//		int currentPage = (page!=null) ? page : 1;
-//		int totalCount = service.getAllEListCount();
-//		PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
-//		List<Exchange> eList = service.printExchangeList(pi, "");
-//		if(!eList.isEmpty()) {
-//			mv.addObject("eList", eList);
-//			mv.addObject("pi", pi);
-//			mv.setViewName("mypage/mypagePoint");
-//		}else {
-//			mv.addObject("eList", null);
-//			mv.setViewName("mypage/mypagePoint");
-//		}
-//
-//		return mv;
-//	}
+	
 
 	
 	//포인트 충전 페이지 이동
