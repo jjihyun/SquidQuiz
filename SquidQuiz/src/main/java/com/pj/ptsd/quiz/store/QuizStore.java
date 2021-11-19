@@ -6,6 +6,7 @@ import com.pj.ptsd.quiz.domain.MainGameInfo;
 import com.pj.ptsd.quiz.domain.Ox;
 import com.pj.ptsd.quiz.domain.PageData;
 import com.pj.ptsd.quiz.domain.QuizSearch;
+import com.pj.ptsd.user.domain.User;
 
 public interface QuizStore {
 	public int selectListCount();
@@ -23,6 +24,18 @@ public interface QuizStore {
 		public int updatequizGameEndStatus(String quizGameStatus);
 		public MainGameInfo selectParticpant();
 		//참가 등록
-		public int insertParticipant();
+		public int insertParticipant(String participantNo);
+		//참가자 머니조회
+		public int selectUserPoint(User user);
+		//참가자 머니 수정
+		public int updateUserPoint(User user);
+		//게임 머니,참가자수,기부머니 수정
+		public int updateMoney(MainGameInfo mgi);
+		//참가 취소
+		public int removeParticipant(String participantNo);
+		//유저 머니 환불
+		public int updateUserPointMinus(User user);
+		//게임 머니 환불
+		public int updateMoneyMinus(MainGameInfo mgi);
 		
 }
