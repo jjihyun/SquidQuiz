@@ -6,6 +6,7 @@ public class Board {
 
 	
 	private int bNo;
+	private int rownum;
 	private String bTitle;
 	private String bContents;
 	private String userId;
@@ -21,6 +22,11 @@ public class Board {
 
 	public int getbNo() {
 		return bNo;
+	}
+
+
+	public int getRownum() {
+		return rownum;
 	}
 
 
@@ -69,6 +75,11 @@ public class Board {
 	}
 
 
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+
+
 	public void setbTitle(String bTitle) {
 		this.bTitle = bTitle;
 	}
@@ -111,10 +122,8 @@ public class Board {
 
 	@Override
 	public String toString() {
-		return "Board [bNo=" + bNo + ", bTitle=" + bTitle + ", bContents=" + bContents + ", userId=" + userId
-				+ ", bFileName=" + bFileName + ", bFileRename=" + bFileRename + ", bFilePath=" + bFilePath
-				+ ", bCreateDate=" + bCreateDate + ", bUpdateDate=" + bUpdateDate + "]";
+		return "Board [bNo=" + bNo + ", rownum=" + rownum + ", bTitle=" + bTitle + ", bContents=" + bContents
+				+ ", userId=" + userId + ", bFileName=" + bFileName + ", bFileRename=" + bFileRename + ", bFilePath="
+				+ bFilePath + ", bCreateDate=" + bCreateDate + ", bUpdateDate=" + bUpdateDate + "]";
 	}
-
-
 }

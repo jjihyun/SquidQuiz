@@ -7,14 +7,12 @@
 <meta charset="UTF-8">
 <title>자유게시판 목록</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- <link rel="stylesheet" href="/resources/css/app.css"> -->
-<!-- <link rel="stylesheet" href="/resources/js/app.js"> -->
+	<!-- 최신부트스트랩 -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 </head>
-
 <body>
 <script>
-
-
 		//자바스크립트로 헤더 파일 받아오는 소스 
 		$(document).ready(function() {
 			$('#headerMain').load("/resources/html/header.jsp");
@@ -27,7 +25,7 @@
 	<div class="row visible" style="heigh:100px"></div>
 	<div class="container">
 	<table align="center" width="600" border="1" cellspacing="0" style="clear:right;">
-	<tr>
+	<tr align="center">
 		<th align="center">번호</th>
 		<th align="center" width="300">제목</th>
 		<th align="center">글쓴이</th>
@@ -35,10 +33,10 @@
 <!-- 		<th align="center">첨부파일</th> -->
 	</tr>
 		<c:forEach items="${bList }" var="board">
-		<input type="hidden" value="${!empty board.bFileName }">
-		<input type="hidden" value="${ empty board.bFileName }">
+<%-- 		<input type="hidden" value="${!empty board.bFileName }"> --%>
+<%-- 		<input type="hidden" value="${ empty board.bFileName }"> --%>
 			<tr>
-				<td align="center">${board.bNo }</td>
+				<td align="center">${board.rownum }</td>
 				
 				<td align="center">
 					<c:url var="boardDetail" value="boardDetail.ptsd">
@@ -50,16 +48,21 @@
 				<td align="center">${board.userId }</td>
 				
 				<td align="center">${board.bCreateDate }</td>
-				
 			</tr>
 		</c:forEach>
 		    <tr>
 		    	<td align="center" colspan="5">
-					<a href="boardWrite.ptsd" class="btn btn-primary">글쓰기</a>
+		    	<!-- 글쓰기가동일하잖아요 -->
+					<c:if test ="${loginUser eq null }">
+	            		<a href="login.ptsd" class="btn btn-primary">글쓰기</a>
+		    		</c:if> 
+		    		<!-- 두개의 선택지중 한개만보여야할때 -->
+		    		<c:if test ="${loginUser.userId ne null }">
+	            		<a href="boardWrite.ptsd" class="btn btn-primary">글쓰기</a>
+		    		</c:if>
+    					<!-- 로그인 하고 이용가능하게 한다. -->
 				</td>
 			</tr>
-		
-	
 		<tr align="center" height="20">
 			<td colspan="6">
 				<c:url var="before" value="boardList.ptsd">
@@ -94,7 +97,6 @@
 			</td>
 		</tr>
 	</table>
-	
 	<div align="center">
 		<form action="boardSearch.ptsd" method="get">
 			<select name="searchCondition">
@@ -105,10 +107,9 @@
 			</select>
 			<input type="hidden" name="page" value="1">
 			<input type="text" name="searchValue" value="${search.searchValue }" placeholder="검색하시겠습니까?">
-			<input type="submit" value="검색">
+			<input type="submit" class="btn btn-primary" value="검색">
 		</form>
 	</div>
-	
 </body>
 </html>
 
