@@ -19,27 +19,23 @@
         <img align="center" class="myLogo" src="resources/img/myPageLogo.png" />
         <c:if test="${ empty sessionScope.loginUser }">
         <form action="login.ptsd" method="post">
-            <table align="center">
-                <tr>
-                    <td>아이디 </td>
-                    <td><input type="text" id="userId" name="userId"></td>
-                </tr>
-                <tr>
-                    <td>비밀번호 </td>
-                    <td><input type="password" id="userPwd" name="userPwd"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
+            <div align="center">
+                <div class="input-box">
+                    <input type="text" id="userId" name="userId" placeholder="아이디">
+                    <label for="userId">아이디 </label>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="userPwd" name="userPwd"placeholder="비밀번호">
+                    <label for="userPwd">비밀번호 </label>
+                </div>
+                <div class="link" align="center">
                         <a href="/findIdView.ptsd">ID찾기</a>&nbsp;<a href="/findPwdView.ptsd">PW찾기</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <input type="submit" value="로그인"><br>
-                        <button type="button" onclick="location.href='/join.ptsd';">회원가입</button>
-                    </td>
-                </tr>		  
-            </table>
+                </div>
+                <div>
+                        <input class="log-btn" type="submit" value="로그인"><br>
+                        <button class="join-btn" type="button" onclick="location.href='/join.ptsd';">회원가입</button>
+                </div>		  
+            </div>
         </form>
         </c:if>
         <c:if test="${ not empty loginUser }">

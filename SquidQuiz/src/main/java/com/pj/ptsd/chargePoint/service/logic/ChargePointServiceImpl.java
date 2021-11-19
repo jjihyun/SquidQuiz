@@ -33,13 +33,13 @@ public class ChargePointServiceImpl implements ChargePointService{
 	
 
 	@Override
-	public int getAllEListCount() {
-		int result = store.selectAllEListCount(); 
+	public int getAllEListCount(String userId) {
+		int result = store.selectAllEListCount(userId); 
 		return result;
 	}
 	@Override
-	public int getAllCListCount() {
-		int result = store.selectAllCListCount(); 
+	public int getAllCListCount(int userNo) {
+		int result = store.selectAllCListCount(userNo); 
 		return result;
 	}
 

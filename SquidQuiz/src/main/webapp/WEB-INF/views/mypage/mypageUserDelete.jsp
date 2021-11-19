@@ -18,7 +18,6 @@
 <link rel="shortcut icon" href="/resources/img/photos/초대.png" />
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="/resources/css/join.css">
 <link rel="stylesheet" href="/resources/css/app.css">
 <script type="text/javascript" src="resources/js/address.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -27,6 +26,16 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
 
 </head>
+<style>
+
+input{width:300px;height:40px;margin:5px;}
+#userId{pointer-events: none;}
+#userPwd:focus{box-shadow: 1px 3px 10px 3px gray;}
+#removeUser{width:300px;height:40px;border-radius: 5px;border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;background-color: rgb(247, 105, 136);font-weight: bold;cursor:pointer;}
+#removeUser:hover{background-color: rgb(230, 87, 118);}
+
+</style>
+
 <body>
 	<header>
 		<jsp:include page="../../../resources/html/header.jsp"/>
@@ -88,22 +97,18 @@
         <br><br><br><br><br><br>
         <c:if test="${ not empty loginUser }">
         <form action="userDelete.ptsd" id="removeForm" method="post">
-            <table align="center">
-                <tr>
-                    <td>아이디 </td>
-                    <td><input type="text" id="userId" name="userId" value="${loginUser.userId }"></td>
-                </tr>
-                <tr>
-                    <td>비밀번호 </td>
-                    <td><input type="password" id="userPwd" name="userPwd"></td>
-                </tr>
+            <div align="center">
+            	<div>
+                    <input type="text" id="userId" name="userId" value="${loginUser.userId }">
+                </div>
+                <div>
+                    <input type="password" id="userPwd" name="userPwd" placeholder="비밀번호">
+                </div>
               
-                <tr>
-                    <td colspan="2" align="center">
+                <div>
                         <input type="submit" id="removeUser"  value="회원탈퇴"><br>
-                    </td>
-                </tr>		  
-            </table>
+                </div>		  
+            </div>
         </form>
         </c:if>
        

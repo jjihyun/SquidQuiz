@@ -3,12 +3,26 @@
 .mainLogo{display : block ; margin : 0 auto ; width:10%}
 label{float: left;font-weight: bold;font-size: 13px;}
 .form-group{width: 300px;}
-.form-group input{width: 300px;height: 30px; margin: 3px; font-size: 10px;}
-#id-check{width: 305px;}
+.form-group input{width: 300px;height: 30px; margin: 3px; font-size: 10px;font-weight: bold;}
 .form-btn {width: 300px;margin-left: 5px;}
-.form-btn input{width: 300px; margin: 2px;}
+.form-btn input{width: 300px;height:30px; margin: 2px;border-radius: 5px;border:none;background-color: rgb(247, 105, 136);cursor:pointer;font-size:12px;font-weight: bold;color:white;}
+.form-btn input:hover{background-color: rgb(230, 87, 118);}
 .form-postgroup{width: 300px;}
 .form-postgroup #post{width:200px;height: 30px; margin: 3px; font-size: 10px;float: left;}
-#postcodify_search_button{width:50px;height: 30px;margin-top:5px}
-           
 
+#id-check{width: 305px;height:30px;border-radius: 5px;border:none;background-color: rgb(247, 105, 136);cursor:pointer;font-size:12px;color:white;}
+#id-check:hover{background-color: rgb(230, 87, 118);}
+           
+#postcodify_search_button{width:50px;height: 30px;margin-top:5px;border-radius: 5px;border:none;background-color: rgb(247, 105, 136);cursor:pointer;font-size:12px;font-weight: bold;color:white;}
+#postcodify_search_button:hover{background-color: rgb(230, 87, 118);}
+
+#userId,#userName{pointer-events: none;}
+
+#userId:focus{box-shadow: 1px 3px 10px 3px gray;}
+#userPwd:focus{box-shadow: 1px 3px 10px 3px gray;}
+#userRePwd:focus{box-shadow: 1px 3px 10px 3px gray;}
+#userName:focus{box-shadow: 1px 3px 10px 3px gray;}
+#userEmail:focus{box-shadow: 1px 3px 10px 3px gray;}
+#userPhone:focus{box-shadow: 1px 3px 10px 3px gray;}
+#bankName:focus{box-shadow: 1px 3px 10px 3px gray;}
+#bankAccount:focus{box-shadow: 1px 3px 10px 3px gray;}

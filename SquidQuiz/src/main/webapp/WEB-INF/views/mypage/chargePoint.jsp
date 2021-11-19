@@ -63,6 +63,8 @@ ul.tabs li.current{
 #numPoint{width:150px;height:40px; margin-top:10px;text-align:right;}
 .p-btn{ margin-top:10px;}
 
+#charge_kakao{width:300px;}
+#back-btn{width:300px;margin-top:10px;}
 </style>
 
 <body>
@@ -134,12 +136,10 @@ ul.tabs li.current{
 			                <label class="box-radio-input"><input type="radio" name="cp_item" value="40000"><span>40,000원</span></label>
 			                <label class="box-radio-input"><input type="radio" name="cp_item" value="50000"><span>50,000원</span></label>
 			                <p  style="color: #ac2925; margin-top: 30px">카카오페이의 최소 충전금액은 10,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p>
-			                <button type="button" class="btn btn-lg btn-block  btn-custom" id="charge_kakao">충 전 하 기</button>
-			 				</div>
-							<input type="button" class="p-btn" onclick="location.href='/mypagePoint.ptsd'" value="돌아가기">
-							
+			                <button type="button" class="btn btn-primary" btn-custom" id="charge_kakao">충 전 하 기</button>
+							<button type="button" class="btn btn-secondary" id="back-btn" onclick="location.href='/mypagePoint.ptsd'">돌아가기</button>
+			 			</div>
 						</div>
-					
 					</div>
 					</div>
 					<br>

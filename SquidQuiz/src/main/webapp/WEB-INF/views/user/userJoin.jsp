@@ -71,7 +71,7 @@
             </div><br>
             <div class="form-btn" align="center">
                     <input type="submit" id="signupbtn" name="signup" value="회원가입"><br>
-                    <a href="login.ptsd"><input type="button" value="로그인"></a>
+                    <a href="login.ptsd"><input type="button" id="log-btn" value="로그인"></a>
             </div>	
     </form>
     </div>

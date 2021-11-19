@@ -21,14 +21,13 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <style>
-.userDel-btn{border:none;float:center;background-color:transparent;}
-.userDer-btn :hover{background:rgba(0,0,0,.1)}
-</style>
-<style>
 
 .box1{ width:1100px; margin: 0; padding:0;}
 .card{width:500px;float:left;margin-left:10px;margin-right:10px;}
 .card-body{text-align:left;}
+.point1,.point2{pointer-events: none;}
+
+#userPoint,#userGibu{font-size:20px;border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;}
 
 </style>
 <body>
@@ -103,9 +102,9 @@
 											</div>
 										</div>
 									</div>
-									<h1 class="point1"><input type="text" name="Point" value="${userPoint }"></h1>
+									<h1 class="point1"><input type="text" id="userPoint" name="Point" value="${userPoint }"></h1>
 									<div class="point-btn">
-										<button id="check_module" onclick = "location.href = '/chargePoint.ptsd' " type="button">충전하기</button>
+										<button id="check_module" class="btn btn-primary"  onclick = "location.href = '/chargePoint.ptsd' " type="button">충전하기</button>
 									</div>
 								</div>
 							</div>
@@ -122,10 +121,10 @@
 											</div>
 										</div>
 									</div>
-									<h1 class="point2"><input type="text" name="Point2" value="${userPoint }"></h1>
+									<h1 class="point2"><input type="text" id="userGibu" name="Point2" value="${pPoint }"></h1>
 									<div class="camp-btn">
-										<button>기부하기</button>
-										<button>기부내역</button>
+										<button type="button" class="btn btn-primary" onclick = "location.href = '/campaignList.ptsd' ">기부하기</button>
+										<button type="button" class="btn btn-primary" onclick = "location.href = '/mypageDetail.ptsd' ">기부내역</button>
 									</div>
 								</div>
 							</div>
@@ -139,24 +138,21 @@
 					
 					<div align="center">
 						<div class="board">
-							<div class="board flex-fill">
-								<div class="board-header">
-
-									<h5 class="board-title mb-0">내가 쓴 게시물</h5>
-								</div>
+							<div id="card-flex" class="board flex-fill">
+									<h5>내가 쓴 게시물</h5>
 								<br><br>
 								<table class="table table-hover my-0">
-									<thead>
-										<tr align="center">
+									<thead align="center">
+										<tr>
 											<th>게시글 번호</th>
-											<th class="d-none d-xl-table-cell">제목</th>
-											<th class="d-none d-xl-table-cell">날짜</th>
+											<th>제목</th>
+											<th>날짜</th>
 										</tr>
 									</thead>
-									<c:if test="${bList eq null }">
+									<c:if test="${empty bList }">
 											<tbody align="center">
 												<tr align="center">
-													<td colspan="9"><span>조회된 게시글이 없습니다.</span></td>
+													<td colspan="9"><span>작성된 게시글이 없습니다.</span></td>
 												</tr>
 											</tbody>
 										</c:if>
@@ -176,7 +172,7 @@
 									</c:forEach>
 									<tr align="center" height="20">
 											<td colspan="9">
-											<c:url var="before" value="mypageMyHome.ptsd">
+										<c:url var="before" value="mypageMyHome.ptsd">
 											<c:param name="page" value="${bPi.currentPage - 1 }"></c:param>
 										</c:url>
 										<c:if test="${bPi.currentPage <= 1 }">

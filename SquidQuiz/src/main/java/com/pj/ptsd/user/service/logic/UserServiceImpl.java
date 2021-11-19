@@ -7,8 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.pj.ptsd.board.domain.Board;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
-import com.pj.ptsd.exchange.domain.Exchange;
-import com.pj.ptsd.user.domain.ChargePoint;
+import com.pj.ptsd.quiz.domain.Participant;
 import com.pj.ptsd.user.domain.PageInfo;
 import com.pj.ptsd.user.domain.User;
 import com.pj.ptsd.user.service.UserService;
@@ -63,9 +62,16 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<CampaignRecord> printCRList(PageInfo pi, int userNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CampaignRecord> printCRList(PageInfo pi, String userId) {
+		List<CampaignRecord> cList = store.selectCRList(pi, userId);
+		return cList;
+	}
+	
+
+	@Override
+	public int getCCount(String userId) {
+		int result = store.selectCListCount(userId); 
+		return result;
 	}
 
 	@Override
@@ -73,14 +79,20 @@ public class UserServiceImpl implements UserService{
 		List<Board> bList = store.selectBoardList(pi, userId);
 		return bList;
 	}
-
-	//전체 게시물 개수
+	
+	//자유게시판 상세
 	@Override
-	public int getBCount() {
-		int result = store.selectBListCount(); 
+	public Board printbOne(int bNo) {
+		Board board = store.selectbOne(bNo);
+		return board;
+	}
+	
+	//자유게시판 게시물 개수
+	@Override
+	public int getBCount(String userId) {
+		int result = store.selectBListCount(userId); 
 		return result;
 	}
-
 
 	//포인트 출력
 	@Override
@@ -90,10 +102,27 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public Board printbOne(int bNo) {
-		Board board = store.selectbOne(bNo);
-		return board;
+	public List<Participant> printQList(PageInfo pi, String userId) {
+		List<Participant> qList = store.selectQList(pi, userId);
+		return qList;
 	}
+	
+
+	@Override
+	public int getQCount(String userId) {
+		int result = store.selectQListCount(userId); 
+		return result;
+	}
+
+	@Override
+	public int printMyCPoint(String userId) {
+		int point = store.selectMyCPoint(userId); 
+		return point;
+	}
+
+	
+
+
 
 
 	
