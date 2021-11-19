@@ -79,6 +79,14 @@
 		<delete id="deleteReportBoard">
 			DELETE FROM BOARD WHERE BOARD_NO = #{boardNo}
 		</delete>
+		<!--  게시물 삭제 전, 해당 게시물의 모든 신고내역 삭제 -->
+		<delete id="deleteBoardsReports">
+			DELETE FROM BOARD_REPORT WHERE BOARD_NO = #{boardNo}
+		</delete>
+		<!-- 게시물 삭제 전, 해당게시물의 댓글들 삭제 -->
+		<delete id="deleteBoardsReplys">
+			DELETE FROM REPLY WHERE BOARD_NO = #{boardNo}
+		</delete>
 		<!-- 신고 내역 삭제 -->
 		<delete id="deleteReport">
 			DELETE FROM BOARD_REPORT WHERE REPORT_NO = #{reportNo}

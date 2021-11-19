@@ -49,7 +49,20 @@ public class ReportStoreLogic implements ReportStore{
 	//신고 게시물 삭제
 	@Override
 	public int deleteReportBoard(int boardNo) {
+		deleteBoardsReports(boardNo);
+		deleteBoardsReports(boardNo);
 		int result =session.delete("reportMapper.deleteReportBoard", boardNo);
+		return result;
+		
+	}
+	//삭제할 게시물의 신고내역들 삭제
+	public int deleteBoardsReports(int boardNo) {
+		int result = session.delete("reportMapper.deleteBoardsReports", boardNo);
+		return result;
+	}
+	//삭제할 게시물의 댓글들 삭제
+	public int deleteBoardsReply(int boardNo) {
+		int result = session.delete("reportMapper.deleteBoardsReplys",boardNo);
 		return result;
 	}
 	//신고 내역 삭제
@@ -84,16 +97,24 @@ public class ReportStoreLogic implements ReportStore{
 	//신고된 댓글 삭제
 	@Override
 	public int deleteReply(int replyNo) {
-		System.out.println(replyNo);
+//		int result = 0;
+//		int result1= deleteReplyReports(replyNo);
+//		if(result1>0) {
+//			result = session.delete("reportMapper.deleteReply", replyNo);
+//		}
+//		return result;
 		int result = 0;
-		int result1 = session.delete("reportMapper.deleteReplyReports", replyNo);
-		System.out.println(result1);
-		if (result1>0) {
-			result = session.delete("reportMapper.deleteReply", replyNo);
-		}
+		deleteReplyReports(replyNo);
+		result = session.delete("reportMapper.deleteReply", replyNo);
+		return  result;
+	}
+	//삭제할 댓글의 신고내역들 삭제
+	public int deleteReplyReports(int replyNo) {
+		
+		int result = session.delete("reportMapper.deleteReplyReports", replyNo);
+
 		return result;
 	}
-	 
 	//신고내역 삭제
 	@Override
 	public int deleteReplyReport(int replyReportNo) {
