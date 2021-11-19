@@ -22,9 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.pj.ptsd.board.domain.Board;
+import com.pj.ptsd.campaign.domain.CampaignRecord;
+import com.pj.ptsd.quiz.domain.Participant;
 import com.pj.ptsd.user.domain.PageInfo;
 import com.pj.ptsd.user.domain.Pagination;
 import com.pj.ptsd.user.domain.User;
@@ -282,7 +283,7 @@ public class UserController {
 
 
 
-	//my홈 페이지 이동
+	//my홈 페이지 + 내가 쓴 자유게시판 조회
 	@RequestMapping(value="mypageMyHome.ptsd", method=RequestMethod.GET)
 	public String selectHomeList(HttpServletRequest request
 			, Model model
@@ -291,12 +292,15 @@ public class UserController {
 		User userOne = (User)session.getAttribute("loginUser");
 		int currentPage = (page!=null) ? page : 1;
 		String userId = userOne.getUserId();
-		int totalBCount = service.getBCount();
+		int totalBCount = service.getBCount(userId);
 		PageInfo bPi = Pagination.getPageInfo(currentPage, totalBCount);
 		List<Board> bList = service.printBoardList(bPi, userId);
+		int pPoint = service.printMyCPoint(userId);
 		model.addAttribute("bList", bList);
 		model.addAttribute("bPi", bPi);
 		model.addAttribute("userPoint",userOne.getPoint());
+		model.addAttribute("pPoint",pPoint);
+		
 		return "mypage/mypageMyHome";
 		
 		}
@@ -314,16 +318,52 @@ public class UserController {
 
 		
 
-
 	//활동내역 페이지 이동
+//	@RequestMapping(value="mypageDetailView.ptsd", method=RequestMethod.GET)
+//	public String selectDetailList(Model model) {
+//		return "mypage/mypageDetail";
+//	}
+	
+	//캠페인 내역 조회
 	@RequestMapping(value="mypageDetail.ptsd", method=RequestMethod.GET)
-	public String selectDetailList(Model model) {
+	public String selectCRList(Model model
+			, HttpServletRequest request
+			, @RequestParam(value="page",required=false)Integer page) {
+		HttpSession session = request.getSession();
+		User userOne = (User)session.getAttribute("loginUser");
+		int currentPage = (page!=null) ? page : 1;
+		String userId = userOne.getUserId();
+		int totalCCount = service.getCCount(userId);
+		int totalQCount = service.getQCount(userId);
+		PageInfo cPi = Pagination.getPageInfo(currentPage, totalCCount);
+		PageInfo qPi = Pagination.getPageInfo(currentPage, totalQCount);
+		List<CampaignRecord> cList = service.printCRList(cPi, userId);
+		List<Participant> qList = service.printQList(qPi, userId);
+		model.addAttribute("cList", cList);
+		model.addAttribute("qList", qList);
+		model.addAttribute("cPi", cPi);
+		model.addAttribute("qPi", qPi);
+		model.addAttribute("userPoint",userOne.getPoint());
 		return "mypage/mypageDetail";
 	}
-
-
-
-
+	
+	//퀴즈내역 조회
+//	@RequestMapping(value="mypageDetail.ptsd", method=RequestMethod.GET)
+//	public String selectQuizList(Model model
+//			, HttpServletRequest request
+//			, @RequestParam(value="page",required=false)Integer page) {
+//		HttpSession session = request.getSession();
+//		User userOne = (User)session.getAttribute("loginUser");
+//		int currentPage = (page!=null) ? page : 1;
+//		String userId = userOne.getUserId();
+//		int totalQCount = service.getQCount(userId);
+//		PageInfo qPi = Pagination.getPageInfo(currentPage, totalQCount);
+//		List<Participant> qList = service.printQList(qPi, userId);
+//		model.addAttribute("qList", qList);
+//		model.addAttribute("qPi", qPi);
+//		return "mypage/mypageDetail";
+//	}
+	
 
 
 

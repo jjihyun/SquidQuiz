@@ -34,12 +34,12 @@
 	
 	<!-- 환전내역 리스트 갯수 조회 -->
 	<select id="selectEListCount" resultType="_int">
-		SELECT COUNT(*) FROM EXCHANGE
+		SELECT COUNT(*) FROM EXCHANGE WHERE USER_ID = #{userId}
 	</select>
 	
 	<!-- 충전포인트내역 리스트 갯수 조회 -->
 	<select id="selectCListCount" resultType="_int">
-		SELECT COUNT(*) FROM CHARGE_POINT
+		SELECT COUNT(*) FROM CHARGE_POINT WHERE USER_NO =#{userNo} 
 	</select>
 
 </mapper>

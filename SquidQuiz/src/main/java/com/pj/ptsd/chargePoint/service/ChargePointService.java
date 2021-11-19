@@ -12,8 +12,8 @@ public interface ChargePointService {
 	public List<ChargePoint> printChargeList(PageInfo pi, int userNo);
 	public List<Exchange> printExchangeList(PageInfo pi, String userId);
 	//전체 게시물 개수 조회
-	public int getAllEListCount();
-	public int getAllCListCount();
+	public int getAllEListCount(String userId);
+	public int getAllCListCount(int userNo);
 	
 	public User printOne(String uId);
 

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Participant {
 	
-	private String participantNo;
+	private String participantId;
 	private int turnNo;
 	private int cottectAnswers;
 	private Date entryDate;
@@ -12,10 +12,11 @@ public class Participant {
 	public Participant() {}
 	
 	
+	
 
-	public Participant(String participantNo, int turnNo, int cottectAnswers, Date entryDate) {
+	public Participant(String participantId, int turnNo, int cottectAnswers, Date entryDate) {
 		super();
-		this.participantNo = participantNo;
+		this.participantId = participantId;
 		this.turnNo = turnNo;
 		this.cottectAnswers = cottectAnswers;
 		this.entryDate = entryDate;
@@ -23,12 +24,13 @@ public class Participant {
 
 
 
-	public String getParticipantNo() {
-		return participantNo;
+
+	public String getParticipantId() {
+		return participantId;
 	}
 
-	public void setParticipantNo(String participantNo) {
-		this.participantNo = participantNo;
+	public void setParticipantId(String participantId) {
+		this.participantId = participantId;
 	}
 
 	public int getTurnNo() {
@@ -51,16 +53,13 @@ public class Participant {
 		return entryDate;
 	}
 
-
-
 	public void setEntryDate(Date entryDate) {
 		this.entryDate = entryDate;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Participant [participantNo=" + participantNo + ", turnNo=" + turnNo + ", cottectAnswers="
+		return "Participant [participantId=" + participantId + ", turnNo=" + turnNo + ", cottectAnswers="
 				+ cottectAnswers + ", entryDate=" + entryDate + "]";
 	}
 	

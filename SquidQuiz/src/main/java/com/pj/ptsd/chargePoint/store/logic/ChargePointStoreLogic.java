@@ -36,13 +36,13 @@ public class ChargePointStoreLogic implements ChargePointStore{
 	}
 
 	@Override
-	public int selectAllEListCount() {
-		int result = sqlSession.selectOne("chargePointMapper.selectEListCount");
+	public int selectAllEListCount(String userId) {
+		int result = sqlSession.selectOne("chargePointMapper.selectEListCount", userId);
 		return result;
 	}
 	@Override
-	public int selectAllCListCount() {
-		int result = sqlSession.selectOne("chargePointMapper.selectCListCount");
+	public int selectAllCListCount(int userNo) {
+		int result = sqlSession.selectOne("chargePointMapper.selectCListCount", userNo);
 		return result;
 	}
 

@@ -53,7 +53,7 @@ ul.tabs li.current{
 
 .tab-content{
 	display: none;
-	background: #ededed;
+	background: #f8f9fa;
 	padding: 15px;
 }
 
@@ -61,9 +61,13 @@ ul.tabs li.current{
 	display: inherit;
 }
 .point-btn{width:400px;height:50px;}
-.box{width:600px; height:200px;background-color:pink; margin:0 auto;}
+.box{width:600px; height:200px;background-color:white; margin:0 auto;border-radius: 5px;box-shadow: 0px 0px 20px rgba(197, 196, 196, 0.933);}
 .box b{font-size:30px;}
-.point-box{width:500px;height:50px;margin-top:30px;text-align:center;}
+.point-box{width:500px;height:50px;margin-top:30px;text-align:center;background-color:transparent;border:none;pointer-events: none;}
+#point-in{font-size:35px;}
+
+#charge-btn,#exchange-btn{background-color: rgb(247, 105, 136);border:none;border-radius: 5px;}
+#charge-btn:hover,#exchange-btn:hover{background-color: rgb(230, 87, 118);}
 
 </style>
 
@@ -124,8 +128,8 @@ ul.tabs li.current{
 				</h1>
 				<div class="container-fluid p-0">
 					<div align="center">
-						<input type="button" class="point-btn" value="포인트 충전" onclick="location.href='/chargePoint.ptsd'"> 
-						<button type="button" class="point-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						<input type="button" id="charge-btn" class="point-btn" value="포인트 충전" onclick="location.href='/chargePoint.ptsd'"> 
+						<button type="button" id="exchange-btn" class="point-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
 						  포인트 환전
 						</button>
 					</div>
@@ -193,7 +197,7 @@ ul.tabs li.current{
 					<br>
 					<div align="center">
 							<div class="box">
-								<br> <b>보유 포인트</b><br> <input type="text" name="Point" class="point-box" value="${userPoint }">
+								<br> <b>보유 포인트</b><br> <input type="text" id="point-in" name="Point" class="point-box" value="${userPoint }P">
 							</div>
 					</div>
 					<br><br>
@@ -291,7 +295,7 @@ ul.tabs li.current{
 					<!-- 게시판 -->
 					<div align="center">
 						<div class="board">
-							<div class="card flex-fill">
+							<div id="card-flex" class="card flex-fill">
 								<table class="table table-hover my-0">
 									<thead>
 										<tr align="center">
@@ -309,29 +313,29 @@ ul.tabs li.current{
 												</tr>
 											</tbody>
 										</c:if>
-										<c:forEach items="${eList }" var="eList">
-										<tbody>
-											<tr align="center">
-											
-												<td>${eList.exchangeNo }</td>
-												<td>${eList.account }</td>
-												<td>${eList.exchangeMoney }</td>
+										<tbody id="exchangeBody">
+											<c:forEach items="${eList }" var="eList">
+												<tr align="center">
 												
-												<td>
-													<fmt:formatDate value="${eList.exchangeEnrollDate }" pattern="yyyy-MM-dd"/>
-												</td>
-												<c:if test="${eList.exchangeStatus eq 'N' }">
-													<td><span class="badge bg-warning">대기중</span></td>
-												</c:if>
-												<c:if test="${eList.exchangeStatus eq 'Y' }">
-													<td><span class="badge bg-success">처리완료</span></td>
-												</c:if>
-											</tr>
+													<td>${eList.exchangeNo }</td>
+													<td>${eList.account }</td>
+													<td>${eList.exchangeMoney }</td>
+													
+													<td>
+														<fmt:formatDate value="${eList.exchangeEnrollDate }" pattern="yyyy-MM-dd"/>
+													</td>
+													<c:if test="${eList.exchangeStatus eq 'N' }">
+														<td><span class="badge bg-warning">대기중</span></td>
+													</c:if>
+													<c:if test="${eList.exchangeStatus eq 'Y' }">
+														<td><span class="badge bg-success">처리완료</span></td>
+													</c:if>
+												</tr>
+											</c:forEach>
 										</tbody>
-										</c:forEach>
 										<tr align="center" height="20">
 											<td colspan="9">
-											<c:url var="before" value="exchangeList.ptsd">
+											<c:url var="before" value="mypagePoint.ptsd">
 											<c:param name="page" value="${ePi.currentPage - 1 }"></c:param>
 										</c:url>
 										<c:if test="${ePi.currentPage <= 1 }">
@@ -347,7 +351,7 @@ ul.tabs li.current{
 										<c:if test="${ePi.startNavi ne null }">
 										<c:forEach var="p" begin="${ePi.startNavi }" end="${ePi.endNavi }">
 											
-											<c:url var="pagination" value="exchangeList.ptsd">
+											<c:url var="pagination" value="mypagePoint.ptsd">
 												<c:param name="page" value="${p }"></c:param>
 											</c:url>
 											
@@ -355,11 +359,11 @@ ul.tabs li.current{
 												<font color="black" size="4">[${p }]</font>
 											</c:if>
 											<c:if test="${p ne ePi.currentPage }">
-												<a id="title-a" href="${pagination }">${p }</a>&nbsp;
+												<a id="title-a" href="${pagination }">${p }</a>&nbsp; <!-- href="#" onclick="pagination();" -->
 											</c:if>
 										</c:forEach>
 										
-										<c:url var="after" value="exchangeList.ptsd">
+										<c:url var="after" value="mypagePoint.ptsd">
 											<c:param name="page" value="${ePi.currentPage + 1 }"></c:param>
 										</c:url>
 										<c:if test="${ePi.currentPage >= ePi.maxPage }">
@@ -378,7 +382,7 @@ ul.tabs li.current{
 					</div>
 					
 				</main>
-		
+
 
 		<footer class="footer">
 			<div class="container-fluid">
@@ -411,7 +415,7 @@ ul.tabs li.current{
 
 <script>
 
- $('ul.tabs li').click(function(){
+$('ul.tabs li').click(function(){
 	
 	var tab_id = $(this).attr('data-tab');
 	
@@ -422,9 +426,34 @@ ul.tabs li.current{
 	$("#"+tab_id).addClass('current');
 
 
-})
+});
 
 
+//function pagination() {
+//	$.ajax({
+//		url : "",
+//		type : "get",
+//		data : {},
+//		success : function(data) {
+//			$("#exchangeBody").empty();
+//			var $tr = $("<tr align='center'>");
+//			var $td;
+//			var tdStr;
+//			var page = data.Page;
+			
+// 			for(var i in data) {
+				
+// 			}
+// 			for(var i = 0 ; i < 10; i++) {
+// 				tdStr += "<tr align='center'><td>data[i].exchangeNo</td><td>계정명</td><td>환전금액</td><td>날짜</td><td>상태</td></tr>";
+// 			}
+//			$("#exchangeBody").html(tdStr);
+//		},
+//		error : function() {
+//			console.log("관리자에게 문의해주세요.");
+//		}
+//	})
+// }
 
 </script>
 </body>

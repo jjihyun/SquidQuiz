@@ -29,11 +29,27 @@
 		<result property="bCreateDate" column="BOARD_CREATE_DATE"/>
 		<result property="bUpdateDate" column="BOARD_UPDATE_DATE"/>
 	</resultMap>
+	
+	<resultMap type="CampaignRecord" id="campaignRecordResultMap">
+		<id property="cRecordNo" column="CAMPAIGN_RECORD_NO" ></id>
+		<result property="userId" column="USER_ID" />
+		<result property="campaignNo" column="CAMPAIGN_NO" />
+		<result property="cRecordPoint" column="CAMPAIGN_RECORD_POINT" />
+		<result property="cRecordDate" column="CAMPAIGN_RECORD_DATE" />
+		<result property="campaignName" column="CAMPAIGN_NAME" />
+	</resultMap>
+	
+	<resultMap type="Participant" id="participantResultMap">
+		<id property="participantId" column="PARTICIPANT_ID" ></id>
+		<result property="turnNo" column="TURN_NO" />
+		<result property="cottectAnswers" column="CORRECT_ANSWERS" />
+		<result property="entryDate" column="ENTRY_DATE" />
+	</resultMap>
 
 	
 	<!-- 로그인 -->
 	<select id="selectLoginUser" resultMap="userResultMap">
-		SELECT USER_NO, USER_ID, USER_NAME, BANK_NAME, BANK_ACCOUNT, USER_ADDR, POINT, ADMIN_TYPE, GAME_TYPE  FROM MEMBER WHERE USER_ID =#{userId } AND USER_PWD = #{userPwd }
+		SELECT USER_NO, USER_ID, USER_NAME, BANK_NAME, BANK_ACCOUNT, USER_ADDR, POINT, ADMIN_TYPE, GAME_TYPE FROM MEMBER WHERE USER_ID =#{userId } AND USER_PWD = #{userPwd }
 	</select>
 	
 	<!-- 아이디중복확인 -->
@@ -63,13 +79,38 @@
 	
 	<!-- 자유게시판 리스트 갯수 조회 -->
 	<select id="selectBListCount" resultType="_int">
-		SELECT COUNT(*) FROM BOARD
+		SELECT COUNT(*) FROM BOARD WHERE USER_ID =#{userId}
 	</select>
 	
 	<!-- 자유게시판 상세 -->
 	<select id="selectOneBoard" resultMap="boardResultMap">
 			SELECT * FROM BOARD WHERE BOARD_NO = #{bNo }
 	</select>   
+	
+	<!-- 캠페인내역 조회 -->
+	<select id="selectMypageDonate" resultMap="campaignRecordResultMap">
+		SELECT CAMPAIGN_RECORD_NO, CAMPAIGN_NAME, CAMPAIGN_RECORD_POINT, CAMPAIGN_RECORD_DATE FROM CAMPAIGN_RECORD WHERE USER_ID=#{userId}
+	</select>
+	
+	<!-- 캠페인내역 리스트 갯수 조회 -->
+	<select id="selectCListCount" resultType="_int">
+		SELECT COUNT(*) FROM CAMPAIGN_RECORD WHERE USER_ID =#{userId}
+	</select>
+	
+	<!-- 기부금  조회 -->
+	<select id="selectPPoint" resultType="_int">
+		SELECT SUM(CAMPAIGN_RECORD_POINT) FROM CAMPAIGN_RECORD WHERE USER_ID =#{userId}
+	</select>
+	
+	<!-- 퀴즈내역 조회 -->
+	<select id="selectQuizList" resultMap="participantResultMap">
+		SELECT TURN_NO, CORRECT_ANSWERS, ENTRY_DATE FROM PARTICIPANT WHERE PARTICIPANT_ID=#{userId}
+	</select>
+	
+	<!-- 퀴즈내역 리스트 갯수 조회 -->
+	<select id="selectQListCount" resultType="_int">
+		SELECT COUNT(*) FROM PARTICIPANT WHERE PARTICIPANT_ID =#{userId}
+	</select>
 	
 	
 	<!-- 회원가입db등록 -->

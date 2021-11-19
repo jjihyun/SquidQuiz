@@ -12,8 +12,8 @@ public interface ChargePointStore {
 	public List<ChargePoint> selectChargeList(PageInfo pi, int userNo);
 	public List<Exchange> selectExchangeList(PageInfo pi, String userId);
 	//전체 게시물 개수 조회
-	public int selectAllEListCount();
-	public int selectAllCListCount();
+	public int selectAllEListCount(String userId);
+	public int selectAllCListCount(int userNo);
 	
 	public User selectOne(String uId);
 }
