@@ -48,6 +48,7 @@ main{
 		font-size:15px;
 		color:white;
 		border: none;
+		cursor:pointer;
 	}
  	.progressTag {
         -webkit-appearance: none;
@@ -133,7 +134,7 @@ main{
 						</p>
 						<h3 class="all-text" id="d-day" style="display:;">D-DAY : ${dDay }</h3>
 						<p class="all-text">현재 모금액 : ${campaign.cNowAmount}원</p>
-						<c:if test="${sessionScope.loginUser ne null }">
+						<c:if test="${sessionScope.loginUser ne null && dDay ge 0}">
 							<button onclick="location.href='${cDonate}'" style="display:block; margin:0px auto;">기부하기</button><br>
 						</c:if>
 						<p class="all-text">목표금액 : ${campaign.cTargetAmount }원<br><br>
@@ -161,12 +162,11 @@ main{
 				</div>
 			</div>
 			<div style="position: absolute; left: 50%; transform: translateX(-50%);">
-				<c:if test="${sessionScope.loginUser ne null }">
+				<c:if test="${sessionScope.loginUser ne null && dDay ge 0}">
 					<button class="camp-btn" onclick="location.href='${cDonate}'">기부하기</button>&nbsp;&nbsp;
 				</c:if>
 				<button class="camp-btn" onclick="location.href='campaignList.ptsd'">목록으로</button>
 			</div>
-		
 		</div>
 		
 	</main>

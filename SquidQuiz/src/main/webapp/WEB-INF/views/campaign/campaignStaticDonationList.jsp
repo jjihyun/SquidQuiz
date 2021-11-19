@@ -66,7 +66,7 @@ tr{
 		</tr>
 		<tr>
 			<td colspan="4" id="td-1">
-				<c:url var="before" value="campaignList.ptsd">
+				<c:url var="before" value="campaignAllCampaignRecord.ptsd">
 					<c:param name="page" value="${pi.currentPage-1}"></c:param>
 				</c:url> 
 				<c:if test="${pi.currentPage <=1 }">
@@ -76,7 +76,7 @@ tr{
 					<a href="${before }"><font class="font-str">이전</font></a>
 				</c:if> 
 				<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
-					<c:url var="pagination" value="campaignStaticDetail.ptsd">
+					<c:url var="pagination" value="campaignAllCampaignRecord.ptsd">
 						<c:param name="page" value="${p }"></c:param>
 					</c:url>
 					<c:if test="${p eq pi.currentPage }">
@@ -86,7 +86,7 @@ tr{
 						<a href="${pagination }" class="font-num" style="color: rgb(201, 113, 113);">${p }</a>
 					</c:if>
 				</c:forEach> 
-				<c:url var="after" value="campaignStaticDetail.ptsd">
+				<c:url var="after" value="campaignAllCampaignRecord.ptsd">
 					<c:param name="page" value="${pi.currentPage+1 }"></c:param>
 				</c:url> <c:if test="${pi.currentPage>=pi.maxPage }">
 					<font class="font-str">다음</font>

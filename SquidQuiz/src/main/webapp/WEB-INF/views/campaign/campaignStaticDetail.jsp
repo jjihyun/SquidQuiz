@@ -1,11 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>캠페인 고정기부처 상세조회</title>
 <style>
+main{
+	width:100%;
+}
 	#div-money{
 		background: #7b4397;  /* fallback for old browsers */
 		background: -webkit-linear-gradient(to bottom, #dc2430, #7b4397);  /* Chrome 10-25, Safari 5.1-6 */
@@ -13,8 +16,8 @@
 		width: 60%;
 	}
 	.ex-img{
-		width: 300px;
-		height: 200px;
+		width: 350px;
+		height: 250px;
 	}
 	h4{
 		text-align: left;	
@@ -26,11 +29,10 @@
 		color: #666666;
 		text-align: left;
 	}
-	button{
+	#btn{
 		cursor: pointer;
 		background: #FFAFBD;  /* fallback for old browsers */
-		background: -webkit-linear-gradient(to bottom, #ffc3a0, #FFAFBD);  /* Chrome 10-25, Safari 5.1-6 */
-		background: linear-gradient(to bottom, #ffc3a0, #FFAFBD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		
 		border: none;
 		width: 200px;
 		height: 40px;
@@ -38,7 +40,8 @@
 </style>
 </head>
 <body>
-	<jsp:include page="../../../resources/html/header.jsp"/><br><br><br><br><br><br>
+	<jsp:include page="../../../resources/html/header.jsp"/><br><br><hr><br><br>
+	<main>
 	<table align="center" border="1">
 		<tr><th colspan="2"><h1 align="center">정기후원</h1></th></tr>
 		<tr>
@@ -103,13 +106,10 @@
 			</td>
 		</tr>
 		<tr style="height: 150px;">
-			<td colspan="2" style="background: #FF0099;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to bottom, #493240, #FF0099);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to bottom, #493240, #FF0099); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-" align="center">
+			<td colspan="2" style="background: #FF0099; " align="center">
 				<div style=" width: 30%; float: left; height: 100%;">
 					<br>
-					<button onclick="location.href='campaignList.ptsd'">후원하기</button>
+					<button id="btn" onclick="location.href='campaignList.ptsd'">후원하기</button>
 				</div>
 				<div style="width: 70%; float: left;">
 					<h3 style="color: white;">" 당신의 나눔으로 <br>또 하나의 희망이 더해집니다. "</h3>
@@ -117,6 +117,6 @@ background: linear-gradient(to bottom, #493240, #FF0099); /* W3C, IE 10+/ Edge, 
 			</td>
 		</tr>
 	</table>
-	
+	</main>
 </body>
 </html>
