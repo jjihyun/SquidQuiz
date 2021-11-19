@@ -60,8 +60,8 @@
 
 	<select id="selectListCount" resultType="_int">
 		<choose>
-			<when test='value != null'>
-				SELECT COUNT(*) FROM CAMPAIGN WHERE CAMPAIGN_TYPE=#{value }
+			<when test='type != "all".toString()'>
+				SELECT COUNT(*) FROM CAMPAIGN WHERE CAMPAIGN_TYPE=#{type }
 			</when>
 			<otherwise>
 				SELECT COUNT(*) FROM CAMPAIGN 

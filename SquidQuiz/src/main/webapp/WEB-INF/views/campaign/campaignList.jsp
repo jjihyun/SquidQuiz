@@ -16,7 +16,6 @@
 main{
 	width: 100%;
 	height:2300px;
-	border: 2px solid black;
 }
 .first{
 	width: 1300px;
@@ -36,7 +35,7 @@ main{
 	display:flex;
 
 }
-button{
+.btn{
 	border: none;
 	background-color:rgb(201, 113, 113);
 	color:white;
@@ -45,7 +44,9 @@ button{
 	font-size: 21px;
 	font-weight: bold;
 }
-
+	.btn:hover{
+		color:white;
+	}
 .campaign-type {
 	float: left;
 	text-align: center;
@@ -113,7 +114,7 @@ button{
 </style>
 </head>
 <body>
-	<header style="border:2px solid green;">
+	<header>
 		<jsp:include page="../../../resources/html/header.jsp"/>
 	</header>
 	<main>
@@ -124,17 +125,17 @@ button{
 			<h2>${dPrice }원</h2><br>
 			<h4 style="font-weight: bold;">누적 모금액</h4>
 			<h2>${dSumPrice }원</h2><br>
-			<hr>
+			<hr><br>
 			<div class="static-div"><br>
 				<h3 style="color:rgb(0, 34, 102); font-weight: bold;">정기후원</h3><br>
-				<img src="../../../resources/campaignStaticImg/정기후원.jpg" alt="img 안뜸">
-				<h2 style="color:rgb(0, 34, 102); font-weight: bold;">"작은 후원이..."</h2><br>
-				<button onclick="location.href='campaignStaticDetail.ptsd'">자세히보기</button><br><br>
+				<img src="../../../resources/campaignStaticImg/정기후원.jpg" alt="img 안뜸"><br><br>
+				<h3 style="color:rgb(0, 34, 102); font-weight: bold;">"작은 후원이 큰 힘이 됩니다"</h3><br><br><br>
+				<button class="btn" onclick="location.href='campaignStaticDetail.ptsd'">자세히보기</button><br><br>
 				<a href="campaignAllCampaignRecord.ptsd" style="float:right;">퀴즈 참여 모금액 후원 내역>&nbsp;&nbsp;</a><br><br>
 			</div><br><br><br>
 			<c:if test="${sessionScope.loginUser ne null }">
 				<c:if test="${sessionScope.loginUser.adminType eq 'Y'.charAt(0) }">
-					<button style="float:right;" onclick="location.href='campaignWriteView.ptsd'">캠페인 글 작성</button><br>
+					<button class="btn" style="float:right;" onclick="location.href='campaignWriteView.ptsd'">캠페인 글 작성</button><br>
 				</c:if>
 			</c:if>
 		</div>
@@ -183,12 +184,14 @@ button{
 					<td colspan="6" id="td-1">
 						<c:url var="before" value="campaignList.ptsd">
 							<c:param name="page" value="${pi.currentPage-1}"></c:param>
+							<c:param name="type" value="${campaignType }"></c:param>
 						</c:url>
 						<c:if test="${pi.currentPage <=1 }"><font class="font-str">이전</font></c:if>
 						<c:if test="${pi.currentPage>1}"><a href="${before }"><font class="font-str">이전</font></a></c:if>
 						<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
 							<c:url var="pagination" value="campaignList.ptsd">
 								<c:param name="page" value="${p }"></c:param>
+								<c:param name="type" value="${campaignType }"></c:param>
 							</c:url>
 							<c:if test="${p eq pi.currentPage }">
 								<font size="4" id="current-font" class="font-num">${p }</font>
@@ -199,6 +202,7 @@ button{
 						</c:forEach>
 						<c:url var="after" value="campaignList.ptsd">
 							<c:param name="page" value="${pi.currentPage+1 }"></c:param>
+							<c:param name="type" value="${campaignType }"></c:param>
 						</c:url>
 						<c:if test="${pi.currentPage>=pi.maxPage }"><font class="font-str">다음</font></c:if>
 						<c:if test="${pi.currentPage<pi.maxPage }">
@@ -217,64 +221,65 @@ button{
 	</footer>
 	
 	<script type="text/javascript">
-		$(function(){
-			var test;
-
-			//alert(test);
-		});
 	
   		function campaignType(f){
 			var type=f;
+			//alert(type);
 			var page=${pi.currentPage};
-			console.log(page);
+			console.log("현재페이지"+page);
  			$.ajax({
 				type:"get",
 				url:"campaignListJSON.ptsd",
 				data:{"campaignType":type, "page": page}, 
 				dataType:"json",
 				success:function(data){
-					console.log(data);
+					//console.log("성공");
+					
 					var str = "";
 					var str2 = "";
 					$("#container-1").empty();
 					$("#td-1").empty();
 					
-					var startPage = ${pi.startNavi};
-					var endPage = ${pi.endNavi};
-					console.log(startPage);
-					console.log(endPage);
+					console.log("pi : "+JSON.stringify(data.pi));
 					
-					//$("#container-1").html(data[0].campaignName); 
-					for(var i =0;i<data.length;i++){
-						//console.log($("#container-1").html(data[0].cFileName));
-						var result = parseInt(data[i].cNowAmount)/parseInt(data[i].cTargetAmount)*100;
-						str += "<div align='center' id='campaign-list' onclick='location.href=\"campaignDetail.ptsd?campaignNo="+data[i].campaignNo+"\";'>";
-						str += "<div><img style='width: 100%; height: 200px;' alt='img 안보임' src='../../../resources/campaignUpload/"+data[i].cFileName+"'></div>";
-						/* str += "<div><b>"+data[i].campaignTitle+"</b><br><progress class='progressTag' value='"+result+"' max='100'></progress><br>"+result+"%<br>목표금액 : "+data[i].cTargetAmount+"원<br></div></div>"; */
-						str += "<div><br><b>"+data[i].campaignTitle+"</b><br>";
+					for(var i =0;i<data.cList.length;i++){
+						var result = parseInt(data.cList[i].cNowAmount)/parseInt(data.cList[i].cTargetAmount)*100;
+						str += "<div align='center' id='campaign-list' onclick='location.href=\"campaignDetail.ptsd?campaignNo="+data.cList[i].campaignNo+"\";'>";
+						str += "<div><img style='width: 100%; height: 200px;' alt='img 안보임' src='../../../resources/campaignUpload/"+data.cList[i].cFileName+"'></div>";
+						str += "<div><br><b>"+data.cList[i].campaignTitle+"</b><br>";
 						str += "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='"+result+"' aria-valuemin='0' aria-valuemax='100' style='width: "+result+"%;'>"+result+"%</div></div>";
-						str += "<br>목표금액 : "+data[i].cTargetAmount+"원<br></div></div>";
+						str += "<br>목표금액 : "+data.cList[i].cTargetAmount+"원<br></div></div>";
 					
 						
 					}
-						
-						//str2+="<c:if test='"+${pi.currentPage <=1 }+"'>[이전]</c:if><c:if test='"+${pi.currentPage>1}+"'><a href='${before }'>[이전]</a></c:if>";
-						//str2+="<c:forEach var='p' begin='${pi.startNavi }' end='${pi.endNavi }'><c:url var='pagination' value='campaignList.ptsd'><c:param name='page' value='${p }'></c:param></c:url>";
-					    //str2+="<c:if test='"+${p eq pi.currentPage }+"'><font color='green' size='4'>[${p }]</font></c:if><c:if test='"+${p ne pi.currentPage }+"'><a href='${pagination }'>${p }</a></c:if></c:forEach>";
-						//str2+="<c:if test='"+${pi.currentPage>=pi.maxPage }+"'>[다음]</c:if><c:if test='"+${pi.currentPage<pi.maxPage }+"'><a href='${after }'>[다음]</a></c:if>";
+					console.log("pi 들어갈 차례");
+					
+					if(data.pi.currentPage<=1){
+						str2+="<font class='font-str'>이전</font>";
+						console.log("이전");
+					}else if(data.pi.currentPage>1){
+						str2+="<a href='campaignList.ptsd?type="+type+"&page="+(parseInt(data.pi.currentPage)-1)+"'><font class='font-str'>이전</font></a>";
+					}
+					for(var p = 1;p<=data.pi.endNavi;p++){
+						if(p == data.pi.currentPage){
+							str2+="<font size='4' id='current-font' class='font-num'>"+p+"</font>";
+						} else if(p != data.pi.currentPage){
+							str2+="<a href='campaignList.ptsd?type="+type+"&page="+p+"' class='font-num' style='color:rgb(201, 113, 113);'>"+p+"</a>";
+						}
+					}
+					if(data.pi.currentPage>=data.pi.maxPage){
+						str2+="<font class='font-str'>다음</font>";
+					} else if(data.pi.currentPage<data.pi.maxPage){
+						str2+="<a href='campaignList.ptsd?type="+type+"&page="+(data.pi.currentPage+1)+"'><font class='font-str'>다음</font></a>";
+					}
+					
 					$("#container-1").html(str);
 					$("#td-1").html(str2);
-					/* console.log(data);
-					console.log(data[0].campaignName);
-					console.log(data[0].campaignTitle); */
-					
-					//alert("성공!");
 				},
 				error:function(){
 					alert("실패!");
 				}
 			});
-			//alert(type);
 		}
 
 	</script>

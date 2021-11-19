@@ -6,7 +6,6 @@ import com.pj.ptsd.campaign.domain.Campaign;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.campaign.domain.DonationRecord;
 import com.pj.ptsd.campaign.domain.PageInfo;
-import com.pj.ptsd.quiz.domain.MainGameInfo;
 import com.pj.ptsd.user.domain.User;
 
 
