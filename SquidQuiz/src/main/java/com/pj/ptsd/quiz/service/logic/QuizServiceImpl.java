@@ -92,8 +92,44 @@ public class QuizServiceImpl implements QuizService{
 
 	//참가 등록
 	@Override
-	public int registerParticipant() {
-		int result = store.insertParticipant();
+	public int registerParticipant(String participantNo) {
+		int result = store.insertParticipant(participantNo);
+		return result;
+	}
+	//유저 머니 조회
+	@Override
+	public int selectUserPoint(User user) {
+		int result = store.selectUserPoint(user);
+		return result;
+	}
+	//유저 머니 업데이트
+	@Override
+	public int updateUserPoint(User user) {
+		int result = store.updateUserPoint(user);
+		return result;
+	}
+	//게임 참가 시 정보 업데이트
+	@Override
+	public int updateMoney(MainGameInfo mgi) {
+		int result = store.updateMoney(mgi);
+		return result;
+	}
+	//참가 취소
+	@Override
+	public int removeParticipant(String participantNo) {
+		int result = store.removeParticipant(participantNo);
+		return result;
+	}
+	//유저 머니 환불
+	@Override
+	public int updateUserPointMinus(User user) {
+		int result = store.updateUserPointMinus(user);
+		return result;
+	}
+	//게임 머니 환불
+	@Override
+	public int updateMoneyMinus(MainGameInfo mgi) {
+		int result = store.updateMoneyMinus(mgi);
 		return result;
 	}
 	

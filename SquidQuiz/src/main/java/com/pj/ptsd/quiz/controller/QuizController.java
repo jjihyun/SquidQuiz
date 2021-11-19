@@ -273,10 +273,59 @@ public class QuizController {
 		return"main";
 	}
 	
+	//참가자 등록/게임 머니 수정/유저 머니 수정/유저 머니 조회
+	@RequestMapping(value="participant.ptsd",method=RequestMethod.POST)
 	public ModelAndView registerParticipant(
 			ModelAndView mv
-			,HttpServletRequest request) {
-		int result = service.registerParticipant();
+			,HttpServletRequest request
+			,@RequestParam(value="participant")String participantNo
+			,@ModelAttribute MainGameInfo mgi) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+		int point= service.selectUserPoint(user);
+		if(point >= 10000) {
+			System.out.println("참가신청완료");
+			int pointUpdate = service.updateUserPoint(user);
+			
+			int moneyUpdate =service.updateMoney(mgi);
+			
+			int result = service.registerParticipant(participantNo);
+			
+			if(result > 0 && moneyUpdate > 0 && pointUpdate > 0) {
+				session.setAttribute("loginUser", user);
+				mv.setViewName("redirect:mainView.ptsd");
+			}else {
+				mv.addObject("msg", "게임 참가 실패").setViewName("common/errorPage");
+			}
+		}else {
+			 mv.addObject("msg", "게임 참가 금액 부족").setViewName("common/errorPage");
+		}
+		return mv;
+	}
+	
+	//참가 취소
+	@RequestMapping(value="participantRemove.ptsd",method=RequestMethod.POST)
+	public ModelAndView removeParticipant(
+			ModelAndView mv
+			,HttpServletRequest request
+			,@RequestParam(value="participant")String participantNo
+			,@ModelAttribute MainGameInfo mgi) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+		
+			int pointUpdate = service.updateUserPointMinus(user);
+			
+			int moneyUpdate = service.updateMoneyMinus(mgi);
+			
+			int result = service.removeParticipant(participantNo);
+					
+			
+			if(result > 0 && moneyUpdate > 0 && pointUpdate > 0) {
+				session.setAttribute("loginUser", user);
+				mv.setViewName("redirect:mainView.ptsd");
+			}else {
+				mv.addObject("msg", "게임 참가 취소 실패").setViewName("common/errorPage");
+			}
 		return mv;
 	}
 	

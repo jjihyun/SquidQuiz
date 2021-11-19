@@ -12,6 +12,7 @@ import com.pj.ptsd.quiz.domain.Ox;
 import com.pj.ptsd.quiz.domain.PageData;
 import com.pj.ptsd.quiz.domain.QuizSearch;
 import com.pj.ptsd.quiz.store.QuizStore;
+import com.pj.ptsd.user.domain.User;
 @Repository
 public class QuizStoreLogic implements QuizStore{
 	@Autowired
@@ -88,8 +89,44 @@ public class QuizStoreLogic implements QuizStore{
 	}
 	//참가 등록
 	@Override
-	public int insertParticipant() {
-		int result = sqlSession.insert("");
+	public int insertParticipant(String participantNo) {
+		int result = sqlSession.insert("participantMapper.insertParticipant", participantNo);
+		return result;
+	}
+	//참가자 머니 조회
+	@Override
+	public int selectUserPoint(User user) {
+		int result = sqlSession.selectOne("participantMapper.selectPoint",user);
+		return result;
+	}
+	//참가자 머니 수정
+	@Override
+	public int updateUserPoint(User user) {
+		int result = sqlSession.update("participantMapper.updateMyPoint",user);
+		return result;
+	}
+	//게임 머니/참가자수/기부머니
+	@Override
+	public int updateMoney(MainGameInfo mgi) {
+		int result = sqlSession.update("participantMapper.updateGameInfo",mgi);
+		return result;
+	}
+	//참가 취소
+	@Override
+	public int removeParticipant(String participantNo) {
+		int result =sqlSession.delete("participantMapper.deleteParticipant",participantNo);
+		return result;
+	}
+	//유저 머니 환불
+	@Override
+	public int updateUserPointMinus(User user) {
+		int result = sqlSession.update("participantMapper.updateMyPointMinus",user);
+		return result;
+	}
+	//게임 머니 환불
+	@Override
+	public int updateMoneyMinus(MainGameInfo mgi) {
+		int result = sqlSession.update("participantMapper.updateGameInfoMinus",mgi);
 		return result;
 	}
 
