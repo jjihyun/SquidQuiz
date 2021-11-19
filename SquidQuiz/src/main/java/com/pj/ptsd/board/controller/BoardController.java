@@ -8,7 +8,9 @@ import java.io.PrintWriter;
 import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -38,6 +40,8 @@ import com.pj.ptsd.board.domain.Pagination;
 import com.pj.ptsd.board.domain.Reply;
 import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.board.service.BoardService;
+import com.pj.ptsd.report.domain.ReplyReport;
+import com.pj.ptsd.report.domain.Report;
 import com.pj.ptsd.user.domain.User;
 
 
@@ -120,13 +124,17 @@ public class BoardController {
 	//게시글 목록 / 페이징
 	@RequestMapping(value="boardList.ptsd", method=RequestMethod.GET)
 	public ModelAndView boardListView(
-			ModelAndView mv
+			ModelAndView mv, HttpSession session
 			, @RequestParam(value="page", required=false) Integer page) {
 		int currentPage = (page != null) ? page : 1;
 		int totalCount = service.getListCount();
 		PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
+		System.out.println(currentPage + totalCount);
 		List<Board> bList = service.printAll(pi);
+		User loginUser = (User)session.getAttribute("loginUser");
+		
 		if(!bList.isEmpty()) {
+			mv.addObject("loginUser",loginUser);
 			mv.addObject("bList", bList);
 			mv.addObject("pi", pi);
 			mv.setViewName("board/boardList");
@@ -254,6 +262,7 @@ public class BoardController {
 				@RequestParam("bNo")int bNo, HttpServletResponse response) {
 			List<Reply> rList = service.printAllReply(bNo);
 			//JSONobject
+			System.out.println(rList);
 			if(!rList.isEmpty()) {
 				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 				try {
@@ -293,6 +302,7 @@ public class BoardController {
 				return "fail";
 			}
 		}	
+		
 		//검색
 		@RequestMapping(value="boardSearch.ptsd", method=RequestMethod.GET)
 		public String noticeSearchList(
@@ -310,8 +320,66 @@ public class BoardController {
 			}
 		}
 		
-		//신고 처리 컨트롤러..
 		
+		//HttpSession 매장
+		//Attribute 가방  > () 괄호가 가방안 물건
+		//관리자페이지로 내용을 전달해야하는데....
+		
+		//게시글 신고
+		@ResponseBody
+		@RequestMapping(value="boardReport.ptsd", method=RequestMethod.GET)
+		public String report(
+				@ModelAttribute Report report,HttpSession session
+				,Model model,
+				@RequestParam("bNo")int bNo,
+				@RequestParam("writer")String writer,
+				@RequestParam("title")String title) {
+			User loginUser = (User)session.getAttribute("loginUser");
+			//필통안에 여러가지 담김
+			System.out.println(writer);
+			report.setReportedUserId(loginUser.getUserId());
+			report.setBoardNo(bNo);
+			report.setBoardWriter(writer);
+			report.setBoardTitle(title);
+			//report 안에있는 bNo하고 현재 세션에 담겨있는 userId를 where에다 넣어서 
+			//그값이 있는지 없는지 확인후 없으면 신고가 들어가게 값이 있으면 안들어가게.
+			Report report2 = service.doubleReport(report);
+			if(report2 == null) {
+				int result = service.registerReportBoard(report);
+				if(result > 0) {
+					return "success";
+				}else {
+					return "common/errorPage";
+				}
+			}else {
+				return "error";
+			}
+			
+		}
+		
+		//댓글 신고
+		@ResponseBody
+		@RequestMapping(value="replyreport.ptsd", method=RequestMethod.GET)
+		public String replyrepot(
+				@ModelAttribute ReplyReport replyreport,HttpSession session
+				,Model model, 
+				@RequestParam("bNo")int bNo,
+				@RequestParam("replyNo")int replyNo,
+				@RequestParam("contents")String contents)
+				{
+			User loginUser = (User)session.getAttribute("loginUser");
+			//set 가져온다 get 보내준다 ()~에서 가져온다 라는 느낌
+			replyreport.setReportedUserId(loginUser.getUserId());
+			replyreport.setBoardNo(bNo);
+			replyreport.setReplyNo(replyNo);
+			replyreport.setReplyContents(contents);
+			int result = service.registerReportReply(replyreport);
+			if(result > 0) {
+				return "success";
+			}else {
+				return "common/errorPage";
+			}
+		}
 		
 		
 		

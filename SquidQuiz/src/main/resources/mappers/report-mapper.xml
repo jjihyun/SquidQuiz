@@ -19,7 +19,6 @@
 		<result property="boardTitle" column="BOARD_TITLE"></result>
 		<result property="boardWriter" column="WRITER"></result>
 		<result property="boardReportDate" column="BOARD_REPORT_DATE"></result>
-	
 	</resultMap>
 <!-- 게시물 -->
 		<!-- 전체 조회 -->
@@ -132,6 +131,9 @@
 			</if>
 			ORDER BY REPLY_REPORT.REPLY_REPORT_NO DESC
 		</select>
+			<select id="checkReport" resultMap="reportResultMap">
+		 	SELECT * FROM BOARD_REPORT WHERE BOARD_NO= #{boardNo} AND REPORT_USER_ID= #{reportedUserId}
+		</select>
 		<!-- 댓글 삭제 -->
 		<delete id="deleteReply">
 			DELETE FROM REPLY WHERE REPLY_NO = #{replyNo}
@@ -144,5 +146,14 @@
 		<delete id="deleteReplyReport">
 			DELETE FROM REPLY_REPORT WHERE REPLY_REPORT_NO = #{replyReportNo}
 		</delete>
+		
+		<!--MYBATIS > MAPPER > PARAMETERTYPE(Report라는 걸로 데이터를 갖고온다) -->
+		<insert id="insertReport" parameterType="Report">
+			INSERT INTO BOARD_REPORT VALUES(SEQ_BOARD_REPORT.NEXTVAL, #{boardNo},DEFAULT,#{boardWriter},#{reportedUserId},#{boardTitle})
+		</insert>
 	
+		<!-- id는 store로 맞춰준다 -->
+		<insert id="insertReply" parameterType="ReplyReport">
+			INSERT INTO REPLY_REPORT VALUES(SEQ_REPLY_REPORT.NEXTVAL, #{replyNo},#{boardNo},DEFAULT,#{replyContents},#{replyWriter},#{reportedUserId})
+		</insert>
 </mapper>

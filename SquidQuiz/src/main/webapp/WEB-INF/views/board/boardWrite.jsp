@@ -34,7 +34,7 @@
 				
 			</div>
 			<div>
-				<label for="title">작성자</label>
+				<label for="title">글쓴이</label>
 				<input type="text" name="userId"  value="${loginUser.userId }" readonly>
 			</div> 
 			<div >
@@ -51,13 +51,13 @@
 
 	<script> 
 	
-	var result = "${msg}";
-	if(result == "regSuccess") {
-		alert("게시글 등록이 완료되었습니다.");
-	}
+// 	var result = "${msg}";
+// 	if(result == "regSuccess") {
+// 		alert("게시글 등록이 완료되었습니다.");
+// 	}
 	
 	
-	CKEDITOR.replace( 'bContents', {
+	CKEDITOR.replace( 'bContents',  {
 		 width:'100%',
          height:'400px',
 	filebrowserImageUploadUrl: "${path}/boardck.ptsd" 
