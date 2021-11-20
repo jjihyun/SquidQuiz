@@ -3,6 +3,7 @@ package com.pj.ptsd.user.store;
 import java.util.List;
 
 import com.pj.ptsd.board.domain.Board;
+import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.quiz.domain.Participant;
 import com.pj.ptsd.user.domain.PageInfo;
@@ -19,12 +20,20 @@ public interface UserStore {
 		
 		
 		public List<CampaignRecord> selectCRList(PageInfo pi, String userId);
+		public List<CampaignRecord> selectSearchAll(Search search);	
 		//캠페인내역 게시물 개수 조회
 		public int selectCListCount(String userId);
 		
 		public List<Participant> selectQList(PageInfo pi, String userId);
-		//퀴즈내역 게시물 개수 조회
+		
+		//퀴즈내역 게시물 개수 
 		public int selectQListCount(String userId);
+		
+		//퀴즈내역 참여수 조회
+		public int selectQCount(String userId);
+		
+		//퀴즈내역 참여누적금조회
+		public int selectGCount(String userId);
 		
 		public List<Board> selectBoardList(PageInfo pi,String userId);
 		//자유게시판 상세 조회

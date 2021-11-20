@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pj.ptsd.board.domain.Board;
+import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.quiz.domain.Participant;
 import com.pj.ptsd.user.domain.PageInfo;
@@ -79,10 +80,22 @@ public class UserStoreLogic implements UserStore{
 		return cList;
 	}
 	
+	@Override
+	public List<CampaignRecord> selectSearchAll(Search search) {
+		List<CampaignRecord> searchList = sqlSession.selectList("userMapper.selectSearchList", search);
+		return searchList;
+	}
+	
 	//캠페인 글 개수
 	@Override
 	public int selectCListCount(String userId) {
 		int result = sqlSession.selectOne("userMapper.selectCListCount", userId);
+		return result;
+	}
+	
+	//후원한 단체 수 조회
+	public int selectCCount(String userId) {
+		int result = sqlSession.selectOne("userMapper.selectCCount", userId);
 		return result;
 	}
 	
@@ -123,12 +136,28 @@ public class UserStoreLogic implements UserStore{
 		int result = sqlSession.selectOne("userMapper.selectQListCount", userId);
 		return result;
 	}
+	
+	//퀴즈 참여 수 조회
+	public int selectQCount(String userId) {
+		int result = sqlSession.selectOne("userMapper.selectQCount", userId);
+		return result;
+	}
+	
+	
+	//퀴즈 누적참가금액 조회
+	public int selectGCount(String userId) {
+		int result = sqlSession.selectOne("userMapper.selectGameGibu", userId);
+		return result;
+	}
+	
 
 	@Override
 	public int selectMyCPoint(String userId) {
 		int point = sqlSession.selectOne("userMapper.selectPPoint", userId);
 		return point;
 	}
+
+
 
 
 

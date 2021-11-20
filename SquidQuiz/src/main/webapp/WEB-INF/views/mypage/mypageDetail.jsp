@@ -63,6 +63,7 @@ ul.tabs li.current{
 .gibu-box,.quiz-box1{float:left;list-style:none;}
 .gibu-box b,.quiz-box1 b{font-size:18px;}
 .gibu-box input, .quiz-box1 input{width:400px;height:50px;margin-top:10px;}
+.point-box{text-align:center;font-size:20px;border:none;background: transparent;}
 </style>
 <body>
 	<header>
@@ -139,16 +140,31 @@ ul.tabs li.current{
 							 <div class="gibu">
 							 <form action="">
 								<ul class="box">
-									<li class="gibu-box"> <b>후원단체</b><br> <input type="text"class="point-box"></li>
+									<c:if test="${not empty cCount }">
+									<li class="gibu-box"> <b>후원단체</b><br> <input type="text"class="point-box" value="${cCount }"></li>
+									</c:if>
 									<li class="gibu-box"><div class="vr" style="height:100px;margin-left:10px;margin-right:10px;"></div></li>
-									<li class="gibu-box"> <b>총 기부금액</b><br>  <input type="text"class="point-box"></li><br><br><br><br>
-									
+									<c:if test="${not empty pPoint }">
+									<li class="gibu-box"> <b>총 기부금액</b><br>  
+									<input type="text"class="point-box" value="${pPoint}원"></li><br><br><br><br>
+									</c:if>
 								</ul>
 						</form>
 						</div>
 						<br>
 						 <hr>
 						 <br>
+							 <div align="center">
+								<form action="mypageDetail.ptsd" method="get">
+									<select name="searchCondition">
+									<!-- c:if써서 유지시키기. -->
+										<option value="campaignName"<c:if test="${search.searchCondition == 'all' }">selected</c:if>>단체명</option>
+										<option value="campaignPoint"<c:if test="${search.searchCondition == 'point' }">selected</c:if>>금액</option>
+									</select>
+									<input type="text" name="searchValue" value="${search.searchValue }">
+									<input type="submit" value="검색">
+								</form>
+							</div>
 							<!-- 게시판 -->
 									<div class="card flex-fill">
 										<table class="table table-hover my-0">
@@ -229,21 +245,15 @@ ul.tabs li.current{
 						   <div class="gibu">
 						 <form action="">
 							<ul class="box">
-								<li class="quiz-box1"> <b>총 참여수</b><br> <input type="text"class="point-box"></li>
+								<li class="quiz-box1"> <b>총 참여수</b><br> <input type="text"class="point-box" value="${qCount}번"></li>
 								<li class="quiz-box1"><div class="vr" style="height:100px;margin-left:10px;margin-right:10px;"></div></li>
-								<li class="quiz-box1"> <b>누적 기부금액</b><br>  <input type="text"class="point-box"></li><br><br><br><br>
-								
+								<li class="quiz-box1"> <b>누적 참여금액</b><br>  <input type="text"class="point-box" value="${quizPoint }원"></li><br><br><br><br>
 							</ul>
 						</form>
 						</div>
 						<br>
 						 <hr>
 						 <br>
-						 	<div class="box1">
-						 		<div class="quiz-box1" > <b>누적 참여금액</b><br> <input type="text" class="point-box"> </div> 
-						 	</div>
-						 <br><br><br><br><br>
-						  <hr>
 						  <br>
 							<!-- 게시판 -->
 									<div class="card flex-fill">

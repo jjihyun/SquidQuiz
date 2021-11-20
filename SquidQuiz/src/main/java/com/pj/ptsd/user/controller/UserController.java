@@ -28,6 +28,7 @@ import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.quiz.domain.Participant;
 import com.pj.ptsd.user.domain.PageInfo;
 import com.pj.ptsd.user.domain.Pagination;
+import com.pj.ptsd.user.domain.Search;
 import com.pj.ptsd.user.domain.User;
 import com.pj.ptsd.user.service.UserService;
 
@@ -52,20 +53,27 @@ public class UserController {
 
 	// 로그인
 	@RequestMapping(value="/login.ptsd", method=RequestMethod.POST)
-	public String MemberLogin(HttpServletRequest request, @RequestParam("userId") String userId, @RequestParam("userPwd") String userPwd) {
+	public void MemberLogin(HttpServletRequest request, @RequestParam("userId") String userId, @RequestParam("userPwd") String userPwd
+			, HttpServletResponse response) {
 		User userOne = new User();
 		userOne.setUserId(userId);
 		userOne.setUserPwd(userPwd);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
 		try {
 			User loginUser = service.loginMember(userOne);
+			out = response.getWriter();
 			if(loginUser != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", loginUser);
+				out.println("<script>location.href='/main.ptsd'</script>");
+//				return "redirect:main.ptsd"; 
+			}else {
+				out.println("<script>alert('아이디 비밀번호를 확인해주세요.');location.href='/login.ptsd'</script>");
 			}
-			return "redirect:main.ptsd"; 
 		}catch(Exception e) {
 			request.setAttribute("msg", e.toString());
-			return "common/errorPage";
+//			return "common/errorPage";
 		}
 	}
 
@@ -90,7 +98,7 @@ public class UserController {
 
 	//회원가입
 	@RequestMapping(value="join.ptsd", method=RequestMethod.POST)
-	public String memberRegister(HttpServletRequest request
+	public void memberRegister(HttpServletRequest request
 			,HttpServletResponse response
 			,@ModelAttribute User user
 			,@RequestParam("bankAccountValue") String accountValue
@@ -105,15 +113,13 @@ public class UserController {
 			int result = service.registerMember(user);
 			out = response.getWriter();
 			if(result > 0) {
-				out.println("<script>alert('오징어퀴즈에 오신걸 환영합니다!');</script>");
-				return "redirect:main.ptsd";
+				out.println("<script>alert('오징어퀴즈에 오신걸 환영합니다! 다시 로그인 해주세요');location.href='/main.ptsd'</script>");
 			}else {
 				request.setAttribute("msg", "회원가입 실패");
-				return "common/errorPage";
 			}
 		}catch(Exception e) {
 			request.setAttribute("msg", e.toString());
-			return "common/errorPage";
+//			return "common/errorPage";
 		}
 	}
 
@@ -210,7 +216,11 @@ public class UserController {
 
 	//마이페이지 회원정보 화면
 	@RequestMapping(value="mypageUser.ptsd", method=RequestMethod.GET)
-	public String userList(@ModelAttribute User user, Model model) {
+	public String userList(Model model
+			, HttpServletRequest request) {
+		// 여기에서  DB다녀온 값을 뿌려줘야합니다.. ㅎ
+		// selectOne하는 메소드가 있을거 같은데 
+
 		return "mypage/mypageUser";
 	}
 
@@ -227,7 +237,6 @@ public class UserController {
 		HttpSession session = request.getSession();
 		user.setBankAccount(Integer.parseInt(accountValue)); //계좌번호 string으로 변경
 		user.setUserAddr(post+","+address1+","+address2);
-		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
 		try {
@@ -334,7 +343,11 @@ public class UserController {
 		int currentPage = (page!=null) ? page : 1;
 		String userId = userOne.getUserId();
 		int totalCCount = service.getCCount(userId);
+		int cCount = service.getCCount(userId);
+		int qCount = service.getQCount(userId);
 		int totalQCount = service.getQCount(userId);
+		int pPoint = service.printMyCPoint(userId);
+		int quizPoint = service.getGCount(userId);
 		PageInfo cPi = Pagination.getPageInfo(currentPage, totalCCount);
 		PageInfo qPi = Pagination.getPageInfo(currentPage, totalQCount);
 		List<CampaignRecord> cList = service.printCRList(cPi, userId);
@@ -343,9 +356,29 @@ public class UserController {
 		model.addAttribute("qList", qList);
 		model.addAttribute("cPi", cPi);
 		model.addAttribute("qPi", qPi);
+		model.addAttribute("pPoint",pPoint);
+		model.addAttribute("cCount", cCount);
+		model.addAttribute("qCount", qCount);
+		model.addAttribute("quizPoint",quizPoint);
 		model.addAttribute("userPoint",userOne.getPoint());
 		return "mypage/mypageDetail";
 	}
+	
+	//캠페인내역 검색기능
+//	@RequestMapping(value="boardSearch.ptsd", method=RequestMethod.GET)
+//	public String campaignSearchList(@ModelAttribute Search search, Model model) {
+//		List<CampaignRecord> searchList = service.printSearchAll(search);
+//		if(!searchList.isEmpty()) {
+//			model.addAttribute("cList", searchList);
+//			model.addAttribute("search", search);
+//			model.addAttribute("page", 1);
+//			return "mypage/mypageDetail";
+//		}else {
+//			model.addAttribute("msg", "게시물 조회 실패");
+//			return "common/errorPage";
+//		}
+//	}
+	
 	
 	//퀴즈내역 조회
 //	@RequestMapping(value="mypageDetail.ptsd", method=RequestMethod.GET)

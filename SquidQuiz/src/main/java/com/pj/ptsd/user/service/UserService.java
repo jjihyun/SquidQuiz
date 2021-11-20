@@ -3,6 +3,7 @@ package com.pj.ptsd.user.service;
 import java.util.List;
 
 import com.pj.ptsd.board.domain.Board;
+import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.quiz.domain.Participant;
 import com.pj.ptsd.user.domain.PageInfo;
@@ -20,12 +21,17 @@ public interface UserService {
 	
 	
 	public List<CampaignRecord> printCRList(PageInfo pi, String userId);
-	//캠페인내역 게시물 개수 조회
+	public List<CampaignRecord> printSearchAll(Search search);	
+	//캠페인내역 게시물 개수 , 후원단체 수 조회
 	public int getCCount(String userId);
 	
 	public List<Participant> printQList(PageInfo pi, String userId);
-	//퀴즈내역 게시물 개수 조회
+	
+	//퀴즈내역 게시물 개수 ,참여수 조회, 참여누적금조회
 	public int getQCount(String userId);
+	
+	public int getGCount(String userId);
+	
 	
 	public List<Board> printBoardList(PageInfo pi,String userId);
 	//자유게시판 상세 조회
@@ -37,4 +43,6 @@ public interface UserService {
 	
 	//총 기부금 조회
 	public int printMyCPoint(String userId);
+	
+	
 }

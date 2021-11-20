@@ -224,10 +224,10 @@ ul.tabs li.current{
 											<th class="d-none d-xl-table-cell">날짜</th>
 										</tr>
 									</thead>
-										<c:if test="${cList eq null }">
+										<c:if test="${empty cList }">
 											<tbody align="center">
 												<tr align="center">
-													<td colspan="9"><span>조회된 충전 내역이 없습니다.</span></td>
+													<td colspan="9"><span>충전 내역이 없습니다.</span></td>
 												</tr>
 											</tbody>
 										</c:if>
@@ -315,9 +315,10 @@ ul.tabs li.current{
 										</c:if>
 										<tbody id="exchangeBody">
 											<c:forEach items="${eList }" var="eList">
+											<c:set var="i" value="${i+1 }"/>
 												<tr align="center">
 												
-													<td>${eList.exchangeNo }</td>
+													<td>${i }</td>
 													<td>${eList.account }</td>
 													<td>${eList.exchangeMoney }</td>
 													
