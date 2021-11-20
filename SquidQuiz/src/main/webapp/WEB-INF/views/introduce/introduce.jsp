@@ -29,7 +29,7 @@
 			width:400px;
 			margin: 50px auto;
 			max-height: 400px;
-			padding : 75px 20px;
+/* 			padding : 75px 20px; */
 			text-align : center;
 			font-size: 3em;
 		}
@@ -56,6 +56,7 @@
 		.third{
 		
 		}
+		
 		.back-black{
 			background: black;
 		}
@@ -75,6 +76,9 @@
 		}
 		.img{
 			width:80%;
+		}
+		#oximage{
+			width:100%;
 		}
 	</style>
 </head>
@@ -126,8 +130,8 @@
 			<!-- 우50 -->
 			<div class="col-md-5">
 			<!-- style="padding-top:200px" -->
-				<div  class="img" align="center" data-aos="fade-up-left" data-aos-delay="400" data-aos-duration="2000" data-aos-offset="400">
-					<img  alt="이미지 로드 실패" src="https://ichef.bbci.co.uk/news/976/cpsprodpb/D497/production/_120732445_-3.jpg">
+				<div  class="img" align="center" data-aos="fade-up-left" data-aos-delay="400" data-aos-duration="2000" data-aos-offset="400" data-aos-easing="ease-out-cubic">
+					<img  id="oximage" alt="이미지 로드 실패" src="https://ichef.bbci.co.uk/news/976/cpsprodpb/D497/production/_120732445_-3.jpg">
 				</div>
 			</div>
 			<div class="col-md-1 visible"></div>
@@ -144,8 +148,8 @@
 			</div>
 			<!-- 우50 -->
 			<div class="col-md-5">
-				<h1 class="title" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600"align="center">탈락...?</h1><br>
-				<div  data-aos="flip-up" data-aos-duration="1600" data-aos-delay="350">
+				<h1 class="title" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500" data-aos-offset="300" align="center">탈락...?</h1><br>
+				<div  data-aos="flip-up" data-aos-duration="1600" data-aos-delay="350" data-aos-offset="300">
 					<p class="ptext"align="center" >
 						혹여나 탈락하더라도 너무 상심하지 마세요.<br> 참가비의 일부는 <strong>기부</strong>되어 꼭 필요한 곳에 의미있게 사용되니까요. 매 퀴즈 참가비의 일부는 <strong>사랑의열매</strong> 사회복지공통모금회에 전달됩니다.
 					</p>
@@ -158,28 +162,166 @@
 			<div class="col-md-1 visible"></div>
 			<!-- 좌50 -->
 			<div class="col-md-5">
+				<h1 class="title" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500" data-aos-offset="300" align="center">캠페인</h1><br>
+				<div  data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200" data-aos-offset="300" data-aos-easing="ease-in-cubic">
+					<p class="ptext"align="center" >
+						 전국 각지에 있는 복지관, 복지/장학 재단에서 도움이 필요한 사람들은 위해 다양한 캠페인을 열고 있습니다.<br> 지금 여러분의 관심과 손길이 필요한 곳이 어딘지 확인하고 직접 <strong>후원</strong>에 참여해보세요.
+					</p>
+				</div>
 			</div>
 			<!-- 우50 -->
 			<div class="col-md-5">
-			
+				<div class="img" data-aos ="fade-left" data-aos-offset="500" data-aos-duration="1000">
+				<!-- 휠체어-->
+					<img class="prize" alt="로드실패" src="https://happybean-phinf.pstatic.net/20211001_51/1633066973571gruHY_JPEG/%ED%9C%A0jpg?type=w720">
+				</div>
 			</div>	
 			<div class="col-md-1 visible"></div>
 		</div>
-		<!-- ?행 -->
-		<section class="container first">
-			<div class="" data-aos="fade-up">
-<!-- 				 <img class="card" src="https://img.koreatimes.co.kr/upload/newsV2/images/202110/1817e945ab0246eb9a69eb20984ac321.jpg/dims/resize/740/optimize"> -->
-			</div>
+	<!-- 6행 -->
+		<section class="container eachrows sixth">
+			<h1 class ="title" align="center">다양한 카테고리의 캠페인</h1>
 		</section>
+	<!-- 7행 -->
+		<div class="row eachrows seventh align-items-center">
+			<div class="col-md-1 visible"></div>
+			<!-- 30 -->
+			<div class="col-md-3">
+				
+			</div>
+			<!-- 20 -->
+			<div class="col-md-2">
+				<h1 class="title" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="100" data-aos-offset="300" align="center">아동,청소년</h1>
+			</div>
+		
+			
+			<!-- 우50 -->
+			<div class="col-md-5" data-aos ="fade-right" data-aos-offset="500" data-aos-duration="1000">
+				<img alt="" src="https://happybean-phinf.pstatic.net/20211112_251/1636683629934420fp_JPEG/%EC%B2%A8%EB%B6%801jpg?type=w720">
+			</div>
+			<div class="col-md-1 visible"></div>
+		</div>
+	<!-- 8행 -->
+		<div class="row eachrows align-items-center">
+			<div class="col-md-1 visible"></div>
+			<!-- 50 -->
+			<div class="col-md-5" data-aos ="fade-left" data-aos-offset="500" data-aos-duration="1000">
+				<img alt="" src="https://happybean-phinf.pstatic.net/20211108_139/16363453422587kr0Y_JPEG/%ED%95%A8%EA%BB%98_%EB%82%98%EB%9E%80%ED%9E%88_%EA%B1%B7%EB%8A%94_%EC%82%AC%EC%A7%84jpg?type=w720">
+			</div>
+			<!-- 우20 -->
+			<div class="col-md-2">
+				<h1 class="title" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="100" data-aos-offset="300" align="center">어르신</h1>
+			</div>	
+			<!-- 우30 -->
+			<div class="col-md-3">
+				
+			</div>
+			<div class="col-md-1 visible"></div>
+		</div>
+	<!-- 9행 -->
+		<div class="row eachrows align-items-center">
+			<div class="col-md-1 visible"></div>
+			<!-- 30 -->
+			<div class="col-md-3">
+				
+			</div>
+			<!-- 20 -->
+			<div class="col-md-2">
+				<h1 class="title" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="100" data-aos-offset="300" align="center">환경</h1>
+			</div>
+		
+			
+			<!-- 우50 -->
+			<div class="col-md-5" data-aos ="fade-right" data-aos-offset="500" data-aos-duration="1000">
+				<img alt="" src="https://happybean-phinf.pstatic.net/20211108_144/16363584303455bSrY_JPEG/eaatoday_190920_3jpg?type=w720">
+			</div>
+			<div class="col-md-1 visible"></div>
+		</div>
+	<!-- 10행 -->
+		<div class="row eachrows align-items-center">
+			<div class="col-md-1 visible"></div>
+			<!-- 50 -->
+			<div class="col-md-5" data-aos ="fade-left" data-aos-offset="500" data-aos-duration="1000">
+				<img alt="" src="https://happybean-phinf.pstatic.net/20211014_96/1634201730417HC01J_JPEG/%EB%AF%BC%EB%93%A4%EB%A0%88%EA%B5%90%EC%8B%A4_(3).jpg?type=w720">
+			</div>
+			<!-- 우20 -->
+			<div class="col-md-2">
+				<h1 class="title" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="100" data-aos-offset="300" align="center">다문화</h1>
+			</div>	
+			<!-- 우30 -->
+			<div class="col-md-3">
+				
+			</div>
+			<div class="col-md-1 visible"></div>
+		</div>
+	<!-- 11행 -->
+		<div class="row eachrows align-items-center">
+			<div class="col-md-1 visible"></div>
+			<!-- 30 -->
+			<div class="col-md-3">
+				
+			</div>
+			<!-- 20 -->
+			<div class="col-md-2">
+				<h1 class="title" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="100" data-aos-offset="300" align="center">장애인</h1>
+			</div>
+		
+			
+			<!-- 우50 -->
+			<div class="col-md-5" data-aos ="fade-right" data-aos-offset="500" data-aos-duration="1000">
+				<img alt="" src="https://happybean-phinf.pstatic.net/20211112_80/1636706004054I74XM_JPEG/KakaoTalk_20211112_172316772jpg?type=w720">
+			</div>
+			<div class="col-md-1 visible"></div>
+		</div>
+	<!-- 12행 -->
+		<div class="row eachrows align-items-center">
+			<div class="col-md-1 visible"></div>
+			<!-- 50 -->
+			<div class="col-md-5" data-aos ="fade-left" data-aos-offset="500" data-aos-duration="1000">
+				<img alt="" src="https://happybean-phinf.pstatic.net/20211106_37/163617315952169seK_JPEG/%EB%8B%A8%EC%B2%B4%EC%82%AC%EC%A7%84jpg?type=w720">
+			</div>
+			<!-- 우20 -->
+			<div class="col-md-2">
+				<h1 class="title" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="100" data-aos-offset="300" align="center">시설</h1>
+			</div>	
+			<!-- 우30 -->
+			<div class="col-md-3">
+				
+			</div>
+			<div class="col-md-1 visible"></div>
+		</div>
+	<!-- 13행 -->
+		<div class="row eachrows align-items-center">
+			<div class="col-md-1 visible"></div>
+			<!-- 30 -->
+			<div class="col-md-3">
+				
+			</div>
+			<!-- 20 -->
+			<div class="col-md-2">
+				<h1 class="title" data-aos="flip-down" data-aos-duration="1000" data-aos-delay="100" data-aos-offset="300" align="center">학교</h1>
+			</div>
+		
+			
+			<!-- 우50 -->
+			<div class="col-md-5" data-aos ="fade-right" data-aos-offset="500" data-aos-duration="1000">
+				<img alt="" src="https://happybean-phinf.pstatic.net/20211008_232/1633657130413q2J5O_JPEG/%EC%88%98%EC%A0%951(%ED%95%B4%ED%94%BC%EB%B9%88)jpg?type=w720">
+			</div>
+			<div class="col-md-1 visible"></div>
+		</div>
+		
+		<section class="container eachrows">
+			<h1 class ="title" align="center" data-aos="fade-down" data-aos-offset="400" data-aos-duration="800" data-aos-easing="linear">바로 오늘 퀴즈 혹은 후원에 참여해보세요 !</h1>
+		</section>
+		
+		<section class="container eachrows" align="center" data-aos="fade-up" data-aos-offset="200" data-aos-duration="800" data-aos-easing="ease-in-back">
+			<button class="btn btn-secondary btn-lg" style="box-sizing: 100px;" onclick="location.href='main.ptsd'">퀴즈 참여하기</button><br><br>
+			<button class="btn btn-secondary btn-lg" onclick="location.href='campaignList.ptsd'">캠페인 둘러보기</button><br><br>
+			<button class="btn btn-secondary btn-lg" onclick="location.href='boardList.ptsd'">자유게시판 </button><br><br><br>
+			
+		</section>
+	
+		</div>
 	</div>
-	</div>
-
-	
-
-	<!-- 명함 -->
-	
-	
-	<div></div>
-	<div></div>
 </body>
 </html>
