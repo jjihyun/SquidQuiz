@@ -26,6 +26,9 @@
 		}
 		
 		
+		
+
+
 	</style>
 </head>
 <body>
@@ -35,7 +38,7 @@
 		
 		<h1 align="center">${board.userId } 님의 게시글</h1>
 			<input type="hidden" id="boardNo" value="${board.bNo }" id="bNo">
-			<table align="center" width="600" border="1" >
+			<table align="center" width="600" border="1" cellspacing="1">
 				<tr>
 					<td align="center">제목</td>
 					<td align="center" >${board.bTitle }</td>
@@ -52,12 +55,7 @@
 				</tr>
 					<td align="center" >내용</td>
 					<td align="center" id="bContents">${board.bContents }</td>
-				</tr>
-				<tr>
-					<td align="center">첨부파일</td>
-					<td>
-						${board.bFileName }
-					</td>
+					<input type="hidden" id="bFileName" value="${board.bFileName }" id="bNo">
 				</tr>
 				<tr>
 					<td colspan="2" align="center">
@@ -71,34 +69,35 @@
 					
 						<!--작성자만볼수있는 항목-->
 						<c:if test ="${loginUser.userId eq board.userId }">
-			            	<a href="${bModify }">수정</a>
-			            	<a href="${bDelete }">삭제</a>
+			            	<a class="btn btn-primary" href="${bModify }"  style>수정</a>
+			            	<a class="btn btn-primary" href="${bDelete }">삭제</a>
 			    		</c:if>
     					<!-- 다볼수있는 항목. -->
-    						<a href="#" onclick="boardReport(${board.bNo });">신고</a>
-    						<a href="boardList.ptsd">목록</a>
+    						<a class="btn btn-primary" href="#" onclick="boardReport(${board.bNo });">신고</a>
+    						<a class="btn btn-primary" href="boardList.ptsd">목록</a>
 					</td>
 				</tr>					
 			</table>
-			<!-- 댓글 등록 -->
-		<table align="center" width="500" border="1">
-			<tr>
-				<td>
-					<textarea rows="3" cols="55" id="rContents" ></textarea>
-				</td>
-				<td><button id="rSubmit">등록하기</button>
-			</tr>
-		</table>
-		<!-- 댓글 목록 -->
-		<table align="center" width="500" border="1" id="rtb">
-			<thead>
-				<tr>
-					<!-- 댓글 갯수 -->
-					<td colspan="4"><b id="rCount"></b></td>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
+			<br>
+				<!-- 댓글 등록 -->
+				<table align="center" width="600" border="0" cellspacing="1">
+					<tr>
+						<td>
+							<textarea rows="5" cols="55" id="rContents" ></textarea>
+						</td>
+						<td><button id="rSubmit" class="btn btn-primary">댓글작성</button>
+					</tr>
+				</table>
+				<!-- 댓글 목록 -->
+				<table align="center" width="600" border="1" id="rtb">
+				<thead >
+					<tr >
+						<!-- 댓글 갯수 -->
+						<td colspan="5"><b id="rCount"></b></td>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
 <!-- 		<script language="javascript">
 // 			var tmpStr="${board.bContents}"
 // 			tmpStr=tmpStr.replaceAll("&lt;","<");
@@ -132,8 +131,9 @@
 							},
 							success : function(data) {
 								if(data == "success"){
+									alert("댓글을작성하셨습니다.");
 									Push.create("댓글", {
-									    body: "댓글을작성하셨습니다.",
+									    body: "댓글을 작성했습니다.",
 									    icon: 'https://t1.daumcdn.net/cfile/tistory/99AF0E4B5A7C524F02',
 									    timeout: 400000,
 									    onClick: function () {
@@ -151,7 +151,7 @@
 								}
 							},
 							error : function() {
-								alert("AJAX 통신 오류");
+								alert("댓글을 작성하려면 로그인 해주세요");
 							},
 							complete : function() {
 								
@@ -219,6 +219,7 @@
 							data : {"bNo" : bNo, "replyNo" : replyNo, "replyContents" : modifiedContent},
 							success : function(data) {
 								if(data == "success") {
+									alert("수정되었습니다");
 									getReplyList();
 								}else {
 									alert("댓글 수정 실패");
@@ -238,7 +239,7 @@
 							data : {"bNo" : bNo, "replyNo" : replyNo},
 							success : function(data) {
 								if(data == "success") {
-									getReplyList();
+									alert("삭제되었습니다");
 									
 								}else {
 									alert("댓글 삭제 실패");
@@ -247,12 +248,7 @@
 							}
 						});
 					}
-						//bno의 위치와 boardreply의 위치 값  
-						//url은 무슨 경로를 적는가
-						//data의 값은 첫번째 괄호와 같은 의미??
-						
 						//게시글 신고
-						// 위 클릭 한값이 (여기에 저장)
 						function boardReport(bNo) {
 							
 							var writer = $("#Writer").val();
