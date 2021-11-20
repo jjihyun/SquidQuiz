@@ -286,11 +286,8 @@ public class QuizController {
 		if(point >= 10000) {
 			System.out.println("참가신청완료");
 			int pointUpdate = service.updateUserPoint(user);
-			
 			int moneyUpdate =service.updateMoney(mgi);
-			
 			int result = service.registerParticipant(participantNo);
-			
 			if(result > 0 && moneyUpdate > 0 && pointUpdate > 0) {
 				session.setAttribute("loginUser", user);
 				mv.setViewName("redirect:mainView.ptsd");
@@ -312,14 +309,9 @@ public class QuizController {
 			,@ModelAttribute MainGameInfo mgi) {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("loginUser");
-		
 			int pointUpdate = service.updateUserPointMinus(user);
-			
 			int moneyUpdate = service.updateMoneyMinus(mgi);
-			
 			int result = service.removeParticipant(participantNo);
-					
-			
 			if(result > 0 && moneyUpdate > 0 && pointUpdate > 0) {
 				session.setAttribute("loginUser", user);
 				mv.setViewName("redirect:mainView.ptsd");
