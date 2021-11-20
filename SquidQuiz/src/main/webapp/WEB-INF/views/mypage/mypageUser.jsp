@@ -27,6 +27,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap">
 
 </head>
+<style>
+#userId,#userName{pointer-events: none;}
+</style>
 <body>
 	<header>
 		<jsp:include page="../../../resources/html/header.jsp"/>
@@ -106,12 +109,12 @@
 		            </div>
 		            <div class="form-group">
 		            <label for="userEmail">이메일</label><br>
-		                <input type="email" id="userEmail" name="userEmail" value="${loginUser.userEmail }"><br>
+		                <input type="email" id="userEmail" name="userEmail" value="${userEmail }"><br>
 		                <div class="email-regex"></div>
 		            </div>
 		            <div class="form-group">
 		            <label for="userPhone">전화번호</label><br>
-		                <input type="text" id="userPhone" name="userPhone" value="${loginUser.userPhone }"><br>
+		                <input type="text" id="userPhone" name="userPhone" value="${userPhone }"><br>
 		                <div class="phone-regex"></div>
 		            </div>
 		            <c:forTokens items="${loginUser.userAddr }" delims="," var="addr" varStatus="status">

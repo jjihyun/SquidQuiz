@@ -102,7 +102,7 @@
 											</div>
 										</div>
 									</div>
-									<h1 class="point1"><input type="text" id="userPoint" name="Point" value="${userPoint }"></h1>
+									<h1 class="point1"><input type="text" id="userPoint" name="Point" value="${userPoint }P"></h1>
 									<div class="point-btn">
 										<button id="check_module" class="btn btn-primary"  onclick = "location.href = '/chargePoint.ptsd' " type="button">충전하기</button>
 									</div>
@@ -121,7 +121,15 @@
 											</div>
 										</div>
 									</div>
-									<h1 class="point2"><input type="text" id="userGibu" name="Point2" value="${pPoint }"></h1>
+									
+<%-- 									<c:set var="pointValue" value="${pPoint}"/> --%>
+<%-- 									<c:out value="${pPoint }" default="0"/> --%>
+									<h1 class="point2">
+										<c:if test="${not empty pPoint }">
+											<input type="text" id="userGibu" name="Point2" value="${pPoint}원">
+										</c:if>
+									</h1>
+									
 									<div class="camp-btn">
 										<button type="button" class="btn btn-primary" onclick = "location.href = '/campaignList.ptsd' ">기부하기</button>
 										<button type="button" class="btn btn-primary" onclick = "location.href = '/mypageDetail.ptsd' ">기부내역</button>
@@ -248,6 +256,5 @@
 
 
 	<script src="/resources/js/app.js"></script>
-
 </body>
 </html>

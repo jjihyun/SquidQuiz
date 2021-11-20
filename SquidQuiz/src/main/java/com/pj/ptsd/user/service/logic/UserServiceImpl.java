@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pj.ptsd.board.domain.Board;
+import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.quiz.domain.Participant;
 import com.pj.ptsd.user.domain.PageInfo;
@@ -67,6 +68,12 @@ public class UserServiceImpl implements UserService{
 		return cList;
 	}
 	
+	@Override
+	public List<CampaignRecord> printSearchAll(Search search) {
+		List<CampaignRecord> serchCList = store.selectSearchAll(search);
+		return serchCList;
+	}
+	
 
 	@Override
 	public int getCCount(String userId) {
@@ -100,25 +107,35 @@ public class UserServiceImpl implements UserService{
 		User user = store.selectOne(uId);
 		return user;
 	}
-
+	
+	//퀴즈참여 리스트
 	@Override
 	public List<Participant> printQList(PageInfo pi, String userId) {
 		List<Participant> qList = store.selectQList(pi, userId);
 		return qList;
 	}
 	
-
+	//퀴즈 참여글 갯수, 참여수 조회, 참여누적금조회
 	@Override
 	public int getQCount(String userId) {
 		int result = store.selectQListCount(userId); 
 		return result;
 	}
+	
+	@Override
+	public int getGCount(String userId) {
+		int result = store.selectGCount(userId); 
+		return result;
+	}
+	
 
 	@Override
 	public int printMyCPoint(String userId) {
 		int point = store.selectMyCPoint(userId); 
 		return point;
 	}
+
+	
 
 	
 

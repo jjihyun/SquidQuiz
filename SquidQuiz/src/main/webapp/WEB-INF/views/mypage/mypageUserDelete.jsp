@@ -29,7 +29,7 @@
 <style>
 
 input{width:300px;height:40px;margin:5px;}
-#userId{pointer-events: none;}
+#userId{pointer-events: none;border:none;text-align:center;font-size:20px;font-weight:normal;background: transparent;}
 #userPwd:focus{box-shadow: 1px 3px 10px 3px gray;}
 #removeUser{width:300px;height:40px;border-radius: 5px;border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;background-color: rgb(247, 105, 136);font-weight: bold;cursor:pointer;}
 #removeUser:hover{background-color: rgb(230, 87, 118);}

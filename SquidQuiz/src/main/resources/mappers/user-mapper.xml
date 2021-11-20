@@ -89,7 +89,7 @@
 	
 	<!-- 캠페인내역 조회 -->
 	<select id="selectMypageDonate" resultMap="campaignRecordResultMap">
-		SELECT CAMPAIGN_RECORD_NO, CAMPAIGN_NAME, CAMPAIGN_RECORD_POINT, CAMPAIGN_RECORD_DATE FROM CAMPAIGN_RECORD WHERE USER_ID=#{userId}
+		SELECT CAMPAIGN_RECORD_NO, CAMPAIGN_NAME, CAMPAIGN_RECORD_POINT, CAMPAIGN_RECORD_DATE FROM CAMPAIGN_RECORD WHERE USER_ID=#{userId} ORDER BY CAMPAIGN_RECORD_NO DESC
 	</select>
 	
 	<!-- 캠페인내역 리스트 갯수 조회 -->
@@ -97,9 +97,14 @@
 		SELECT COUNT(*) FROM CAMPAIGN_RECORD WHERE USER_ID =#{userId}
 	</select>
 	
+	<!-- 후원단체 수 조회 -->
+	<select id="selectCCount" resultType="_int">
+		SELECT COUNT(DISTINCT CAMPAIGN_NAME) FROM CAMPAIGN_RECORD 
+	</select>
+	
 	<!-- 기부금  조회 -->
 	<select id="selectPPoint" resultType="_int">
-		SELECT SUM(CAMPAIGN_RECORD_POINT) FROM CAMPAIGN_RECORD WHERE USER_ID =#{userId}
+		SELECT NVL(SUM(CAMPAIGN_RECORD_POINT),0) "CAMPAIGN_RECORD_POINT" FROM CAMPAIGN_RECORD WHERE USER_ID = #{userId}
 	</select>
 	
 	<!-- 퀴즈내역 조회 -->
@@ -110,6 +115,15 @@
 	<!-- 퀴즈내역 리스트 갯수 조회 -->
 	<select id="selectQListCount" resultType="_int">
 		SELECT COUNT(*) FROM PARTICIPANT WHERE PARTICIPANT_ID =#{userId}
+	</select>
+	
+	<!-- 퀴즈참여수 조회 -->
+	<select id="selectQCount" resultType="_int">
+		SELECT COUNT(TURN_NO) FROM PARTICIPANT WHERE PARTICIPANT_ID =#{userId}
+	</select>
+	
+	<select id="selectGameGibu" resultType="_int">
+		SELECT COUNT(TURN_NO)*10000 FROM PARTICIPANT WHERE PARTICIPANT_ID = #{userId}
 	</select>
 	
 	
