@@ -15,8 +15,9 @@
 <style type="text/css">
 main{
 	width: 100%;
-	height:2300px;
+	height:2500px;
 }
+h4{color:#4B4B4B;}
 .first{
 	width: 1300px;
 	position: absolute; 
@@ -30,38 +31,24 @@ main{
 }
 #nav-type {
 	height: 120px;
-/*  border:1px solid red; */
 	text-align: center;
 	display:flex;
 
 }
 .btn{
-	border: none;
-	background-color:rgb(201, 113, 113);
-	color:white;
-	width: 200px;
-	height: 50px;
-	font-size: 21px;
-	font-weight: bold;
+	border: none; background-color:rgb(200, 113, 113); color:white;
+	width: 200px; height: 50px; font-size: 21px; font-weight: bold;
 }
 	.btn:hover{
 		color:white;
 	}
 .campaign-type {
-	float: left;
-	text-align: center;
-	height: 100%;
-	width: 50px;
-	border:1px solid rgb(201, 113, 113);
-	flex: 1;
-	margin-left:40px;
-	cursor: pointer;
-	border-radius: 20px;
-	color:rgb(201, 113, 113);
+	float: left; text-align: center; height: 100%; width: 50px;
+	border:1px solid rgb(220, 113, 113); flex: 1; margin-left:40px;
+	cursor: pointer; border-radius: 20px; color:rgb(220, 113, 113);
 }
 	.campaign-type:hover{
-		background-color:rgb(201, 113, 113);
-		color:white;
+		background-color:rgb(220, 113, 113); color:white;
 	}
 
 .container {
@@ -79,12 +66,10 @@ main{
 #campaign-list {
 	border: 1px solid rgb(234, 234, 234);
 	padding:10px;
-	height: 330px;
+	height: 360px;
 	cursor: pointer;
 
 }
-
-
 #current-font{
 	background-color: rgb(201, 113, 113);
 	color:white;
@@ -98,7 +83,6 @@ main{
 }
 .font-str{
 	color:rgb(201, 113, 113);
-	/* border:2px solid rgb(201, 113, 113); */
 	padding: 7px;
 	border-radius: 3px;
 	padding-left: 15px;
@@ -121,21 +105,21 @@ main{
 	<br><hr><br>
 	<div class="first">
 		<div style="text-align: center;">
-			<h4 style="font-weight: bold;">이번주 퀴즈 참가 모음액</h4>
-			<h2>${dPrice }원</h2><br>
-			<h4 style="font-weight: bold;">누적 모금액</h4>
-			<h2>${dSumPrice }원</h2><br>
+			<h4 style="">이번주 퀴즈 기부금액</h4>
+			<h2 id="quizThisCount">${dPrice }</h2><br>
+			<h4 style="">퀴즈 전체 기부금액</h4>
+			<h2 id="quizAllCount">${dSumPrice }</h2><br>
 			<hr><br>
-			<div class="static-div"><br>
-				<h3 style="color:rgb(0, 34, 102); font-weight: bold;">정기후원</h3><br>
+			<div class="static-div"><br><br>
+				<h4 style="color:#4B4B4B; font-weight: bold;">정기후원</h4><br>
 				<img src="../../../resources/campaignStaticImg/정기후원.jpg" alt="img 안뜸"><br><br>
-				<h3 style="color:rgb(0, 34, 102); font-weight: bold;">"작은 후원이 큰 힘이 됩니다"</h3><br><br><br>
+				<h3 style="color:#4B4B4B; font-weight: bold;">"작은 후원이 큰 힘이 됩니다"</h3><br><br><br>
 				<button class="btn" onclick="location.href='campaignStaticDetail.ptsd'">자세히보기</button><br><br>
 				<a href="campaignAllCampaignRecord.ptsd" style="float:right;">퀴즈 참여 모금액 후원 내역>&nbsp;&nbsp;</a><br><br>
 			</div><br><br><br>
 			<c:if test="${sessionScope.loginUser ne null }">
 				<c:if test="${sessionScope.loginUser.adminType eq 'Y'.charAt(0) }">
-					<button class="btn" style="float:right;" onclick="location.href='campaignWriteView.ptsd'">캠페인 글 작성</button><br>
+					<button class="btn" style="float:right; background-color:rgb(230, 113, 113);" onclick="location.href='campaignWriteView.ptsd'">캠페인 글 작성</button><br>
 				</c:if>
 			</c:if>
 		</div>
@@ -160,20 +144,19 @@ main{
 					</c:url>
 					<div align="center" id="campaign-list" onclick="location.href='${cDetail}';">
 						<div id="img-container">
-							<img style="width: 100%; height: 200px;" 
+							<img style="width: 100%; height: 180px;" 
 							alt="img 안보임" src="../../../resources/campaignUpload/${c.cFileName }">
 						</div>
 						<div><br>
-							<b>${c.campaignTitle }</b><br>
+							<b style="font-size: 16px; word-break:keep-all;">${c.campaignTitle }</b><br>
+							${c.campaignName }<br>
 							<fmt:parseNumber var="percent" value="${c.getcNowAmount()/c.getcTargetAmount()*100}" integerOnly="true" />
-							<%-- <progress class="progressTag" value="${c.getcNowAmount()/c.getcTargetAmount()*100} " max="100"></progress> --%>
 							<div class="progress">
 							  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100" style="width: ${percent}%;">
 							    ${percent}%
 							  </div>
 							</div>
-							<%-- ${c.getcNowAmount()/c.getcTargetAmount()*100}%<br> --%>
-							목표금액 : ${c.cTargetAmount }원<br>
+							<b>목표금액 : <fmt:formatNumber type="number" value="${c.cTargetAmount }"/>원</b>
 						</div>
 					</div>
 				</c:forEach>
@@ -221,6 +204,36 @@ main{
 	</footer>
 	
 	<script type="text/javascript">
+		var memberCountConTxt1 = ${dPrice };
+		var memberCountConTxt2= ${dSumPrice };
+		
+		$({ val : 0 }).animate({val : memberCountConTxt1 }, {
+		   duration: 1000,
+		  step: function() {
+		    var num = numberWithCommas(Math.floor(this.val));
+		    $("#quizThisCount").text(num);
+		  },
+		  complete: function() {
+		    var num = numberWithCommas(Math.floor(this.val));
+		    $("#quizThisCount").text(num);
+		  }
+		}), $({ val : 0 }).animate({val : memberCountConTxt2 }, {
+			   duration: 1000,
+				  step: function() {
+				    var num = numberWithCommas(Math.floor(this.val));
+				    $("#quizAllCount").text(num);
+				  },
+				  complete: function() {
+				    var num = numberWithCommas(Math.floor(this.val));
+				    $("#quizAllCount").text(num);
+			}
+		});
+		//숫자에 ,을 추가해주는 함수(3자리마다 , 추가)
+		function numberWithCommas(x) {
+		    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+	
+	
 	
   		function campaignType(f){
 			var type=f;
@@ -233,27 +246,22 @@ main{
 				data:{"campaignType":type, "page": page}, 
 				dataType:"json",
 				success:function(data){
-					//console.log("성공");
-					
 					var str = "";
 					var str2 = "";
 					$("#container-1").empty();
 					$("#td-1").empty();
-					
-					console.log("pi : "+JSON.stringify(data.pi));
+					//console.log("pi : "+JSON.stringify(data.pi));
 					
 					for(var i =0;i<data.cList.length;i++){
-						var result = parseInt(data.cList[i].cNowAmount)/parseInt(data.cList[i].cTargetAmount)*100;
+						var cPercent = Math.floor(data.cList[i].cNowAmount/data.cList[i].cTargetAmount*100);
+						var cTargetAmount = data.cList[i].cTargetAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 						str += "<div align='center' id='campaign-list' onclick='location.href=\"campaignDetail.ptsd?campaignNo="+data.cList[i].campaignNo+"\";'>";
-						str += "<div><img style='width: 100%; height: 200px;' alt='img 안보임' src='../../../resources/campaignUpload/"+data.cList[i].cFileName+"'></div>";
-						str += "<div><br><b>"+data.cList[i].campaignTitle+"</b><br>";
-						str += "<div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='"+result+"' aria-valuemin='0' aria-valuemax='100' style='width: "+result+"%;'>"+result+"%</div></div>";
-						str += "<br>목표금액 : "+data.cList[i].cTargetAmount+"원<br></div></div>";
-					
-						
+						str += "<div><img style='width: 100%; height: 180px;' alt='img 안보임' src='../../../resources/campaignUpload/"+data.cList[i].cFileName+"'></div>";
+						str += "<div><br><b style='font-size: 16px; word-break:keep-all;'>"+data.cList[i].campaignTitle+"</b><br>"+data.cList[i].campaignName+"<br>";
+						str += "<div class='progress'><div class='progress-bar progress-bar-success' role='progressbar' aria-valuenow='"+cPercent+"' aria-valuemin='0' aria-valuemax='100' style='width: "+cPercent+"%;'>"+cPercent+"%</div></div>";
+						str += "<b>목표금액 : "+cTargetAmount+"원</b></div></div>";
 					}
-					console.log("pi 들어갈 차례");
-					
+					//console.log("pi 들어갈 차례");
 					if(data.pi.currentPage<=1){
 						str2+="<font class='font-str'>이전</font>";
 						console.log("이전");

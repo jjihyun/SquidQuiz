@@ -42,7 +42,7 @@
 <body>
 	<jsp:include page="../../../resources/html/header.jsp"/><br><hr><br><br>
 	<div id="first">
-		<form action="donateCampaign.ptsd" method="post">
+		<form action="donateCampaign.ptsd" method="post" onsubmit="return checkJS()">
 			<input type="hidden" value="${loginUser.userId }" name="userId">
 			<%-- 보유하고 있는 포인트 : ${point } --%>
 			<input type="hidden" value="${campaign.campaignNo }" name="campaignNo">
@@ -64,7 +64,7 @@
 					<button type="button" class="btn btn-default" onclick="money(100000)">10만원</button>
 				</div>
 				<br><br>
-				<label><input type="checkbox" class="check"> 약관 동의(필수)</label><br>
+				<label><input type="checkbox" id="check"> 약관 동의(필수)</label><br>
 				<a href="#" id="etc-btn" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">약관보기></a><br>			
 				<!-- <br><label><input type="checkbox" class="check">약관 동의(선택)</label><br> -->
 				<br><br><button id="donate-btn" type="submit">기부하기</button>
@@ -117,19 +117,19 @@
 	
 	<script type="text/javascript">
 	
-/* 		function check() {
-			if (fr.id.value == "") {
-				alert("값을 입력해 주세요.");
-				fr.id.focus();
+ 		function checkJS() {
+			if ($("input:checkbox[id='check']").is(":checked")==false) {
+				alert("약관동의에 체크해주세요.");
+				return false;
+			} else if($("#pointValue").val()==0){
+				alert("기부금이 0원입니다. 금액을 선택해주세요.");
 				return false;
 			} else{
 				return true;
 			}
-		} */
+		}
 
 		function money(a) {
-			console.log(a);
-			//$("#pointValue").value="a";
 			document.getElementById("pointValue").value = a;
 		}
 

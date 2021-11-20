@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +25,7 @@
 			</tr>
 			<tr>
 				<td><h4>목표금액</h4><br>${campaign.cTargetAmount }</td>
-				<td><h4>첨부사진</h4><br><input type="file" name="updateFile">${campaign.cFileName }</td>
+				<td><h4>첨부사진</h4><br><input type="file" name="updateFile" required></td>
 			</tr>
 			<tr>
 				<td><h4>모금 종료일</h4><br>${formatDate }</td>
@@ -34,20 +34,20 @@
 			<tr>
 				<td><h4>모금 카테고리</h4>
 					<select name="campaignOption">
-						<option value="child">아동</option>
-						<option value="old">어르신</option>
-						<option value="obstacle">장애인</option>
-						<option value="environment">환경</option>
-						<option value="multicultural">다문화가정</option>	
-						<option value="facility">시설</option>
-						<option value="school">학교</option>
+						<option value="child" <c:if test="${campaign.campaignType eq 'child'}">selected</c:if>>아동</option>
+						<option value="old" <c:if test="${campaign.campaignType eq 'old'}">selected</c:if>>어르신</option>
+						<option value="handicap" <c:if test="${campaign.campaignType eq 'handicap'}">selected</c:if>>장애인</option>
+						<option value="environment" <c:if test="${campaign.campaignType eq 'environment'}">selected</c:if>>환경</option>
+						<option value="multicultural" <c:if test="${campaign.campaignType eq 'multicultural'}">selected</c:if>>다문화가정</option>	
+						<option value="facility" <c:if test="${campaign.campaignType eq 'facility'}">selected</c:if>>시설</option>
+						<option value="school" <c:if test="${campaign.campaignType eq 'school'}">selected</c:if>>학교</option>
 					</select>
 				</td>
 				<td><h4>링크</h4><input type="text" size="15" name="cLink" style="font-size: 20px;" value="${campaign.cLink }"></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="등록">
-				&nbsp;&nbsp;&nbsp;<button>취소</button></td>
+				&nbsp;&nbsp;&nbsp;<button onclick="campaignList.ptsd">취소</button></td>
 			</tr>
 		</table>
 	</form>
@@ -56,10 +56,10 @@
 		$(function(){
 			$("select[name=campaignOption]").change(function(){
 				var option = $(this).val();
-				//alert(option);
 				option.prop("selected", true);
 			});
 		});
+		
 	</script>
 </body>
 </html>

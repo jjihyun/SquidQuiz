@@ -24,7 +24,7 @@ main{
 		margin: 30px;
 	}
 	#campaign-detail{
-		height: 800px;
+		height: 1000px;
 		width: 1300px;
 	}
 	.all-text{
@@ -88,7 +88,10 @@ main{
       	bottom:90px;    
       }
       
-      
+	textarea{
+		border:none; cursor: default; font-size: 17px; position: absolute; left:10%;
+	}
+	textarea:focus{ outline:none; }
 </style>
 </head>
 <body>
@@ -119,7 +122,7 @@ main{
 			<div id="campaign-detail">
 				<div style="float: left;  width:1000px; height: 100%;">
 					<img src="../../../resources/campaignUpload/${campaign.cFileName }" alt="no img" id="camp-img">
-					<p style="text-align:center;">${campaign.campaignContents }</p>
+					<textarea id="contexts" rows="18" cols="90" wrap="hard" readonly>${campaign.campaignContents }</textarea>
 				</div>
 				<div style="width: 300px; height: 100%; float: left;">
 					<div style="background-color:rgb(201, 113, 113); color:white;">
@@ -177,18 +180,22 @@ main{
 	</footer>
 	
 	<script> 
-	
-	$(".slick-div").slick({
-		arrows:true, //next, prev 이동버튼
-		autoplay:true, //자동넘김 여부
-		infinite:true, //반복설정
-		speed:300, //슬라이드 속도
-		pauseOnHover:true, //마우스 hover시 슬라이드 멈춤
-		//화살표 커스텀
-		prevArrow : "<button type='button' class='slick-prev fas fa-angle-left fa-2x'></button>", 
-		nextArrow : "<button type='button' class='slick-next fas fa-angle-right fa-2x'></button>",  
-		slidestoShow:1 //보여질 슬라이드 수
-	});
+		$(function(){
+			//text=text.replace(/(?:\r\n|\r|\n)/g,'<br/>');
+			$('#contexts').val().replace(/\r\n|\n/ , "<br>");
+		});
+		
+		$(".slick-div").slick({
+			arrows:true, //next, prev 이동버튼
+			autoplay:true, //자동넘김 여부
+			infinite:true, //반복설정
+			speed:300, //슬라이드 속도
+			pauseOnHover:true, //마우스 hover시 슬라이드 멈춤
+			//화살표 커스텀
+			prevArrow : "<button type='button' class='slick-prev fas fa-angle-left fa-2x'></button>", 
+			nextArrow : "<button type='button' class='slick-next fas fa-angle-right fa-2x'></button>",  
+			slidestoShow:1 //보여질 슬라이드 수
+		});
 
 	</script>
 

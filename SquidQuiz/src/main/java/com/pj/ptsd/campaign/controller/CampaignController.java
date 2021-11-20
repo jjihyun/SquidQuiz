@@ -2,6 +2,7 @@ package com.pj.ptsd.campaign.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -220,14 +221,14 @@ public class CampaignController {
 	//캠페인에 기부하기
 	@ResponseBody
 	@RequestMapping(value="donateCampaign.ptsd", method=RequestMethod.POST)
-	public String registerDonation(@ModelAttribute CampaignRecord cRecord
+	public void registerDonation(@ModelAttribute CampaignRecord cRecord
 			, Model model, HttpServletResponse response, @RequestParam("userId") String userId
 			,@RequestParam("campaignNo") int cNo
 			, @RequestParam("cRecordPoint") int cPoint, @ModelAttribute Campaign campaign
 			,@ModelAttribute User user) throws Exception {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		//PrintWriter out = response.getWriter();
+		PrintWriter out = response.getWriter(); 
 		
 		//내가 가지고 있는 포인트 값 조회
 		int myPoint = service.printPointCount(userId);
@@ -255,15 +256,17 @@ public class CampaignController {
 			System.out.println("updateCamp값(1이면 성공) ; "+updateCampaignResult);
 			
 			if(result>0 && myPointResult>0) {
-				return "<script>alert('donate success.');location.href='campaignList.ptsd';</script>";
+				out.println("<script>alert('기부가 되었습니다.');location.href='campaignList.ptsd';</script>");
+				out.close(); 
 			} else {
 				model.addAttribute("msg", "기부하기 실패");
-				return "<script language='javascript'>alert('failed.');location.href='common/errorPage';</script>common/errorPage";
+				out.println("<script>alert('기부 실패');location.href='common/errorPage';</script>");
+				out.close(); 
 			}
 		} else {
 			System.out.println("충분한 포인트가 없습니다.");
-			//out.println("<script>alert('충분한 포인트가 없습니다.');</script>");
-			return "<script>alert('충분한 포인트가 없습니다. 포인트를 충전해주세요.');location.href='campaignList.ptsd';</script>";
+			out.println("<script>alert('충분한 포인트가 없습니다. 포인트를 충전해주세요.');location.href='campaignList.ptsd';</script>");
+			out.close();
 		}
 
 	}
@@ -361,18 +364,24 @@ public class CampaignController {
 	}
 	
 	//캠페인 삭제
+	@ResponseBody
 	@RequestMapping(value="campaignRemove.ptsd", method=RequestMethod.GET)
-	public String removeCampaign(Model model, @RequestParam("campaignNo") int campaignNo
-			, @RequestParam("fileName") String fileRename, HttpServletRequest request) {
+	public void removeCampaign(Model model, @RequestParam("campaignNo") int campaignNo
+			, @RequestParam("fileName") String fileRename, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 		int result = service.removeCampaign(campaignNo);
 		if(result>0) {
 			if(fileRename!="") {  //파일이 존재하면
 				removeFile(fileRename, request);
 			}
-			return "redirect:campaignList.ptsd";
+			out.println("<script>alert('캠페인이 삭제되었습니다.');location.href='campaignList.ptsd';</script>");
+			out.close();
 		} else {
 			model.addAttribute("msg", "삭제 실패");
-			return "common/errorPage";
+			out.println("<script>alert('캠페인 삭제 실패.');location.href='campaignList.ptsd';</script>");
+			out.close();
 		}
 		
 	}
@@ -384,16 +393,5 @@ public class CampaignController {
 			file.delete();  //파일 삭제
 		}
 	}
-	
-	
-	//캠페인 기부 등록(고정 캠페인)
-//	public String registerDontaionRecord() {
-//		return "";
-//	}
-
-	//캠페인 기부 목록 조회(마이페이지)
-//	public String printMyCampaignRecord() {
-//		return "";
-//	}
 	
 }
