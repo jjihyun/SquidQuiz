@@ -24,7 +24,7 @@
 	<br><br>
 	<div class="row visible" style="heigh:100px"></div>
 	<div class="container">
-	<table align="center" width="600" border="1" cellspacing="0" style="clear:right;">
+	<table align="center" width="600" border="0" cellspacing="0" style="clear:right;" class="table table-hover my-0">
 	<tr align="center">
 		<th align="center">번호</th>
 		<th align="center" width="300">제목</th>
@@ -52,15 +52,14 @@
 		</c:forEach>
 		    <tr>
 		    	<td align="center" colspan="5">
-		    	<!-- 글쓰기가동일하잖아요 -->
+		    	    <!-- 글쓰기 로그인후 보이는 화면-->
 					<c:if test ="${loginUser eq null }">
 	            		<a href="login.ptsd" class="btn btn-primary">글쓰기</a>
 		    		</c:if> 
-		    		<!-- 두개의 선택지중 한개만보여야할때 -->
+		    		<!-- 글쓰기 비로그인 보이는 화면 -->
 		    		<c:if test ="${loginUser.userId ne null }">
 	            		<a href="boardWrite.ptsd" class="btn btn-primary">글쓰기</a>
 		    		</c:if>
-    					<!-- 로그인 하고 이용가능하게 한다. -->
 				</td>
 			</tr>
 		<tr align="center" height="20">
@@ -107,7 +106,7 @@
 			</select>
 			<input type="hidden" name="page" value="1">
 			<input type="text" name="searchValue" value="${search.searchValue }" placeholder="검색하시겠습니까?">
-			<input type="submit" class="btn btn-primary" value="검색">
+			<input type="submit" value="검색">
 		</form>
 	</div>
 </body>
