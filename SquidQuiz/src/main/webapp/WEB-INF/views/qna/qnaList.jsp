@@ -86,6 +86,7 @@
 					</c:forEach>
 				</c:if>
 				<tr>
+				
 					<td align="center" colspan="6">
 						<c:url var="before" value="qnaListView.ptsd">
 							<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
@@ -96,10 +97,7 @@
 						<c:if test="${pi.currentPage > 1 }">
 							<a id="title-a" href="${before }">[이전]</a>
 						</c:if>
-						<!-- 검색시 페이징 처리 X -->
-<%-- 						<c:if test="${pi.startNavi eq null }"> --%>
-<!-- 								<font color="black" size="4">[1]</font> -->
-<%-- 						</c:if> --%>
+					
 						<c:if test="${pi.startNavi ne null }">
 						<c:forEach var="p" begin="${pi.startNavi }" end="${pi.endNavi }">
 							
@@ -126,9 +124,10 @@
 						</c:if>
 						</c:if>
 					</td>
+					
 				</tr>
 			    <tr>
-			    	<c:if test="${loginUser ne null}">
+			    	<c:if test="${loginUser.adminType == 'N'.charAt(0)}">
 			      <td colspan="6" align="center">
 			      	<div><button class="btn btn-primary btn-lg" onclick="location.href='qnaWriteView.ptsd'">1:1 문의글 작성하기</button></div>
 			      </td>
@@ -137,6 +136,7 @@
 		  </tbody>
 		</table>
 		<div align="center">
+		<c:if test="${loginUser.adminType == 'Y'.charAt(0)}">
 		<form action="qnaSearch.ptsd" method="get">
 			<select name="searchCondition">
 				<option value="all" <c:if test="${search.searchCondition == 'all' }">selected</c:if>>전체</option>
@@ -148,6 +148,7 @@
 			<input type="text" name="searchValue" value="${search.searchValue }">
 			<input type="submit" value="검색">
 		</form>
+		</c:if>
 	</div>
 	</div>
 	</main>

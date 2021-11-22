@@ -78,7 +78,6 @@ public class ReportController {
 		try {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			service.removeReport(reportNo);
 			int result = service.removeReportBoard(boardNo);
 			if(result>0) {
 				out.println("<script>alert('게시물이 삭제되었습니다.');window.location=document.referrer;</script>");

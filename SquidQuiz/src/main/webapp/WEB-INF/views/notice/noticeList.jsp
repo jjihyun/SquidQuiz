@@ -67,9 +67,9 @@
 			    <tr>
 			      <!-- adminType 이 char임... -->
 					<!--  char 비교-->
-					<c:if test="${sessionScope.loginUser.adminType eq 'A'.charAt(0) }">
-			     	 <td colspan="4" align="right">
-			      	    <div><button class="btn btn-primary" onclick="location.href='noticeWriteView.ptsd'">글쓰기</button></div>
+					<c:if test="${loginUser.adminType == 'Y'.charAt(0) }">
+			     	 <td colspan="5" align="center">
+			      	   <button class="btn btn-primary btn-lg" onclick="location.href='noticeWriteView.ptsd'">공지사항 작성</button>
 			    	  </td>
 			        </c:if>
 			    </tr>
