@@ -16,7 +16,7 @@ main{
 		width: 60%;
 	}
 	.ex-img{
-		width: 350px;
+		width: 380px;
 		height: 250px;
 	}
 	h4{
@@ -42,7 +42,7 @@ main{
 <body>
 	<jsp:include page="../../../resources/html/header.jsp"/><br><br><hr><br><br>
 	<main>
-	<table align="center" border="1">
+	<table align="center">
 		<tr><th colspan="2"><h1 align="center">정기후원</h1></th></tr>
 		<tr>
 			<td align="center" colspan="2">
@@ -69,19 +69,19 @@ main{
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">| 후원금은 이렇게 사용됩니다.</td>
+			<td colspan="2"><a style="color:red;">| 후원금은 이렇게 사용됩니다.</a></td>
 		</tr>
 		<tr>
-			<td align="center" style="height: 400px;">
+			<td style="height: 400px;">
 				<div style="width: 300px;">
 					<img class="ex-img" alt="img" src="../../../resources/campaignStaticImg/주거지원.jpg">
 					<h4 style="text-align: left;">주거 지원</h4>
 					<p>살 곳이 불안정한 이웃에게 주거 비용을 지원합니다.</p>				
 				</div>
 			</td>
-			<td align="center" style="height: 400px;">
-				<div style="width: 300px;">
-					<img class="ex-img" alt="img" src="../../../resources/campaignStaticImg/해외아동지원.png"><br>
+			<td style="height: 400px;">
+				<div style="width: 300px;"><br>
+					<img class="ex-img" alt="img" src="../../../resources/campaignStaticImg/해외아동지원.png">
 					<h4>해외아동 지원</h4>
 					<p>해외아동이 가난과 질병의 고통에서 벗어나 생애주기에 맞추어 건강하게 성장하고, 어른이 되면 자립할 수 있도록 돕습니다.</p>
 				</div>
@@ -89,7 +89,7 @@ main{
 			
 		</tr>
 		<tr>
-			<td align="center" style="height: 400px;">
+			<td style="height: 400px;">
 				<div style="width: 300px;">
 					<img class="ex-img" alt="img" src="../../../resources/campaignStaticImg/나눔SOS.jpg">
 					<h4>나눔 SOS</h4>
@@ -97,7 +97,7 @@ main{
 				</div>
 			
 			</td>
-			<td align="center" style="height: 400px;">
+			<td style="height: 400px;">
 				<div style="width: 300px;">
 					<img class="ex-img" alt="img" src="../../../resources/campaignStaticImg/해외아동결연.jpg">
 					<h4>해외아동결연</h4>
@@ -109,7 +109,7 @@ main{
 			<td colspan="2" style="background: #FF0099; " align="center">
 				<div style=" width: 30%; float: left; height: 100%;">
 					<br>
-					<button id="btn" onclick="location.href='campaignList.ptsd'">후원하기</button>
+					<button id="btn" onclick="location.href='campaignList.ptsd'">후원하러가기</button>
 				</div>
 				<div style="width: 70%; float: left;">
 					<h3 style="color: white;">" 당신의 나눔으로 <br>또 하나의 희망이 더해집니다. "</h3>
@@ -118,6 +118,8 @@ main{
 		</tr>
 	</table>
 	</main>
-	
+	<footer>
+		<jsp:include page="../../../resources/html/footer.html"/>
+	</footer>
 </body>
 </html>

@@ -124,7 +124,7 @@ public class CampaignController {
 	}
 	
 	
-	//캠페인 고정기부처 상세조회(자세히 보기)
+	//캠페인 정기후원 상세조회(자세히 보기)
 	@RequestMapping(value="campaignStaticDetail.ptsd", method=RequestMethod.GET)
 	public String printStaticOneCampaign(Model model) {
 		try {
@@ -145,7 +145,7 @@ public class CampaignController {
 		}
 	}
 	
-	//캠페인 기부 목록 조회(퀴즈 참여 모금액 후원 내역)
+	//캠페인 정기후원 목록 조회(퀴즈 참여 모금액 후원 내역)
 	@RequestMapping(value="campaignAllCampaignRecord.ptsd", method=RequestMethod.GET)
 	public String printAllCampaignRecord(Model model, HttpServletRequest request, 
 			@RequestParam(value="page", required=false) Integer page) {
@@ -233,27 +233,19 @@ public class CampaignController {
 		//내가 가지고 있는 포인트 값 조회
 		int myPoint = service.printPointCount(userId);
 		if(myPoint>=cPoint) {  //가지고 있는 포인트가 선택한 포인트보다 크거나 같을 경우
-			System.out.println("충분한 포인트가 있습니다.");
 			// 캠페인 기부 등록(마이페이지에서 확인 가능)
 			int result = service.registerCampaignRecord(cRecord);
 			
 			//가지고 있는 포인트 업데이트(감소)
-			System.out.println("유저 보유 포인트 :"+myPoint); 
 			int updatePoint = myPoint-cPoint;
-			System.out.println("업데이트할 나의 포인트  : "+ updatePoint);
 			user.setPoint(updatePoint);
 			int myPointResult = service.modifyMyPoint(user);
-			System.out.println("업데이트 여부(나의 포인트)(1이면 성공) : "+myPointResult);
 			
 			//캠페인 현재 기부금 업데이트
 			int cNowMoney = service.printCampaignNowPoint(cNo);
-			System.out.println("\n캠페인 현재 기부금 : "+cNowMoney);
 			//int moneySum = cNowMoney+cPoint;
 			campaign.setcNowAmount(cNowMoney+cPoint);
-			System.out.println("선택한 포인트 값  : "+cPoint);
-			System.out.println("기부금 업데이트할 값 ; "+(cNowMoney+cPoint));
 			int updateCampaignResult = service.modifyCampaignMoney(campaign);
-			System.out.println("updateCamp값(1이면 성공) ; "+updateCampaignResult);
 			
 			if(result>0 && myPointResult>0) {
 				out.println("<script>alert('기부가 되었습니다.');location.href='campaignList.ptsd';</script>");
@@ -264,7 +256,6 @@ public class CampaignController {
 				out.close(); 
 			}
 		} else {
-			System.out.println("충분한 포인트가 없습니다.");
 			out.println("<script>alert('충분한 포인트가 없습니다. 포인트를 충전해주세요.');location.href='campaignList.ptsd';</script>");
 			out.close();
 		}

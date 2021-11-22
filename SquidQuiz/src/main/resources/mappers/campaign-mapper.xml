@@ -82,7 +82,7 @@
 	</select>
 	
 	<select id="selectCampaignRandomList" resultMap="campaignResultMap">
-		SELECT * FROM CAMPAIGN WHERE ROWNUM<![CDATA[<]]> 4
+		SELECT * FROM (SELECT * FROM CAMPAIGN ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM<![CDATA[<]]> 4
 	</select>
 	
 	<select id="selectOneCampaign" resultMap="campaignResultMap">

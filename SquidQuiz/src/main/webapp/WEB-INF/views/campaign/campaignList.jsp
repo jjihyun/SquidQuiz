@@ -36,7 +36,7 @@ h4{color:#4B4B4B;}
 
 }
 .btn{
-	border: none; background-color:rgb(200, 113, 113); color:white;
+	border: none; background-color:rgb(180, 80, 80); color:white;
 	width: 200px; height: 50px; font-size: 21px; font-weight: bold;
 }
 	.btn:hover{
@@ -44,11 +44,11 @@ h4{color:#4B4B4B;}
 	}
 .campaign-type {
 	float: left; text-align: center; height: 100%; width: 50px;
-	border:1px solid rgb(220, 113, 113); flex: 1; margin-left:40px;
-	cursor: pointer; border-radius: 20px; color:rgb(220, 113, 113);
+	border:1px solid rgb(201, 113, 113); flex: 1; margin-left:40px;
+	cursor: pointer; border-radius: 20px; color:rgb(201, 113, 113);
 }
 	.campaign-type:hover{
-		background-color:rgb(220, 113, 113); color:white;
+		background-color:rgb(201, 113, 113); color:white;
 	}
 
 .container {
@@ -62,14 +62,13 @@ h4{color:#4B4B4B;}
 	row-gap: 50px;
 	margin: 30px;
 }
-
 #campaign-list {
 	border: 1px solid rgb(234, 234, 234);
 	padding:10px;
 	height: 360px;
 	cursor: pointer;
-
 }
+#campaign-list:hover{ border:1px solid gray;}
 #current-font{
 	background-color: rgb(201, 113, 113);
 	color:white;
@@ -102,7 +101,7 @@ h4{color:#4B4B4B;}
 		<jsp:include page="../../../resources/html/header.jsp"/>
 	</header>
 	<main>
-	<br><hr><br>
+	<hr><br>
 	<div class="first">
 		<div style="text-align: center;">
 			<h4 style="">이번주 퀴즈 기부금액</h4>
@@ -119,7 +118,7 @@ h4{color:#4B4B4B;}
 			</div><br><br><br>
 			<c:if test="${sessionScope.loginUser ne null }">
 				<c:if test="${sessionScope.loginUser.adminType eq 'Y'.charAt(0) }">
-					<button class="btn" style="float:right; background-color:rgb(230, 113, 113);" onclick="location.href='campaignWriteView.ptsd'">캠페인 글 작성</button><br>
+					<button class="btn" style="float:right; background:green;" onclick="location.href='campaignWriteView.ptsd'">캠페인 글 작성</button><br>
 				</c:if>
 			</c:if>
 		</div>
@@ -193,14 +192,11 @@ h4{color:#4B4B4B;}
 						</c:if>
 					</td>
 			</tr>
-			
 		</table>
 	</div>
 	</main>
 	<footer>
-		<div style="width: 100%; height: 200px; float:left; border: 1px solid blue;"> 
-			(footer 자리)
-		</div>	
+		<jsp:include page="../../../resources/html/footer.html"/>
 	</footer>
 	
 	<script type="text/javascript">
