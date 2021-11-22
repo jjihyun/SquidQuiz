@@ -28,6 +28,8 @@ public interface UserStore {
 		
 		public int selectCCount(String userId);
 		
+		public int getSearchCount(Map<String, Object> map);
+		
 		public List<Participant> selectQList(PageInfo pi, String userId);
 		
 		//퀴즈내역 게시물 개수 
@@ -49,5 +51,8 @@ public interface UserStore {
 		
 		//총 기부금 조회
 		public int selectMyCPoint(String userId);
+		
+		//회원정보수정 이메일,전화번호
+		public User selectEPList(String userId);
 
 }

@@ -144,7 +144,7 @@
 		            </div>
 		            <div class="form-group">
 		            <label for="bankAccount">계좌번호</label><br>
-		                <input type="text" id="bankAccount" name="bankAccountValue" value="${loginUser.bankAccount }">
+		                <input type="text" id="bankAccount" name="bankAccount" value="${loginUser.bankAccount }">
 		            </div><br>
 		            <div class="form-btn" align="center">
 		                    <input type="submit" id="signupbtn" name="signup" value="수정하기"><br>
