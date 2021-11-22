@@ -1,9 +1,10 @@
 package com.pj.ptsd.user.store;
 
 import java.util.List;
+import java.util.Map;
 
 import com.pj.ptsd.board.domain.Board;
-import com.pj.ptsd.board.domain.Search;
+import com.pj.ptsd.user.domain.Search;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.quiz.domain.Participant;
 import com.pj.ptsd.user.domain.PageInfo;
@@ -20,9 +21,12 @@ public interface UserStore {
 		
 		
 		public List<CampaignRecord> selectCRList(PageInfo pi, String userId);
-		public List<CampaignRecord> selectSearchAll(Search search);	
+		//캠페인내역 검색기능
+		public List<CampaignRecord> selectSearchAll(PageInfo pi, Map<String, Object> map);	
 		//캠페인내역 게시물 개수 조회
 		public int selectCListCount(String userId);
+		
+		public int selectCCount(String userId);
 		
 		public List<Participant> selectQList(PageInfo pi, String userId);
 		

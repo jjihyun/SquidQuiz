@@ -52,6 +52,8 @@
 		SELECT USER_NO, USER_ID, USER_NAME, BANK_NAME, BANK_ACCOUNT, USER_ADDR, POINT, ADMIN_TYPE, GAME_TYPE FROM MEMBER WHERE USER_ID =#{userId } AND USER_PWD = #{userPwd }
 	</select>
 	
+	
+	
 	<!-- 아이디중복확인 -->
 	<select id="checkIdDup" parameterType="String" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER WHERE USER_ID =#{userId }
@@ -74,7 +76,7 @@
 	
 	<!-- 자유게시판 조회 -->
 	<select id="selectBoard" resultMap="boardResultMap">
-		SELECT BOARD_NO, BOARD_TITLE, BOARD_CREATE_DATE FROM BOARD WHERE USER_ID = #{userId}
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_CREATE_DATE FROM BOARD WHERE USER_ID = #{userId} ORDER BY BOARD_CREATE_DATE DESC
 	</select>
 	
 	<!-- 자유게시판 리스트 갯수 조회 -->
@@ -97,9 +99,26 @@
 		SELECT COUNT(*) FROM CAMPAIGN_RECORD WHERE USER_ID =#{userId}
 	</select>
 	
+	<!-- 캠페인내역 검색 -->
+	<select id="selectSearchList" resultMap="campaignRecordResultMap">
+		SELECT * FROM CAMPAIGN_RECORD
+			<if test="search.searchCondition.toString() == 'point'">
+				WHERE CAMPAIGN_RECORD_POINT LIKE '%' || #{search.searchValue} || '%' AND USER_ID =#{userId}
+			</if>
+			<if test="search.searchCondition.toString() == 'name'">
+				WHERE CAMPAIGN_NAME LIKE '%' || #{search.searchValue} || '%' AND USER_ID =#{userId}
+			</if>
+			<if test="search.searchCondition.toString() == 'all'">
+				WHERE USER_ID LIKE '%' || #{searchValue} || '%' 
+				OR CAMPAIGN_NAME LIKE '%' || #{searchValue} || '%'
+				OR CAMPAIGN_RECORD_POINT LIKE '%' || #{search.searchValue} || '%' AND USER_ID =#{userId}
+			</if>
+			ORDER BY CAMPAIGN_RECORD_DATE DESC 
+		</select>
+	
 	<!-- 후원단체 수 조회 -->
 	<select id="selectCCount" resultType="_int">
-		SELECT COUNT(DISTINCT CAMPAIGN_NAME) FROM CAMPAIGN_RECORD 
+		SELECT COUNT(DISTINCT CAMPAIGN_NAME) FROM CAMPAIGN_RECORD WHERE USER_ID =#{userId}
 	</select>
 	
 	<!-- 기부금  조회 -->
@@ -122,6 +141,7 @@
 		SELECT COUNT(TURN_NO) FROM PARTICIPANT WHERE PARTICIPANT_ID =#{userId}
 	</select>
 	
+	<!-- 참가비누적금액 -->
 	<select id="selectGameGibu" resultType="_int">
 		SELECT COUNT(TURN_NO)*10000 FROM PARTICIPANT WHERE PARTICIPANT_ID = #{userId}
 	</select>
@@ -135,6 +155,11 @@
 	<!-- 회원정보 수정 -->
 	<update id="updateUser" parameterType="User">
 		UPDATE MEMBER SET USER_PWD = #{userPwd }, USER_EMAIL = #{userEmail }, USER_PHONE = #{userPhone }, BANK_NAME =#{bankName}, BANK_ACCOUNT =#{bankAccount }, USER_ADDR = #{userAddr } WHERE USER_ID = #{userId } AND USER_ID =#{userId}
+	</update>
+	
+	<!-- 결제api -->
+	<update id="updatePayPoint" parameterType="User">
+		UPDATE MEMBER SET POINT = POINT+#{point} WHERE USER_ID =#{userId}
 	</update>
 	
 	<!-- 회원탈퇴 -->

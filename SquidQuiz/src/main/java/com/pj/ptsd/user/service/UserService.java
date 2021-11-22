@@ -1,9 +1,10 @@
 package com.pj.ptsd.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.pj.ptsd.board.domain.Board;
-import com.pj.ptsd.board.domain.Search;
+import com.pj.ptsd.user.domain.Search;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.quiz.domain.Participant;
 import com.pj.ptsd.user.domain.PageInfo;
@@ -21,8 +22,11 @@ public interface UserService {
 	
 	
 	public List<CampaignRecord> printCRList(PageInfo pi, String userId);
-	public List<CampaignRecord> printSearchAll(Search search);	
+	//캠페인내역 검색기능
+	public List<CampaignRecord> printSearchAll(PageInfo pi,Map<String, Object> map);	
 	//캠페인내역 게시물 개수 , 후원단체 수 조회
+	public int getCListCount(String userId);
+	
 	public int getCCount(String userId);
 	
 	public List<Participant> printQList(PageInfo pi, String userId);
@@ -40,6 +44,8 @@ public interface UserService {
 	public int getBCount(String userId);
 	
 	public User printOne(String uId);
+	
+	
 	
 	//총 기부금 조회
 	public int printMyCPoint(String userId);

@@ -4,7 +4,9 @@ package com.pj.ptsd.user.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -101,11 +103,11 @@ public class UserController {
 	public void memberRegister(HttpServletRequest request
 			,HttpServletResponse response
 			,@ModelAttribute User user
-			,@RequestParam("bankAccountValue") String accountValue
+//			,@RequestParam("bankAccountValue") String accountValue
 			,@RequestParam("post") String post
 			,@RequestParam("address1") String address1
 			,@RequestParam("address2") String address2) {
-		user.setBankAccount(Integer.parseInt(accountValue));
+//		user.setBankAccount(Integer.parseInt(accountValue));
 		user.setUserAddr(post+","+address1+","+address2);
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
@@ -216,18 +218,24 @@ public class UserController {
 
 	//마이페이지 회원정보 화면
 	@RequestMapping(value="mypageUser.ptsd", method=RequestMethod.GET)
-	public String userList(Model model
+	public String userList(@ModelAttribute User user, Model model
 			, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String uId = user.getUserId();
+		User uList = service.printOne(uId);
+		
+		if(uList!=null) {
+			model.addAttribute("uList",uList);
 		// 여기에서  DB다녀온 값을 뿌려줘야합니다.. ㅎ
 		// selectOne하는 메소드가 있을거 같은데 
-
+		}
 		return "mypage/mypageUser";
 	}
 
 	//마이페이지 회원정보 수정
 	@RequestMapping(value ="memberModify.ptsd", method = RequestMethod.POST)
 	public void modifyMember(@ModelAttribute User user
-			, @RequestParam("bankAccountValue") String accountValue  //계좌번호 string으로 변경
+//			, @RequestParam("bankAccountValue") String accountValue  //계좌번호 string으로 변경
 			, @RequestParam("post") String post
 			, @RequestParam("address1") String address1
 			, @RequestParam("address2") String address2
@@ -235,7 +243,7 @@ public class UserController {
 			, HttpServletRequest request
 			, HttpServletResponse response) {
 		HttpSession session = request.getSession();
-		user.setBankAccount(Integer.parseInt(accountValue)); //계좌번호 string으로 변경
+//		user.setBankAccount(Integer.parseInt(accountValue)); //계좌번호 string으로 변경
 		user.setUserAddr(post+","+address1+","+address2);
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
@@ -254,7 +262,6 @@ public class UserController {
 	}
 
 	//회원탈퇴 페이지 
-	//마이페이지 회원정보 화면
 	@RequestMapping(value="userDelete.ptsd", method=RequestMethod.GET)
 	public String userCheck(Model model) {
 		return "mypage/mypageUserDelete";
@@ -314,6 +321,11 @@ public class UserController {
 		
 		}
 	
+
+	
+	
+	
+	
 	//마이페이지->자유게시판 상세
 	@RequestMapping(value="boatdDetail.ptsd", method=RequestMethod.GET)
 	public String boardDetail(Model model
@@ -335,7 +347,7 @@ public class UserController {
 	
 	//캠페인 내역 조회
 	@RequestMapping(value="mypageDetail.ptsd", method=RequestMethod.GET)
-	public String selectCRList(Model model
+	public String selectCRList( Model model
 			, HttpServletRequest request
 			, @RequestParam(value="page",required=false)Integer page) {
 		HttpSession session = request.getSession();
@@ -343,13 +355,13 @@ public class UserController {
 		int currentPage = (page!=null) ? page : 1;
 		String userId = userOne.getUserId();
 		int totalCCount = service.getCCount(userId);
-		int cCount = service.getCCount(userId);
+		int cCount = service.getCListCount(userId);
 		int qCount = service.getQCount(userId);
 		int totalQCount = service.getQCount(userId);
 		int pPoint = service.printMyCPoint(userId);
 		int quizPoint = service.getGCount(userId);
-		PageInfo cPi = Pagination.getPageInfo(currentPage, totalCCount);
-		PageInfo qPi = Pagination.getPageInfo(currentPage, totalQCount);
+		PageInfo cPi = Pagination.getPageInfo(currentPage, cCount);
+		PageInfo qPi = Pagination.getPageInfo(currentPage, qCount);
 		List<CampaignRecord> cList = service.printCRList(cPi, userId);
 		List<Participant> qList = service.printQList(qPi, userId);
 		model.addAttribute("cList", cList);
@@ -357,6 +369,7 @@ public class UserController {
 		model.addAttribute("cPi", cPi);
 		model.addAttribute("qPi", qPi);
 		model.addAttribute("pPoint",pPoint);
+		model.addAttribute("totalCCount", totalCCount);
 		model.addAttribute("cCount", cCount);
 		model.addAttribute("qCount", qCount);
 		model.addAttribute("quizPoint",quizPoint);
@@ -365,19 +378,37 @@ public class UserController {
 	}
 	
 	//캠페인내역 검색기능
-//	@RequestMapping(value="boardSearch.ptsd", method=RequestMethod.GET)
-//	public String campaignSearchList(@ModelAttribute Search search, Model model) {
-//		List<CampaignRecord> searchList = service.printSearchAll(search);
-//		if(!searchList.isEmpty()) {
-//			model.addAttribute("cList", searchList);
-//			model.addAttribute("search", search);
-//			model.addAttribute("page", 1);
-//			return "mypage/mypageDetail";
-//		}else {
-//			model.addAttribute("msg", "게시물 조회 실패");
-//			return "common/errorPage";
-//		}
-//	}
+	@RequestMapping(value="searchCampaign.ptsd", method=RequestMethod.GET)
+	public String campaignSearchList(
+			@ModelAttribute Search search
+			, @RequestParam(value="page",required=false)Integer page
+			, Model model
+			, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User userOne = (User)session.getAttribute("loginUser");
+		int currentPage = (page!=null) ? page : 1;
+		String userId = userOne.getUserId();
+		int totalCCount = service.getCCount(userId);
+		int cCount = service.getCListCount(userId);
+		int pPoint = service.printMyCPoint(userId);
+		Map<String,Object>map = new HashMap<String,Object>();
+		map.put("userId",userId);
+		map.put("search",search);
+		PageInfo cPi = Pagination.getPageInfo(currentPage, totalCCount);
+		List<CampaignRecord> cList = service.printCRList(cPi, userId);
+		if(!cList.isEmpty()) {
+			model.addAttribute("cList", cList);
+			model.addAttribute("cPi", cPi);
+			model.addAttribute("pPoint",pPoint);
+			model.addAttribute("cCount", cCount);
+			model.addAttribute("totalCCount", totalCCount);
+			model.addAttribute("userPoint",userOne.getPoint());
+			return "mypage/mypageDetail";
+		}else {
+			model.addAttribute("msg", "게시물 조회 실패");
+			return "common/errorPage";
+		}
+	}
 	
 	
 	//퀴즈내역 조회

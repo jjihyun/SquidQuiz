@@ -1,6 +1,7 @@
 package com.pj.ptsd.chargePoint.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.pj.ptsd.chargePoint.domain.ChargePoint;
 import com.pj.ptsd.chargePoint.domain.PageInfo;
@@ -17,4 +18,7 @@ public interface ChargePointService {
 	
 	public User printOne(String uId);
 
+	
+	public int addPayPoint(Map<String, Object> map);
+	
 }

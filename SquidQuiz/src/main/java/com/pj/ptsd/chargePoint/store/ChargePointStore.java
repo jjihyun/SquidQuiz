@@ -1,6 +1,7 @@
 package com.pj.ptsd.chargePoint.store;
 
 import java.util.List;
+import java.util.Map;
 
 import com.pj.ptsd.chargePoint.domain.ChargePoint;
 import com.pj.ptsd.chargePoint.domain.PageInfo;
@@ -16,4 +17,8 @@ public interface ChargePointStore {
 	public int selectAllCListCount(int userNo);
 	
 	public User selectOne(String uId);
+	
+	public int addPayPoint(Map<String, Object> map);
+	
+	public int insertPointHistory(Map<String, Object> map);
 }

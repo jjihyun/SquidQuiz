@@ -1,6 +1,7 @@
 package com.pj.ptsd.user.store.logic;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pj.ptsd.board.domain.Board;
-import com.pj.ptsd.board.domain.Search;
+import com.pj.ptsd.user.domain.Search;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.quiz.domain.Participant;
 import com.pj.ptsd.user.domain.PageInfo;
@@ -76,13 +77,15 @@ public class UserStoreLogic implements UserStore{
 	public List<CampaignRecord> selectCRList(PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		List<CampaignRecord> cList = sqlSession.selectList("userMapper.selectMypageDonate", userId);
+		List<CampaignRecord> cList = sqlSession.selectList("userMapper.selectMypageDonate", userId, rowBounds);
 		return cList;
 	}
-	
+	//캠페인내역 검색기능
 	@Override
-	public List<CampaignRecord> selectSearchAll(Search search) {
-		List<CampaignRecord> searchList = sqlSession.selectList("userMapper.selectSearchList", search);
+	public List<CampaignRecord> selectSearchAll(PageInfo pi,Map<String, Object> map) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds();
+		List<CampaignRecord> searchList = sqlSession.selectList("userMapper.selectSearchList", map, rowBounds);
 		return searchList;
 	}
 	
@@ -104,7 +107,7 @@ public class UserStoreLogic implements UserStore{
 	public List<Board> selectBoardList(PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		List<Board> bList = sqlSession.selectList("userMapper.selectBoard", userId);
+		List<Board> bList = sqlSession.selectList("userMapper.selectBoard", userId, rowBounds);
 		return bList;
 	}
 
@@ -126,7 +129,7 @@ public class UserStoreLogic implements UserStore{
 	public List<Participant> selectQList(PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		List<Participant> qList = sqlSession.selectList("userMapper.selectQuizList", userId);
+		List<Participant> qList = sqlSession.selectList("userMapper.selectQuizList", userId, rowBounds);
 		return qList;
 	}
 
