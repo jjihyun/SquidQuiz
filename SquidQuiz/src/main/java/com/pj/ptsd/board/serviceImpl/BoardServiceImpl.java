@@ -106,7 +106,6 @@ public class BoardServiceImpl implements BoardService {
 		return report2;
 	}
 
-
 //	@Override
 //	public int ListCount(RPageInfo rpageInfo) {
 //		int totalCount = store.selectListCount();

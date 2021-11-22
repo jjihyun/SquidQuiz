@@ -12,19 +12,18 @@
 		<result property="userId" column="USER_ID"/>
 		<result property="bFileName" column="BOARD_FILENAME"/>
 		<result property="bFileRename" column="BOARD_FILERENAME"/>
-		<result property="bfilePath" column="BOARD_FILEPATH"/>
+		<result property="bFilePath" column="BOARD_FILEPATH"/>
 		<result property="bCreateDate" column="BOARD_CREATE_DATE"/>
 		<result property="bUpdateDate" column="BOARD_UPDATE_DATE"/>
 	</resultMap>
 
 
 		<select id="selectAllList" resultMap="boardResultMap">
-<!-- 			SELECT ROWNUM FROM BOARD ORDER BY BOARD_NO DESC -->
-<!-- 			SELECT * FROM BOARD ORDER BY BOARD_NO DESC -->
-<!-- 				SELECT ROW_NUMBER() OVER(ORDER BY BOARD_CREATE_DATE DESC)AS ROW_NO  -->
-<!-- 				FROM BOARD ORDER BY BOARD_CREATE_DATE ASC -->
+			<!-- SELECT ROWNUM FROM BOARD ORDER BY BOARD_NO DESC -->
+			<!-- SELECT * FROM BOARD ORDER BY BOARD_NO DESC -->
+			<!-- SELECT ROW_NUMBER() OVER(ORDER BY BOARD_CREATE_DATE DESC)AS ROW_NO  -->
+			<!-- FROM BOARD ORDER BY BOARD_CREATE_DATE ASC -->
            SELECT ROWNUM, BOARD_NO, BOARD_TITLE, BOARD_CONTENTS,USER_ID,BOARD_FILENAME,BOARD_FILERENAME,BOARD_FILEPATH,BOARD_CREATE_DATE,BOARD_UPDATE_DATE FROM BOARD ORDER BY BOARD_CREATE_DATE DESC
-		
 		</select>
 	
 		<select id="selectOneBoard" resultMap="boardResultMap">
@@ -34,9 +33,11 @@
 		<insert id="insertBoard" parameterType="Board">
 			INSERT INTO BOARD VALUES(SEQ_BOARD.NEXTVAL, #{bTitle }, #{bContents }, #{userId }, #{bFileName }, #{bFileRename }, #{bFilePath }, DEFAULT, DEFAULT)
 		</insert>
+		
 		<select id="selectListCount" resultType="_int">
 			SELECT COUNT(*) FROM BOARD
 		</select>
+		
 		<update id="updateBoard" parameterType="Board">
 			UPDATE BOARD SET BOARD_TITLE = #{bTitle },
 			BOARD_CONTENTS = #{bContents }, BOARD_FILENAME = #{bFileName }
@@ -67,8 +68,6 @@
 			ORDER BY BOARD_CREATE_DATE DESC
 		</select>
 
-
-
 		<resultMap type="Reply" id="replyResultMap">
 		<id property="replyNo" column="REPLY_NO" />
 		<result property="bNo" column="BOARD_NO"/>
@@ -95,9 +94,4 @@
 		DELETE REPLY 
 		WHERE REPLY_NO = #{replyNo } 
 	</update>    
-	
-	
-	
-	
-	
 </mapper>
