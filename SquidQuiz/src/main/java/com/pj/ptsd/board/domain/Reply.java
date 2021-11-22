@@ -11,11 +11,7 @@ public class Reply {
 	private Date rCreateDate;
 	private Date rUpdateDate;
 	
-	
 	public Reply()  {}
-
-	
-	
 
 	public Reply(int replyNo, int bNo, String replyContents, String userId, Date rCreateDate, Date rUpdateDate) {
 		super();
@@ -26,9 +22,6 @@ public class Reply {
 		this.rCreateDate = rCreateDate;
 		this.rUpdateDate = rUpdateDate;
 	}
-
-
-
 
 	public int getReplyNo() {
 		return replyNo;
