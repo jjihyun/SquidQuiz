@@ -3,9 +3,7 @@ package com.pj.ptsd.notice.controller;
 import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.pj.ptsd.notice.domain.Notice;
 import com.pj.ptsd.notice.service.NoticeService;
-import com.pj.ptsd.qna.domain.Qna;
 
 @Controller
 public class NoticeController {
@@ -74,21 +71,24 @@ public class NoticeController {
 	}
 	//공지 작성
 	@RequestMapping(value="noticeRegister.ptsd", method=RequestMethod.POST)
-	public String registerNotice(
+	public void registerNotice(
 			@ModelAttribute Notice notice
-			, Model model) {
+			, ModelAndView mv
+			, HttpServletResponse response) {
 		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter(); 
 			int result = service.registerNotice(notice);
 			if(result>0) {
-				return "redirect:noticeListView.ptsd";
+				out.println("<script>alert('공지사항 작성이 완료되었습니다.');</script>");
 			}else {
-				model.addAttribute("msg", "공지 등록 실패");
-				return "notice/noticeError";
+				out.println("<script>alert('공지사항 작성에 실패하였습니다. 다시 시도해주세요');</script>");
 			}
+			out.flush();
+			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", e.toString());
-			return "notice/noticeError";
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
 	}
 	//공지 삭제
@@ -102,9 +102,9 @@ public class NoticeController {
 			PrintWriter out = response.getWriter();
 			int result = service.removeNotice(noticeNo);
 			if (result>0) {
-				out.println("<script>alert('공지사항 삭제 완료.');location.href = 'qnaListView.ptsd';</script>");
+				out.println("<script>alert('공지사항이 삭제되었습니다.');location.href='qnaListView.ptsd';</script>");
 			} else {
-				out.println("<script>alert('공지사항 삭제 실패.');location.href = 'qnaListView.ptsd';</script>");
+				out.println("<script>alert('공지사항 삭제를 실패하였습니다. 다시 시도해주세요.');location.href = 'qnaListView.ptsd';</script>");
 			}
 			out.flush();
 			out.close();
@@ -122,20 +122,23 @@ public class NoticeController {
 	}
 	//공지 수정하기
 	@RequestMapping(value="noticeModify.ptsd", method=RequestMethod.POST)
-	public String modifyNotice(@ModelAttribute Notice notice,
-			Model model) {
+	public void modifyNotice(@ModelAttribute Notice notice,
+			ModelAndView mv
+			,HttpServletResponse response) {
 		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
 			int result = service.modifyNotice(notice);
 			if (result > 0) {
-				return "redirect:noticeDetail.ptsd?noticeNo="+notice.getNoticeNo();
+				out.println("<script>alert('공지사항 수정이 완료되었습니다.');</script>");
 			} else {
-				model.addAttribute("msg", "공지 수정 실패");
-				return "notice/noticeError";
+				out.println("<script>alert('공지사항 수정에 실패하였습니다.다시 시도해주세요.');</script>");
 			}
+			out.flush();
+			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", e.toString());
-			return "notice/noticeError";
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
 	}
 }

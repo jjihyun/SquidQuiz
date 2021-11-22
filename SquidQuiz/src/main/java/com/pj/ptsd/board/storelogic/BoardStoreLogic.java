@@ -9,9 +9,12 @@ import org.springframework.stereotype.Repository;
 
 import com.pj.ptsd.board.domain.Board;
 import com.pj.ptsd.board.domain.PageInfo;
+import com.pj.ptsd.board.domain.RPageInfo;
 import com.pj.ptsd.board.domain.Reply;
 import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.board.store.BoardStore;
+import com.pj.ptsd.report.domain.ReplyReport;
+import com.pj.ptsd.report.domain.Report;
 
 @Repository
 public class BoardStoreLogic implements BoardStore {
@@ -37,8 +40,8 @@ public class BoardStoreLogic implements BoardStore {
 
 	@Override
 	public int selectListCount() {
-//		int count = sqlSession.selectOne("boardMapper.selectListCount");
-		return 0;
+		int count = sqlSession.selectOne("boardMapper.selectListCount");
+		return count;
 	}
 	
 	@Override
@@ -86,8 +89,37 @@ public class BoardStoreLogic implements BoardStore {
 
 	@Override
 	public int deleteReply(Reply reply) {
-		int result = sqlSession.update("boardMapper.deleteReply",reply);
+		int result = sqlSession.delete("boardMapper.deleteReply",reply);
 		return result;
 	}
 
+	@Override
+	public int insertReportBoard(Report report) {
+		int result = sqlSession.insert("reportMapper.insertReport",report);
+		return result;
+	}
+	
+	@Override
+	public int insertReportReply(ReplyReport replyreport) {
+		int result = sqlSession.insert("reportMapper.insertReply",replyreport);
+		return result;
+	}
+
+	@Override
+	public Report doubleReport(Report report) {
+		Report report2 = sqlSession.selectOne("reportMapper.checkReport",report);
+		return report2;
+	}
+
+//	@Override
+//	public List<Reply> selectAll(RPageInfo rpageInfo) {
+//		List<RPageInfo> rList = sqlSession.selectList("boardMapper.selectAllRList",rpageInfo);
+//		return rList;
+//	}
+//
+//	@Override
+//	public List<Reply> selectAll(RPageInfo rpageInfo) {
+//		List<Board> rList = sqlSession.selectList("boardMapper.selectAllRList",rpageInfo);
+//		return rList;
+//	}
 }

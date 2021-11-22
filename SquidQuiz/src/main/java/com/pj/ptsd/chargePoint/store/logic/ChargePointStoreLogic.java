@@ -1,6 +1,7 @@
 package com.pj.ptsd.chargePoint.store.logic;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -36,13 +37,13 @@ public class ChargePointStoreLogic implements ChargePointStore{
 	}
 
 	@Override
-	public int selectAllEListCount() {
-		int result = sqlSession.selectOne("chargePointMapper.selectEListCount");
+	public int selectAllEListCount(String userId) {
+		int result = sqlSession.selectOne("chargePointMapper.selectEListCount", userId);
 		return result;
 	}
 	@Override
-	public int selectAllCListCount() {
-		int result = sqlSession.selectOne("chargePointMapper.selectCListCount");
+	public int selectAllCListCount(int userNo) {
+		int result = sqlSession.selectOne("chargePointMapper.selectCListCount", userNo);
 		return result;
 	}
 
@@ -51,7 +52,20 @@ public class ChargePointStoreLogic implements ChargePointStore{
 		User user = sqlSession.selectOne("chargePointMapper.selectOnePoint", uId);
 		return user;
 	}
+
+	@Override
+	public int addPayPoint(Map<String, Object> map) {
+		int result = sqlSession.update("userMapper.updatePayPoint", map);
+		return result;
+	}
+
+	@Override
+	public int insertPointHistory(Map<String, Object> map) {
+		int result = sqlSession.insert("chargePointMapper.insertPointHistory", map);
+		return result;
+	}
+	}
 	
 	
 
-}
+

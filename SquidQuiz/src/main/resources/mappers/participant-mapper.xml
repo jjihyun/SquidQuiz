@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="gameMapper">
+<mapper namespace="participantMapper">
+	<resultMap type="Participant" id="participantResultMap">
+		<id property="participantNo" column="PARTICIPANT_ID"/>
+		<result property="turnNo" column="TURN_NO"/>
+		<result property="cottectAnswers" column="CORRECT_ANSWERS"/>
+		<result property="entryDate" column="ENTRY_DATE"/>
+	</resultMap>
+	
+	<resultMap type="MainGameInfo" id="gameResultMap">
+		<id property="turnNo" column="TURN_NO"/>
+		<result property="participantTotal" column="TOTAL_PARTICIPANT"/>
+		<result property="moneyTotal" column="TOTAL_MONEY"/>
+		<result property="moneyReceive" column="RECEIVE_MONEY"/>
+		<result property="winnerId" column="WINNER_ID"/>
+		<result property="openDate" column="OPEN_DATE"/>
+		<result property="quizGameStatus" column="GAME_STATUS"/>
+	</resultMap>
+	
+<!-- 	참가자 머니 조회 -->
+	<select id="selectPoint" resultType="_int">
+		SELECT POINT FROM MEMBER WHERE USER_ID=#{userId}
+	</select>
+<!-- 	참가자 등록 -->
+	<insert id="insertParticipant" parameterType="Participant">
+		INSERT INTO PARTICIPANT VALUES(#{participantNo},(SELECT TURN_NO FROM (SELECT * FROM MAIN_GAME_INFO ORDER BY TURN_NO DESC)WHERE ROWNUM = 1),DEFAULT,DEFAULT)
+	</insert>
+<!-- 	참가자 머니 수정 -->
+	<update id="updateMyPoint" parameterType="com.pj.ptsd.user.domain.User">
+    	UPDATE MEMBER SET POINT=POINT-10000 WHERE USER_ID=#{userId}
+	</update>
+	
+<!-- 	게임머니 수정 -->
+	<update id="updateGameInfo" parameterType="com.pj.ptsd.quiz.domain.MainGameInfo">
+		UPDATE MAIN_GAME_INFO SET TOTAL_PARTICIPANT=TOTAL_PARTICIPANT+1,TOTAL_MONEY=TOTAL_MONEY+10000,RECEIVE_MONEY=RECEIVE_MONEY+1000 WHERE TURN_NO=(SELECT TURN_NO FROM (SELECT * FROM MAIN_GAME_INFO ORDER BY TURN_NO DESC)WHERE ROWNUM = 1)
+	</update>
+	
+<!-- 	참가 취소 -->
+	<delete id="deleteParticipant" parameterType="Participant">
+		DELETE FROM PARTICIPANT WHERE PARTICIPANT_ID=#{participantNo}
+	</delete>
+<!-- 	유저 머니 환불 -->
+	<update id="updateMyPointMinus" parameterType="com.pj.ptsd.user.domain.User">
+		UPDATE MEMBER SET POINT=POINT+10000 WHERE USER_ID=#{userId}
+	</update>
+<!-- 	게임 머니 환불 -->
+	<update id="updateGameInfoMinus" parameterType="com.pj.ptsd.quiz.domain.MainGameInfo">
+		UPDATE MAIN_GAME_INFO SET TOTAL_PARTICIPANT=TOTAL_PARTICIPANT-1,TOTAL_MONEY=TOTAL_MONEY-10000,RECEIVE_MONEY=RECEIVE_MONEY-1000 WHERE TURN_NO=(SELECT TURN_NO FROM (SELECT * FROM MAIN_GAME_INFO ORDER BY TURN_NO DESC)WHERE ROWNUM = 1)
+	</update>
 	
 </mapper>

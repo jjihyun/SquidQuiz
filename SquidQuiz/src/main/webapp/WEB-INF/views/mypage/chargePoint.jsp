@@ -63,6 +63,10 @@ ul.tabs li.current{
 #numPoint{width:150px;height:40px; margin-top:10px;text-align:right;}
 .p-btn{ margin-top:10px;}
 
+#charge_kakao{width:300px;}
+#back-btn{width:300px;margin-top:10px;}
+
+#pay{text-align:right;font-size:20px;border:none;pointer-events: none;}
 </style>
 
 <body>
@@ -124,22 +128,23 @@ ul.tabs li.current{
 				<div class="container-fluid p-0">
 					<div align="center">
 						<div class="charge">
+						<form action="payPoint.ptsd" name="form" method="post">
 						 <div class="card-body bg-white mt-0 shadow">
-			                <label class="box-radio-input"><input type="radio" name="cp_item" value="10000"><span>10,000원</span></label>
-			                <label class="box-radio-input"><input type="radio" name="cp_item" value="15000"><span>15,000원</span></label>
-			                <label class="box-radio-input"><input type="radio" name="cp_item" value="20000"><span>20,000원</span></label>
-			                <label class="box-radio-input"><input type="radio" name="cp_item" value="25000"><span>25,000원</span></label>
-			                <label class="box-radio-input"><input type="radio" name="cp_item" value="30000"><span>30,000원</span></label>
-			                <label class="box-radio-input"><input type="radio" name="cp_item" value="35000"><span>35,000원</span></label>
-			                <label class="box-radio-input"><input type="radio" name="cp_item" value="40000"><span>40,000원</span></label>
-			                <label class="box-radio-input"><input type="radio" name="cp_item" value="50000"><span>50,000원</span></label>
-			                <p  style="color: #ac2925; margin-top: 30px">카카오페이의 최소 충전금액은 10,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p>
-			                <button type="button" class="btn btn-lg btn-block  btn-custom" id="charge_kakao">충 전 하 기</button>
-			 				</div>
-							<input type="button" class="p-btn" onclick="location.href='/mypagePoint.ptsd'" value="돌아가기">
-							
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="10000"onclick="selectItem(this)"><span>10,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="15000"onclick="selectItem(this)"><span>15,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="20000"onclick="selectItem(this)"><span>20,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="25000"onclick="selectItem(this)"><span>25,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="30000"onclick="selectItem(this)"><span>30,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="35000"onclick="selectItem(this)"><span>35,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="40000"onclick="selectItem(this)"><span>40,000원</span></label>
+			                <label class="box-radio-input"><input type="radio" name="cp_item" value="50000"onclick="selectItem(this)"><span>50,000원</span></label>
+			                <p  style="color: #ac2925; margin-top: 30px">카카오페이의 최소 충전금액은 10,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p><br>
+			                <input type="text" id="pay" name="point" >원<br><br>
+			                <button type="button" class="btn btn-primary" id="charge_kakao">충 전 하 기</button>
+							<button type="button" class="btn btn-secondary" id="back-btn" onclick="location.href='/mypagePoint.ptsd'">돌아가기</button>
+			 			</div>
+			 			</form>
 						</div>
-					
 					</div>
 					</div>
 					<br>
@@ -176,8 +181,16 @@ ul.tabs li.current{
 
 	<script src="/resources/js/app.js"></script>
 <script>
+	
+	function selectItem(obj){
+		var price = $(obj).val();
+		$("#pay").val(price);
+		
+	}
+	
     $('#charge_kakao').click(function () {
         // getter
+ //       var price = $("#pay").val();
         var IMP = window.IMP;
         IMP.init('imp36122995');
         var money = $('input[name="cp_item"]:checked').val();
@@ -188,7 +201,7 @@ ul.tabs li.current{
             merchant_uid: 'merchant_' + new Date().getTime(),
 
             name: '주문명 : 주문명 설정',
-            amount: money,
+            amount: 10,
             buyer_email: 'iamport@siot.do',
             buyer_name: '구매자이름',
             buyer_tel: '010-1234-5678',
@@ -202,19 +215,13 @@ ul.tabs li.current{
                 msg += '상점 거래ID : ' + rsp.merchant_uid;
                 msg += '결제 금액 : ' + rsp.paid_amount;
                 msg += '카드 승인번호 : ' + rsp.apply_num;
-                $.ajax({
-                    type: "GET", 
-                    url: "/mypage/chargePoint.ptsd", //충전 금액값을 보낼 url 설정
-                    data: {
-                        "amount" : money
-                    },
-                });
+              form.submit();
             } else {
                 var msg = '결제에 실패하였습니다.';
                 msg += '에러내용 : ' + rsp.error_msg;
             }
             alert(msg);
-            document.location.href="/mypage/mypagePoint.ptsd"; //alert창 확인 후 이동할 url 설정
+//         document.location.href="mypagePoint.ptsd"; //alert창 확인 후 이동할 url 설정
         });
     });
 </script>

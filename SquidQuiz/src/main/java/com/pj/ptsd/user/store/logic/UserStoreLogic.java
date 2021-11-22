@@ -1,6 +1,7 @@
 package com.pj.ptsd.user.store.logic;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,10 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.pj.ptsd.board.domain.Board;
-import com.pj.ptsd.campaign.domain.Campaign;
+import com.pj.ptsd.user.domain.Search;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
-import com.pj.ptsd.exchange.domain.Exchange;
-import com.pj.ptsd.user.domain.ChargePoint;
+import com.pj.ptsd.quiz.domain.Participant;
 import com.pj.ptsd.user.domain.PageInfo;
 import com.pj.ptsd.user.domain.User;
 import com.pj.ptsd.user.store.UserStore;
@@ -77,29 +77,105 @@ public class UserStoreLogic implements UserStore{
 	public List<CampaignRecord> selectCRList(PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		List<CampaignRecord> cList = sqlSession.selectList("campaignMapper.selectMypageDonate", userId);
+		List<CampaignRecord> cList = sqlSession.selectList("userMapper.selectMypageDonate", userId, rowBounds);
 		return cList;
 	}
-
+	//캠페인내역 검색기능
+	@Override
+	public List<CampaignRecord> selectSearchAll(PageInfo pi,Map<String, Object> map) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		List<CampaignRecord> searchList = sqlSession.selectList("userMapper.selectSearchList", map, rowBounds);
+		return searchList;
+	}
+	
+	//캠페인 글 개수
+	@Override
+	public int selectCListCount(String userId) {
+		int result = sqlSession.selectOne("userMapper.selectCListCount", userId);
+		return result;
+	}
+	
+	//후원한 단체 수 조회
+	public int selectCCount(String userId) {
+		int result = sqlSession.selectOne("userMapper.selectCCount", userId);
+		return result;
+	}
+	
+	
 	@Override
 	public List<Board> selectBoardList(PageInfo pi, String userId) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		List<Board> bList = sqlSession.selectList("userMapper.selectBoard", userId);
+		List<Board> bList = sqlSession.selectList("userMapper.selectBoard", userId, rowBounds);
 		return bList;
 	}
 
-	@Override
-	public int selectBListCount() {
-		int result = sqlSession.selectOne("userMapper.selectBListCount");
-		return result;
-	}
-
+	//자유게시판 상세
 	@Override
 	public Board selectbOne(int bNo) {
 		Board board = sqlSession.selectOne("boardMapper.selectOneBoard", bNo);
 		return board;
 	}
+	
+	//자유게시판 글 개수
+	@Override
+	public int selectBListCount(String userId) {
+		int result = sqlSession.selectOne("userMapper.selectBListCount", userId);
+		return result;
+	}
+
+	@Override
+	public List<Participant> selectQList(PageInfo pi, String userId) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		List<Participant> qList = sqlSession.selectList("userMapper.selectQuizList", userId, rowBounds);
+		return qList;
+	}
+
+	//퀴즈내역 글 개수
+	@Override
+	public int selectQListCount(String userId) {
+		int result = sqlSession.selectOne("userMapper.selectQListCount", userId);
+		return result;
+	}
+	
+	//퀴즈 참여 수 조회
+	public int selectQCount(String userId) {
+		int result = sqlSession.selectOne("userMapper.selectQCount", userId);
+		return result;
+	}
+	
+	
+	//퀴즈 누적참가금액 조회
+	public int selectGCount(String userId) {
+		int result = sqlSession.selectOne("userMapper.selectGameGibu", userId);
+		return result;
+	}
+	
+
+	@Override
+	public int selectMyCPoint(String userId) {
+		int point = sqlSession.selectOne("userMapper.selectPPoint", userId);
+		return point;
+	}
+
+	@Override
+	public User selectEPList(String userId) {
+		User user = sqlSession.selectOne("userMapper.selectEPList", userId);
+		return user;
+	}
+
+	@Override
+	public int getSearchCount(Map<String, Object> map) {
+		int result = sqlSession.selectOne("userMapper.selectSearchCount", map);
+		return result;
+	}
+
+
+
+
+
 
 	
 

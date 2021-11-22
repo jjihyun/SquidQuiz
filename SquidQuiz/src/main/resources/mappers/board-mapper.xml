@@ -6,19 +6,24 @@
 
 	<resultMap type="Board" id="boardResultMap">
 		<id property="bNo" column="BOARD_NO" />
+		<result property="rownum" column="ROWNUM"/>
 		<result property="bTitle" column="BOARD_TITLE"/>
 		<result property="bContents" column="BOARD_CONTENTS"/>
-		<result property="userId" column="USER_Id"/>
+		<result property="userId" column="USER_ID"/>
 		<result property="bFileName" column="BOARD_FILENAME"/>
 		<result property="bFileRename" column="BOARD_FILERENAME"/>
-		<result property="bfilePath" column="BOARD_FILEPATH"/>
+		<result property="bFilePath" column="BOARD_FILEPATH"/>
 		<result property="bCreateDate" column="BOARD_CREATE_DATE"/>
 		<result property="bUpdateDate" column="BOARD_UPDATE_DATE"/>
 	</resultMap>
 
 
 		<select id="selectAllList" resultMap="boardResultMap">
-			SELECT * FROM BOARD ORDER BY BOARD_NO DESC
+			<!-- SELECT ROWNUM FROM BOARD ORDER BY BOARD_NO DESC -->
+			<!-- SELECT * FROM BOARD ORDER BY BOARD_NO DESC -->
+			<!-- SELECT ROW_NUMBER() OVER(ORDER BY BOARD_CREATE_DATE DESC)AS ROW_NO  -->
+			<!-- FROM BOARD ORDER BY BOARD_CREATE_DATE ASC -->
+           SELECT ROWNUM, BOARD_NO, BOARD_TITLE, BOARD_CONTENTS,USER_ID,BOARD_FILENAME,BOARD_FILERENAME,BOARD_FILEPATH,BOARD_CREATE_DATE,BOARD_UPDATE_DATE FROM BOARD ORDER BY BOARD_CREATE_DATE DESC
 		</select>
 	
 		<select id="selectOneBoard" resultMap="boardResultMap">
@@ -28,6 +33,10 @@
 		<insert id="insertBoard" parameterType="Board">
 			INSERT INTO BOARD VALUES(SEQ_BOARD.NEXTVAL, #{bTitle }, #{bContents }, #{userId }, #{bFileName }, #{bFileRename }, #{bFilePath }, DEFAULT, DEFAULT)
 		</insert>
+		
+		<select id="selectListCount" resultType="_int">
+			SELECT COUNT(*) FROM BOARD
+		</select>
 		
 		<update id="updateBoard" parameterType="Board">
 			UPDATE BOARD SET BOARD_TITLE = #{bTitle },
@@ -40,35 +49,32 @@
 			DELETE FROM BOARD WHERE BOARD_NO = #{bNo }
 		</delete>
 		
-		
 		<select id="selectSearchList" resultMap="boardResultMap">
 		SELECT * FROM BOARD
-		<if test="searchCondition.toString() == 'writer'">
-			WHERE USER_ID LIKE '%' || #{searchValue} || '%'
-		</if>
-		<if test="searchCondition.toString() == 'title'">
-			WHERE BOARD_TITLE LIKE '%' || #{searchValue} || '%'
-		</if>
-		<if test="searchCondition.toString() == 'contents'">
-			WHERE BOARD_CONTENTS LIKE '%' || #{searchValue} || '%'
-		</if>
-		<if test="searchCondition.toString() == 'all'">
-			WHERE USER_ID LIKE '%' || #{searchValue} || '%' 
-			OR BOARD_TITLE LIKE '%' || #{searchValue} || '%'
-			OR BOARD_CONTENTS LIKE '%' || #{searchValue} || '%'
-		</if>
-		ORDER BY BOARD_CREATE_DATE DESC
+			<if test="searchCondition.toString() == 'writer'">
+				WHERE USER_ID LIKE '%' || #{searchValue} || '%'
+			</if>
+			<if test="searchCondition.toString() == 'title'">
+				WHERE BOARD_TITLE LIKE '%' || #{searchValue} || '%'
+			</if>
+			<if test="searchCondition.toString() == 'contents'">
+				WHERE BOARD_CONTENTS LIKE '%' || #{searchValue} || '%'
+			</if>
+			<if test="searchCondition.toString() == 'all'">
+				WHERE USER_ID LIKE '%' || #{searchValue} || '%' 
+				OR BOARD_TITLE LIKE '%' || #{searchValue} || '%'
+				OR BOARD_CONTENTS LIKE '%' || #{searchValue} || '%'
+			</if>
+			ORDER BY BOARD_CREATE_DATE DESC
 		</select>
-		
-
 
 		<resultMap type="Reply" id="replyResultMap">
 		<id property="replyNo" column="REPLY_NO" />
 		<result property="bNo" column="BOARD_NO"/>
 		<result property="replyContents" column="REPLY_CONTENTS"/>
 		<result property="userId" column="USER_ID"/>
-		<result property="rCreateDate" column="R_CREATE_DATE"/>
-		<result property="rUpdateDate" column="R_UPDATE_DATE"/>
+		<result property="rCreateDate" column="REPLY_CREATE_DATE"/>
+		<result property="rUpdateDate" column="REPLY_UPDATE_DATE"/>
 	</resultMap>
 	
 	<select id="selectReplyList" resultMap="replyResultMap">
@@ -88,5 +94,4 @@
 		DELETE REPLY 
 		WHERE REPLY_NO = #{replyNo } 
 	</update>    
-	
 </mapper>

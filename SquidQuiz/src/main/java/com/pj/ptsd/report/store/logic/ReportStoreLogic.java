@@ -49,7 +49,9 @@ public class ReportStoreLogic implements ReportStore{
 	//신고 게시물 삭제
 	@Override
 	public int deleteReportBoard(int boardNo) {
-		deleteBoardsReports(boardNo);
+
+		
+		deleteBoardsReply(boardNo);
 		deleteBoardsReports(boardNo);
 		int result =session.delete("reportMapper.deleteReportBoard", boardNo);
 		return result;

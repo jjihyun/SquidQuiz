@@ -104,8 +104,12 @@
 	        			</tr>
 	        		</table>
 	        	</div>
-	        	<center><h1 class="game_insert_info" id="game_insert_info">참가 신청하셨습니다.</h1></center>
-	        	<button class="game_btn_insert" id="game-insert">참가신청</button>
+	        	<center><h1 class="game_insert_info" id="game_insert_info">${loginUser.userId }님 참가 신청하셨습니다.</h1></center>
+	        	<center><h1 class="game_delete_info" id="game_delete_info">${loginUser.userId }님 참가 취소하셨습니다.</h1></center>
+<!-- 	        	<form action="Participant.ptsd" method="post"> -->
+<%-- 		        	<input type="hidden" name="Participant" value="${loginUser.userId }"> --%>
+		        	<button type="button" class="game_btn_insert" id="game-insert">참가신청</button>
+<!-- 	        	</form> -->
 	        	<button class="game_btn_start" id="game-start">퀴즈시작</button>
 	        	<button class="game_btn_delete" id="game-delete">참가취소</button>
 	        </div>
@@ -147,9 +151,52 @@
 		//게임 참가 버튼 클릭스 해당 (아이디,회차 택1)이 나오고 신청완료 문구 출력
 		$('#game-insert').click(function(){
 			if($('#game_insert_info').css("display")=="none"){
+				$('#game_delete_info').hide();
 				$('#game_insert_info').show();
+				$('#game-insert').hide();
+				$('#game-delete').show();
 			}
-		})
+			var userId = '${loginUser.userId}';
+// 			var ParticipantId = $('#game-insert').val();
+			$.ajax({
+				type:"POST",//전송방식
+				url:"participant.ptsd",
+				data:{
+					"participant":userId
+				},
+				success:function(data){
+					console.log("성공");
+				},
+				error: function() {
+					console.log("관리자에게 문의하세요");
+				}
+			});
+		});
+		
+		//참가 취소
+		$('#game-delete').click(function(){
+			if($('#game_delete_info').css("display")=="none"){
+				$('#game_insert_info').hide();
+				$('#game_delete_info').show();
+				$('#game-insert').show();
+				$('#game-delete').hide();
+			}
+			var userId = '${loginUser.userId}';
+// 			var ParticipantId = $('#game-insert').val();
+			$.ajax({
+				type:"POST",//전송방식
+				url:"participantRemove.ptsd",
+				data:{
+					"participant":userId
+				},
+				success:function(data){
+					console.log("성공");
+				},
+				error: function() {
+					console.log("관리자에게 문의하세요");
+				}
+			});
+		});
 		// 퀴즈 시작 시 모든 버튼이 사라지고 OX버튼만 남기게 된다.
 		$('#game-start').click(function(){
 			if($('#game_start_O').css("display") && $('#game_start_X').css("display")=="none"){

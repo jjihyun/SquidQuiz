@@ -1,5 +1,6 @@
 package com.pj.ptsd.campaign.store.logic;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -12,7 +13,6 @@ import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.campaign.domain.DonationRecord;
 import com.pj.ptsd.campaign.domain.PageInfo;
 import com.pj.ptsd.campaign.store.CampaignStore;
-import com.pj.ptsd.quiz.domain.MainGameInfo;
 import com.pj.ptsd.user.domain.User;
 
 @Repository
@@ -46,7 +46,9 @@ public class CampaignStoreLogic implements CampaignStore{
 	//캠페인 게시글 개수
 	@Override
 	public int selectListCount(String type) {
-		int count = sqlSession.selectOne("campaignMapper.selectListCount", type);
+		HashMap<String, String> cMap = new HashMap<String, String>();
+		cMap.put("type", type);
+		int count = sqlSession.selectOne("campaignMapper.selectListCount", cMap);
 		//System.out.println("store의 count : "+count);
 		return count;
 	}

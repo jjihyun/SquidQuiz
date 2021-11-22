@@ -27,7 +27,7 @@
 </script>
 <div id="headerMain"></div>
 <br><br><br><br>
-<c:import url="/noticeListView.ptsd"></c:import>
+<%-- <c:import url="/noticeListView.ptsd"></c:import> --%>
 	<br><br>
 	<br><br>
 	<br style="clear:both">

@@ -1,6 +1,7 @@
 package com.pj.ptsd.chargePoint.service.logic;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,13 +34,13 @@ public class ChargePointServiceImpl implements ChargePointService{
 	
 
 	@Override
-	public int getAllEListCount() {
-		int result = store.selectAllEListCount(); 
+	public int getAllEListCount(String userId) {
+		int result = store.selectAllEListCount(userId); 
 		return result;
 	}
 	@Override
-	public int getAllCListCount() {
-		int result = store.selectAllCListCount(); 
+	public int getAllCListCount(int userNo) {
+		int result = store.selectAllCListCount(userNo); 
 		return result;
 	}
 
@@ -48,6 +49,19 @@ public class ChargePointServiceImpl implements ChargePointService{
 	public User printOne(String uId) {
 		User user = store.selectOne(uId);
 		return user;
+	}
+
+
+	@Override
+	public int addPayPoint(Map<String, Object> map) {
+		int result = 0;
+		int updeteResult = store.addPayPoint(map);
+		int insrtResert = store.insertPointHistory(map);
+		if(updeteResult>0 && insrtResert>0) {
+			result = updeteResult+insrtResert;
+		}
+		return result;
+			
 	}
 	
 

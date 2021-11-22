@@ -1,7 +1,9 @@
 package com.pj.ptsd.chargePoint.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -37,8 +39,8 @@ public class ChargePointController {
 		int currentPage = (page!=null) ? page : 1; 
 		int userNo = userOne.getUserNo();
 		String userId = userOne.getUserId();
-		int totalEcount = service.getAllEListCount();
-		int totalCount = service.getAllCListCount();
+		int totalEcount = service.getAllEListCount(userId);
+		int totalCount = service.getAllCListCount(userNo);
 		PageInfo ePi = Pagination.getPageInfo(currentPage, totalEcount);
 		PageInfo cPi = Pagination.getPageInfo(currentPage, totalCount);
 		List<Exchange> eList = service.printExchangeList(ePi, userId);
@@ -47,9 +49,36 @@ public class ChargePointController {
 		model.addAttribute("eList", eList);
 		model.addAttribute("cPi",cPi);
 		model.addAttribute("ePi",ePi);
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("totalEcount",totalEcount);
 		model.addAttribute("userPoint",userOne.getPoint());
 		return "mypage/mypagePoint";
 	}
+	
+	//결제해서 포인트 충전됨
+	@RequestMapping(value="payPoint.ptsd", method=RequestMethod.POST)
+	public String selectPointList(Model model
+			, @RequestParam(value="point") int point
+			, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User userOne = (User)session.getAttribute("loginUser");
+		String userId = userOne.getUserId();
+		Map<String,Object>map = new HashMap<String,Object>();
+		map.put("userId",userId);
+		map.put("userNo",userOne.getUserNo());
+		map.put("point",point);
+		int result = service.addPayPoint(map);
+//		String referer = request.getHeader("Referer");
+		if(result >0) {
+			return "redirect:mypagePoint.ptsd";
+		}else {
+			model.addAttribute("msg","충전실패");
+			return "common/errorPage";
+		}
+	}
+	
+	
+	
 
 //	  환전내역 리스트
 	
@@ -62,15 +91,18 @@ public class ChargePointController {
 		int currentPage = (page!=null) ? page : 1; 
 		String userId = userOne.getUserId();
 		int totalCount = 0;
-		int totalEcount = service.getAllEListCount();
+		int totalEcount = service.getAllEListCount(userId);
 		PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
 		PageInfo ePi = Pagination.getPageInfo(currentPage, totalEcount);
-		List<Exchange> eList = service.printExchangeList(ePi, userId); 
+		List<Exchange> eList = service.printExchangeList(ePi, userId);
 			model.addAttribute("eList", eList); 
 			model.addAttribute("ePi", ePi);
 			model.addAttribute("userPoint",userOne.getPoint());
 			return "mypage/mypagePoint";
 	}
+
+	
+	
 	
 	//충전 포인트 내역 리스트 
 //	@RequestMapping(value="/chargePointView.ptsd", method=RequestMethod.GET)

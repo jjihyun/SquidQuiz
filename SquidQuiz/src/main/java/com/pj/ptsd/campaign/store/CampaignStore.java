@@ -6,7 +6,6 @@ import com.pj.ptsd.campaign.domain.Campaign;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.campaign.domain.DonationRecord;
 import com.pj.ptsd.campaign.domain.PageInfo;
-import com.pj.ptsd.quiz.domain.MainGameInfo;
 import com.pj.ptsd.user.domain.User;
 
 public interface CampaignStore {
@@ -31,9 +30,9 @@ public interface CampaignStore {
 	public int insertCampaignRecord(CampaignRecord cRecord); //캠페인 기부하기
 
 	public int selectPointCount(String userId);
-	public int updateMyPoint(User user);
-	public int selectCampaignNowPoint(int cNo);
-	public int updateCampaignMoney(Campaign campaign);
+	public int updateMyPoint(User user); //기부할 때 유저의 포인트 차감
+	public int selectCampaignNowPoint(int cNo); //현재 선택한 캠페인 포인트 조회
+	public int updateCampaignMoney(Campaign campaign); //캠페인 기부금 증가
 
 
 

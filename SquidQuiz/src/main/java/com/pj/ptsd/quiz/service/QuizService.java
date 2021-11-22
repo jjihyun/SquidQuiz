@@ -27,7 +27,21 @@ public interface QuizService {
 	public MainGameInfo printParticpant();
 	//퀴즈 게임 등록
 	//퀴즈 게임 참가
-	public int registerParticipant();
+	public int registerParticipant(String participantNo);
+
+	//유저 머니조회
+	public int selectUserPoint(User user);
+	//유저 머니 업데이트
+	public int updateUserPoint(User user);
+	//게임정보 업데이트
+	public int updateMoney(MainGameInfo mgi);
+	//참가 취소
+	public int removeParticipant(String participantNo);
+	//유저 머니 환불
+	public int updateUserPointMinus(User user);
+	//게임정보 환불
+	public int updateMoneyMinus(MainGameInfo mgi);
+
 	
 
 	
