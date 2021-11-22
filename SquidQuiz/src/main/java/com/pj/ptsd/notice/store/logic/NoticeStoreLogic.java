@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.pj.ptsd.notice.domain.Notice;
 import com.pj.ptsd.notice.store.NoticeStore;
-import com.pj.ptsd.qna.domain.Qna;
 @Repository
 public class NoticeStoreLogic implements NoticeStore{
 	@Autowired

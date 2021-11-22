@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.pj.ptsd.notice.domain.Notice;
 import com.pj.ptsd.notice.service.NoticeService;
 import com.pj.ptsd.notice.store.NoticeStore;
-import com.pj.ptsd.qna.domain.Qna;
 @Service
 public class NoticeServiceImpl implements NoticeService {
 		@Autowired

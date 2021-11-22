@@ -129,7 +129,7 @@ public class ExchangeController {
 				session.setAttribute("loginUser", user);
 				out.println("<script>alert('환전 신청이 완료되었습니다. 빠른 시일내에 처리해드리겠습니다. 감사합니다.');location.href = 'mypagePoint.ptsd';</script>");
 			} else {
-				out.println("<script>alert('환전 신청이 실패하였습니다. 다시 시도해주세요.(반복될 경우 관리자에게 문의해주세요.)');window.location=document.referrer;</script>");
+				out.println("<script>alert('환전 신청이 실패하였습니다. 잔액을 확인해주세요.(이상이 반복될 경우 관리자에게 문의해주세요.)');window.location=document.referrer;</script>");
 			}
 			out.flush();
 			out.close();

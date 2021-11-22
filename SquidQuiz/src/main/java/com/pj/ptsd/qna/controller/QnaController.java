@@ -46,7 +46,6 @@ public class QnaController {
 		}
 		String userId =	loginUser.getUserId();
 		char adminType = loginUser.getAdminType();
-		System.out.println(userId + adminType);
 		if(adminType=='Y') {
 			totalCount = service.getAllListCount();
 		}else if(adminType=='N') {
@@ -134,7 +133,7 @@ public class QnaController {
 			PrintWriter out = response.getWriter();
 			int result = service.registerQna(qna);
 			if (result > 0) {
-				out.println("<script>alert('문의글이 게시되었습니다. 빠른 시일내에 답변드리겠습니다.\n 감사합니다.');location.href = 'qnaListView.ptsd';</script>");
+				out.println("<script>alert('문의글이 게시되었습니다. 빠른 시일내에 답변드리겠습니다. 감사합니다.'); location.href = 'qnaListView.ptsd';</script>");
 			} else {
 				out.println("<script>alert('문의글이 게시에 실패하였습니다. 다시 시도해주세요.');</script>");
 			}
