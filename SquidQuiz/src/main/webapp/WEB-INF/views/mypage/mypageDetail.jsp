@@ -63,7 +63,7 @@ ul.tabs li.current{
 .gibu-box,.quiz-box1{float:left;list-style:none;}
 .gibu-box b,.quiz-box1 b{font-size:18px;}
 .gibu-box input, .quiz-box1 input{width:400px;height:50px;margin-top:10px;}
-.point-box{text-align:center;font-size:20px;border:none;background: transparent;}
+.point-box{text-align:center;font-size:20px;border:none;background: transparent;pointer-events: none;}
 </style>
 <body>
 	<header>
@@ -141,7 +141,7 @@ ul.tabs li.current{
 							 <form action="">
 								<ul class="box">
 									<c:if test="${not empty cCount }">
-									<li class="gibu-box"> <b>후원단체</b><br> <input type="text"class="point-box" value="${cCount }"></li>
+									<li class="gibu-box"> <b>후원단체</b><br> <input type="text"class="point-box" value="${totalCCount }곳"></li>
 									</c:if>
 									<li class="gibu-box"><div class="vr" style="height:100px;margin-left:10px;margin-right:10px;"></div></li>
 									<c:if test="${not empty pPoint }">
@@ -155,11 +155,12 @@ ul.tabs li.current{
 						 <hr>
 						 <br>
 							 <div align="center">
-								<form action="mypageDetail.ptsd" method="get">
+								<form action="searchCampaign.ptsd" method="get">
 									<select name="searchCondition">
 									<!-- c:if써서 유지시키기. -->
-										<option value="campaignName"<c:if test="${search.searchCondition == 'all' }">selected</c:if>>단체명</option>
-										<option value="campaignPoint"<c:if test="${search.searchCondition == 'point' }">selected</c:if>>금액</option>
+										<option value="all"<c:if test="${search.searchCondition == 'all' }">selected</c:if>>전체</option>
+										<option value="name"<c:if test="${search.searchCondition == 'name' }">selected</c:if>>단체명</option>
+										<option value="point"<c:if test="${search.searchCondition == 'point' }">selected</c:if>>금액</option>
 									</select>
 									<input type="text" name="searchValue" value="${search.searchValue }">
 									<input type="submit" value="검색">
@@ -183,22 +184,22 @@ ul.tabs li.current{
 														</tr>
 													</tbody>
 												</c:if>
-											<c:forEach items="${cList }" var="cList">
-											<c:set var="i" value="${i+1 }"/>
+											<c:forEach items="${cList }" var="c" varStatus="num">
+											<c:set var="i" value="${cCount - (((cPi.currentPage-1) * cPi.boardLimit + num.index)) }"/>
 											<tbody>
 												<tr align="center">
 													<td>${i }</td>
-													<td>${cList.campaignName }</td>
-													<td>${cList.cRecordPoint }</td>
+													<td>${c.campaignName }</td>
+													<td>${c.cRecordPoint }</td>
 													<td>
-													<fmt:formatDate value="${cList.cRecordDate }" pattern="yyyy-MM-dd"/>
+													<fmt:formatDate value="${c.cRecordDate }" pattern="yyyy-MM-dd"/>
 													</td>
 												</tr>
 											</tbody>
 											</c:forEach>
 											<tr align="center" height="20">
 												<td colspan="9">
-												<c:url var="before" value="mypageDetail.ptsd">
+											<c:url var="before" value="mypageDetail.ptsd">
 												<c:param name="page" value="${cPi.currentPage - 1 }"></c:param>
 											</c:url>
 											<c:if test="${cPi.currentPage <= 1 }">

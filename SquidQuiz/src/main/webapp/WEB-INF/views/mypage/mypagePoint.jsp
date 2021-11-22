@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
@@ -231,13 +232,14 @@ ul.tabs li.current{
 												</tr>
 											</tbody>
 										</c:if>
-										<c:forEach items="${cList }" var="cList">
-										<tbody >
+										<c:forEach items="${cList }" var="c" varStatus="num">
+											<c:set var="i" value="${totalCount - (((cPi.currentPage-1) * cPi.boardLimit + num.index)) }"/>
+										<tbody>
 											<tr align="center">
-												<td>${cList.pointNo }</td>
-												<td>${cList.chargePoint }</td>
+												<td>${i }</td>
+												<td>${c.chargePoint }</td>
 												<td>
-													<fmt:formatDate value="${cList.pointDate }" pattern="yyyy-MM-dd"/>
+													<fmt:formatDate value="${c.pointDate }" pattern="yyyy-MM-dd"/>
 												</td>
 											</tr>
 										</tbody>
@@ -314,21 +316,21 @@ ul.tabs li.current{
 											</tbody>
 										</c:if>
 										<tbody id="exchangeBody">
-											<c:forEach items="${eList }" var="eList">
-											<c:set var="i" value="${i+1 }"/>
+											<c:forEach items="${eList }" var="e" varStatus="num">
+											<c:set var="i" value="${totalEcount - (((ePi.currentPage-1) * ePi.boardLimit + num.index)) }"/>
 												<tr align="center">
 												
 													<td>${i }</td>
-													<td>${eList.account }</td>
-													<td>${eList.exchangeMoney }</td>
+													<td>${e.account }</td>
+													<td>${e.exchangeMoney }</td>
 													
 													<td>
-														<fmt:formatDate value="${eList.exchangeEnrollDate }" pattern="yyyy-MM-dd"/>
+														<fmt:formatDate value="${e.exchangeEnrollDate }" pattern="yyyy-MM-dd"/>
 													</td>
-													<c:if test="${eList.exchangeStatus eq 'N' }">
+													<c:if test="${e.exchangeStatus eq 'N' }">
 														<td><span class="badge bg-warning">대기중</span></td>
 													</c:if>
-													<c:if test="${eList.exchangeStatus eq 'Y' }">
+													<c:if test="${e.exchangeStatus eq 'Y' }">
 														<td><span class="badge bg-success">처리완료</span></td>
 													</c:if>
 												</tr>

@@ -41,5 +41,12 @@
 	<select id="selectCListCount" resultType="_int">
 		SELECT COUNT(*) FROM CHARGE_POINT WHERE USER_NO =#{userNo} 
 	</select>
+	
+	<insert id="insertPointHistory" parameterType="ChargePoint">
+		INSERT INTO CHARGE_POINT VALUES(SEQ_CHARGE_POINT.NEXTVAL, #{userNo}, #{point}, DEFAULT)
+	</insert>
+	
+
+	
 
 </mapper>

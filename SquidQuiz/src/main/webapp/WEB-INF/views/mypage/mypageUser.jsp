@@ -109,12 +109,12 @@
 		            </div>
 		            <div class="form-group">
 		            <label for="userEmail">이메일</label><br>
-		                <input type="email" id="userEmail" name="userEmail" value="${userEmail }"><br>
+		                <input type="email" id="userEmail" name="userEmail" value="${uList.userEmail }"><br>
 		                <div class="email-regex"></div>
 		            </div>
 		            <div class="form-group">
 		            <label for="userPhone">전화번호</label><br>
-		                <input type="text" id="userPhone" name="userPhone" value="${userPhone }"><br>
+		                <input type="text" id="userPhone" name="userPhone" value="${uList.userPhone }"><br>
 		                <div class="phone-regex"></div>
 		            </div>
 		            <c:forTokens items="${loginUser.userAddr }" delims="," var="addr" varStatus="status">

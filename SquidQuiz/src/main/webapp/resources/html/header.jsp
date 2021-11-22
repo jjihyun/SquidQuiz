@@ -33,10 +33,10 @@
 	                    
 	                    <c:choose>
 	                    	<c:when test = "${loginUser.userName eq '관리자' }">
-	                    		<img style="width: 50px; margin: 5px;" src="/resources/img/adminProfile.png" alt="관리자페이지"></a></li>	 
+	                    		<img class="side-btn" style="width: 50px; margin: 5px;" src="/resources/img/adminProfile.png" alt="관리자페이지"></a></li>	 
 	                    	</c:when>
 	                    	<c:otherwise>
-	                    		<img style="width: 50px; margin: 5px;" src="/resources/img/userProfile.png" alt="마이페이지"></a></li>	 
+	                    		<img class="side-btn" style="width: 50px; margin: 5px;" src="/resources/img/userProfile.png" alt="마이페이지"></a></li>	 
 	                    	
 	                    	</c:otherwise>
 	                    </c:choose>
@@ -59,5 +59,18 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+// 		$(function(){
+// 			$(".side-btn").hover(function(){
+// 				$(this).find(".login-btn").fadeIn();
+				
+// 			})
+// 				,function(){
+// 				$(this).find(".login-btn").fadeOut();
+// 			}
+			
+// 		})
+	</script>
 </body>
 </html>

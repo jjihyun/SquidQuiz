@@ -1,12 +1,13 @@
 package com.pj.ptsd.user.service.logic;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pj.ptsd.board.domain.Board;
-import com.pj.ptsd.board.domain.Search;
+import com.pj.ptsd.user.domain.Search;
 import com.pj.ptsd.campaign.domain.CampaignRecord;
 import com.pj.ptsd.quiz.domain.Participant;
 import com.pj.ptsd.user.domain.PageInfo;
@@ -67,17 +68,23 @@ public class UserServiceImpl implements UserService{
 		List<CampaignRecord> cList = store.selectCRList(pi, userId);
 		return cList;
 	}
+	//캠페인내역 검색기능
+	@Override
+	public List<CampaignRecord> printSearchAll(PageInfo pi, Map<String, Object> map) {
+		List<CampaignRecord> serchList = store.selectSearchAll(pi, map);
+		return serchList;
+	}
 	
 	@Override
-	public List<CampaignRecord> printSearchAll(Search search) {
-		List<CampaignRecord> serchCList = store.selectSearchAll(search);
-		return serchCList;
+	public int getCListCount(String userId) {
+		int result = store.selectCListCount(userId); 
+		return result;
 	}
 	
 
 	@Override
 	public int getCCount(String userId) {
-		int result = store.selectCListCount(userId); 
+		int result = store.selectCCount(userId); 
 		return result;
 	}
 
