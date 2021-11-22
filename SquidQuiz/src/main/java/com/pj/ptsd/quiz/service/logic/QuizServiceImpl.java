@@ -132,6 +132,18 @@ public class QuizServiceImpl implements QuizService{
 		int result = store.updateMoneyMinus(mgi);
 		return result;
 	}
+	//게임 조회
+	@Override
+	public Ox printGame(Ox oxlist) {
+		Ox ox = store.selectGame(oxlist);
+		return ox;
+	}
+	//O입력
+	@Override
+	public Ox printAnswerO(int oxNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

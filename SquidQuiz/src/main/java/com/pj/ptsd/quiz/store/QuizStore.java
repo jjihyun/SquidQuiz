@@ -38,4 +38,7 @@ public interface QuizStore {
 		//게임 머니 환불
 		public int updateMoneyMinus(MainGameInfo mgi);
 		
+		//게임 조회
+		public Ox selectGame(Ox oxlist);
+		
 }

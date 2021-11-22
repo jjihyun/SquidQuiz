@@ -28,7 +28,6 @@ public interface QuizService {
 	//퀴즈 게임 등록
 	//퀴즈 게임 참가
 	public int registerParticipant(String participantNo);
-
 	//유저 머니조회
 	public int selectUserPoint(User user);
 	//유저 머니 업데이트
@@ -41,6 +40,12 @@ public interface QuizService {
 	public int updateUserPointMinus(User user);
 	//게임정보 환불
 	public int updateMoneyMinus(MainGameInfo mgi);
+	
+	
+	//게임 조회
+	public Ox printGame(Ox oxlist);
+	//o입력
+	public Ox printAnswerO(int oxNo);
 
 	
 
