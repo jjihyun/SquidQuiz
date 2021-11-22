@@ -29,10 +29,7 @@ public class ExchangeController {
 	@Autowired
 	private ExchangeService service;
 	
-	@RequestMapping(value="testView.ptsd")
-	public String exchangeListView (Model model) {
-		return "report/tabtest1";
-	}
+	
 	//전체조회 (관리자)
 	@RequestMapping(value="exchangeListView.ptsd")
 	public String exchangeListView (Model model
