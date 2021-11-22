@@ -60,7 +60,7 @@
       	right:100px; top:70px;
       }
       .slick-next{
-      	left:100px; bottom:90px;    
+      	left:100px; bottom:150px;    
       }
       
 	textarea{
@@ -131,7 +131,7 @@
 						<p class="all-text-left">현재 모금액 : ${campaign.cNowAmount}원</p>
 						<p class="all-text-left">목표금액 : ${campaign.cTargetAmount }원<br><br>
 							모금단체 : ${campaign.campaignName }<br><br>
-							사이트 바로가기> <a href="${campaign.cLink }" style="color: #AFE1FF;">${campaign.campaignName }</a>
+							사이트 바로가기> <a href="${campaign.cLink }" style="color: #AFE1FF;" target="_blank">${campaign.campaignName }</a>
 						</p><br>
 						<c:if test="${sessionScope.loginUser ne null && dDay ge 0}">
 							<button onclick="location.href='${cDonate}'" id="btn-donate">기부하기</button><br>
@@ -145,7 +145,7 @@
 									<img alt="이미지없음"
 										src="../../../resources/campaignUpload/${c.cFileName }"
 										style="display: block; margin: auto; width: 100px; height: 100px;">
-									"${c.campaignTitle }"
+									<p style="font-size:14px; font-weight: bold;">"${c.campaignTitle }"</p>
 								</div>
 							</c:forEach>
 						</div>

@@ -29,15 +29,15 @@
 		<table align="center">
 			<tr>
 				<td colspan="2"><b class="font-b">캠페인 제목</b><br><br>
-				<input type="text" size="50" name="campaignTitle" style="font-size: 20px;"></td>
+				<input type="text" size="67" name="campaignTitle" style="font-size: 20px;"></td>
 			</tr>
 			<tr>
 				<td colspan="2"><br><b class="font-b">캠페인 소개글</b><br><br>
-				<textarea id="contexts" rows="20" cols="69" wrap="hard" name="campaignContents" style="font-size: 16px; resize: none;"></textarea></td>
+				<textarea id="contexts" rows="18" cols="90" wrap="hard" name="campaignContents" style="font-size: 16px; resize: none;"></textarea></td>
 			</tr>
 			<tr>
-				<td align="center"><br><b class="font-b">목표금액</b><br><br><input type="text" size="17" name="cTargetAmount" style="font-size: 16px;"></td>
-				<td align="center"><br><b class="font-b">첨부사진</b><br><br>
+				<td align="center" style="width: 50%;"><br><b class="font-b">목표금액</b><br><br><input type="text" size="17" name="cTargetAmount" style="font-size: 16px;"></td>
+				<td align="center" style="width: 50%;"><br><b class="font-b">첨부사진</b><br><br>
 					<input type="file" name="cFileName_2" style="padding-left: 60px;" required>
 				</td>
 			</tr>
