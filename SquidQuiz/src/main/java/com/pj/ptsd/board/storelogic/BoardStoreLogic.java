@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.pj.ptsd.board.domain.Board;
 import com.pj.ptsd.board.domain.PageInfo;
+import com.pj.ptsd.board.domain.RPageInfo;
 import com.pj.ptsd.board.domain.Reply;
 import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.board.store.BoardStore;
@@ -109,4 +110,16 @@ public class BoardStoreLogic implements BoardStore {
 		Report report2 = sqlSession.selectOne("reportMapper.checkReport",report);
 		return report2;
 	}
+
+//	@Override
+//	public List<Reply> selectAll(RPageInfo rpageInfo) {
+//		List<RPageInfo> rList = sqlSession.selectList("boardMapper.selectAllRList",rpageInfo);
+//		return rList;
+//	}
+//
+//	@Override
+//	public List<Reply> selectAll(RPageInfo rpageInfo) {
+//		List<Board> rList = sqlSession.selectList("boardMapper.selectAllRList",rpageInfo);
+//		return rList;
+//	}
 }
