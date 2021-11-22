@@ -142,6 +142,18 @@ public class UserServiceImpl implements UserService{
 		return point;
 	}
 
+	@Override
+	public User printEPList(String userId) {
+		User user = store.selectOne(userId);
+		return user;
+	}
+
+	@Override
+	public int getSearchCount(Map<String, Object> map) {
+		int result = store.getSearchCount(map); 
+		return result;
+	}
+
 	
 
 	

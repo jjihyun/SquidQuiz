@@ -84,7 +84,7 @@ public class UserStoreLogic implements UserStore{
 	@Override
 	public List<CampaignRecord> selectSearchAll(PageInfo pi,Map<String, Object> map) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		List<CampaignRecord> searchList = sqlSession.selectList("userMapper.selectSearchList", map, rowBounds);
 		return searchList;
 	}
@@ -158,6 +158,18 @@ public class UserStoreLogic implements UserStore{
 	public int selectMyCPoint(String userId) {
 		int point = sqlSession.selectOne("userMapper.selectPPoint", userId);
 		return point;
+	}
+
+	@Override
+	public User selectEPList(String userId) {
+		User user = sqlSession.selectOne("userMapper.selectEPList", userId);
+		return user;
+	}
+
+	@Override
+	public int getSearchCount(Map<String, Object> map) {
+		int result = sqlSession.selectOne("userMapper.selectSearchCount", map);
+		return result;
 	}
 
 

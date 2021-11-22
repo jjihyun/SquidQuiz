@@ -29,6 +29,8 @@ public interface UserService {
 	
 	public int getCCount(String userId);
 	
+	public int getSearchCount(Map<String, Object> map);
+	
 	public List<Participant> printQList(PageInfo pi, String userId);
 	
 	//퀴즈내역 게시물 개수 ,참여수 조회, 참여누적금조회
@@ -45,6 +47,8 @@ public interface UserService {
 	
 	public User printOne(String uId);
 	
+	//회원정보수정 이메일,전화번호
+	public User printEPList(String userId);
 	
 	
 	//총 기부금 조회

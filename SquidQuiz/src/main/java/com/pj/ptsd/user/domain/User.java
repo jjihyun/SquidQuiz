@@ -9,18 +9,18 @@ public class User {
 	private String userEmail;
 	private String userPhone;
 	private String bankName;
-	private String userAddr;
 	private String bankAccount;
+	private String userAddr;
 	private int point;
 	private char adminType;
-	private char gameType;
 	
 	public User() {}
 	
 	
+	
 
 	public User(int userNo, String userId, String userPwd, String userName, String userEmail, String userPhone,
-			String bankName, String userAddr, String bankAccount, int point, char adminType, char gameType) {
+			String bankName, String bankAccount, String userAddr, int point, char adminType) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -29,12 +29,12 @@ public class User {
 		this.userEmail = userEmail;
 		this.userPhone = userPhone;
 		this.bankName = bankName;
-		this.userAddr = userAddr;
 		this.bankAccount = bankAccount;
+		this.userAddr = userAddr;
 		this.point = point;
 		this.adminType = adminType;
-		this.gameType = gameType;
 	}
+
 
 
 
@@ -137,20 +137,6 @@ public class User {
 	}
 
 	/**
-	 * @return the userAddr
-	 */
-	public String getUserAddr() {
-		return userAddr;
-	}
-
-	/**
-	 * @param userAddr the userAddr to set
-	 */
-	public void setUserAddr(String userAddr) {
-		this.userAddr = userAddr;
-	}
-
-	/**
 	 * @return the bankAccount
 	 */
 	public String getBankAccount() {
@@ -162,6 +148,20 @@ public class User {
 	 */
 	public void setBankAccount(String bankAccount) {
 		this.bankAccount = bankAccount;
+	}
+
+	/**
+	 * @return the userAddr
+	 */
+	public String getUserAddr() {
+		return userAddr;
+	}
+
+	/**
+	 * @param userAddr the userAddr to set
+	 */
+	public void setUserAddr(String userAddr) {
+		this.userAddr = userAddr;
 	}
 
 	/**
@@ -192,31 +192,15 @@ public class User {
 		this.adminType = adminType;
 	}
 
-	/**
-	 * @return the gameType
-	 */
-	public char getGameType() {
-		return gameType;
-	}
-
-	/**
-	 * @param gameType the gameType to set
-	 */
-	public void setGameType(char gameType) {
-		this.gameType = gameType;
-	}
-
 	@Override
 	public String toString() {
 		return "User [userNo=" + userNo + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
-				+ ", userEmail=" + userEmail + ", userPhone=" + userPhone + ", bankName=" + bankName + ", userAddr="
-				+ userAddr + ", bankAccount=" + bankAccount + ", point=" + point + ", adminType=" + adminType
-				+ ", gameType=" + gameType + "]";
+				+ ", userEmail=" + userEmail + ", userPhone=" + userPhone + ", bankName=" + bankName + ", bankAccount="
+				+ bankAccount + ", userAddr=" + userAddr + ", point=" + point + ", adminType=" + adminType + "]";
 	}
-	
-	
-	
 
+	
+	
 
 	
 

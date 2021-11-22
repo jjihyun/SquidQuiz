@@ -103,15 +103,14 @@ public class UserController {
 	public void memberRegister(HttpServletRequest request
 			,HttpServletResponse response
 			,@ModelAttribute User user
-//			,@RequestParam("bankAccountValue") String accountValue
 			,@RequestParam("post") String post
 			,@RequestParam("address1") String address1
 			,@RequestParam("address2") String address2) {
-//		user.setBankAccount(Integer.parseInt(accountValue));
 		user.setUserAddr(post+","+address1+","+address2);
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out;
 		try {
+			System.out.println(user.toString());
 			int result = service.registerMember(user);
 			out = response.getWriter();
 			if(result > 0) {
@@ -218,19 +217,39 @@ public class UserController {
 
 	//마이페이지 회원정보 화면
 	@RequestMapping(value="mypageUser.ptsd", method=RequestMethod.GET)
-	public String userList(@ModelAttribute User user, Model model
+	public String userList( Model model
 			, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		String uId = user.getUserId();
+		User u = (User) session.getAttribute("loginUser");
+		String uId = u.getUserId();
 		User uList = service.printOne(uId);
-		
+//		System.out.println(uList.toString());
 		if(uList!=null) {
 			model.addAttribute("uList",uList);
-		// 여기에서  DB다녀온 값을 뿌려줘야합니다.. ㅎ
-		// selectOne하는 메소드가 있을거 같은데 
+		
+			return "mypage/mypageUser";
+		}else {
+			model.addAttribute("msg", "에러다에러");
+			return "common/errorPage";
+			
 		}
-		return "mypage/mypageUser";
+		
 	}
+	
+//		, @RequestParam("userEmail") String userEmail
+//		, @RequestParam("userPhone") String userPhone
+//		, HttpServletRequest request) {
+//	HttpSession session = request.getSession();
+//	User userId = new User();
+//	userId.setUserEmail(userEmail);
+//	userId.setUserPhone(userPhone);
+//	User epList = service.printEPList(userId);
+//	
+//	if(epList!=null) {
+//		model.addAttribute("epList",epList);
+//	// 여기에서  DB다녀온 값을 뿌려줘야합니다.. ㅎ
+//	// selectOne하는 메소드가 있을거 같은데 
+//	}
 
 	//마이페이지 회원정보 수정
 	@RequestMapping(value ="memberModify.ptsd", method = RequestMethod.POST)
@@ -389,19 +408,20 @@ public class UserController {
 		int currentPage = (page!=null) ? page : 1;
 		String userId = userOne.getUserId();
 		int totalCCount = service.getCCount(userId);
-		int cCount = service.getCListCount(userId);
+		int cCount = service.getCListCount(userId);//
 		int pPoint = service.printMyCPoint(userId);
 		Map<String,Object>map = new HashMap<String,Object>();
 		map.put("userId",userId);
 		map.put("search",search);
-		PageInfo cPi = Pagination.getPageInfo(currentPage, totalCCount);
-		List<CampaignRecord> cList = service.printCRList(cPi, userId);
+		int searchCount = service.getSearchCount(map);
+		PageInfo cPi = Pagination.getPageInfo(currentPage, searchCount);
+		List<CampaignRecord> cList = service.printSearchAll(cPi, map);
 		if(!cList.isEmpty()) {
 			model.addAttribute("cList", cList);
 			model.addAttribute("cPi", cPi);
 			model.addAttribute("pPoint",pPoint);
 			model.addAttribute("cCount", cCount);
-			model.addAttribute("totalCCount", totalCCount);
+			model.addAttribute("searchCount", searchCount);
 			model.addAttribute("userPoint",userOne.getPoint());
 			return "mypage/mypageDetail";
 		}else {
