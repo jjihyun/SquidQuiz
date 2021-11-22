@@ -34,7 +34,7 @@
 				</div>
 				<section>
 					<div id="back-btn">
-						<button class="btn btn-primary" type="submit">등록</button>
+						<button class="btn btn-primary" type="submit">수정</button>
 <!-- 						<button class="btn btn-secondary" type="reset">취소</button> -->
 					<a class="btn btn-secondary" href="qnaListView.ptsd" role="button">목록으로</a>
 					</div>

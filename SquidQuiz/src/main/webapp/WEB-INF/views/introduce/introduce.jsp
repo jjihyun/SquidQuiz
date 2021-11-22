@@ -84,6 +84,9 @@
 		#oximage{
 			width:100%;
 		}
+		.main{
+			margin-bottom: -200px;
+		}
 	</style>
 </head>
 <body>
@@ -327,5 +330,8 @@
 	
 		</div>
 	</div>
+	<footer>
+		<jsp:include page="../../../resources/html/footer.html"/>
+	</footer>
 </body>
 </html>

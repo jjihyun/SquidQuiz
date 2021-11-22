@@ -349,7 +349,9 @@ a:hover{color:#495057;	text-decoration: none;}
 		</footer>
 		</div>
 	</div>
-
+<footer>
+		<jsp:include page="../../../resources/html/footer.html"/>
+	</footer>
 	<script src="/resources/js/app.js"></script>
 
 <script>

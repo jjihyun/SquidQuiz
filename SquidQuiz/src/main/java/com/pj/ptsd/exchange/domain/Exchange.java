@@ -9,7 +9,7 @@ public class Exchange {
 	private Date exchangeDate;
 	private String exchangeStatus;
 	private int exchangeMoney;
-	private int account;
+	private String account;
 	private String exchangeBank;
 	private String userName;
 	private String userId;
@@ -17,6 +17,18 @@ public class Exchange {
 	public Exchange() {}
 	
 	
+
+	public String getAccount() {
+		return account;
+	}
+
+
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+
 
 	public String getUserId() {
 		return userId;
@@ -86,13 +98,7 @@ public class Exchange {
 		this.exchangeMoney = exchangeMoney;
 	}
 
-	public int getAccount() {
-		return account;
-	}
-
-	public void setAccount(int account) {
-		this.account = account;
-	}
+	
 
 	public String getUserName() {
 		return userName;

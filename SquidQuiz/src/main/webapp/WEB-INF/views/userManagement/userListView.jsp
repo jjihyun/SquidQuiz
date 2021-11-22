@@ -235,10 +235,13 @@ a:hover{color:#495057;	text-decoration: none;}
 	</div>
 	
 
-	<footer class="footer">
-		<div class="container-fluid">
-			<div class="row text-muted"></div>
-		</div>
+<!-- 	<footer class="footer"> -->
+<!-- 		<div class="container-fluid"> -->
+<!-- 			<div class="row text-muted"></div> -->
+<!-- 		</div> -->
+<!-- 	</footer> -->
+	<footer>
+		<jsp:include page="../../../resources/html/footer.html"/>
 	</footer>
 	<script>
 		function deleteUser(obj){

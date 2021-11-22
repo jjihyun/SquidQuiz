@@ -80,7 +80,7 @@ public class NoticeController {
 			PrintWriter out = response.getWriter(); 
 			int result = service.registerNotice(notice);
 			if(result>0) {
-				out.println("<script>alert('공지사항 작성이 완료되었습니다.');</script>");
+				out.println("<script>alert('공지사항 작성이 완료되었습니다.'); location.href='qnaListView.ptsd';</script>");
 			}else {
 				out.println("<script>alert('공지사항 작성에 실패하였습니다. 다시 시도해주세요');</script>");
 			}
@@ -128,9 +128,10 @@ public class NoticeController {
 		try {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
+			int noticeNo = notice.getNoticeNo();
 			int result = service.modifyNotice(notice);
 			if (result > 0) {
-				out.println("<script>alert('공지사항 수정이 완료되었습니다.');</script>");
+				out.println("<script>alert('공지사항 수정이 완료되었습니다.'); location.href='noticeDetail.ptsd?noticeNo="+ noticeNo + "';</script>");
 			} else {
 				out.println("<script>alert('공지사항 수정에 실패하였습니다.다시 시도해주세요.');</script>");
 			}

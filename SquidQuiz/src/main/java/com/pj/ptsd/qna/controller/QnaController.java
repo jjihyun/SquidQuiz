@@ -148,21 +148,20 @@ public class QnaController {
 	}
 	//문의답변
 	@RequestMapping(value="modifyAnswer.ptsd", method=RequestMethod.POST)
-	public String modifyQna(Model model,@ModelAttribute Qna qna
+	public void modifyQna(ModelAndView mv,@ModelAttribute Qna qna, HttpServletResponse response
 			) {
 		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
 			int result = service.modifyAnswer(qna);
 			if (result>0) {
-				
-				return "redirect:qnaDetailView.ptsd?qnaNo="+ qna.getQnaNo();
+				out.println("<script>alert('답변을 성공적으로 등록하였습니다!'); window.location=document.referrer;</script>");
 			} else {
-				model.addAttribute("msg", "답변 달기 실패");
-				return "qna/qnaError";
+				out.println("<script>alert('답변 등록에 실패하였습니다.'); window.location=document.referrer;</script>");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("msg", e.toString());
-			return "qna/qnaError";
+			mv.addObject("msg", e.toString()).setViewName("common/errorPage");
 		}
 	}
 	//문의 삭제 (회원)
