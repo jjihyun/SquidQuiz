@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -176,6 +178,8 @@ public class QuizController {
 			file.delete();//파일 삭제
 		}
 	}
+	
+	//퀴즈 삭제
 	@RequestMapping(value="oxDelete.ptsd",method=RequestMethod.GET)
 	private String oxDelete(
 			Model model
@@ -193,6 +197,7 @@ public class QuizController {
 			return "common/errorPage";
 		}
 	}
+	//퀴즈 검색
 	@RequestMapping(value="quizSearch.ptsd",method=RequestMethod.GET)
 	public String QuizSearchList(
 			@ModelAttribute QuizSearch search
@@ -260,7 +265,6 @@ public class QuizController {
 	@RequestMapping(value="quizStart.ptsd",method=RequestMethod.GET)
 	public ModelAndView gameStartView(ModelAndView mv
 			) {
-		// 여기에서 인원수를 불러오는 코드가 있어야합니다 
 		mv.setViewName("quiz/quizProgress");
 		return mv;
 	}
@@ -269,8 +273,10 @@ public class QuizController {
 	
 	//메인화면으로 이동
 	@RequestMapping(value="mainView.ptsd",method=RequestMethod.GET)
-	public String mainView() {
-		return"main";
+	public String mainView(
+			ModelAndView mv) {
+		//여기에 아무것도 없자나요.. 근데 main.jsp에서 ${ox } 이걸
+		return "main";
 	}
 	
 	//참가자 등록/게임 머니 수정/유저 머니 수정/유저 머니 조회
@@ -321,4 +327,32 @@ public class QuizController {
 		return mv;
 	}
 	
+	@RequestMapping(value="gameInfoSelect.ptsd",method=RequestMethod.GET)
+	public ModelAndView gameInfoSelect(
+			ModelAndView mv
+			,@ModelAttribute Ox oxlist) {
+		Ox ox = service.printGame(oxlist);
+		if(ox!=null) {
+			mv.addObject("ox",ox);
+			mv.setViewName("main");
+		}
+		return mv;		
+	}
+	
+	//ox퀴즈 상세 조회
+	@RequestMapping(value="gameAnswerSelect.ptsd",method = RequestMethod.GET)
+	public ModelAndView gameAnswerSelect(
+			ModelAndView mv
+			,@RequestParam("oxNo")int oxNo) {
+		
+		Ox ox = service.printAnswerO(oxNo);
+		if(ox!=null) {
+			mv.addObject("ox",ox);
+			mv.setViewName("main");
+		}else {
+			mv.addObject("msg","상세 조회 실패");
+			mv.setViewName("common/errorPage");
+		}
+		return mv;
+	}
 }

@@ -129,6 +129,12 @@ public class QuizStoreLogic implements QuizStore{
 		int result = sqlSession.update("participantMapper.updateGameInfoMinus",mgi);
 		return result;
 	}
+	//게임 조회
+	@Override
+	public Ox selectGame(Ox oxlist) {
+		Ox ox = sqlSession.selectOne("quizMapper.selectGame",oxlist);
+		return ox;
+	}
 
 
 }

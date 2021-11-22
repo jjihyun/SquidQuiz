@@ -44,5 +44,9 @@
 		DELETE FROM OX_QUIZ WHERE OX_NO = #{oxNo}
 	</delete>
 	
-	
+<!-- 	게임조회 -->
+
+	<select id="selectGame" resultMap="oxResultMap">
+		SELECT * FROM OX_QUIZ WHERE OX_NO=(SELECT FLOOR(DBMS_RANDOM.VALUE(1,(SELECT OX_NO FROM (SELECT * FROM OX_QUIZ ORDER BY OX_NO DESC)WHERE ROWNUM =1)))FROM DUAL)
+	</select>
 </mapper>
