@@ -33,15 +33,15 @@
 		<table align="center">
 			<tr>
 				<td colspan="2"><b>캠페인 제목</b><br><br>
-				<input type="text" size="50" name="campaignTitle" style="font-size: 20px;" value="${campaign.campaignTitle }"></td>
+				<input type="text" size="67" name="campaignTitle" style="font-size: 20px;" value="${campaign.campaignTitle }"></td>
 			</tr>
 			<tr>
 				<td colspan="2">모금 소개글<br>
-				<textarea id="contexts" rows="20" cols="69" wrap="hard" name="campaignContents" style="font-size: 16px; resize: none;" name="campaignContents" style="font-size: 20px;">${campaign.campaignContents }</textarea></td>
+				<textarea id="contexts" rows="18" cols="90" wrap="hard" name="campaignContents" style="font-size: 16px; resize: none;" name="campaignContents" style="font-size: 20px;">${campaign.campaignContents }</textarea></td>
 			</tr>
 			<tr>
-				<td align="center"><br><b>목표금액</b><br><br>${campaign.cTargetAmount }</td>
-				<td align="center"><br><b>첨부사진</b><br><br><input type="file" name="updateFile" style="padding-left: 60px;" ></td>
+				<td align="center" style="width: 50%;"><br><b>목표금액</b><br><br>${campaign.cTargetAmount }</td>
+				<td align="center" style="width: 50%;"><br><b>첨부사진</b><br><br><input type="file" name="updateFile" style="padding-left: 60px;" ></td>
 			</tr>
 			<tr>
 				<td align="center"><br><b>모금 종료일</b><br><br>${formatDate }</td>
@@ -67,6 +67,9 @@
 			</tr>
 		</table>
 	</form>
+	<footer>
+		<jsp:include page="../../../resources/html/footer.html"/>
+	</footer>
 	
 	<script type="text/javascript">
 		$(function(){

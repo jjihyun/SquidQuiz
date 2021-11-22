@@ -23,8 +23,7 @@
 .font-str{
 	color:rgb(201, 113, 113);
 	/* border:2px solid rgb(201, 113, 113); */
-	padding: 7px;
-	border-radius: 3px;
+	padding: 7px; border-radius: 3px;
 	padding-left: 15px;
 	padding-right: 15px;
 	margin:20px;
@@ -41,8 +40,7 @@ tr{
 #list-btn{
 	width: 150px; height:40px; 
 	background: #dd3e54; background: -webkit-linear-gradient(to right, #6be585, #dd3e54);
-	background: linear-gradient(to right, #6be585, #dd3e54); 
-	color:white; border:none; cursor: pointer; border-radius: 3px;
+	background: linear-gradient(to right, #6be585, #dd3e54); color:white; border:none; cursor: pointer; border-radius: 3px;
 }
 </style>
 </head>

@@ -30,13 +30,10 @@ main{
 		text-align: left;
 	}
 	#btn{
-		cursor: pointer;
-		background: #FFAFBD;  /* fallback for old browsers */
-		
-		border: none;
-		width: 200px;
-		height: 40px;
+		cursor: pointer; color:rgb(200, 80, 80);
+		border: 2px solid #D9418C; font-weight:bold; width: 220px; height: 50px; font-size:17px;
 	}
+	#btn:hover{font-weigth:bold; color:white; background: #D9418C;}
 </style>
 </head>
 <body>
@@ -97,7 +94,7 @@ main{
 				</div>
 			
 			</td>
-			<td style="height: 400px;">
+			<td style="height: 600px;">
 				<div style="width: 300px;">
 					<img class="ex-img" alt="img" src="../../../resources/campaignStaticImg/해외아동결연.jpg">
 					<h4>해외아동결연</h4>
@@ -106,13 +103,14 @@ main{
 			</td>
 		</tr>
 		<tr style="height: 150px;">
-			<td colspan="2" style="background: #FF0099; " align="center">
-				<div style=" width: 30%; float: left; height: 100%;">
-					<br>
+			<td colspan="2" align="center" height="200" style="padding:60px; background:rgb(180, 80, 80);">
+				<div style="width: 50%; float: left; height: 100%; padding-top: 40px; padding-right:100px;">
 					<button id="btn" onclick="location.href='campaignList.ptsd'">후원하러가기</button>
 				</div>
-				<div style="width: 70%; float: left;">
-					<h3 style="color: white;">" 당신의 나눔으로 <br>또 하나의 희망이 더해집니다. "</h3>
+				<div style="width: 50%; float: left; height:100%;">
+					<div style="background:rgb(180, 80, 80); width: 400px; height: 90px; padding-bottom:10px;">
+						<h3 style="color: white; padding-top:20px;">" 당신의 나눔으로 <br>또 하나의 희망이 더해집니다. "</h3>
+					</div>
 				</div>
 			</td>
 		</tr>
