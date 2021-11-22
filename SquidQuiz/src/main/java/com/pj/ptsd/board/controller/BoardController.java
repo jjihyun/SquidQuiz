@@ -37,6 +37,7 @@ import com.google.gson.JsonIOException;
 import com.pj.ptsd.board.domain.Board;
 import com.pj.ptsd.board.domain.PageInfo;
 import com.pj.ptsd.board.domain.Pagination;
+import com.pj.ptsd.board.domain.RPageInfo;
 import com.pj.ptsd.board.domain.Reply;
 import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.board.service.BoardService;
@@ -70,16 +71,16 @@ public class BoardController {
 	@RequestMapping(value="boardRegister.ptsd",method=RequestMethod.POST)
 	public String registerBoard(
 			@ModelAttribute Board board
-			,@RequestParam(value="uploadFile",required=false) MultipartFile uploadFile
+//			,@RequestParam(value="uploadFile",required=false) MultipartFile uploadFile
 			,Model model
 			,HttpServletRequest request,HttpSession session) {
-		if(!uploadFile.getOriginalFilename().equals("")) {
-			String bFileName = saveFile(uploadFile,request);
-			if(bFileName != null) {
-				board.setbFileName(uploadFile.getOriginalFilename());
-				board.setbFileRename(bFileName);
-			}
-		}
+//		if(!uploadFile.getOriginalFilename().equals("")) {
+//			String bFileName = saveFile(uploadFile,request);
+//			if(bFileName != null) {
+//				board.setbFileName(uploadFile.getOriginalFilename());
+//				board.setbFileRename(bFileName);
+//			}
+//		}
 		System.out.println(board.getbTitle()+board.getUserId()+board.getbContents());
 		User loginUser = (User)session.getAttribute("loginUser");
 		board.setUserId(loginUser.getUserId());
@@ -120,6 +121,9 @@ public class BoardController {
 		}
 		return bFileName;
 	}
+	
+	
+	
 	
 	//게시글 목록 / 페이징
 	@RequestMapping(value="boardList.ptsd", method=RequestMethod.GET)
@@ -162,6 +166,8 @@ public class BoardController {
 		}
 		return mv;
 	}
+	
+	
 	
 	//게시글 수정
 	@RequestMapping(value="boardModify.ptsd")
@@ -264,7 +270,7 @@ public class BoardController {
 			//JSONobject
 			System.out.println(rList);
 			if(!rList.isEmpty()) {
-				Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+				Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
 				try {
 					gson.toJson(rList, response.getWriter());
 				} catch (JsonIOException e) {
@@ -282,7 +288,9 @@ public class BoardController {
 		//댓글 수정
 		@ResponseBody
 		@RequestMapping(value="modifyReply.ptsd", method=RequestMethod.POST)
-		public String modifyReply(@ModelAttribute Reply reply) {
+		public String modifyReply(@ModelAttribute Reply reply,HttpSession session) {
+			User loginUser = (User)session.getAttribute("loginUser");
+			reply.setUserId(loginUser.getUserId());
 			int result = service.modifyReply(reply);
 			if(result > 0 ) {
 				return "success";
@@ -294,7 +302,9 @@ public class BoardController {
 		//댓글 삭제
 		@ResponseBody
 		@RequestMapping(value = "deleteReply.ptsd", method=RequestMethod.GET)
-		public String deleteReply(@ModelAttribute Reply reply) {
+		public String deleteReply(@ModelAttribute Reply reply,HttpSession session) {
+			User loginUser = (User)session.getAttribute("loginUser");
+			reply.setUserId(loginUser.getUserId());
 			int result = service.removeReply(reply);
 			if(result > 0 ) {
 				return "success";
@@ -380,6 +390,46 @@ public class BoardController {
 				return "common/errorPage";
 			}
 		}
+		
+		
+//		 //댓글페이징
+//		  @RequestMapping("/commentlist")
+//		   @ResponseBody
+//		   public Map<String, Object> getRPageInfoList(RPageInfo rpageInfo, 
+//			@RequestParam(value = "page", defaultValue = "1", required = false) int page) throws Exception {
+//		      Map<String, Object> result = new HashMap<String, Object>();
+//		      int limit = 5;
+////		      int listcount = service.ListCount(rpageInfo);
+//
+//		      // 총 페이지수
+////		      int maxpage = (listcount + limit - 1) / limit; // (13 + 9) / 10
+//
+//		      // 시작 페이지수
+//		      int startpage = ((page - 1) / 10) * 10 + 1;
+//
+//		      // 마지막 페이지수
+//		      int endpage = startpage + 10 - 1;
+//
+////		      if (endpage > maxpage)
+////		         endpage = maxpage;
+//		      
+//		      rpageInfo.setLimit(limit);
+//		      rpageInfo.setPage(page);
+//		      rpageInfo.setStartpage(startpage);
+//		      rpageInfo.setEndpage(endpage);
+////		      rpageInfo.setMaxpage(maxpage);
+//		      System.out.println(page);
+//		      System.out.println(startpage);
+//		      System.out.println(endpage);
+//		      
+////		      List<Board> RList = service.RPageInfoList(rpageInfo);
+////		      result.put("RList",  RList);
+//		      result.put("page",  page);
+//		      result.put("startpage",  startpage);
+//		      result.put("endpage",  endpage);
+//		      return result;
+//		   }
+		
 		
 		
 		

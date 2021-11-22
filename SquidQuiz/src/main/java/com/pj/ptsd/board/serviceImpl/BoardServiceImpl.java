@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.pj.ptsd.board.domain.Board;
 import com.pj.ptsd.board.domain.PageInfo;
+import com.pj.ptsd.board.domain.RPageInfo;
 import com.pj.ptsd.board.domain.Reply;
 import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.board.service.BoardService;
@@ -104,4 +105,17 @@ public class BoardServiceImpl implements BoardService {
 		Report report2 = store.doubleReport(report);
 		return report2;
 	}
+
+
+//	@Override
+//	public int ListCount(RPageInfo rpageInfo) {
+//		int totalCount = store.selectListCount();
+//		return totalCount;
+//	}
+//
+//	@Override
+//	public List<Board> RPageInfoList(RPageInfo rpageInfo) {
+//		List<Reply> rList = store.RPageInfoList(rpageInfo);
+//		return rList;
+//	}
 }

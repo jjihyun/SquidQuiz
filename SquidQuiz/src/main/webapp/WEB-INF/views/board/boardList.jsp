@@ -10,6 +10,14 @@
 	<!-- 최신부트스트랩 -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- 	<style>
+/* 	 a:link  */
+/* 	{ text-decoration: none; text-shadow: 0 0 24px; color:pink; } */
+
+	
+<!-- 	</style> -->
+
+
 </head>
 <body>
 <script>
@@ -21,7 +29,7 @@
 <jsp:include page="../../../resources/html/header.jsp"/>
 	<br style="clear:both">
 	<h1 align="center">자유게시판</h1>
-	<br><br>
+	 
 	<div class="row visible" style="heigh:100px"></div>
 	<div class="container">
 	<table align="center" width="600" border="0" cellspacing="0" style="clear:right;" class="table table-hover my-0">
@@ -42,7 +50,7 @@
 					<c:url var="boardDetail" value="boardDetail.ptsd">
 						<c:param name="bNo" value="${board.bNo }"/>
 					</c:url>
-					<a href="${boardDetail }">${board.bTitle }</a>
+					<a href="${boardDetail }" style="text-decoration: none; text-shadow: 0 0 24px; color:pink;">${board.bTitle }</a>
 				</td>
 				
 				<td align="center">${board.userId }</td>
@@ -54,15 +62,15 @@
 		    	<td align="center" colspan="5">
 		    	    <!-- 글쓰기 로그인후 보이는 화면-->
 					<c:if test ="${loginUser eq null }">
-	            		<a href="login.ptsd" class="btn btn-primary">글쓰기</a>
+	            		<a href="login.ptsd"  style="text-decoration: none; text-shadow: 0 0 24px; color:pink;">글쓰기</a>
 		    		</c:if> 
 		    		<!-- 글쓰기 비로그인 보이는 화면 -->
 		    		<c:if test ="${loginUser.userId ne null }">
-	            		<a href="boardWrite.ptsd" class="btn btn-primary">글쓰기</a>
+	            		<a href="boardWrite.ptsd" style="text-decoration: none; text-shadow: 0 0 24px; color:pink;">글쓰기</a>
 		    		</c:if>
 				</td>
 			</tr>
-		<tr align="center" height="20">
+		<tr align="center" height="20"  style="text-decoration: none; text-shadow: 0 0 24px; color:pink;">
 			<td colspan="6">
 				<c:url var="before" value="boardList.ptsd">
 					<c:param name="page" value="${pi.currentPage - 1 }"></c:param>
@@ -96,8 +104,8 @@
 			</td>
 		</tr>
 	</table>
-	<div align="center">
-		<form action="boardSearch.ptsd" method="get">
+	<div align="center" >
+		<form action="boardSearch.ptsd" method="get" style="text-decoration: none; text-shadow: 0 0 24px; color:pink;">
 			<select name="searchCondition">
 				<option value="all" <c:if test="${search.searchCondition == 'all' }">selected</c:if>>전체</option>
 				<option value="writer" <c:if test="${search.searchCondition == 'writer' }">selected</c:if>>작성자</option>

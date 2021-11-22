@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.pj.ptsd.board.domain.Board;
 import com.pj.ptsd.board.domain.PageInfo;
+import com.pj.ptsd.board.domain.RPageInfo;
 import com.pj.ptsd.board.domain.Reply;
 import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.report.domain.ReplyReport;
@@ -33,4 +34,6 @@ public interface BoardStore {
 	public int insertReportBoard(Report report);
 	public int insertReportReply(ReplyReport replyreport);
 	public Report doubleReport(Report report);
+//	public List<Reply> selectAll(RPageInfo rpageInfo);
+//	public List<Reply> selectSearchAll(RPageInfo rpageInfo);
 }

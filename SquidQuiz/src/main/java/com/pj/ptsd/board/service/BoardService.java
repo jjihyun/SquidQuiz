@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.pj.ptsd.board.domain.Board;
 import com.pj.ptsd.board.domain.PageInfo;
+import com.pj.ptsd.board.domain.RPageInfo;
 import com.pj.ptsd.board.domain.Reply;
 import com.pj.ptsd.board.domain.Search;
 import com.pj.ptsd.report.domain.ReplyReport;
@@ -34,4 +35,6 @@ public interface BoardService {
 	public int registerReportBoard(Report report);
 	public int registerReportReply(ReplyReport replyreport);
 	public Report doubleReport(Report report);
+//	public int ListCount(RPageInfo rpageInfo);
+//	public List<Reply> RPageInfoList(RPageInfo rpageInfo);
 }
