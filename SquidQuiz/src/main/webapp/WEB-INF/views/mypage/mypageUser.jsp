@@ -29,6 +29,7 @@
 </head>
 <style>
 #userId,#userName{pointer-events: none;}
+
 </style>
 <body>
 	<header>

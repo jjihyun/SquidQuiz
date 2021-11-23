@@ -51,7 +51,7 @@ public class ChargePointController {
 		model.addAttribute("ePi",ePi);
 		model.addAttribute("totalCount",totalCount);
 		model.addAttribute("totalEcount",totalEcount);
-		model.addAttribute("userPoint",userOne.getPoint());
+		model.addAttribute("point",userOne.getPoint());
 		return "mypage/mypagePoint";
 	}
 	
@@ -70,6 +70,8 @@ public class ChargePointController {
 		int result = service.addPayPoint(map);
 //		String referer = request.getHeader("Referer");
 		if(result >0) {
+			userOne=service.printOne(userId);
+			session.setAttribute("loginUser", userOne);
 			return "redirect:mypagePoint.ptsd";
 		}else {
 			model.addAttribute("msg","충전실패");

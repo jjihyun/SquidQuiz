@@ -21,11 +21,13 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 </head>
 <style>
-
+a:link{color:#495057;	text-decoration: none;} 
+a:visited{color:#495057;	text-decoration: none;}
 .box1{ width:1100px; margin: 0; padding:0;}
 .card{width:500px;float:left;margin-left:10px;margin-right:10px;}
 .card-body{text-align:left;}
 .point1,.point2{pointer-events: none;}
+
 
 #userPoint,#userGibu{font-size:20px;border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;}
 
