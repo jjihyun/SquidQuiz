@@ -15,6 +15,8 @@ public class Board {
 	private String bFilePath;
 	private Date bCreateDate;
 	private Date bUpdateDate;
+	//게시판 목록 제목옆에 댓글수 보여기	
+	//private int recnt;  
 	
 	
 	public Board() {}
@@ -125,5 +127,6 @@ public class Board {
 		return "Board [bNo=" + bNo + ", rownum=" + rownum + ", bTitle=" + bTitle + ", bContents=" + bContents
 				+ ", userId=" + userId + ", bFileName=" + bFileName + ", bFileRename=" + bFileRename + ", bFilePath="
 				+ bFilePath + ", bCreateDate=" + bCreateDate + ", bUpdateDate=" + bUpdateDate + "]";
-	}
+	}	
+	
 }
