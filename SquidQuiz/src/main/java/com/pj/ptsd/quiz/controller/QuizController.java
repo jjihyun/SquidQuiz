@@ -275,7 +275,6 @@ public class QuizController {
 	@RequestMapping(value="mainView.ptsd",method=RequestMethod.GET)
 	public String mainView(
 			ModelAndView mv) {
-		//여기에 아무것도 없자나요.. 근데 main.jsp에서 ${ox } 이걸
 		return "main";
 	}
 	
@@ -354,5 +353,13 @@ public class QuizController {
 			mv.setViewName("common/errorPage");
 		}
 		return mv;
+	}
+	
+	//-----------------------역대 오징어------------------------------------------
+	
+	@RequestMapping(value="rankListView.ptsd",method=RequestMethod.GET)
+	public String rankListView(
+			ModelAndView mv) {
+		return "rank/rankList";
 	}
 }
