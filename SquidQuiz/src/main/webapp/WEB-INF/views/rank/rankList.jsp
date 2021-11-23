@@ -39,6 +39,8 @@ $(document).ready(function(){
 		background: pink;
 		margin-left: 180px;
 	}
+	.rank_view_3{
+	}
 </style>
 </head>
 <body>
@@ -66,6 +68,7 @@ $(document).ready(function(){
 				<br><br><br><br><br>
 				<div class="rank_view_3">
 					<hr>
+					
 				</div>
 			</div>
 		</div>
