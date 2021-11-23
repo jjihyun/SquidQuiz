@@ -322,9 +322,9 @@
 		</section>
 		
 		<section class="container eachrows" align="center" data-aos="fade-up" data-aos-offset="200" data-aos-duration="800" data-aos-easing="ease-in-back">
-			<button class="btn btn-secondary btn-lg" style="box-sizing: 100px;" onclick="location.href='main.ptsd'">퀴즈 참여하기</button><br><br>
-			<button class="btn btn-secondary btn-lg" onclick="location.href='campaignList.ptsd'">캠페인 둘러보기</button><br><br>
-			<button class="btn btn-secondary btn-lg" onclick="location.href='boardList.ptsd'">자유게시판 </button><br><br><br>
+			<button class="btn btn-secondary btn-lg" style="width: 200px;" onclick="location.href='main.ptsd'">퀴즈 참여하기</button><br><br>
+			<button class="btn btn-secondary btn-lg" style="width: 200px;" onclick="location.href='campaignList.ptsd'">캠페인 둘러보기</button><br><br>
+			<button class="btn btn-secondary btn-lg" style="width: 200px;" onclick="location.href='boardList.ptsd'">자유게시판 </button><br><br><br>
 			
 		</section>
 	

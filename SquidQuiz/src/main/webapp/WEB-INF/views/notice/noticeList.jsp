@@ -17,7 +17,9 @@
 		font:normal; 
 		color: black;
 	}
-
+	body{
+		background-color: white;	
+	}
 </style>
 <script>
 	$(document).ready(function(){
