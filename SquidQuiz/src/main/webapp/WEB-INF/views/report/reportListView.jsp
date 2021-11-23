@@ -49,7 +49,7 @@ a:hover{color:#495057;	text-decoration: none;}
 							data-feather="sliders"></i> <span>회원관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="quizStart.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">퀴즈진행</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
