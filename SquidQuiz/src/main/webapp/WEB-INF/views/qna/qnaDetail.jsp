@@ -15,6 +15,9 @@
 	th {
 		width:120px;
 	}
+	body{
+		background-color: white;
+	}
 </style>
 <body>
 <script>

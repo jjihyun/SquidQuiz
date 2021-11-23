@@ -8,6 +8,9 @@
 <title>공지 등록</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/resources/css/app.css">
+<!-- <script src="/ckeditor5/ckeditor.js"></script> -->
+<script language="javascript" src="/ckeditor/ckeditor.js"></script>
+<script src="/resources/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 <script>
@@ -43,5 +46,11 @@
 	<footer>
 		<jsp:include page="../../../resources/html/footer.html"/>
 	</footer>
+	<script>
+		CKEDITOR.replace('noticeContents', {
+			align : 'center',
+			height : '400px',
+		});
+	</script>
 </body>
 </html>

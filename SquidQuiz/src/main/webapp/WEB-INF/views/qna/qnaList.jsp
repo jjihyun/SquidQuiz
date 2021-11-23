@@ -17,6 +17,13 @@
 				font:normal; 
 				color: black;
 			}
+ 		#hmm{ 
+ 			background-color: white; 
+ 			margin-bottom: :-50px;
+ 		} 
+		.footer{ 
+			background-color: white;
+		} 
 	</style>
 <body>
 <script>
@@ -25,6 +32,7 @@
 // 			$('#headerMain').load("/resources/html/header.jsp");
 // 		});
 </script>
+<div id="hmm">
 <div id="headerMain"></div>
 <br><br><br><br>
 <c:import url="/noticeListView.ptsd"></c:import>
@@ -135,8 +143,8 @@
 			    </tr>
 		  </tbody>
 		</table>
-		<div align="center">
 		<c:if test="${loginUser.adminType == 'Y'.charAt(0)}">
+		<div align="center">
 		<form action="qnaSearch.ptsd" method="get">
 			<select name="searchCondition">
 				<option value="all" <c:if test="${search.searchCondition == 'all' }">selected</c:if>>전체</option>
@@ -148,11 +156,12 @@
 			<input type="text" name="searchValue" value="${search.searchValue }">
 			<input type="submit" value="검색">
 		</form>
+	</div>
 		</c:if>
 	</div>
-	</div>
 	</main>
-	<footer>
+	</div>
+	<footer class="footer">
 		<jsp:include page="../../../resources/html/footer.html"/>
 	</footer>
 </body>

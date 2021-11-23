@@ -8,7 +8,15 @@
 <title>문의 작성</title>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="/resources/css/app.css">
+<!-- <script src="/ckeditor5/ckeditor.js"></script> -->
+<script language="javascript" src="/ckeditor/ckeditor.js"></script>
+<script src="/resources/ckeditor/ckeditor.js"></script>
 </head>
+<style>
+	body{
+		background-color: white;
+	}
+</style>
 <body>
 	<script>
 		//자바스크립트로 헤더 파일 받아오는 소스 
@@ -44,5 +52,11 @@
 	<footer>
 		<jsp:include page="../../../resources/html/footer.html"/>
 	</footer>
+	<script>
+		CKEDITOR.replace('qnaContents', {
+			align : 'center',
+			height : '400px',
+		});
+	</script>
 </body>
 </html>
