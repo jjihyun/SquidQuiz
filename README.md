@@ -161,8 +161,7 @@ DataBase | Oracle
 
 ### 9.게시판(작성및조회)
 
-![KakaoTalk_20211123_155945998](https://user-images.githubusercontent.com/90734078/142983297-2588195e-ea60-46fc-9f00-dfc231d28a5b.png)
-
+![KakaoTalk_20211123_172559148](https://user-images.githubusercontent.com/90734078/142991093-27722949-5a92-4de5-adfb-c26f163dd236.png)
 
 ### 10.기부(조회)
 
