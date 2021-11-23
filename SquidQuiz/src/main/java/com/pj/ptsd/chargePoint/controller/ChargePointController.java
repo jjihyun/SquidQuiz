@@ -20,6 +20,7 @@ import com.pj.ptsd.chargePoint.domain.ChargePoint;
 import com.pj.ptsd.chargePoint.service.ChargePointService;
 import com.pj.ptsd.exchange.domain.Exchange;
 import com.pj.ptsd.user.domain.User;
+import com.pj.ptsd.user.service.UserService;
 import com.pj.ptsd.chargePoint.domain.PageInfo;
 import com.pj.ptsd.chargePoint.domain.Pagination;
 
@@ -28,6 +29,9 @@ public class ChargePointController {
 	
 	@Autowired
 	private ChargePointService service;
+	
+	@Autowired
+	private UserService userService;
 	
 	//포인트 페이지 이동
 	@RequestMapping(value="mypagePoint.ptsd", method=RequestMethod.GET)
@@ -70,7 +74,7 @@ public class ChargePointController {
 		int result = service.addPayPoint(map);
 //		String referer = request.getHeader("Referer");
 		if(result >0) {
-			userOne=service.printOne(userId);
+			userOne=userService.printOne(userId);
 			session.setAttribute("loginUser", userOne);
 			return "redirect:mypagePoint.ptsd";
 		}else {
