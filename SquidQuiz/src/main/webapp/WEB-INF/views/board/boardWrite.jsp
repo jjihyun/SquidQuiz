@@ -16,8 +16,120 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<link href="/resources/css/footer.css" rel="stylesheet" />
+
+  <script>
+
+	$('a').click(function(event){
+    event.preventDefault(); 
+	});
+
+	</script>
+    
+    <style>
+    .btn-3d {
+	position: relative;
+	display: inline-block;
+	font-size: 18px;
+	padding: 20px 20px;
+	color: white;
+	margin: 10px 10px 10px;
+	border-radius: 6px;
+	text-align: center;
+	transition: top .01s linear;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+	outline:0;
+	border:0;
+}
+.btn-3d.red:hover    {background-color: #e74c3c;}
+.btn-3d.blue:hover   {background-color: #699DD1;}
+.btn-3d.green:hover  {background-color: #80C49D;}
+.btn-3d.purple:hover {background-color: #D19ECB;}
+.btn-3d.yellow:hover {background-color: #F0D264;}
+.btn-3d.cyan:hover   {background-color: #82D1E3;}
+
+.btn-3d:active {
+	top: 9px;
+}
+.color {
+	width: 350px;
+	margin: 0 auto;
+}
+.color li {
+	margin: 0 15px 0 0;
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	border-radius: 100%;
+}
+    
+    .content-3d {
+  margin: 40px auto;
+}
+    
+    .content-3d {
+	  width: 50%;
+	  max-width: 300px;
+	}
+    .btn-3d.red {
+	background-color: #e74c3c;
+	box-shadow: 0 0 0 1px #c63702 inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 8px 0 0 #C24032,
+        0 8px 0 1px rgba(0,0,0,0.4),
+				0 8px 8px 1px rgba(0,0,0,0.5);
+	}
+	.btn-3d.red:active {
+	box-shadow: 0 0 0 1px #c63702 inset,
+				0 0 0 2px rgba(255,255,255,0.15) inset,
+				0 0 0 1px rgba(0,0,0,0.4);
+	}
+	.color .red    {background: #fa5a5a;}
+	
+	.btn-3d.yellow {
+	background-color: #F0D264;
+	box-shadow: 0 0 0 1px #F0D264 inset,
+				0 0 0 2px rgba(255,255,255,0.15) inset,
+				0 8px 0 0 rgba(196, 172, 83, .7),
+				0 8px 0 1px rgba(0,0,0,.4),
+				0 8px 8px 1px rgba(0,0,0,0.5);
+}
+.btn-3d.yellow:active {
+	box-shadow: 0 0 0 1px #F0D264 inset,
+				0 0 0 2px rgba(255,255,255,0.15) inset,
+				0 0 0 1px rgba(0,0,0,0.4);
+}
+	
+	.btn-3d.green {
+	background-color: #82c8a0;
+	box-shadow: 0 0 0 1px #82c8a0 inset,
+				0 0 0 2px rgba(255,255,255,0.15) inset,
+				0 8px 0 0 rgba(126, 194, 155, .7),
+				0 8px 0 1px rgba(0,0,0,.4),
+				0 8px 8px 1px rgba(0,0,0,0.5);
+}
+.btn-3d.green:active {
+	box-shadow: 0 0 0 1px #82c8a0 inset,
+				0 0 0 2px rgba(255,255,255,0.15) inset,
+				0 0 0 1px rgba(0,0,0,0.4);
+}
+.btn-3d.blue {
+	background-color: #6DA2D9;
+	box-shadow: 0 0 0 1px #6698cb inset,
+				0 0 0 2px rgba(255,255,255,0.15) inset,
+				0 8px 0 0 rgba(110, 164, 219, .7),
+				0 8px 0 1px rgba(0,0,0,.4),
+				0 8px 8px 1px rgba(0,0,0,0.5);
+}
+.btn-3d.blue:active {
+	box-shadow: 0 0 0 1px #6191C2 inset,
+				0 0 0 2px rgba(255,255,255,0.15) inset,
+				0 0 0 1px rgba(0,0,0,0.4);
+}
+    </style>
 </head>
 <body>
+	<!-- 헤더 -->
+	<jsp:include page="../../../resources/html/header.jsp" />
 	<br style="clear: both">
 	<br>
 	<br>
@@ -28,16 +140,20 @@
 	<br>
 	<div style="color: pink; align: center;">
 		<form action="boardRegister.ptsd" method="post"
-			enctype="multipart/form-data" align="center" display="inline"
-			float="left">
-			<div float="left" display="inline" word-break="break-all">
-				<label for="title">제목</label> <input type="text" name="bTitle"
-					placeholder="제목을 입력하세요.">
+			enctype="multipart/form-data" align="center" display="inline">
+			<div style="float:left; margin-left:380px; margin-right:10px;">
+				<label for="title">제목</label> 
+				<input type="text" name="bTitle" placeholder="제목을 입력하세요.">
 			</div>
-			<div float="left">
-				<label for="title">글쓴이</label> <input type="text" name="userId"
-					value="${loginUser.userId }" readonly>
+			<div style="float:left;">
+				<label for="title">글쓴이</label> 
+				<input type="text" name="userId" value="${loginUser.userId }" readonly>
 			</div>
+			<div>
+				<label></label>
+			</div>
+			<br>
+			<div></div>
 			<div align="center">
 				<textarea name="bContents" id="bContents" placeholder="내용을 입력하세요."></textarea>
 			</div>
@@ -45,10 +161,9 @@
 				<th></th>
 				<td><input type="hidden" name="uploadFile"></td>
 			</tr>
-			<div class="btn btn-primary">
-				<input type="submit" value="등록" class="btn btn-primary"> <input
-					type="button" value=" 취소"
-					OnClick="window.location='boardList.ptsd'" class="btn btn-primary">
+			<div>
+				<input type="submit" value="등록" class="btn-3d green">
+				<input type="button" value=" 취소" OnClick="window.location='boardList.ptsd'" class="btn-3d red">
 			</div>
 		</form>
 	</div>

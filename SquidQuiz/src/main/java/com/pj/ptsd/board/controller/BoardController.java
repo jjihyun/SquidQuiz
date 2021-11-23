@@ -164,11 +164,11 @@ public class BoardController {
 	public ModelAndView boardUpdate(ModelAndView mv, HttpServletRequest request, @ModelAttribute Board board,
 			@RequestParam(value = "reloadFile", required = false) MultipartFile reloadFile) {
 		if (reloadFile != null) {
-			// 기존 파일 삭제
+			//기존 파일 삭제
 			if (board.getbFileName() != "") {
 				deleteFile(board.getbFileRename(), request);
 			}
-			// 새파일 업로드
+			//새파일 업로드
 			String fileRename = saveFile(reloadFile, request);
 			if (fileRename != null) {
 				board.setbFileName(reloadFile.getOriginalFilename());
@@ -204,7 +204,7 @@ public class BoardController {
 		if (result > 0) {
 			if (fileRename != "") {
 				// 업로드 파일 삭제
-				deleteFile(fileRename, request);
+//				deleteFile(fileRename, request);
 			}
 			return "redirect:boardList.ptsd";
 		} else {
