@@ -10,6 +10,7 @@ import com.pj.ptsd.user.domain.User;
 
 public interface QuizService {
 	public int getListCount();
+	public int getMgiListCount();
 	
 	//ox 등록 수정 삭제 조회 
 	public int registerOxQuiz(Ox ox);
@@ -40,12 +41,15 @@ public interface QuizService {
 	public int updateUserPointMinus(User user);
 	//게임정보 환불
 	public int updateMoneyMinus(MainGameInfo mgi);
-	
-	
 	//게임 조회
 	public Ox printGame(Ox oxlist);
 	//o입력
 	public Ox printAnswerO(int oxNo);
+	//역대오징어조회
+	public List<MainGameInfo> printMgiAll(PageData pd);
+	//역대오징어 검색띠
+	public List<MainGameInfo> printMgiSearchAll(QuizSearch search);
+	
 
 	
 

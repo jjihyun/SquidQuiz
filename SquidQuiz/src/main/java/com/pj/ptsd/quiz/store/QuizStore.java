@@ -40,5 +40,11 @@ public interface QuizStore {
 		
 		//게임 조회
 		public Ox selectGame(Ox oxlist);
+		//역대오징어조회
+		public List<MainGameInfo> selectMgiAll(PageData pd);
+		//오징어카운트
+		public int selectMgiListCount();
+		//오징어 검색
+		public List<MainGameInfo> selectMgiSearchAll(QuizSearch search);
 		
 }

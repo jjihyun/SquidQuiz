@@ -135,6 +135,27 @@ public class QuizStoreLogic implements QuizStore{
 		Ox ox = sqlSession.selectOne("quizMapper.selectGame",oxlist);
 		return ox;
 	}
+	//역대 오징어 조회
+	@Override
+	public List<MainGameInfo> selectMgiAll(PageData pd) {
+		int offset = (pd.getCurrentPage()-1)*pd.getPageLimit();
+		RowBounds rowBounds =  new RowBounds(offset,pd.getPageLimit());
+		List<MainGameInfo> mgi = sqlSession.selectList("gameMapper.selectMgiAll",pd,rowBounds);
+		return mgi;
+	}
+
+	@Override
+	public int selectMgiListCount() {
+		int count=sqlSession.selectOne("gameMapper.selectMgiListCount");
+		return count;
+	}
+
+	@Override
+	public List<MainGameInfo> selectMgiSearchAll(QuizSearch search) {
+		List<MainGameInfo> migSearchList = sqlSession.selectList("gameMapper.selectMgiSearchList",search);
+		return migSearchList;
+	}
+
 
 
 }
