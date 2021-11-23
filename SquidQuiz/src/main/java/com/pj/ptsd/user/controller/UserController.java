@@ -393,6 +393,7 @@ public class UserController {
 		model.addAttribute("qCount", qCount);
 		model.addAttribute("quizPoint",quizPoint);
 		model.addAttribute("userPoint",userOne.getPoint());
+		model.addAttribute("searchYn", "N");
 		return "mypage/mypageDetail";
 	}
 	
@@ -421,8 +422,11 @@ public class UserController {
 			model.addAttribute("cPi", cPi);
 			model.addAttribute("pPoint",pPoint);
 			model.addAttribute("cCount", cCount);
+			model.addAttribute("totalCCount", totalCCount);
 			model.addAttribute("searchCount", searchCount);
+			model.addAttribute("search", search);
 			model.addAttribute("userPoint",userOne.getPoint());
+			model.addAttribute("searchYn", "Y");
 			return "mypage/mypageDetail";
 		}else {
 			model.addAttribute("msg", "게시물 조회 실패");

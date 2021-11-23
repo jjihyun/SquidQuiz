@@ -14,7 +14,7 @@
         <div class="header">
             <div class="header_logo">
                 <div class="logo_detail">
-                    <a href="/main.ptsd"><img style="width: 43%; height: 100%;" src="/resources/img/메인로고.png"></a>
+                    <a href="/main.ptsd"><img style="width: 45%; height: 120%;" src="/resources/img/main2.png"></a>
                 </div>
             </div>
             <div class="header_sub_title">
@@ -25,18 +25,18 @@
                         <li class="menu3"><a href="campaignList.ptsd">기부</a></li>
                         <li class="menu4"><a href="boardList.ptsd">자유게시판</a></li>
                         <li class="menu5"><a href="qnaListView.ptsd">공지/문의</a></li>
-		                <c:if test="${ empty loginUser }">
+		               <c:if test="${ empty loginUser }">
 		                <li class="menu6"><a href="/login.ptsd"><img style="width: 50px; margin: 5px;" src="/resources/img/myPageLogo.png" alt="마이페이지"></a></li>
 		                </c:if>
                         <c:if test="${ not empty loginUser }">
-	                    <li class="menu6"><a href="/mypageUser.ptsd">
+	                    <li class="menu6">
 	                    
 	                    <c:choose>
 	                    	<c:when test = "${loginUser.userName eq '관리자' }">
-	                    		<img class="side-btn" style="width: 50px; margin: 5px;" src="/resources/img/adminProfile.png" alt="관리자페이지"></a></li>	 
+	                    		<img class="side-btn" style="width: 50px; margin: 5px;" src="/resources/img/adminProfile.png" alt="관리자페이지"></li>	 
 	                    	</c:when>
 	                    	<c:otherwise>
-	                    		<img class="side-btn" style="width: 50px; margin: 5px;" src="/resources/img/userProfile.png" alt="마이페이지"></a></li>	 
+	                    		<a href="/mypageUser.ptsd"><img class="side-btn" style="width: 50px; margin: 5px;" src="/resources/img/userProfile.png" alt="마이페이지"></a></li>	 
 	                    	
 	                    	</c:otherwise>
 	                    </c:choose>
@@ -44,14 +44,14 @@
 	                    	
 	                    	  <c:choose>
 	                    	<c:when test = "${loginUser.userName eq '관리자' }">
-	                    	<button onclick="location.href='/mypageUser.ptsd';">관리자페이지</button>
+	                    	<button class="main-btn" onclick="location.href='/userListView.ptsd';">관리자페이지</button>
 	                    	</c:when>
 	                    	<c:otherwise>
-		                    <button onclick="location.href='/mypageMyHome.ptsd';">마이페이지</button>
+		                    <button class="main-btn" onclick="location.href='/mypageMyHome.ptsd';">마이페이지</button>
 	                    	
 	                    	</c:otherwise>
 	                    	</c:choose>
-							<button onclick="location.href='/logout.ptsd';">로그아웃</button>
+							<button class="main-btn" onclick="location.href='/logout.ptsd';">로그아웃</button>
 							</div>
 						</c:if>
                     </ul>
