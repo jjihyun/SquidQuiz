@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판 글쓰기</title>
-<jsp:include page="../../../resources/html/header.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/css/bootsrap.min.css">
 <!-- <script src="/ckeditor5/ckeditor.js"></script> -->
@@ -138,10 +137,10 @@
 	<h1 align="center">게시글 작성</h1>
 	<br>
 	<br>
-	<div style="color: pink; align: center;">
+	<div style="color: black; align: center;">
 		<form action="boardRegister.ptsd" method="post"
 			enctype="multipart/form-data" align="center" display="inline">
-			<div style="float:left; margin-left:380px; margin-right:10px;">
+			<div style="float:left; margin-left:410px; margin-right:10px;">
 				<label for="title">제목</label> 
 				<input type="text" name="bTitle" placeholder="제목을 입력하세요.">
 			</div>

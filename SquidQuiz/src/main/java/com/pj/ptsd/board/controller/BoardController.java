@@ -220,6 +220,7 @@ public class BoardController {
 		User loginUser = (User) session.getAttribute("loginUser");
 		reply.setUserId(loginUser.getUserId());
 		int result = service.registerReply(reply);
+		
 		if (result > 0) {
 			return "success";
 		} else {
