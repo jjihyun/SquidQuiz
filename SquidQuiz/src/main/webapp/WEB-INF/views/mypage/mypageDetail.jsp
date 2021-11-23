@@ -166,6 +166,7 @@ ul.tabs li.current{
 									<input type="submit" value="검색">
 								</form>
 							</div>
+							<br><br>
 							<!-- 게시판 -->
 									<div class="card flex-fill">
 										<table class="table table-hover my-0">
@@ -199,9 +200,18 @@ ul.tabs li.current{
 											</c:forEach>
 											<tr align="center" height="20">
 												<td colspan="9">
-											<c:url var="before" value="mypageDetail.ptsd">
-												<c:param name="page" value="${cPi.currentPage - 1 }"></c:param>
-											</c:url>
+												<c:if test="${searchYn eq 'N' }">
+													<c:url var="before" value="mypageDetail.ptsd">
+														<c:param name="page" value="${cPi.currentPage - 1 }"></c:param>
+													</c:url>
+												</c:if>
+												<c:if test="${searchYn eq 'Y' }">
+													<c:url var="before" value="searchCampaign.ptsd">
+														<c:param name="page" value="${cPi.currentPage - 1 }"></c:param>
+														<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
+														<c:param name="searchValue" value="${search.searchValue }"></c:param>
+													</c:url>
+												</c:if>
 											<c:if test="${cPi.currentPage <= 1 }">
 												[이전]
 											</c:if>
@@ -215,10 +225,19 @@ ul.tabs li.current{
 											<c:if test="${cPi.startNavi ne null }">
 											<c:forEach var="p" begin="${cPi.startNavi }" end="${cPi.endNavi }">
 												
-												<c:url var="pagination" value="mypageDetail.ptsd">
-													<c:param name="page" value="${p }"></c:param>
-												</c:url>
 												
+												<c:if test="${searchYn eq 'N' }">
+													<c:url var="pagination" value="mypageDetail.ptsd">
+														<c:param name="page" value="${p }"></c:param>
+													</c:url>
+												</c:if>
+												<c:if test="${searchYn eq 'Y' }">
+													<c:url var="pagination" value="searchCampaign.ptsd">
+														<c:param name="page" value="${p }"></c:param>
+														<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
+														<c:param name="searchValue" value="${search.searchValue }"></c:param>
+													</c:url>
+												</c:if>
 												<c:if test="${p eq cPi.currentPage }">
 													<font color="black" size="4">[${p }]</font>
 												</c:if>
@@ -230,6 +249,18 @@ ul.tabs li.current{
 											<c:url var="after" value="mypageDetail.ptsd">
 												<c:param name="page" value="${cPi.currentPage + 1 }"></c:param>
 											</c:url>
+											<c:if test="${searchYn eq 'N' }">
+												<c:url var="after" value="mypageDetail.ptsd">
+													<c:param name="page" value="${cPi.currentPage + 1 }"></c:param>
+												</c:url>
+											</c:if>
+											<c:if test="${searchYn eq 'Y' }">
+												<c:url var="after" value="searchCampaign.ptsd">
+													<c:param name="page" value="${cPi.currentPage + 1 }"></c:param>
+													<c:param name="searchCondition" value="${search.searchCondition }"></c:param>
+													<c:param name="searchValue" value="${search.searchValue }"></c:param>
+												</c:url>
+											</c:if>
 											<c:if test="${cPi.currentPage >= cPi.maxPage }">
 												[다음]
 											</c:if>
@@ -335,34 +366,9 @@ ul.tabs li.current{
 								</div>
 					</div>
 			</main>
-			
 
-			<footer class="footer">
-				<div class="container-fluid">
-					<div class="row text-muted">
-						<div class="col-6 text-start">
-							<p class="mb-0">
-								<a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a> &copy;
-							</p>
-						</div>
-						<div class="col-6 text-end">
-							<ul class="list-inline">
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-								</li>
-								<li class="list-inline-item">
-									<a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
+			<footer>
+				<jsp:include page="../../../resources/html/footer.html"/>
 			</footer>
 		</div>
 		</div>
