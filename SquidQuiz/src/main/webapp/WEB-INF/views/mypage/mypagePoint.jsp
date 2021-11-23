@@ -69,7 +69,8 @@ ul.tabs li.current{
 
 #charge-btn,#exchange-btn{background-color: rgb(247, 105, 136);border:none;border-radius: 5px;}
 #charge-btn:hover,#exchange-btn:hover{background-color: rgb(230, 87, 118);}
-
+a:link{color:#495057;	text-decoration: none;} 
+a:visited{color:#495057;	text-decoration: none;}
 </style>
 
 <body>
@@ -198,7 +199,7 @@ ul.tabs li.current{
 					<br>
 					<div align="center">
 							<div class="box">
-								<br> <b>보유 포인트</b><br> <input type="text" id="point-in" name="Point" class="point-box" value="${userPoint }P">
+								<br> <b>보유 포인트</b><br> <input type="text" id="point-in" name="point" class="point-box" value="${point}P">
 							</div>
 					</div>
 					<br><br>

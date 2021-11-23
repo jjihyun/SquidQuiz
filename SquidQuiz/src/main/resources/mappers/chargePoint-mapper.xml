@@ -24,7 +24,7 @@
 	
 	<!-- 충전포인트내역 리스트 조회 -->
 	<select id="selectChargePoint" parameterType="_int" resultMap="chargePointResultMap">
-		SELECT POINT_NO, CHARGE_POINT, POINT_DATE FROM CHARGE_POINT WHERE USER_NO = #{userNo }
+		SELECT POINT_NO, CHARGE_POINT, POINT_DATE FROM CHARGE_POINT WHERE USER_NO = #{userNo } ORDER BY POINT_DATE DESC
 	</select>
 	
 	<!-- 환전내역 리스트 조회 -->

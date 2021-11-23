@@ -45,6 +45,7 @@ public interface UserService {
 	//자유게시판게시물 개수 조회
 	public int getBCount(String userId);
 	
+	
 	public User printOne(String uId);
 	
 	//회원정보수정 이메일,전화번호

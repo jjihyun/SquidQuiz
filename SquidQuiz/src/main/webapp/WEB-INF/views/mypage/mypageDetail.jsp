@@ -58,6 +58,8 @@ ul.tabs li.current{
 .tab-content.current{
 	display: inherit;
 }
+a:link{color:#495057;	text-decoration: none;} 
+a:visited{color:#495057;	text-decoration: none;}
 .box{text-align: center; width:825px; margin: 0; padding:0;}
 .box1{text-align: center; width:410px; margin: 0; padding:0;}
 .gibu-box,.quiz-box1{float:left;list-style:none;}

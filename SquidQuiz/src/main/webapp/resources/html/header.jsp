@@ -14,13 +14,13 @@
         <div class="header">
             <div class="header_logo">
                 <div class="logo_detail">
-                    <a href="/main.ptsd"><img style="width: 45%; height: 120%;" src="/resources/img/main2.png"></a>
+                    <a href="/main.ptsd"><img style="width: 45%; height: 130%;" src="/resources/img/main2.png"></a>
                 </div>
             </div>
             <div class="header_sub_title">
                 <div class="menu_area">
                     <ul class="navi">
-                        <li class="menu1"><a href="#">소개</a></li>
+                        <li class="menu1"><a href="introduce.ptsd">소개</a></li>
                         <li class="menu2"><a href="#">역대오징어</a></li>
                         <li class="menu3"><a href="campaignList.ptsd">기부</a></li>
                         <li class="menu4"><a href="boardList.ptsd">자유게시판</a></li>
@@ -48,7 +48,6 @@
 	                    	</c:when>
 	                    	<c:otherwise>
 		                    <button class="main-btn" onclick="location.href='/mypageMyHome.ptsd';">마이페이지</button>
-	                    	
 	                    	</c:otherwise>
 	                    	</c:choose>
 							<button class="main-btn" onclick="location.href='/logout.ptsd';">로그아웃</button>
