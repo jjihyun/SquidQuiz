@@ -75,6 +75,9 @@
 					</section>
 		</div>
 	</main>
+	<footer>
+		<jsp:include page="../../../resources/html/footer.html"/>
+	</footer>
 	<script>
 		function deleteNotice(){
 			var deleteChk = window.confirm("해당 공지사항을 삭제하시겠습니까?");

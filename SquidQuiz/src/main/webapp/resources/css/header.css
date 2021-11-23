@@ -45,8 +45,10 @@
 	font-weight: bold;
 	
 }
+
+.menu6{text-align : center;}
 .navi{height:50px;}
-.login-btn button{border: 0; outline: 0;font-size: 12px; cursor:pointer;}
-
-
+.login-btn{display : block; width:140px;}
+.main-btn{float:left;background:white;border-radius:6px;font-weight: bold;font-size: 10px;cursor:pointer;}
+.main-btn:hover{border:2px solid rgb(247, 105, 136);}
 

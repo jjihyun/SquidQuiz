@@ -111,7 +111,14 @@ input{width:300px;height:40px;margin:5px;}
             </div>
         </form>
         </c:if>
-       
+			</div>
+			</div>
+			</main>
+       		<footer>
+				<jsp:include page="../../../resources/html/footer.html"/>
+			</footer>
+			
+			</div>
    
 	<script src="/resources/js/app.js"></script>
 	

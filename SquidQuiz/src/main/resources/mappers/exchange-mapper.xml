@@ -3,7 +3,6 @@
 <mapper namespace="exchangeMapper">
 	<resultMap type="Exchange" id="exchangeResultMap">
 		<id property="exchangeNo" column="EXCHANGE_NO"></id>
-		<result property="userNo" column="USER_NO"></result>
 		<result property="exchangeEnrollDate" column="EXCHANGE_ENROLLDATE"></result>
 		<result property="exchangeDate" column="EXCHANGE_DATE"></result>
 		<result property="exchangeStatus" column="EXCHANGE_PROCESSING_STATUS"></result>

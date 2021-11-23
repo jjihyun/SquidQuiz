@@ -110,6 +110,9 @@
 			</form>
 		</div>
 	</main>
+	<footer>
+		<jsp:include page="../../../resources/html/footer.html"/>
+	</footer>
 	<script>
 		function deleteQna(){
 			var deleteChk = window.confirm("문의 글을 삭제하시겠습니까?");
