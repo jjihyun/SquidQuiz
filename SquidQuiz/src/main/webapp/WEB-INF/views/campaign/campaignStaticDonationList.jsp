@@ -56,7 +56,7 @@ tr{
 		<c:forEach items="${dRList }" var="d">
 			<tr>
 				<td width="100px;">${d.donationNo }</td>
-				<td width="200px;">${d.donationPrice }원</td>
+				<td width="200px;"><fmt:formatNumber type="number" value="${d.donationPrice }"/>원</td>
 				<td width="150px;">사랑의 재단</td>
 				<td width="120px;"><fmt:formatDate pattern="yyyy-MM-dd" value="${d.donationDate }"/></td>
 			</tr>

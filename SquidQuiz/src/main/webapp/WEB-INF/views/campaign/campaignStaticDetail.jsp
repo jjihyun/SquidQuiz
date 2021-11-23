@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -51,7 +52,7 @@ main{
 				<br><br><br>
 				<div id="div-money">
 					<br>
-					<h1 style="color:white;">${dSumPrice }원</h1>
+					<h1 style="color:white;"><fmt:formatNumber type="number" value="${dSumPrice }"/>원</h1>
 					<h5>* 퀴즈로 모인 금액에서 상금을 제외한 일부분이 정기후원으로 들어갑니다.</h5>
 					<a href="campaignAllCampaignRecord.ptsd" style="color:white;">매회 퀴즈 후원 내역></a>
 					<br><br><br>
