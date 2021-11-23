@@ -24,10 +24,10 @@
 	<h1 align="center">자유게시판</h1>
 	<br>
 	<br>
-	<div class="row visible" style="heigh: 100px"></div>
-	<table class="container" align="center" width="600" border="0"
-		cellspacing="0" style="clear: right;" class="table table-hover my-0">
-		<tr align="center" style="color:green;">
+	<div class="container" style="heigh: 100px"></div>
+	<table class="table" align="center" width="600" border="0"
+		cellspacing="0" style="clear: right;" class="table table-hover">
+		<tr align="center" >
 			<th align="center">번호</th>
 			<th align="center" width="300">제목</th>
 			<th align="center">글쓴이</th>
@@ -35,22 +35,21 @@
 		</tr>
 		<c:forEach items="${bList }" var="board">
 			<tr>
-				<td align="center" style="text-decoration: none; text-shadow: 0 0 24px; color: pink;">${board.bNo }</td>
+				<td align="center" >${board.bNo }</td>
 
 				<td align="center">
 				<c:url var="boardDetail" value="boardDetail.ptsd">
 						<c:param name="bNo" value="${board.bNo }" />
-					</c:url> <a href="${boardDetail }"
-					style="text-decoration: none; text-shadow: 0 0 24px; color: pink;">${board.bTitle }</a>
+					</c:url> <a href="${boardDetail }" class="table">${board.bTitle }</a>
 					<!--게시판 제목 옆에 댓글 수 보여주기 -->
 					<%-- <c:if test="${board.recnt > 0}"> --%>
 					<%-- <span style="color: red;">(${board.recnt})</span> --%>
 					<%-- </c:if> --%>
 				</td>
 
-				<td align="center" style="text-decoration: none; text-shadow: 0 0 24px; color: pink;">${board.userId }</td>
+				<td align="center" >${board.userId }</td>
 
-				<td align="center" style="text-decoration: none; text-shadow: 0 0 24px; color: pink;">${board.bCreateDate }</td>
+				<td align="center" >${board.bCreateDate }</td>
 			</tr>
 		</c:forEach>
 		<!--로그인 유무시 보이는 화면 -->
@@ -58,12 +57,10 @@
 			<td align="center" colspan="5">
 			<br>
 				<!-- 글쓰기 로그인후 보이는 화면--> <c:if test="${loginUser eq null }">
-					<a href="login.ptsd"
-						style="color:green;">글쓰기</a>
+					<a href="login.ptsd"  class="btn btn-success">글쓰기</a>
 						<br>
 				</c:if> <!-- 글쓰기 비로그인 보이는 화면 --> <c:if test="${loginUser.userId ne null }">
-					<a href="boardWrite.ptsd"
-						style="color:green;">글쓰기</a>
+					<a href="boardWrite.ptsd"  class="btn btn-success">글쓰기</a>
 						<br>
 				</c:if>
 				<br>
@@ -71,8 +68,7 @@
 		</tr>
 		<!-- 페이징 -->
 		<br>
-		<tr class="container" align="center" height="20"
-			style="text-decoration: none; text-shadow: 0 0 24px; color: pink;">
+		<tr class="container" align="center" height="20">
 			<td colspan="6"><c:url var="before" value="boardList.ptsd">
 					<c:param name="page" value="${pi.currentPage + 1 }"></c:param>
 				</c:url> <c:if test="${pi.currentPage <= 1 }">
@@ -84,10 +80,10 @@
 						<c:param name="page" value="${p + 1 }"></c:param>
 					</c:url>
 					<c:if test="${p eq pi.currentPage }">
-						<font color="red" size="4">[${p  }]</font>
+						<font color="black" size="4">[${p  }]</font>
 					</c:if>
 					<c:if test="${p ne pi.currentPage }">
-						<a href="${pagination }" style="color:red;">${p +1}</a>&nbsp;
+						<a href="${pagination }" style="color:black;">${p +1}</a>&nbsp;
 					</c:if>
 				</c:forEach> <c:url var="after" value="boardList.ptsd">
 					<c:param name="page" value="${pi.currentPage + 1 }"></c:param>

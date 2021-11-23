@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판 수정</title>
-<jsp:include page="../../../resources/html/header.jsp"/>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/css/bootsrap.min.css">
 <script language="javascript" src="/ckeditor/ckeditor.js"></script>
@@ -137,7 +136,7 @@
 	<h1 align="center">게시글 수정</h1>
 	<br>
 	<br>
-	<div style="color: pink; align: center;">
+	<div style="color: black; align: center;">
 		<form action="boardUpdate.ptsd" method="post"
 			enctype="multipart/form-data" align="center">
 			<input type="hidden" name="bNo" value="${board.bNo }"> 
