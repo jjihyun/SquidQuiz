@@ -20,4 +20,16 @@
 	<update id="updateGame" parameterType="MainGameInfo">
 		UPDATE MAIN_GAME_INFO SET GAME_STATUS = #{quizGameStatus} WHERE TURN_NO IN(SELECT TURN_NO FROM (SELECT * FROM MAIN_GAME_INFO ORDER BY TURN_NO DESC)WHERE ROWNUM = 1)
 	</update>
+	
+	<select id="selectMgiListCount" resultType="_int">
+		SELECT COUNT(*) FROM MAIN_GAME_INFO
+	</select>
+	<select id="selectMgiAll" resultMap="gameResultMap">
+		SELECT * FROM MAIN_GAME_INFO ORDER BY TURN_NO DESC
+	</select>
+	<select id="selectMgiSearchList" resultMap="gameResultMap">
+		SELECT * FROM MAIN_GAME_INFO
+			WHERE TURN_NO LIKE '%' || #{searchValue} || '%'
+		ORDER BY TURN_NO DESC
+	</select>
 </mapper>

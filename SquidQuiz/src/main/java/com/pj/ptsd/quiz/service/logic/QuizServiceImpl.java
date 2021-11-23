@@ -144,6 +144,24 @@ public class QuizServiceImpl implements QuizService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	//오징어 조회
+	@Override
+	public List<MainGameInfo> printMgiAll(PageData pd) {
+		List<MainGameInfo> mgi = store.selectMgiAll(pd);
+		return mgi;
+	}
+	//카운트
+	@Override
+	public int getMgiListCount() {
+		int totalCount = store.selectMgiListCount();
+		return totalCount;
+	}
+
+	@Override
+	public List<MainGameInfo> printMgiSearchAll(QuizSearch search) {
+		List<MainGameInfo> mgiSearchList = store.selectMgiSearchAll(search);
+		return mgiSearchList;
+	}
 	
 
 }

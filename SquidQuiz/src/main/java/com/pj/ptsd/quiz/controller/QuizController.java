@@ -358,8 +358,40 @@ public class QuizController {
 	//-----------------------역대 오징어------------------------------------------
 	
 	@RequestMapping(value="rankListView.ptsd",method=RequestMethod.GET)
-	public String rankListView(
-			ModelAndView mv) {
-		return "rank/rankList";
+	public ModelAndView rankListView(
+			ModelAndView mv,@RequestParam(value="page",required = false)Integer page
+			,HttpServletRequest request) {
+		int currentPage = (page != null) ? page:1;
+		int totalCount = service.getMgiListCount();
+		PageData pd = QuizPagenation.getPageData(currentPage, totalCount);
+		HttpSession session = request.getSession();
+		List<MainGameInfo> mgi = service.printMgiAll(pd);
+		System.out.println(mgi);
+		if(!mgi.isEmpty()) {
+			mv.addObject("mgi",mgi);
+			mv.addObject("pd",pd);
+			mv.setViewName("rank/rankList");
+		}else {
+			mv.addObject("msg","오징어 조회 실패");
+			mv.addObject("common/errorPage");
+		}
+		return mv;
 	}
+	//오징어 검색~
+	@RequestMapping(value="mgiSearch.ptsd",method=RequestMethod.GET)
+	public String mgiSearchList(
+			
+			@ModelAttribute QuizSearch search
+			,Model model) {
+		List<MainGameInfo> mgiSearchList = service.printMgiSearchAll(search);
+		if(!mgiSearchList.isEmpty()) {
+			model.addAttribute("mgi",mgiSearchList);
+			model.addAttribute("search",search);
+			return"rank/rankList";
+		}else {
+			model.addAttribute("msg","검색 실패");
+			return "common/errorPage";
+		}
+	}
+	
 }
