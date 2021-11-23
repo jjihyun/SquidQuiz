@@ -51,12 +51,7 @@ public class CampaignController {
 				type="all";
 			}
 			int totalCount = service.getListCount(type);
-//			System.out.println("총 개수 : "+totalCount);
-			//System.out.println("현재 페이지 : "+currentPage);
 			PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
-//			System.out.println("시작 페이지"+pi.getStartNavi());
-//			System.out.println("끝 페이지"+pi.getEndNavi());
-			//System.out.println("캠페인 개수 : "+totalCount);
 
 			pi.setType(type);
 
@@ -109,15 +104,12 @@ public class CampaignController {
 		PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
 		pi.setType(type);
 		List<Campaign> cList = service.printAll(pi);
-//		System.out.println(cList);
-//		System.out.println(pi+"\n");
 		
 		Gson gson = new Gson();
 		//Map을 이용해서 캠페인 리스트 값과 페이지 값을 넣어준다.
 		Map<String, Object> test = new HashMap<String, Object>();
 		test.put("cList", cList);
 		test.put("pi", pi);
-//		System.out.println(test);
 		//json으로 데이터 보내주기
 		gson.toJson(test, response.getWriter());
 		
@@ -151,9 +143,7 @@ public class CampaignController {
 			@RequestParam(value="page", required=false) Integer page) {
 		int currentPage =(page!=null)?page:1;
 		int totalCount = service.getListCount();
-		System.out.println("총 개수 : "+totalCount);
 		PageInfo pi = Pagination.getPageInfo(currentPage, totalCount);
-		//int result = 0;
 		List<DonationRecord> dRList = service.printStaticRecord(pi);
 		if(!dRList.isEmpty()) {
 			model.addAttribute("dRList", dRList);
@@ -180,10 +170,8 @@ public class CampaignController {
 			
 			Date startDate = new Date();
 			Date endDate = camp.getcEndDate();
-//			System.out.println("끝나는 날짜 : "+endDate);
-//			System.out.println("시작 날짜 : "+startDate);
 			//디데이 계산 코드.
-			int gap = (int) (endDate.getTime()-startDate.getTime());
+			long gap = (long)(endDate.getTime()-startDate.getTime());
 			int result = (int) Math.ceil(gap/(1000*60*60*24));
 			if(result>=1) {
 				result+=1;
@@ -205,12 +193,9 @@ public class CampaignController {
 	
 	//캠페인 기부 페이지
 	@RequestMapping(value="donationPayView.ptsd", method=RequestMethod.GET)
-	public String showDonationPay(@RequestParam("campaignNo") int campaignNo, Model model
-	/* , @RequestParam("userId") String userId */ ) {
+	public String showDonationPay(@RequestParam("campaignNo") int campaignNo, Model model) {
 		Campaign camp = service.printCampaignDetail(campaignNo);
-//		int myPoint = service.printPointCount(userId);
 		if(camp!=null) {
-//			model.addAttribute("point", myPoint);
 			model.addAttribute("campaign", camp);
 			return "campaign/campaignDonationPay";
 		} else {

@@ -128,8 +128,8 @@
 						<p class="all-text-center">${enrollDate} ~ ${formatDate }<br>
 						</p>
 						<h3 class="all-text-center" id="d-day" style="display:;">D-DAY : ${dDay }</h3><br>
-						<p class="all-text-left">현재 모금액 : ${campaign.cNowAmount}원</p>
-						<p class="all-text-left">목표금액 : ${campaign.cTargetAmount }원<br><br>
+						<p class="all-text-left">현재 모금액 : <fmt:formatNumber type="number" value="${campaign.cNowAmount}"/>원</p>
+						<p class="all-text-left">목표금액 : <fmt:formatNumber type="number" value="${campaign.cTargetAmount }"/>원<br><br>
 							모금단체 : ${campaign.campaignName }<br><br>
 							사이트 바로가기> <a href="${campaign.cLink }" style="color: #AFE1FF;" target="_blank">${campaign.campaignName }</a>
 						</p><br>

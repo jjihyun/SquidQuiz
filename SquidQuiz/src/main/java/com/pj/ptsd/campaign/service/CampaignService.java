@@ -11,7 +11,7 @@ import com.pj.ptsd.user.domain.User;
 
 public interface CampaignService {
 
-	public List<Campaign> printAll();
+	public List<Campaign> printAll(); //다른 후원보기 볼때(랜덤으로 3개 출력)
 
 	public int getListCount();  //고정기부처 기부 개수
 	public List<DonationRecord> printStaticRecord(PageInfo pi); //고정기부처 기부 리스트 조회
@@ -31,12 +31,8 @@ public interface CampaignService {
 
 	public int printPointCount(String userId);  //기부할 때 그만큼의 포인트가 유저에게 있는지 없는지 체크
 
-	public int printCampaignNowPoint(int cNo);
-	public int modifyCampaignMoney(Campaign campaign);
+	public int printCampaignNowPoint(int cNo); //캠페인 현재 포인트
+	public int modifyCampaignMoney(Campaign campaign); //캠페인 포인트 업데이트
+	public int modifyMyPoint(User user); // 유저포인트 업데이트
 
-	public int modifyMyPoint(User user);
-
-
-
-	
 }

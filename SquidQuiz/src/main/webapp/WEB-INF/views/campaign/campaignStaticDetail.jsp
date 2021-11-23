@@ -53,7 +53,7 @@ main{
 					<br>
 					<h1 style="color:white;">${dSumPrice }원</h1>
 					<h5>* 퀴즈로 모인 금액에서 상금을 제외한 일부분이 정기후원으로 들어갑니다.</h5>
-					<a href="campaignAllCampaignRecord.ptsd" style="color:white;">매회 퀴즈 기부 내역></a>
+					<a href="campaignAllCampaignRecord.ptsd" style="color:white;">매회 퀴즈 후원 내역></a>
 					<br><br><br>
 				</div>			
 				<br><br><br>

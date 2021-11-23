@@ -104,9 +104,9 @@ h4{color:#4B4B4B;}
 	<hr><br>
 	<div class="first">
 		<div style="text-align: center;">
-			<h4 style="">이번주 퀴즈 기부금액</h4>
+			<h4>이번주 퀴즈 기부금액</h4>
 			<h2 id="quizThisCount">${dPrice }</h2><br>
-			<h4 style="">퀴즈 전체 기부금액</h4>
+			<h4>퀴즈 전체 기부금액</h4>
 			<h2 id="quizAllCount">${dSumPrice }</h2><br>
 			<hr><br>
 			<div class="static-div"><br><br>
