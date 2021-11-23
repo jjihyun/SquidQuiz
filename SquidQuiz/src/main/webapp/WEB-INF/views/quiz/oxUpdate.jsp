@@ -146,6 +146,9 @@
 			</footer>
 		</div>
 	</div>
+	<footer>
+		<jsp:include page="../../../resources/html/footer.html"/>
+	</footer>
 	<script src="/resources/js/app.js"></script>
 	<script>
 		function showRegister(){

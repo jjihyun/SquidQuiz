@@ -38,11 +38,11 @@ a:hover{color:#495057;	text-decoration: none;}
 					<li class="sidebar-header">목록</li>
 					
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="#"> <i class="align-middle"
-							data-feather="sliders"></i> <span>회원정보수정</span>
+						href="userListView.ptsd"> <i class="align-middle"
+							data-feather="sliders"></i> <span>회원관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="quizStart.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">퀴즈진행</span>
 					</a></li>
 					<li class="sidebar-item active"><a class="sidebar-link"
@@ -50,11 +50,11 @@ a:hover{color:#495057;	text-decoration: none;}
 							data-feather="user"></i> <span class="align-middle">퀴즈관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="reportListView.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">신고관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="exchangeListView.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">환전관리</span>
 					</a></li>
 				</ul>
@@ -150,14 +150,9 @@ a:hover{color:#495057;	text-decoration: none;}
 		</div>
 	</div>
 	</main>
-
-	<footer class="footer">
-		<div class="container-fluid">
-			<div class="row text-muted"></div>
-		</div>
+	<footer>
+		<jsp:include page="../../../resources/html/footer.html"/>
 	</footer>
-	</div>
-	</div>
 	<script src="/resources/js/app.js"></script>
 </body>
 </html>

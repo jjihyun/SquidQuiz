@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -289,6 +289,9 @@ window.onload=show_question;
              	 </div>
             </div>
     </div>
+    <footer>
+		<jsp:include page="../../resources/html/footer.html"/>
+	</footer>
 </body>
 <script>
 	//게임 버튼 클릭시 display none가 show된다.

@@ -145,11 +145,8 @@
 					</div>
 			</main>
 
-			<footer class="footer">
-				<div class="container-fluid">
-					<div class="row text-muted">
-					</div>
-				</div>
+			<footer>
+				<jsp:include page="../../../resources/html/footer.html"/>
 			</footer>
 		</div>
 	</div>

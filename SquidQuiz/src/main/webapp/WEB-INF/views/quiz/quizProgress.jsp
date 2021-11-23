@@ -95,30 +95,30 @@
 					</li>
 					<li class="sidebar-item">
 					<a class="sidebar-link"
-						href="index.html">
+						href="userListView.ptsd">
 						<i class="align-middle"
 							data-feather="sliders"></i>
-						<span>회원정보수정</span>
+						<span>회원관리</span>
 						</a>
 					</li>
 					<li class="sidebar-item active">
 					<a class="sidebar-link"
 						href="pages-profile.html"> 
-						<i class="align-middle"
+						<i class="quizStart.ptsd"
 							data-feather="user"></i> 
 							<span class="align-middle">퀴즈진행</span>
 					</a>
 					</li>
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="oxList.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">퀴즈관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="reportListView.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">신고관리</span>
 					</a></li>
 					<li class="sidebar-item"><a class="sidebar-link"
-						href="pages-profile.html"> <i class="align-middle"
+						href="exchangeListView.ptsd"> <i class="align-middle"
 							data-feather="user"></i> <span class="align-middle">환전관리</span>
 					</a></li>
 				</ul>
@@ -178,6 +178,9 @@
 			</footer>
 		</div>
 	</div>
+	<footer>
+		<jsp:include page="../../../resources/html/footer.html"/>
+	</footer>
 	<script src="/resources/js/app.js"></script>
 	<script>
 		function showRegister(){

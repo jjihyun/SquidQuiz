@@ -17,7 +17,7 @@ $(document).ready(function(){
 <style>
 	main{
 		width: 100%;
-		height: 1080px;
+		height: 1500px;
 	}
 	.rank_first{
 		width: 100%;
@@ -139,5 +139,8 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</main>
+	<footer>
+		<jsp:include page="../../../resources/html/footer.html"/>
+	</footer>
 </body>
 </html>
