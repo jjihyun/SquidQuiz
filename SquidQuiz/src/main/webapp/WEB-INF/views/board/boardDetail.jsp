@@ -261,7 +261,7 @@
 							$btnArea = $("<td width='80' align='center'>")
 							.append("<a href='#' onclick='modifyReply(this,"+bNo+","+data[i].replyNo+",\""+data[i].replyContents+"\");'>수정</a>")
 							.append("<a href='#' onclick='removeReply("+bNo+","+data[i].replyNo+")'>삭제</a>")
-							$btnAreb = $("<td colspan='4' align='center'>").append("<a href='#' onclick='reportReply("+bNo+","+data[i].replyNo+",\""+data[i].replyContents+"\");'>신고</a>");
+							$btnAreb = $("<td colspan='4' align='center'>").append("<a href='#' onclick='reportReply("+bNo+","+data[i].replyNo+",\""+data[i].replyContents+"\",+\""+data[i].writer+"\");'>신고</a>");
 							$tr.append($userId);
 							$tr.append($rContent);
 							$tr.append($rCreateDate);
@@ -343,16 +343,16 @@
 							});
 						}
 						//댓글 신고
-						function reportReply(bNo,replyNo,contents) {
+						function reportReply(bNo,replyNo,contents,writer) {
 							$.ajax({
 								url : "replyreport.ptsd",
 								type : "get",
-								data : {"bNo" : bNo, "replyNo" : replyNo, "contents" : contents},
+								data : {"bNo" : bNo, "replyNo" : replyNo, "contents" : contents , "writer" : writer},
 								success : function(data) {
 									if(data == "success") {
 										alert("신고되었습니다");
 									}else {
-										alert("로그인후 이용해주세요.");
+										alert("이미 신고되셨습니다.");
 									}
 								}
 									,error : function() {

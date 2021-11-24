@@ -328,13 +328,14 @@ public class BoardController {
 	@RequestMapping(value = "replyreport.ptsd", method = RequestMethod.GET)
 	public String replyrepot(@ModelAttribute ReplyReport replyreport, HttpSession session, Model model,
 			@RequestParam("bNo") int bNo, @RequestParam("replyNo") int replyNo,
-			@RequestParam("contents") String contents) {
+			@RequestParam("contents") String contents,@RequestParam("writer") String writer) {
 		User loginUser = (User) session.getAttribute("loginUser");
 		// set 가져온다 get 보내준다 ()~에서 가져온다 라는 느낌
 		replyreport.setReportedUserId(loginUser.getUserId());
 		replyreport.setBoardNo(bNo);
 		replyreport.setReplyNo(replyNo);
 		replyreport.setReplyContents(contents);
+		replyreport.setReplyWriter(writer);
 		int result = service.registerReportReply(replyreport);
 		if (result > 0) {
 			return "success";
